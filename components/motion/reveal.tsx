@@ -18,16 +18,16 @@ export function Reveal({ children, className, delay = 0, y = 22 }: RevealProps) 
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
-    if (inView) setShown(true);
-  }, [inView]);
+    if (reduceMotion || inView) setShown(true);
+  }, [reduceMotion, inView]);
 
   return (
     <motion.div
-      animate={reduceMotion || shown ? { opacity: 1, y: 0 } : { opacity: 0, y }}
+      animate={shown ? { opacity: 1, y: 0 } : { opacity: 0, y }}
       className={cn(className)}
-      initial={reduceMotion ? false : { opacity: 0, y }}
+      initial={false}
       ref={ref}
-      transition={{ duration: 0.75, delay, ease: [0.16, 1, 0.3, 1] }}
+      transition={reduceMotion ? { duration: 0 } : { duration: 0.75, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
     </motion.div>
