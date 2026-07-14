@@ -11,14 +11,15 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { Button } from "@/components/ui/button";
 import { getSolution, solutions } from "@/data/site";
 
-type Params = { slug: string };
+type Params = Promise<{ slug: string }>;
 
 export function generateStaticParams() {
   return solutions.map((solution) => ({ slug: solution.slug }));
 }
 
-export function generateMetadata({ params }: { params: Params }): Metadata {
-  const solution = getSolution(params.slug);
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { slug } = await params;
+  const solution = getSolution(slug);
   if (!solution) return {};
   return {
     title: solution.title,
@@ -26,8 +27,9 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   };
 }
 
-export default function SolutionDetailPage({ params }: { params: Params }) {
-  const solution = getSolution(params.slug);
+export default async function SolutionDetailPage({ params }: { params: Params }) {
+  const { slug } = await params;
+  const solution = getSolution(slug);
   if (!solution) notFound();
 
   const Icon = solution.icon;
