@@ -46,3 +46,5 @@ next-env.d.ts
 
 # Sources
 _sources
+
+.playwright-mcp
