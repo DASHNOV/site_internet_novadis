@@ -8,6 +8,7 @@ import { PartnerCloud } from "@/components/sections/partner-cloud";
 import { Reveal } from "@/components/motion/reveal";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { SolutionsHeroModel } from "@/components/three/solutions-hero-model";
 import { Button } from "@/components/ui/button";
 import { solutions } from "@/data/site";
 
@@ -26,14 +27,7 @@ export default function SolutionsPage() {
         title="Un portefeuille modulaire conçu comme un système cohérent"
         description="Un environnement de sûreté complet couvre l'infrastructure, l'accès, la détection, la vidéo, l'analyse et les intégrations. Cette page montre comment Novadis structure chaque couche."
       >
-        <MediaFrame
-          alt={solutions[3].media.alt}
-          caption="Vidéosurveillance · Ocularis VMS"
-          className="aspect-[16/11]"
-          kind={solutions[3].media.kind}
-          poster={solutions[3].media.poster}
-          src={solutions[3].media.src}
-        />
+        <SolutionsHeroModel className="aspect-[16/11]" />
       </PageHero>
 
       <section className="shell-wide pt-16">

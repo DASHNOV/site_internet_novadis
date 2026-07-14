@@ -1,0 +1,371 @@
+- main [ref=f2e2]:
+  - generic [ref=f2e5]:
+    - link "Novadis" [ref=f2e6] [cursor=pointer]:
+      - /url: /
+      - img "Novadis" [ref=f2e7]
+    - navigation [ref=f2e8]:
+      - link "Solutions" [ref=f2e9] [cursor=pointer]:
+        - /url: /solutions
+        - text: Solutions
+      - link "Secteurs" [ref=f2e11] [cursor=pointer]:
+        - /url: /secteurs
+      - link "Références" [ref=f2e12] [cursor=pointer]:
+        - /url: /references
+      - link "Services" [ref=f2e13] [cursor=pointer]:
+        - /url: /services
+      - link "À propos" [ref=f2e14] [cursor=pointer]:
+        - /url: /about
+      - link "Contact" [ref=f2e15] [cursor=pointer]:
+        - /url: /contact
+    - link "Prendre contact" [ref=f2e17] [cursor=pointer]:
+      - /url: /contact
+      - button "Prendre contact" [ref=f2e18]:
+        - text: Prendre contact
+        - img [ref=f2e19]
+  - generic [ref=f2e24]:
+    - paragraph [ref=f2e26]: Solutions
+    - heading "Un portefeuille modulaire conçu comme un système cohérent" [level=1] [ref=f2e28]
+    - paragraph [ref=f2e30]: Un environnement de sûreté complet couvre l'infrastructure, l'accès, la détection, la vidéo, l'analyse et les intégrations. Cette page montre comment Novadis structure chaque couche.
+  - generic [ref=f2e38]:
+    - article [ref=f2e40]:
+      - figure [ref=f2e42]:
+        - img "Poste de supervision globale Novadis" [ref=f2e43]
+      - generic [ref=f2e44]:
+        - paragraph [ref=f2e45]: Solution · 01
+        - generic [ref=f2e46]:
+          - img [ref=f2e48]
+          - generic [ref=f2e51]: Hyperviseur de sûreté · Convergence multi-systèmes
+        - heading "Supervision globale" [level=2] [ref=f2e52]
+        - paragraph [ref=f2e53]: Couche de supervision unifiée croisant contrôle d'accès, vidéosurveillance et intrusion en un seul poste opérateur.
+        - paragraph [ref=f2e54]: "Novadis met en œuvre une couche d'hyperviseur qui agrège les flux des sous-systèmes (Amadeus, Ocularis, Galaxy, IoT, LPR, intercom) dans un poste unique : cartographie temps réel, corrélation d'alarmes, scénarios de levée de doute et procédures pilotées."
+        - generic [ref=f2e55]:
+          - generic [ref=f2e56]: Cartographie dynamique des sites
+          - generic [ref=f2e58]: Workflows de levée de doute
+          - generic [ref=f2e60]: Corrélation événements & alarmes
+          - generic [ref=f2e62]: Tableaux de bord exploitation
+        - link "Voir le détail" [ref=f2e65] [cursor=pointer]:
+          - /url: /solutions/supervision
+          - button "Voir le détail" [ref=f2e66]:
+            - text: Voir le détail
+            - img [ref=f2e67]
+    - article [ref=f2e71]:
+      - figure [ref=f2e73]:
+        - img "Infrastructure informatique Novadis" [ref=f2e74]
+      - generic [ref=f2e75]:
+        - paragraph [ref=f2e76]: Solution · 02
+        - generic [ref=f2e77]:
+          - img [ref=f2e79]
+          - generic [ref=f2e82]: Microsoft Embedded · Dell OEM
+        - heading "Informatique & Infrastructure" [level=2] [ref=f2e83]
+        - paragraph [ref=f2e84]: Serveurs, stockage, réseau et virtualisation calibrés pour soutenir la sûreté à l'échelle du site et du groupe.
+        - paragraph [ref=f2e85]: "Grâce à nos partenariats Microsoft Embedded et Dell OEM, Novadis adapte chaque couche : calcul, stockage NAS/RAID, réseau dédié, virtualisation VMware ou Hyper-V, haute disponibilité."
+        - generic [ref=f2e86]:
+          - generic [ref=f2e87]: Conception serveurs et stockage
+          - generic [ref=f2e89]: Segmentation réseau et fibre optique
+          - generic [ref=f2e91]: Virtualisation VMware / Hyper-V
+          - generic [ref=f2e93]: Exploitation hybride et multi-sites
+        - link "Voir le détail" [ref=f2e96] [cursor=pointer]:
+          - /url: /solutions/it-infrastructure
+          - button "Voir le détail" [ref=f2e97]:
+            - text: Voir le détail
+            - img [ref=f2e98]
+    - article [ref=f2e102]:
+      - figure [ref=f2e104]:
+        - img "Contrôle d'accès Amadeus" [ref=f2e105]
+      - generic [ref=f2e106]:
+        - paragraph [ref=f2e107]: Solution · 03
+        - generic [ref=f2e108]:
+          - img [ref=f2e110]
+          - generic [ref=f2e119]: Amadeus
+        - heading "Contrôle d'accès — Amadeus" [level=2] [ref=f2e120]
+        - paragraph [ref=f2e121]: "Plateforme exclusive Amadeus : gestion temps réel des événements, architecture ouverte, conforme ANSSI."
+        - paragraph [ref=f2e122]: Amadeus unifie porteurs, badges, biométrie, horaires, visiteurs et zones restreintes dans un même modèle d'exploitation, avec intelligence distribuée et conformité ANSSI.
+        - generic [ref=f2e123]:
+          - generic [ref=f2e124]: Modèles d'accès par rôle
+          - generic [ref=f2e126]: Pilotage portes et zones
+          - generic [ref=f2e128]: Flux visiteurs et prestataires
+          - generic [ref=f2e130]: Scénarios de confinement
+        - link "Voir le détail" [ref=f2e133] [cursor=pointer]:
+          - /url: /solutions/access-control
+          - button "Voir le détail" [ref=f2e134]:
+            - text: Voir le détail
+            - img [ref=f2e135]
+    - article [ref=f2e139]:
+      - figure [ref=f2e141]:
+        - img "Détection intrusion Galaxy Honeywell" [ref=f2e142]
+      - generic [ref=f2e143]:
+        - paragraph [ref=f2e144]: Solution · 04
+        - generic [ref=f2e145]:
+          - img [ref=f2e147]
+          - generic [ref=f2e154]: Galaxy · NFA2P
+        - heading "Intrusion — Galaxy" [level=2] [ref=f2e155]
+        - paragraph [ref=f2e156]: Détection périmétrique et intérieure conforme NFA2P, pilotée de façon transparente depuis Amadeus.
+        - paragraph [ref=f2e157]: Galaxy fournit une couche d'alarme autonome, normée NFA2P, supervisée de façon transparente dans Amadeus pour un poste opérateur unique.
+        - generic [ref=f2e158]:
+          - generic [ref=f2e159]: Capteurs intérieurs et extérieurs
+          - generic [ref=f2e161]: Workflows d'alarme
+          - generic [ref=f2e163]: Corrélation poste central
+          - generic [ref=f2e165]: Automatisation de crise
+        - link "Voir le détail" [ref=f2e168] [cursor=pointer]:
+          - /url: /solutions/intrusion-detection
+          - button "Voir le détail" [ref=f2e169]:
+            - text: Voir le détail
+            - img [ref=f2e170]
+    - article [ref=f2e174]:
+      - figure [ref=f2e176]:
+        - img "VMS Ocularis Qognify" [ref=f2e177]
+      - generic [ref=f2e178]:
+        - paragraph [ref=f2e179]: Solution · 05
+        - generic [ref=f2e180]:
+          - img [ref=f2e182]
+          - generic [ref=f2e185]: Ocularis VMS
+        - heading "Vidéosurveillance — Ocularis" [level=2] [ref=f2e186]
+        - paragraph [ref=f2e187]: "Plateforme VMS Ocularis universelle : ouverte, intuitive, évolutive, multi-fabricants caméras."
+        - paragraph [ref=f2e188]: Ocularis relie caméras, postes opérateurs, stockage et relecture dans un système unifié, avec analyse de timeline, détection de mouvement et compatibilité multi-marques.
+        - generic [ref=f2e189]:
+          - generic [ref=f2e190]: Architecture VMS
+          - generic [ref=f2e192]: Politiques de rétention
+          - generic [ref=f2e194]: Postes opérateurs
+          - generic [ref=f2e196]: Parcours de preuve
+        - link "Voir le détail" [ref=f2e199] [cursor=pointer]:
+          - /url: /solutions/video-surveillance
+          - button "Voir le détail" [ref=f2e200]:
+            - text: Voir le détail
+            - img [ref=f2e201]
+    - article [ref=f2e205]:
+      - figure [ref=f2e207]:
+        - img "Salle de supervision et analyse vidéo Novadis" [ref=f2e208]
+      - generic [ref=f2e209]:
+        - paragraph [ref=f2e210]: Solution · 06
+        - generic [ref=f2e211]:
+          - img [ref=f2e213]
+          - generic [ref=f2e220]: Algorithmes temps réel & post-événement
+        - heading "Analyse d'image" [level=2] [ref=f2e221]
+        - paragraph [ref=f2e222]: Une intelligence d'image qui transforme les flux en événements, signaux et indices réellement exploitables.
+        - paragraph [ref=f2e223]: "Novadis met en œuvre l'analyse d'image temps réel et post-événement : détection de comportements, LPR, reconnaissance d'objets, recherche intelligente et tri d'événements selon vos règles métier."
+        - generic [ref=f2e224]:
+          - generic [ref=f2e225]: Conception des scénarios
+          - generic [ref=f2e227]: Exploitation des métadonnées
+          - generic [ref=f2e229]: Priorisation d'alertes
+          - generic [ref=f2e231]: Support à l'investigation
+        - link "Voir le détail" [ref=f2e234] [cursor=pointer]:
+          - /url: /solutions/ai-video-analytics
+          - button "Voir le détail" [ref=f2e235]:
+            - text: Voir le détail
+            - img [ref=f2e236]
+    - article [ref=f2e240]:
+      - figure [ref=f2e242]
+      - generic [ref=f2e244]:
+        - paragraph [ref=f2e245]: Solution · 07
+        - generic [ref=f2e246]:
+          - img [ref=f2e248]
+          - generic [ref=f2e251]: Biométrie · LPR · IoT · Aperio
+        - heading "Intégrations tierces" [level=2] [ref=f2e252]
+        - paragraph [ref=f2e253]: Biométrie, LPR, IoT, interphonie, armoires à clés et protection périmétrique connectés sans verrouillage.
+        - paragraph [ref=f2e254]: Novadis relie biométrie (réseau veineux, empreinte CNIL), LPR (ANPR), lecteurs Aperio sans fil, armoires à clés, gestion visiteurs, interphonie et protection périmétrique sismique dans des architectures documentées.
+        - generic [ref=f2e255]:
+          - generic [ref=f2e256]: Biométrie & LPR
+          - generic [ref=f2e258]: IoT et capteurs
+          - generic [ref=f2e260]: Interphonie & armoires à clés
+          - generic [ref=f2e262]: Intégrations spécifiques
+        - link "Voir le détail" [ref=f2e265] [cursor=pointer]:
+          - /url: /solutions/smart-integrations
+          - button "Voir le détail" [ref=f2e266]:
+            - text: Voir le détail
+            - img [ref=f2e267]
+  - generic [ref=f2e270]:
+    - generic [ref=f2e272]:
+      - generic [ref=f2e273]:
+        - paragraph [ref=f2e274]: Partenaires & conformité
+        - paragraph [ref=f2e275]: Une chaîne de partenariats stricts et un cadre normatif clair pour bâtir des architectures ouvertes, normées et tenues dans la durée.
+      - generic [ref=f2e277]:
+        - generic [ref=f2e278]:
+          - img "DDS"
+          - paragraph [ref=f2e279]: Éditeur Amadeus
+        - generic [ref=f2e280]:
+          - img "Qognify"
+          - paragraph [ref=f2e281]: Éditeur Ocularis
+        - generic [ref=f2e282]:
+          - img "Honeywell"
+          - paragraph [ref=f2e283]: Galaxy · Intrusion
+        - generic [ref=f2e284]:
+          - img "HID"
+          - paragraph [ref=f2e285]: Lecteurs & badges
+        - generic [ref=f2e286]:
+          - img "STid"
+          - paragraph [ref=f2e287]: Lecteurs RFID
+        - generic [ref=f2e288]:
+          - img "Dell"
+          - paragraph [ref=f2e289]: OEM Infrastructure
+        - generic [ref=f2e290]:
+          - generic [ref=f2e291]: MI
+          - generic [ref=f2e292]:
+            - paragraph [ref=f2e293]: Microsoft
+            - paragraph [ref=f2e294]: Embedded OEM
+        - generic [ref=f2e295]:
+          - generic [ref=f2e296]: VM
+          - generic [ref=f2e297]:
+            - paragraph [ref=f2e298]: VMware
+            - paragraph [ref=f2e299]: Virtualisation
+        - generic [ref=f2e300]:
+          - generic [ref=f2e301]: AP
+          - generic [ref=f2e302]:
+            - paragraph [ref=f2e303]: Aperio
+            - paragraph [ref=f2e304]: Lecteurs sans fil
+        - generic [ref=f2e305]:
+          - img "DDS"
+          - paragraph [ref=f2e306]: Éditeur Amadeus
+        - generic [ref=f2e307]:
+          - img "Qognify"
+          - paragraph [ref=f2e308]: Éditeur Ocularis
+        - generic [ref=f2e309]:
+          - img "Honeywell"
+          - paragraph [ref=f2e310]: Galaxy · Intrusion
+        - generic [ref=f2e311]:
+          - img "HID"
+          - paragraph [ref=f2e312]: Lecteurs & badges
+        - generic [ref=f2e313]:
+          - img "STid"
+          - paragraph [ref=f2e314]: Lecteurs RFID
+        - generic [ref=f2e315]:
+          - img "Dell"
+          - paragraph [ref=f2e316]: OEM Infrastructure
+        - generic [ref=f2e317]:
+          - generic [ref=f2e318]: MI
+          - generic [ref=f2e319]:
+            - paragraph [ref=f2e320]: Microsoft
+            - paragraph [ref=f2e321]: Embedded OEM
+        - generic [ref=f2e322]:
+          - generic [ref=f2e323]: VM
+          - generic [ref=f2e324]:
+            - paragraph [ref=f2e325]: VMware
+            - paragraph [ref=f2e326]: Virtualisation
+        - generic [ref=f2e327]:
+          - generic [ref=f2e328]: AP
+          - generic [ref=f2e329]:
+            - paragraph [ref=f2e330]: Aperio
+            - paragraph [ref=f2e331]: Lecteurs sans fil
+    - generic [ref=f2e333]:
+      - generic [ref=f2e334]:
+        - paragraph [ref=f2e335]: Conformité & normes
+        - generic [ref=f2e336]:
+          - generic [ref=f2e337]:
+            - text: ANSSI
+            - generic [ref=f2e339]: Conformité
+          - generic [ref=f2e340]:
+            - text: NFA2P
+            - generic [ref=f2e342]: Norme intrusion
+          - generic [ref=f2e343]:
+            - text: CNIL
+            - generic [ref=f2e345]: Biométrie
+      - generic [ref=f2e346]:
+        - paragraph [ref=f2e347]: Associations professionnelles
+        - generic [ref=f2e348]:
+          - generic [ref=f2e349]: Membre Arseg
+          - generic [ref=f2e350]: Membre Synergie
+  - generic [ref=f2e354]:
+    - generic [ref=f2e355]:
+      - paragraph [ref=f2e356]: Échangeons sur votre projet
+      - heading "Construisez un environnement de sûreté pensé pour le réel" [level=2] [ref=f2e357]
+      - paragraph [ref=f2e358]: Infrastructures, contrôle d'accès, vidéosurveillance, convergence, modernisation ou maintenance — échangez avec Novadis sur vos contraintes concrètes.
+      - generic [ref=f2e359]:
+        - link "Demander une consultation" [ref=f2e360] [cursor=pointer]:
+          - /url: /contact
+          - button "Demander une consultation" [ref=f2e361]:
+            - text: Demander une consultation
+            - img [ref=f2e362]
+        - link "Voir nos services" [ref=f2e365] [cursor=pointer]:
+          - /url: /services
+          - button "Voir nos services" [ref=f2e366]
+        - link "Télécharger la plaquette" [ref=f2e367] [cursor=pointer]:
+          - /url: /novadis/documents/plaquette-novadis.pdf
+          - button "Télécharger la plaquette" [ref=f2e368]:
+            - img [ref=f2e369]
+            - text: Télécharger la plaquette
+    - generic [ref=f2e372]:
+      - link "Email contact@novadis.eu" [ref=f2e373] [cursor=pointer]:
+        - /url: mailto:contact@novadis.eu
+        - generic [ref=f2e374]:
+          - img [ref=f2e376]
+          - generic [ref=f2e379]:
+            - paragraph [ref=f2e380]: Email
+            - paragraph [ref=f2e381]: contact@novadis.eu
+        - img [ref=f2e382]
+      - link "Téléphone +352 26 19 01 73" [ref=f2e385] [cursor=pointer]:
+        - /url: tel:+35226190173
+        - generic [ref=f2e386]:
+          - img [ref=f2e388]
+          - generic [ref=f2e390]:
+            - paragraph [ref=f2e391]: Téléphone
+            - paragraph [ref=f2e392]: +352 26 19 01 73
+        - img [ref=f2e393]
+      - generic [ref=f2e396]:
+        - paragraph [ref=f2e397]: Périmètre
+        - paragraph [ref=f2e398]: Grandes entreprises · sites industriels · infrastructures critiques · multi-sites Europe
+  - generic [ref=f2e400]:
+    - generic [ref=f2e402]:
+      - generic [ref=f2e403]:
+        - link "Novadis" [ref=f2e404] [cursor=pointer]:
+          - /url: /
+          - img "Novadis" [ref=f2e405]
+        - paragraph [ref=f2e406]: Créateur de solutions globales de sûreté. De l'infrastructure informatique à l'analyse d'image, Novadis livre des systèmes pensés pour la durée et l'exploitation.
+        - paragraph [ref=f2e407]: "#DetailsMakeTheDifference"
+      - generic [ref=f2e408]:
+        - paragraph [ref=f2e409]: Navigation
+        - generic [ref=f2e410]:
+          - link "Solutions" [ref=f2e411] [cursor=pointer]:
+            - /url: /solutions
+            - text: Solutions
+            - img [ref=f2e412]
+          - link "Secteurs" [ref=f2e415] [cursor=pointer]:
+            - /url: /secteurs
+            - text: Secteurs
+            - img [ref=f2e416]
+          - link "Références" [ref=f2e419] [cursor=pointer]:
+            - /url: /references
+            - text: Références
+            - img [ref=f2e420]
+          - link "Services" [ref=f2e423] [cursor=pointer]:
+            - /url: /services
+            - text: Services
+            - img [ref=f2e424]
+          - link "À propos" [ref=f2e427] [cursor=pointer]:
+            - /url: /about
+            - text: À propos
+            - img [ref=f2e428]
+          - link "Contact" [ref=f2e431] [cursor=pointer]:
+            - /url: /contact
+            - text: Contact
+            - img [ref=f2e432]
+      - generic [ref=f2e435]:
+        - paragraph [ref=f2e436]: Contact
+        - generic [ref=f2e437]:
+          - link "contact@novadis.eu" [ref=f2e438] [cursor=pointer]:
+            - /url: mailto:contact@novadis.eu
+            - img [ref=f2e439]
+            - text: contact@novadis.eu
+          - link "+352 26 19 01 73" [ref=f2e442] [cursor=pointer]:
+            - /url: tel:+35226190173
+            - img [ref=f2e443]
+            - text: +352 26 19 01 73
+          - generic [ref=f2e445]:
+            - img [ref=f2e446]
+            - generic [ref=f2e449]:
+              - text: 14-16 Rue Clément Bayard
+              - text: 92300 Levallois-Perret · France
+      - generic [ref=f2e450]:
+        - paragraph [ref=f2e451]: Conformité
+        - generic [ref=f2e452]:
+          - generic [ref=f2e453]: Membre Arseg
+          - generic [ref=f2e454]: Membre Synergie
+          - generic [ref=f2e455]: Conforme ANSSI
+          - generic [ref=f2e456]: Norme NFA2P
+          - generic [ref=f2e457]: CNIL · biométrie
+    - generic [ref=f2e459]:
+      - paragraph [ref=f2e460]: © 2026 Novadis · Tous droits réservés
+      - generic [ref=f2e461]:
+        - link "Mentions légales" [ref=f2e462] [cursor=pointer]:
+          - /url: /legal
+        - link "Confidentialité" [ref=f2e464] [cursor=pointer]:
+          - /url: /privacy
+        - generic [ref=f2e466]: FR · LU · BE
