@@ -3,6 +3,7 @@
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Bounds, Center, Environment, OrbitControls, useGLTF } from "@react-three/drei";
+import { ArButton } from "@/components/three/ar-button";
 import { cn } from "@/lib/utils";
 
 const MODEL_PATH = "/novadis/models/axis-q6010-e.glb";
@@ -50,6 +51,7 @@ export function SolutionsHeroModel({ className }: SolutionsHeroModelProps) {
           />
         </Suspense>
       </Canvas>
+      <ArButton className="absolute bottom-4 right-4" />
     </div>
   );
 }

@@ -749,6 +749,14 @@ export const architectureLayers: ArchitectureLayer[] = [
   },
 ];
 
+// Mobile AR preview of the hero camera, at the datasheet's real size (Ø 395 mm).
+export const arPreview = {
+  label: "Voir dans votre espace",
+  title: "AXIS Q6010-E",
+  glb: "/novadis/models/axis-q6010-e-ar.glb",
+  usdz: "/novadis/models/axis-q6010-e.usdz",
+};
+
 // Scroll-driven 3D story on /solutions: an alarm travels from the field to the operators.
 export const alarmJourney = {
   eyebrow: "Architecture",

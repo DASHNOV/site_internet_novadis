@@ -230,6 +230,19 @@ Intro    : eyebrow "Architecture" + titre "L'architecture compte autant que les 
 
 ---
 
+## Réalité augmentée (mobile)
+
+```
+Bouton   : "Voir dans votre espace" — hero /solutions, visible uniquement sur iPhone/iPad et Android
+Modèle   : AXIS Q6010-E à l'échelle réelle (Ø 395 mm, fiche technique Axis), support mural compris
+iOS      : Quick Look (fichier USDZ) — pose sur une surface horizontale
+Android  : Google Scene Viewer (GLB) — pose au sol ou au mur
+```
+> ⚠️ Non testé sur un vrai téléphone. Android exige une URL publique en HTTPS :
+> ne fonctionne pas depuis localhost, à vérifier une fois le site en ligne.
+
+---
+
 ## Crédits médias (ressources libres de droit)
 
 Usage commercial autorisé, attribution non obligatoire. Interdit : revendre les
