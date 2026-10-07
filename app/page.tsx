@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { featuredReferences } from "@/data/references";
 import { ArchitectureDiagram } from "@/components/motion/architecture-diagram";
+import { CityHero } from "@/components/three/city-hero";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
 import { PartnerCloud } from "@/components/sections/partner-cloud";
@@ -51,15 +52,20 @@ export default function HomePage() {
     <main className="relative overflow-hidden">
       <SiteHeader />
 
-      {/* HERO — full-bleed photo, dark overlay, Genetec-style */}
+      {/* HERO — 3D night city under supervision, reference photo as fallback */}
       <section className="section-dark relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <img
-            alt=""
-            aria-hidden
-            className="h-full w-full object-cover"
-            src={featuredReferences[1].image}
-          />
+          <CityHero>
+            <img
+              alt=""
+              aria-hidden
+              className="h-full w-full object-cover"
+              src={featuredReferences[1].image}
+            />
+            <p className="absolute bottom-6 right-6 z-10 hidden font-mono text-[10px] uppercase tracking-[0.22em] text-white/60 lg:block">
+              {featuredReferences[1].name} · site protégé par Novadis
+            </p>
+          </CityHero>
           <div
             aria-hidden
             className="absolute inset-0 bg-gradient-to-r from-[rgb(var(--background-dark))]/95 via-[rgb(var(--background-dark))]/65 to-[rgb(var(--background-dark))]/30"
@@ -69,9 +75,6 @@ export default function HomePage() {
             className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--background-dark))]/80 via-[rgb(var(--background-dark))]/20 to-transparent"
           />
         </div>
-        <p className="absolute bottom-6 right-6 z-10 hidden font-mono text-[10px] uppercase tracking-[0.22em] text-white/60 lg:block">
-          {featuredReferences[1].name} · site protégé par Novadis
-        </p>
         <div className="shell-wide relative z-10 pb-28 pt-28 lg:pb-40 lg:pt-40">
           <div className="max-w-4xl">
             <Reveal>

@@ -64,6 +64,10 @@ Fond             : photo Casino de Monaco (référence client) + légende "site
                    corporate testée est un plan interview, inadaptée en fond)
 Badges           : Conforme ANSSI · Norme NFA2P · CNIL biométrie (sous les CTA)
 ```
+> ⚠️ 07/10/2026 — Fond du hero remplacé par une ville 3D de nuit "sous surveillance"
+> (équipements qui s'allument par vagues depuis un centre de supervision, faisceaux,
+> balayage radar, plongée au scroll). La photo du Casino de Monaco et sa légende
+> restent en secours (chargement, sans WebGL, animations réduites). À valider.
 > ⚠️ Nouveau H1 orienté promesse client (benchmark Genetec "Protéger le quotidien").
 > L'ancien titre "Créateur de solutions globales de sûreté" passe en eyebrow.
 > Le hashtag #DetailsMakeTheDifference a été retiré du hero. À valider.
