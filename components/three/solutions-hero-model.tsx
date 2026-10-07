@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Bounds, Center, Environment, useGLTF } from "@react-three/drei";
+import { Bounds, Center, Environment, OrbitControls, useGLTF } from "@react-three/drei";
 import { cn } from "@/lib/utils";
 
 const MODEL_PATH = "/novadis/models/axis-q6010-e.glb";
@@ -38,6 +38,16 @@ export function SolutionsHeroModel({ className }: SolutionsHeroModelProps) {
           </Bounds>
           {/* Self-hosted copy of drei's "city" preset (Poly Haven, CC0): no runtime fetch from GitHub. */}
           <Environment files="/novadis/hdri/potsdamer_platz_1k.hdr" />
+          {/* Bounded so the visitor keeps a view of the dome: no top-down flip, never the wall plate. */}
+          <OrbitControls
+            enablePan={false}
+            enableZoom={false}
+            makeDefault
+            maxAzimuthAngle={1.95}
+            maxPolarAngle={Math.PI * 0.62}
+            minAzimuthAngle={-0.45}
+            minPolarAngle={Math.PI * 0.38}
+          />
         </Suspense>
       </Canvas>
     </div>
