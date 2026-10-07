@@ -237,6 +237,7 @@ fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent 
 | `images/stock/camera-videosurveillance.webp` | Solution Analyse d'image | [Unsplash pDtgBIGa0cM](https://unsplash.com/photos/pDtgBIGa0cM) | [Licence Unsplash](https://unsplash.com/license) |
 | `images/stock/biometrie-empreinte.webp` | Homepage — carte Biométrie & CNIL | [Unsplash SRFG7iwktDk](https://unsplash.com/photos/SRFG7iwktDk) | [Licence Unsplash](https://unsplash.com/license) |
 | `videos/salle-supervision.mp4` + `images/stock/salle-supervision-poster.webp` | /services, solution Intégrations | [Pexels 38779100](https://www.pexels.com/video/38779100/) — Kiwi and Camera | [Licence Pexels](https://www.pexels.com/license/) |
+| `models/server-rack.glb`, `models/control-room.glb` | Parcours 3D (/solutions) | Modélisés pour Novadis dans Blender (textures d'écran générées) | Propriété Novadis |
 | `hdri/potsdamer_platz_1k.hdr` | Éclairage du modèle 3D (/solutions) | [Poly Haven](https://polyhaven.com/a/potsdamer_platz) | [CC0](https://polyhaven.com/license) |
 
 > ⚠️ La vidéo montre un vrai centre de gestion du trafic (pas un client Novadis) :

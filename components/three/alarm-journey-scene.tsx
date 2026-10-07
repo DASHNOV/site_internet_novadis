@@ -7,27 +7,35 @@ import type { MotionValue } from "framer-motion";
 import * as THREE from "three";
 
 const MODEL_PATH = "/novadis/models/security-camera.glb";
+const RACK_PATH = "/novadis/models/server-rack.glb";
+const ROOM_PATH = "/novadis/models/control-room.glb";
+const FLOOR = -1.4;
+// Bottom-centre panel of the 3x2 wall, the one showing the site map.
+const ALARM_SCREEN = 4;
+// Centre of that panel in the control-room model (metres, Y-up), just in front of the glass.
+const ALARM_SCREEN_CENTER: [number, number, number] = [0, 1.24, 0.012];
 const PRIMARY = new THREE.Color("#36a4d9");
 const ALERT = new THREE.Color("#ef4444");
+const WHITE = new THREE.Color("#ffffff");
 const BACKGROUND = "#0b1220";
 
 export const STATIONS = {
   field: new THREE.Vector3(0, 0, 0),
   core: new THREE.Vector3(7, 0, -1),
-  operators: new THREE.Vector3(14, 0.4, 0),
+  operators: new THREE.Vector3(14, 0, 0),
 };
 
 const FIELD_TO_CORE = new THREE.CatmullRomCurve3([
   new THREE.Vector3(0.4, -0.6, 0.2),
   new THREE.Vector3(2.5, -1.1, 0.8),
   new THREE.Vector3(5, -1.1, 0),
-  new THREE.Vector3(6.6, -0.9, -0.6),
+  new THREE.Vector3(6.7, -1.3, -0.45),
 ]);
 const CORE_TO_OPERATORS = new THREE.CatmullRomCurve3([
-  new THREE.Vector3(7.4, -0.9, -0.6),
-  new THREE.Vector3(9.5, -1.1, 0.4),
-  new THREE.Vector3(12, -1, 0.6),
-  new THREE.Vector3(13.6, -0.2, 0.4),
+  new THREE.Vector3(7.3, -1.3, -0.45),
+  new THREE.Vector3(9.5, -1.3, 0.4),
+  new THREE.Vector3(12, -1.3, 0.5),
+  new THREE.Vector3(13.2, -1.32, 0.35),
 ]);
 // Between two stations the camera rides along the cable carrying the signal.
 const TRANSIT: Record<number, THREE.CatmullRomCurve3> = { 1: FIELD_TO_CORE, 2: CORE_TO_OPERATORS };
@@ -35,10 +43,10 @@ const CHASE_OFFSET = new THREE.Vector3(-0.6, 1.4, 3.2);
 
 // Keyframe 0 is the overview; keyframes 1..3 frame each station in story order.
 const KEYFRAMES = [
-  { position: [7, 6.5, 15], target: [7, 0.4, 0] },
+  { position: [7.6, 6.2, 17], target: [7.6, -0.4, 0] },
   { position: [2.4, 1.3, 4.4], target: [0, 0.2, 0] },
-  { position: [9.6, 2, 4.4], target: [7, 0.6, -1] },
-  { position: [12.2, 1.8, 6.2], target: [14, 1.2, 0] },
+  { position: [9.3, 0.7, 3.6], target: [7, -0.3, -1] },
+  { position: [13.1, 1.9, 6.6], target: [14, -0.2, 0] },
 ].map((k) => ({ position: new THREE.Vector3(...k.position), target: new THREE.Vector3(...k.target) }));
 
 // Holds the camera on each keyframe for part of the scroll, so text can be read.
@@ -96,76 +104,56 @@ function SecurityCamera() {
   );
 }
 
-function ServerRack({ active }: { active: boolean }) {
-  const leds = useRef<THREE.MeshStandardMaterial[]>([]);
-
-  useFrame(({ clock }) => {
-    leds.current.forEach((material, i) => {
-      if (!material) return;
-      const blink = Math.sin(clock.elapsedTime * (2 + (i % 3)) + i) > 0.2 ? 1 : 0.25;
-      material.emissiveIntensity = (active ? 2.4 : 1.2) * blink;
+function useMaterials(scene: THREE.Object3D, prefix: string) {
+  return useMemo(() => {
+    const found = new Map<string, THREE.MeshStandardMaterial>();
+    scene.traverse((node) => {
+      const mesh = node as THREE.Mesh;
+      if (!mesh.isMesh) return;
+      const material = mesh.material as THREE.MeshStandardMaterial;
+      if (material.name.startsWith(prefix)) found.set(material.name, material);
     });
-  });
-
-  return (
-    <group position={STATIONS.core}>
-      <mesh position={[0, 0.2, 0]}>
-        <boxGeometry args={[1.2, 2.6, 1]} />
-        <meshStandardMaterial color="#1a2333" metalness={0.7} roughness={0.35} />
-      </mesh>
-      {Array.from({ length: 9 }, (_, i) => (
-        <mesh key={i} position={[0, -0.85 + i * 0.26, 0.51]}>
-          <boxGeometry args={[0.95, 0.04, 0.01]} />
-          <meshStandardMaterial
-            color={PRIMARY}
-            emissive={PRIMARY}
-            ref={(material) => {
-              if (material) leds.current[i] = material;
-            }}
-          />
-        </mesh>
-      ))}
-    </group>
-  );
+    return [...found.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([, material]) => material);
+  }, [scene, prefix]);
 }
 
-function VideoWall({ alarm }: { alarm: boolean }) {
-  const tiles = useRef<THREE.MeshStandardMaterial[]>([]);
-  const ALARM_TILE = 4;
+// Modelled in Blender (MCP); materials are named so the page can animate them.
+function ServerRack({ active }: { active: boolean }) {
+  const { scene } = useGLTF(RACK_PATH);
+  const leds = useMaterials(scene, "LED");
 
   useFrame(({ clock }) => {
-    tiles.current.forEach((material, i) => {
-      if (!material) return;
-      if (i === ALARM_TILE && alarm) {
-        material.emissive.copy(ALERT);
-        material.emissiveIntensity = 1.2 + Math.sin(clock.elapsedTime * 8) * 0.8;
-      } else {
-        material.emissive.copy(PRIMARY);
-        material.emissiveIntensity = 0.35 + 0.15 * Math.sin(clock.elapsedTime * 0.8 + i * 1.7);
-      }
+    leds.forEach((material, i) => {
+      const blink = Math.sin(clock.elapsedTime * (3 + i * 2.3)) > -0.3 ? 1 : 0.15;
+      material.emissiveIntensity = (active ? 6 : 2.5) * blink;
     });
   });
 
+  return <primitive object={scene} position={[STATIONS.core.x, FLOOR, STATIONS.core.z]} />;
+}
+
+function ControlRoom({ alarm }: { alarm: boolean }) {
+  const { scene } = useGLTF(ROOM_PATH);
+  const screens = useMaterials(scene, "Screen_");
+  const flash = useRef<THREE.MeshBasicMaterial>(null);
+
+  useFrame(({ clock }) => {
+    const pulse = (Math.sin(clock.elapsedTime * 7) + 1) / 2;
+    screens.forEach((material, i) => {
+      const alarmed = i === ALARM_SCREEN && alarm;
+      material.emissive.copy(alarmed ? ALERT : WHITE);
+      material.emissiveIntensity = alarmed ? 1.6 + pulse : 1.1 + 0.15 * Math.sin(clock.elapsedTime * 0.8 + i * 1.7);
+    });
+    // The screen texture is mostly dark, so a tint alone barely reads: flash a red veil over it.
+    if (flash.current) flash.current.opacity = alarm ? 0.12 + 0.38 * pulse : 0;
+  });
+
   return (
-    <group position={STATIONS.operators}>
-      {Array.from({ length: 6 }, (_, i) => {
-        const col = i % 3;
-        const row = Math.floor(i / 3);
-        return (
-          <mesh key={i} position={[(col - 1) * 1.72, 1.9 - row * 0.98, -0.6]}>
-            <planeGeometry args={[1.64, 0.9]} />
-            <meshStandardMaterial
-              color="#0d1626"
-              ref={(material) => {
-                if (material) tiles.current[i] = material;
-              }}
-            />
-          </mesh>
-        );
-      })}
-      <mesh position={[0, -0.7, 0.9]}>
-        <boxGeometry args={[4.4, 0.08, 1.1]} />
-        <meshStandardMaterial color="#0f1a2b" envMapIntensity={0.15} metalness={0.2} roughness={0.85} />
+    <group position={[STATIONS.operators.x, FLOOR, STATIONS.operators.z]}>
+      <primitive object={scene} />
+      <mesh position={ALARM_SCREEN_CENTER}>
+        <planeGeometry args={[1.19, 0.66]} />
+        <meshBasicMaterial color={ALERT} depthWrite={false} opacity={0} ref={flash} toneMapped={false} transparent />
       </mesh>
     </group>
   );
@@ -260,18 +248,20 @@ export function AlarmJourneyScene({ progress, activeStep, hotspots }: AlarmJourn
       <Starfield />
       <Suspense fallback={null}>
         <SecurityCamera />
+        <ServerRack active={activeStep >= 2} />
+        <ControlRoom alarm={activeStep >= 3} />
         <Environment files="/novadis/hdri/potsdamer_platz_1k.hdr" />
       </Suspense>
-      <ServerRack active={activeStep >= 2} />
-      <VideoWall alarm={activeStep >= 3} />
       <SignalPath active={activeStep >= 1} curve={FIELD_TO_CORE} />
       <SignalPath active={activeStep >= 2} curve={CORE_TO_OPERATORS} />
       <Hotspot position={new THREE.Vector3(0.3, 0.6, 0.4)} visible={activeStep === 1} {...hotspots[0]} />
-      <Hotspot position={new THREE.Vector3(7.6, 1.2, -0.5)} visible={activeStep === 2} {...hotspots[1]} />
-      <Hotspot position={new THREE.Vector3(14, 1.32, -0.55)} visible={activeStep === 3} {...hotspots[2]} />
+      <Hotspot position={new THREE.Vector3(7.2, 0.15, -0.45)} visible={activeStep === 2} {...hotspots[1]} />
+      <Hotspot position={new THREE.Vector3(14, -0.16, 0.05)} visible={activeStep === 3} {...hotspots[2]} />
       <CameraRig progress={progress} />
     </Canvas>
   );
 }
 
 useGLTF.preload(MODEL_PATH);
+useGLTF.preload(RACK_PATH);
+useGLTF.preload(ROOM_PATH);
