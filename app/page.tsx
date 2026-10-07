@@ -9,6 +9,7 @@ import {
   Sparkles,
   Workflow,
 } from "lucide-react";
+import { ArchitectureDiagram } from "@/components/motion/architecture-diagram";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
 import { PartnerCloud } from "@/components/sections/partner-cloud";
@@ -205,12 +206,9 @@ export default function HomePage() {
               </div>
             </Reveal>
             <Reveal delay={0.1}>
-              <MediaFrame
-                alt="Architecture de principe Novadis — réseau IP sûreté, serveurs, postes opérateurs, terrain"
+              <ArchitectureDiagram
                 caption="Architecture de principe · Réseau IP Sûreté Novadis"
-                className="aspect-[16/11]"
-                kind="image"
-                src={mediaLibrary.architecturePrincipe}
+                label="Architecture de principe Novadis — réseau IP sûreté, serveurs, postes opérateurs, terrain"
               />
             </Reveal>
           </div>

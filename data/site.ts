@@ -587,6 +587,39 @@ export const pillars = [
   },
 ];
 
+export type ArchitectureLayer = {
+  id: "operators" | "core" | "field";
+  label: string;
+  nodes: { slug: string; x: number; y: number }[];
+};
+
+// Ordered bottom → top; x/y are isometric grid coordinates on an 8 × 5 plate.
+export const architectureLayers: ArchitectureLayer[] = [
+  {
+    id: "field",
+    label: "Terrain",
+    nodes: [
+      { slug: "access-control", x: 1.6, y: 1.3 },
+      { slug: "intrusion-detection", x: 3, y: 3.8 },
+      { slug: "video-surveillance", x: 5.4, y: 1.3 },
+      { slug: "smart-integrations", x: 6.6, y: 3.8 },
+    ],
+  },
+  {
+    id: "core",
+    label: "Réseau IP Sûreté",
+    nodes: [{ slug: "it-infrastructure", x: 4, y: 2.5 }],
+  },
+  {
+    id: "operators",
+    label: "Postes opérateurs",
+    nodes: [
+      { slug: "supervision", x: 2.4, y: 2.5 },
+      { slug: "ai-video-analytics", x: 5.8, y: 2.5 },
+    ],
+  },
+];
+
 export function getSolution(slug: string) {
   return solutions.find((solution) => solution.slug === slug);
 }
