@@ -10,7 +10,8 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { Button } from "@/components/ui/button";
 import { AxisExplode } from "@/components/motion/axis-explode";
-import { axisExplode, getSolution, solutions } from "@/data/site";
+import { BadgeDoor } from "@/components/three/badge-door";
+import { axisExplode, badgeDoor, getSolution, solutions } from "@/data/site";
 
 type Params = Promise<{ slug: string }>;
 
@@ -57,6 +58,12 @@ export default async function SolutionDetailPage({ params }: { params: Params })
           Retour aux solutions
         </Link>
       </section>
+
+      {slug === badgeDoor.solutionSlug && (
+        <div className="mt-16">
+          <BadgeDoor />
+        </div>
+      )}
 
       {slug === axisExplode.solutionSlug && (
         <div className="mt-16">

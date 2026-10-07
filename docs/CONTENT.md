@@ -230,6 +230,21 @@ Intro    : eyebrow "Architecture" + titre "L'architecture compte autant que les 
 
 ---
 
+## Solution Contrôle d'accès — scène 3D de la porte à badge
+
+```
+Eyebrow   : Amadeus
+Titre     : Un accès, en trois temps
+Étape 1   : Badge présenté — Le lecteur identifie le badge et interroge le contrôleur de la porte.
+Étape 2   : Droit vérifié — Intelligence distribuée : le contrôleur décide localement, en une fraction de seconde.
+Étape 3   : Porte ouverte, événement tracé — Gestion temps réel : l'accès est journalisé et remonte aussitôt à la supervision.
+Notif.    : Accès autorisé · Porte 01 · Hall d'accueil
+```
+> ⚠️ Nouveaux textes (reprennent les avantages Amadeus "Intelligence distribuée" et
+> "Gestion temps réel") — à valider. Lecteur et badge génériques, sans marque.
+
+---
+
 ## Solution Vidéosurveillance — vue éclatée AXIS Q6010-E
 
 ```

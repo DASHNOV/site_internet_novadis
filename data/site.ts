@@ -757,6 +757,19 @@ export const arPreview = {
   usdz: "/novadis/models/axis-q6010-e.usdz",
 };
 
+// Scroll-driven badge door scene on the access-control page (model: design/3d/novadis-3d-scene.blend).
+export const badgeDoor = {
+  solutionSlug: "access-control",
+  eyebrow: "Amadeus",
+  title: "Un accès, en trois temps",
+  steps: [
+    { label: "Badge présenté", text: "Le lecteur identifie le badge et interroge le contrôleur de la porte." },
+    { label: "Droit vérifié", text: "Intelligence distribuée : le contrôleur décide localement, en une fraction de seconde." },
+    { label: "Porte ouverte, événement tracé", text: "Gestion temps réel : l'accès est journalisé et remonte aussitôt à la supervision." },
+  ],
+  event: { title: "Accès autorisé", detail: "Porte 01 · Hall d'accueil" },
+};
+
 // Scroll-scrubbed exploded view rendered in Blender (design/3d/novadis-3d-scene.blend).
 // Label anchors are the parts' screen positions on the last frame, as fractions of the image.
 export const axisExplode = {
