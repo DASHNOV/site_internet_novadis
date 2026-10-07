@@ -17,6 +17,8 @@ const PRIMARY = new THREE.Color("#36a4d9");
 const GLOW = new THREE.Color("#81cff5");
 const ALERT = new THREE.Color("#ef4444");
 const SODIUM = new THREE.Color("#ffb066");
+// Over 1.0 so the output tone mapping keeps them bright and the bloom picks them up.
+const NEON = GLOW.clone().multiplyScalar(3);
 const FOG = { near: 14, far: 42 };
 const CENTER_HEIGHT = 4.2;
 const FRAME_SHIFT = 5.5;
@@ -597,17 +599,17 @@ function ControlCenter({ time }: { time: { current: number } }) {
         [0.556, -0.556].map((z) => (
           <mesh key={`${x}-${z}`} position={[x, CENTER_HEIGHT / 2, z]}>
             <boxGeometry args={[0.04, CENTER_HEIGHT * 0.96, 0.01]} />
-            <meshBasicMaterial color={GLOW} toneMapped={false} />
+            <meshBasicMaterial color={NEON} toneMapped={false} />
           </mesh>
         )),
       )}
       <mesh position={[0, CENTER_HEIGHT + 0.35, 0]} ref={ring} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[0.9, 0.025, 8, 64]} />
-        <meshBasicMaterial color={GLOW} toneMapped={false} />
+        <meshBasicMaterial color={NEON} toneMapped={false} />
       </mesh>
       <mesh position={[0, CENTER_HEIGHT + 0.12, 0]}>
         <sphereGeometry args={[0.12, 16, 16]} />
-        <meshBasicMaterial color={GLOW} ref={beacon} toneMapped={false} transparent />
+        <meshBasicMaterial color={NEON} ref={beacon} toneMapped={false} transparent />
       </mesh>
       <pointLight color={PRIMARY} distance={9} intensity={30} position={[0, CENTER_HEIGHT + 0.6, 0]} />
     </group>
@@ -701,29 +703,92 @@ function Bloom({ compact }: { compact: boolean }) {
   return null;
 }
 
-type CameraRigProps = { progress: MotionValue<number>; time: { current: number }; compact: boolean };
+type CameraRigProps = { progress: MotionValue<number>; time: { current: number }; compact: boolean; city: City };
 
-function CameraRig({ progress, time, compact }: CameraRigProps) {
+// Opening shot: skim an avenue at street level, rise along the control tower, then climb to the orbit.
+const INTRO_DURATION = 8;
+const INTRO_HANDOFF = 0.62;
+
+function introPath(city: City) {
+  const avenue = city.avenues.reduce((best, a) => (Math.abs(a - 1.5) < Math.abs(best - 1.5) ? a : best));
+  const start = city.half - 0.6;
+  return new THREE.CatmullRomCurve3([
+    new THREE.Vector3(avenue, 0.5, start),
+    new THREE.Vector3(avenue, 0.55, start * 0.5),
+    new THREE.Vector3(avenue, 0.7, 4.2),
+    new THREE.Vector3(avenue + 1.1, 2.2, 4.0),
+    new THREE.Vector3(avenue + 2.6, 4.9, 5.4),
+  ]);
+}
+
+function CameraRig({ progress, time, compact, city }: CameraRigProps) {
   const { camera, pointer } = useThree();
-  const target = useMemo(() => new THREE.Vector3(), []);
-  const desired = useMemo(() => new THREE.Vector3(), []);
-  const right = useMemo(() => new THREE.Vector3(), []);
-  const far = useMemo(() => new THREE.Vector3(), []);
-  const near = useMemo(() => new THREE.Vector3(2.4, 3.2, 6.2), []);
+  const path = useMemo(() => introPath(city), [city]);
+  const v = useMemo(
+    () => ({
+      target: new THREE.Vector3(),
+      desired: new THREE.Vector3(),
+      desiredTarget: new THREE.Vector3(),
+      right: new THREE.Vector3(),
+      far: new THREE.Vector3(),
+      orbitTarget: new THREE.Vector3(),
+      introPos: new THREE.Vector3(),
+      introLook: new THREE.Vector3(),
+      towerLook: new THREE.Vector3(),
+      near: new THREE.Vector3(2.4, 3.2, 6.2),
+      tower: new THREE.Vector3(0, CENTER_HEIGHT * 0.7, 0),
+    }),
+    [],
+  );
+  const started = useRef(false);
 
   useFrame((_, delta) => {
     time.current += delta;
-    // Slow orbit around the city, nudged by the pointer; scrolling dives toward the control centre.
-    const angle = 0.65 + Math.sin(time.current * 0.05) * 0.25 + pointer.x * 0.08;
+    const t = time.current;
+
+    // Slow orbit around the city, nudged by the pointer.
+    const angle = 0.65 + Math.sin(t * 0.05) * 0.25 + pointer.x * 0.08;
     const radius = compact ? 23 : 19;
-    far.set(Math.sin(angle) * radius, 10.5 + pointer.y * 0.8, Math.cos(angle) * radius);
-    const k = THREE.MathUtils.smoothstep(progress.get(), 0, 1);
-    desired.lerpVectors(far, near, k);
-    camera.position.lerp(desired, 1 - Math.exp(-delta * 3));
+    v.far.set(Math.sin(angle) * radius, 10.5 + pointer.y * 0.8, Math.cos(angle) * radius);
     // On narrow screens the text spans the full width: keep the city centred instead.
-    right.set(Math.cos(angle), 0, -Math.sin(angle)).multiplyScalar(compact ? 0 : -FRAME_SHIFT * (1 - k));
-    target.set(0, 1 + k * 1.6, 0).add(right);
-    camera.lookAt(target);
+    v.right.set(Math.cos(angle), 0, -Math.sin(angle)).multiplyScalar(compact ? 0 : -FRAME_SHIFT);
+    v.orbitTarget.set(0, 1, 0).add(v.right);
+
+    const u = THREE.MathUtils.clamp(t / INTRO_DURATION, 0, 1);
+    const handoff = THREE.MathUtils.smoothstep(u, INTRO_HANDOFF, 1);
+    if (u < 1) {
+      const s = THREE.MathUtils.smoothstep(Math.min(u / INTRO_HANDOFF, 1), 0, 1);
+      path.getPointAt(s, v.introPos);
+      // Look down the avenue ahead, then turn to the tower and follow its facade up to the ring.
+      path.getPointAt(Math.min(s + 0.12, 1), v.introLook);
+      v.introLook.y -= 0.25;
+      v.towerLook.set(0, v.introPos.y + 0.2, 0);
+      const towerShot = THREE.MathUtils.smoothstep(s, 0.45, 0.72);
+      v.introLook.lerp(v.towerLook, towerShot);
+      // Same framing as the orbit: keep the tower in the right half, clear of the headline.
+      v.introLook.addScaledVector(v.right, towerShot * 0.2);
+      v.desired.lerpVectors(v.introPos, v.far, handoff);
+      v.desiredTarget.lerpVectors(v.introLook, v.orbitTarget, handoff);
+    } else {
+      v.desired.copy(v.far);
+      v.desiredTarget.copy(v.orbitTarget);
+    }
+
+    // Scrolling the hero away dives toward the control centre.
+    const k = THREE.MathUtils.smoothstep(progress.get(), 0, 1);
+    v.desired.lerp(v.near, k);
+    v.desiredTarget.lerp(v.tower, k);
+
+    if (!started.current) {
+      camera.position.copy(v.desired);
+      v.target.copy(v.desiredTarget);
+      started.current = true;
+    }
+    // Tight follow during the street-level shot, softer damping once in orbit.
+    const follow = 1 - Math.exp(-delta * (u < 1 ? 10 : 3));
+    camera.position.lerp(v.desired, follow);
+    v.target.lerp(v.desiredTarget, follow);
+    camera.lookAt(v.target);
   });
   return null;
 }
@@ -758,7 +823,7 @@ function Scene({ progress, compact, onReady }: CityHeroSceneProps) {
       <ControlCenter time={time} />
       <Devices city={city} time={time} />
       <Links city={city} time={time} />
-      <CameraRig compact={compact} progress={progress} time={time} />
+      <CameraRig city={city} compact={compact} progress={progress} time={time} />
       <Bloom compact={compact} />
     </>
   );
