@@ -5,11 +5,14 @@ import {
   Cpu,
   Factory,
   Fingerprint,
+  Gauge,
   MonitorPlay,
   Network,
   Radar,
+  RefreshCw,
   ScanSearch,
   ShieldAlert,
+  ShieldCheck,
   Truck,
   Users,
   Video,
@@ -530,9 +533,131 @@ export const differentiators = [
   "Présent en amont des appels d'offres pour cadrer le cahier des charges et peser sur la roadmap",
 ];
 
-export const navItems = [
-  { href: "/solutions", label: "Solutions" },
-  { href: "/secteurs", label: "Secteurs" },
+export type Challenge = {
+  slug: string;
+  title: string;
+  icon: LucideIcon;
+  description: string;
+  points: string[];
+  href: string;
+};
+
+export const challenges: Challenge[] = [
+  {
+    slug: "systemes-en-silo",
+    title: "Sortir des consoles en silo",
+    icon: MonitorPlay,
+    description:
+      "Vidéo, contrôle d'accès et intrusion vivent dans des outils séparés : les opérateurs corrèlent mal et la décision ralentit.",
+    points: ["Poste opérateur unique", "Corrélation d'alarmes", "Procédures pilotées"],
+    href: "/solutions/supervision",
+  },
+  {
+    slug: "conformite-nis2",
+    title: "Répondre à NIS2 et aux exigences ANSSI",
+    icon: ShieldCheck,
+    description:
+      "La sûreté physique entre dans le périmètre cyber : vos systèmes d'accès doivent être auditables et souverains.",
+    points: ["Amadeus conforme ANSSI", "Traçabilité auditable", "Architecture maîtrisée"],
+    href: "/solutions/access-control",
+  },
+  {
+    slug: "migration-sans-interruption",
+    title: "Migrer sans interrompre l'exploitation",
+    icon: RefreshCw,
+    description:
+      "Moderniser un système vieillissant sur un site en activité exige une migration par phases, coordonnée et réversible.",
+    points: ["Migration par phases", "Coordination chantier", "Continuité 24/7"],
+    href: "/services",
+  },
+  {
+    slug: "reseau-multi-sites",
+    title: "Piloter des dizaines de sites",
+    icon: Network,
+    description:
+      "Groupes et enseignes ont besoin d'un référentiel unique pour superviser un parc hétérogène avec cohérence.",
+    points: ["Référentiel unifié", "Supervision centralisée", "Roll-out maîtrisé"],
+    href: "/secteurs",
+  },
+  {
+    slug: "biometrie-cnil",
+    title: "Déployer la biométrie dans le cadre CNIL",
+    icon: Fingerprint,
+    description:
+      "Réseau veineux, empreinte : la biométrie renforce les zones sensibles à condition de respecter le cadre réglementaire.",
+    points: ["Technologies conformes CNIL", "Zones à haut risque", "Parcours fluides"],
+    href: "/solutions/smart-integrations",
+  },
+  {
+    slug: "charge-operateur",
+    title: "Réduire la charge opérateur",
+    icon: Gauge,
+    description:
+      "Des milliers de flux et d'événements saturent les équipes : l'analyse d'image trie, priorise et accélère la levée de doute.",
+    points: ["Alertes priorisées", "LPR & comportements", "Investigations courtes"],
+    href: "/solutions/ai-video-analytics",
+  },
+];
+
+export type RegulatoryTopic = {
+  slug: string;
+  title: string;
+  description: string;
+  href: string;
+  linkLabel: string;
+  media: string;
+};
+
+export const regulatoryTopics: RegulatoryTopic[] = [
+  {
+    slug: "nis2",
+    title: "NIS2",
+    description:
+      "La directive NIS2 étend les obligations de cybersécurité aux systèmes de sûreté physique. Novadis conçoit des architectures conformes ANSSI, segmentées et auditables, pour aborder l'échéance sans refonte brutale.",
+    href: "/solutions/access-control",
+    linkLabel: "Voir notre approche",
+    media: "/novadis/images/secteurs/sites-sensibles.webp",
+  },
+  {
+    slug: "biometrie-cnil",
+    title: "Biométrie & CNIL",
+    description:
+      "Le cadre CNIL encadre strictement la biométrie sur le lieu de travail. Novadis déploie réseau veineux et empreinte digitale dans les règles : finalité justifiée, gabarits maîtrisés, traçabilité complète.",
+    href: "/solutions/smart-integrations",
+    linkLabel: "Lire la suite",
+    media: mediaLibrary.peopleVisual,
+  },
+];
+
+export type NavItem = {
+  href: string;
+  label: string;
+  children?: { href: string; label: string }[];
+};
+
+export const navItems: NavItem[] = [
+  {
+    href: "/solutions",
+    label: "Solutions",
+    children: [
+      ...solutions.map((solution) => ({
+        href: `/solutions/${solution.slug}`,
+        label: solution.shortTitle,
+      })),
+      { href: "/solutions", label: "Toutes les solutions" },
+    ],
+  },
+  {
+    href: "/secteurs",
+    label: "Secteurs",
+    children: [
+      ...industries.map((industry) => ({
+        href: `/secteurs#${industry.slug}`,
+        label: industry.title,
+      })),
+      { href: "/secteurs", label: "Tous les secteurs" },
+    ],
+  },
   { href: "/references", label: "Références" },
   { href: "/services", label: "Services" },
   { href: "/about", label: "À propos" },

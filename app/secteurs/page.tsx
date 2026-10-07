@@ -39,7 +39,8 @@ export default function SecteursPage() {
             return (
               <Reveal delay={index * 0.05} key={industry.slug}>
                 <article
-                  className={`grid gap-10 border-t border-[rgba(var(--hairline-strong))] py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16 lg:py-20 ${reverse ? "lg:[&>*:first-child]:order-2" : ""}`}
+                  className={`grid scroll-mt-24 gap-10 border-t border-[rgba(var(--hairline-strong))] py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16 lg:py-20 ${reverse ? "lg:[&>*:first-child]:order-2" : ""}`}
+                  id={industry.slug}
                 >
                   <div className="relative">
                     <MediaFrame

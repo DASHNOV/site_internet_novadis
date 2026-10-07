@@ -9,6 +9,7 @@ import {
   Sparkles,
   Workflow,
 } from "lucide-react";
+import { featuredReferences } from "@/data/references";
 import { ArchitectureDiagram } from "@/components/motion/architecture-diagram";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
@@ -19,15 +20,18 @@ import { SectionHeading } from "@/components/sections/section-heading";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SolutionsScroll } from "@/components/motion/solutions-scroll";
+import { TiltCard } from "@/components/motion/tilt-card";
 import { StatRow } from "@/components/sections/stat-row";
 import { Button } from "@/components/ui/button";
 import {
+  challenges,
   differentiators,
   industries,
-  mediaLibrary,
   pillars,
   processSteps,
+  regulatoryTopics,
   solutions,
+  trustSignals,
 } from "@/data/site";
 
 export default function HomePage() {
@@ -50,36 +54,34 @@ export default function HomePage() {
       {/* HERO — full-bleed photo, dark overlay, Genetec-style */}
       <section className="section-dark relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <video
+          <img
+            alt=""
             aria-hidden
-            autoPlay
             className="h-full w-full object-cover"
-            loop
-            muted
-            playsInline
-            poster={mediaLibrary.imgSecurityOps}
-          >
-            <source src="/novadis/videos/hero-earth.mp4" type="video/mp4" />
-          </video>
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-gradient-to-r from-[rgb(var(--background-dark))]/70 via-[rgb(var(--background-dark))]/30 to-transparent"
+            src={featuredReferences[1].image}
           />
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--background-dark))]/60 via-transparent to-transparent"
+            className="absolute inset-0 bg-gradient-to-r from-[rgb(var(--background-dark))]/95 via-[rgb(var(--background-dark))]/65 to-[rgb(var(--background-dark))]/30"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--background-dark))]/80 via-[rgb(var(--background-dark))]/20 to-transparent"
           />
         </div>
+        <p className="absolute bottom-6 right-6 z-10 hidden font-mono text-[10px] uppercase tracking-[0.22em] text-white/60 lg:block">
+          {featuredReferences[1].name} · site protégé par Novadis
+        </p>
         <div className="shell-wide relative z-10 pb-28 pt-28 lg:pb-40 lg:pt-40">
           <div className="max-w-4xl">
             <Reveal>
-              <p className="eyebrow">#DetailsMakeTheDifference</p>
+              <p className="eyebrow">Créateur de solutions globales de sûreté</p>
             </Reveal>
             <Reveal delay={0.06}>
               <h1 className="section-title mt-8 text-balance text-5xl font-bold leading-[1.02] tracking-tight sm:text-7xl lg:text-[5.75rem]">
-                Créateur de solutions
+                Protégez vos sites,
                 <br />
-                globales de sûreté
+                vos équipes et vos données
               </h1>
             </Reveal>
             <Reveal delay={0.14}>
@@ -107,29 +109,96 @@ export default function HomePage() {
               </Link>
             </Reveal>
 
-            <Reveal className="mt-16 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-white/12 pt-8" delay={0.3}>
-              <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-slate-400">
-                Technologies partenaires
-              </p>
-              {["Amadeus", "Ocularis", "Galaxy", "Microsoft Embedded", "Dell OEM"].map((label) => (
-                <span
-                  className="font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-slate-200"
-                  key={label}
-                >
-                  {label}
-                </span>
-              ))}
+            <Reveal className="mt-16 border-t border-white/12 pt-8" delay={0.3}>
+              <div className="flex flex-wrap items-center gap-x-10 gap-y-5">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  {trustSignals
+                    .filter((signal) => !signal.startsWith("Membre"))
+                    .map((signal) => (
+                      <span
+                        className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-white"
+                        key={signal}
+                      >
+                        <ShieldCheck className="h-3.5 w-3.5 text-primary" />
+                        {signal}
+                      </span>
+                    ))}
+                </div>
+                <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+                  <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-slate-400">
+                    Technologies
+                  </p>
+                  {["Amadeus", "Ocularis", "Galaxy"].map((label) => (
+                    <span
+                      className="font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-slate-200"
+                      key={label}
+                    >
+                      {label}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* STATS + PARTNERS — fond blanc */}
+      {/* STATS — fond blanc */}
       <StatRow />
+
+      {/* RÉFÉRENCES — preuve client remontée en haut de page */}
+      <section className="section-soft py-32 lg:py-40">
+        <div className="shell-wide">
+          <SectionHeading
+            eyebrow="Ils nous font confiance"
+            title="Des environnements à très forte exigence"
+            description="Hôpitaux, sites patrimoniaux, environnements de luxe : Novadis opère là où l'erreur n'est pas permise."
+            actions={
+              <Link href="/references">
+                <Button size="default" variant="outline">
+                  Voir toutes nos références
+                  <ArrowUpRight className="cta-arrow h-4 w-4" />
+                </Button>
+              </Link>
+            }
+          />
+          <div className="mt-14 grid gap-8 md:grid-cols-3">
+            {featuredReferences.map((reference, index) => (
+              <Reveal delay={index * 0.07} key={reference.name}>
+                <Link className="group block h-full" href="/references">
+                  <article className="flex h-full flex-col">
+                    <TiltCard className="rounded-[20px]">
+                      <div className="relative aspect-[16/11] overflow-hidden rounded-[20px]">
+                        <img
+                          alt={reference.name}
+                          className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+                          src={reference.image}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
+                        <div className="absolute inset-x-5 bottom-5">
+                          <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/80">
+                            {reference.sector}
+                          </p>
+                          <h3 className="mt-2 font-display text-xl font-semibold tracking-tight text-white">
+                            {reference.name}
+                          </h3>
+                        </div>
+                      </div>
+                    </TiltCard>
+                    <p className="mt-4 text-sm leading-7 text-muted-strong">{reference.scope}</p>
+                  </article>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PARTNERS — fond blanc */}
       <PartnerCloud />
 
-      {/* CONVERGENCE NARRATIVE — fond blanc */}
-      <section className="py-32 lg:py-40">
+      {/* CONVERGENCE NARRATIVE — fond gris doux */}
+      <section className="section-soft py-32 lg:py-40">
         <div className="shell-wide">
           <div className="grid gap-14 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center">
             <Reveal>
@@ -164,6 +233,57 @@ export default function HomePage() {
                 label="Architecture de principe Novadis — réseau IP sûreté, serveurs, postes opérateurs, terrain"
               />
             </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ENJEUX — entrée par problème métier, fond sombre */}
+      <section className="section-dark py-32 lg:py-40">
+        <div className="shell-wide">
+          <SectionHeading
+            eyebrow="Vos enjeux"
+            title={
+              <>
+                Chaque projet commence
+                <br />
+                par un problème concret
+              </>
+            }
+            description="Conformité, migration, multi-sites, charge opérateur : partez de votre enjeu, nous le relions à la bonne architecture."
+          />
+          <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {challenges.map((challenge, index) => {
+              const Icon = challenge.icon;
+              return (
+                <Reveal delay={index * 0.06} key={challenge.slug}>
+                  <Link className="group block h-full" href={challenge.href}>
+                    <TiltCard className="h-full rounded-[20px]">
+                      <article className="flex h-full flex-col rounded-[20px] border border-white/12 bg-white/[0.04] p-7 transition duration-300 group-hover:border-white/30 group-hover:bg-white/[0.07]">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-primary/40 bg-primary/10 text-primary">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <h3 className="mt-6 font-display text-xl font-semibold tracking-tight text-white">
+                          {challenge.title}
+                        </h3>
+                        <p className="mt-3 text-sm leading-7 text-slate-300">{challenge.description}</p>
+                        <ul className="mt-5 space-y-2.5">
+                          {challenge.points.map((point) => (
+                            <li className="flex items-center gap-3 text-sm text-slate-200" key={point}>
+                              <span aria-hidden className="h-1.5 w-1.5 flex-none rounded-full bg-primary" />
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                        <p className="mt-auto flex items-center gap-2 pt-6 text-sm font-medium text-white">
+                          En savoir plus
+                          <ArrowUpRight className="cta-arrow h-4 w-4" />
+                        </p>
+                      </article>
+                    </TiltCard>
+                  </Link>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -274,6 +394,49 @@ export default function HomePage() {
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* SUJETS DU MOMENT — réglementation comme accroche, fond gris doux */}
+      <section className="section-soft py-32 lg:py-40">
+        <div className="shell-wide">
+          <SectionHeading
+            eyebrow="Les sujets du moment"
+            title="La réglementation redessine la sûreté"
+            description="NIS2, ANSSI, CNIL : les échéances réglementaires deviennent le premier déclencheur des projets de sûreté. Nous les transformons en feuille de route."
+          />
+          <div className="mt-14 grid gap-8 lg:grid-cols-2">
+            {regulatoryTopics.map((topic, index) => (
+              <Reveal delay={index * 0.08} key={topic.slug}>
+                <Link className="group block" href={topic.href}>
+                  <article className="relative flex min-h-[340px] flex-col justify-between overflow-hidden rounded-[20px] p-8 sm:p-10">
+                    <img
+                      alt=""
+                      aria-hidden
+                      className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+                      src={topic.media}
+                    />
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--background-dark))]/95 via-[rgb(var(--background-dark))]/65 to-[rgb(var(--background-dark))]/35"
+                    />
+                    <div className="relative">
+                      <h3 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                        {topic.title}
+                      </h3>
+                      <p className="mt-4 max-w-lg text-sm leading-7 text-slate-200 sm:text-base">
+                        {topic.description}
+                      </p>
+                    </div>
+                    <p className="relative mt-8 flex items-center gap-2 text-sm font-medium text-white">
+                      {topic.linkLabel}
+                      <ArrowUpRight className="cta-arrow h-4 w-4" />
+                    </p>
+                  </article>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

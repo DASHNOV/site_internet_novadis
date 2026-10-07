@@ -19,13 +19,59 @@ URL de base      : https://novadis.eu
 
 ## Homepage
 
+### Structure de la page (ordre des sections)
+```
+1.  Hero
+2.  Métriques clés (StatRow)
+3.  Références clients
+4.  Partenaires (ticker)
+5.  Architecture — schéma interactif
+6.  Vos enjeux (6 cartes)
+7.  Solutions
+8.  Secteurs — carrousel horizontal
+9.  Méthode — 3 piliers + 4 étapes
+10. Les sujets du moment (réglementation)
+11. À propos + différenciateurs
+12. CTA de fin de page
+```
+> ✅ Fusions validées le 07/10/2026 :
+> - "Trois temps qui structurent…" + "De l'étude à la maintenance…" → section Méthode.
+>   Le titre "De l'étude à la maintenance, une discipline d'exploitation" et sa
+>   phrase d'intro ne sont plus affichés nulle part. Les livrables restent sur /services.
+> - "Ouverte, évolutive, utile à la décision" → les 4 différenciateurs passent
+>   dans À propos ; ce titre n'est plus affiché.
+
+### Schéma d'architecture interactif
+```
+Couches (bas → haut) : Terrain · Réseau IP Sûreté · Postes opérateurs
+Terrain              : Contrôle d'accès · Intrusion · Vidéosurveillance · Intégrations
+Réseau IP Sûreté     : IT & Infrastructure (serveurs)
+Postes opérateurs    : Supervision globale · Analyse d'image
+Légende              : Architecture de principe · Réseau IP Sûreté Novadis
+```
+> ⚠️ Libellés des couches repris du texte alternatif de l'ancienne image — à valider.
+> La fiche sous le schéma reprend titre, produit et résumé de chaque solution.
+
 ### Hero
 ```
-Titre principal  : [à confirmer depuis le code]
-Sous-titre       : [à confirmer]
-CTA principal    : Nous contacter
-CTA secondaire   : Découvrir nos solutions
+Eyebrow          : Créateur de solutions globales de sûreté
+Titre principal  : Protégez vos sites, vos équipes et vos données
+Sous-titre       : Novadis conçoit, intègre et maintient des systèmes de sûreté [...]
+CTA principal    : Prendre contact
+CTA secondaire   : Découvrir les solutions
+Fond             : photo Casino de Monaco (référence client) + légende "site
+                   protégé par Novadis" — remplace la vidéo "Terre" (la vidéo
+                   corporate testée est un plan interview, inadaptée en fond)
+Badges           : Conforme ANSSI · Norme NFA2P · CNIL biométrie (sous les CTA)
 ```
+> ⚠️ Nouveau H1 orienté promesse client (benchmark Genetec "Protéger le quotidien").
+> L'ancien titre "Créateur de solutions globales de sûreté" passe en eyebrow.
+> Le hashtag #DetailsMakeTheDifference a été retiré du hero. À valider.
+
+### Références clients (nouvelle section homepage)
+> ⚠️ Les 3 références phares (CHU Montpellier, Casino de Monaco, Bourse de
+> Commerce) sont désormais affichées sur la homepage. Vérifier que Novadis a
+> le droit de citer ces clients publiquement.
 
 ### Métriques clés (StatRow)
 ```
@@ -41,6 +87,34 @@ CTA secondaire   : Découvrir nos solutions
 1. Élaborer    — [description à confirmer]
 2. Convergence — [description à confirmer]
 3. Perspectives — [description à confirmer]
+```
+
+### Vos enjeux (6 cartes — entrée par problème métier)
+
+> ⚠️ Nouveau contenu (inspiration benchmark STid) — à valider avec le directeur.
+
+```
+1. Sortir des consoles en silo            → Supervision globale
+2. Répondre à NIS2 et aux exigences ANSSI → Contrôle d'accès Amadeus
+3. Migrer sans interrompre l'exploitation → Services / méthodologie
+4. Piloter des dizaines de sites          → Secteurs (multi-sites)
+5. Déployer la biométrie dans le cadre CNIL → Intégrations tierces
+6. Réduire la charge opérateur            → Analyse d'image
+```
+
+### Les sujets du moment (2 cartes réglementaires)
+
+> ⚠️ Nouveau contenu — à valider. Vérifier notamment la formulation NIS2
+> (périmètre exact pour les clients Novadis) et le cadre CNIL biométrie.
+
+```
+NIS2             : La directive NIS2 étend les obligations de cybersécurité aux
+                   systèmes de sûreté physique. Novadis conçoit des architectures
+                   conformes ANSSI, segmentées et auditables.
+Biométrie & CNIL : Le cadre CNIL encadre strictement la biométrie sur le lieu de
+                   travail. Novadis déploie réseau veineux et empreinte digitale
+                   dans les règles : finalité justifiée, gabarits maîtrisés,
+                   traçabilité complète.
 ```
 
 ---

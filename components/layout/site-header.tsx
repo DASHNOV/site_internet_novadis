@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { mediaLibrary, navItems } from "@/data/site";
@@ -60,31 +60,46 @@ export function SiteHeader() {
             {navItems.map((item) => {
               const active =
                 pathname === item.href || (item.href !== "/" && pathname.startsWith(`${item.href}/`));
-              return (
+              const link = (
                 <Link
                   className={cn(
-                    "relative px-4 py-2 text-sm font-medium transition",
-                    overDarkHero
-                      ? active
-                        ? "text-white"
-                        : "text-white/75 hover:text-white"
-                      : active
-                        ? "text-foreground-strong"
-                        : "text-foreground hover:text-primary",
+                    "relative flex items-center gap-1.5 px-4 py-2 text-sm font-medium transition",
+                    active ? "text-white" : "text-white/75 hover:text-white",
                   )}
                   href={item.href}
-                  key={item.href}
                 >
                   {item.label}
-                  {active && (
-                    <span
-                      className={cn(
-                        "absolute inset-x-4 -bottom-0.5 h-px",
-                        overDarkHero ? "bg-white" : "bg-primary",
-                      )}
-                    />
+                  {item.children && (
+                    <ChevronDown className="h-3 w-3 opacity-60 transition group-hover:rotate-180" />
                   )}
+                  {active && <span className="absolute inset-x-4 -bottom-0.5 h-px bg-white" />}
                 </Link>
+              );
+              if (!item.children) return <span key={item.href}>{link}</span>;
+              return (
+                <div className="group relative" key={item.href}>
+                  {link}
+                  <div className="invisible absolute left-0 top-full pt-3 opacity-0 transition duration-200 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+                    <div className="min-w-[260px] rounded-2xl border border-white/10 bg-[rgb(11_18_32)]/98 p-2 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.6)] backdrop-blur-xl">
+                      {item.children.map((child, index) => {
+                        const isIndex = child.href === item.href;
+                        return (
+                          <Link
+                            className={cn(
+                              "block rounded-xl px-4 py-2.5 text-sm text-white/75 transition hover:bg-white/5 hover:text-white",
+                              isIndex &&
+                                "mt-2 border-t border-white/10 pt-3 font-medium text-[rgb(var(--primary))] hover:text-[rgb(var(--accent))]",
+                            )}
+                            href={child.href}
+                            key={`${child.href}-${index}`}
+                          >
+                            {child.label}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
               );
             })}
           </nav>
@@ -114,17 +129,34 @@ export function SiteHeader() {
                 const active =
                   pathname === item.href || (item.href !== "/" && pathname.startsWith(`${item.href}/`));
                 return (
-                  <Link
-                    className={cn(
-                      "flex items-center justify-between rounded-2xl border border-[rgba(var(--hairline))] bg-[rgba(var(--card))] px-4 py-3 text-sm",
-                      active && "border-primary/35 text-foreground",
+                  <div key={item.href}>
+                    <Link
+                      className={cn(
+                        "flex items-center justify-between rounded-2xl border border-[rgba(var(--hairline))] bg-[rgba(var(--card))] px-4 py-3 text-sm",
+                        active && "border-primary/35 text-foreground",
+                      )}
+                      href={item.href}
+                    >
+                      {item.label}
+                      <ArrowUpRight className="h-4 w-4 text-muted" />
+                    </Link>
+                    {item.children && (
+                      <div className="mt-1 grid gap-0.5 pl-4">
+                        {item.children
+                          .filter((child) => child.href !== item.href)
+                          .map((child, index) => (
+                            <Link
+                              className="rounded-xl px-4 py-2 text-sm text-white/70"
+                              href={child.href}
+                              key={`${child.href}-${index}`}
+                              onClick={() => setOpen(false)}
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                      </div>
                     )}
-                    href={item.href}
-                    key={item.href}
-                  >
-                    {item.label}
-                    <ArrowUpRight className="h-4 w-4 text-muted" />
-                  </Link>
+                  </div>
                 );
               })}
               <Link className="mt-2" href="/contact">
