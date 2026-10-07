@@ -757,6 +757,26 @@ export const arPreview = {
   usdz: "/novadis/models/axis-q6010-e.usdz",
 };
 
+// Scroll-scrubbed exploded view rendered in Blender (design/3d/novadis-3d-scene.blend).
+// Label anchors are the parts' screen positions on the last frame, as fractions of the image.
+export const axisExplode = {
+  solutionSlug: "video-surveillance",
+  eyebrow: "AXIS Q6010-E",
+  title: "Une caméra, pièce par pièce",
+  description:
+    "Faites défiler pour ouvrir la caméra : quatre capteurs couvrent les alentours, le dôme PTZ vient zoomer sur l'événement.",
+  scrollHint: "Faites défiler",
+  frameCount: 49,
+  framePath: (index: number) => `/novadis/sequences/axis-explode/${String(index).padStart(2, "0")}.webp`,
+  labels: [
+    { label: "Support mural", x: 0.27, y: 0.27, side: "left" },
+    { label: "Capot de protection", x: 0.6, y: 0.23, side: "right" },
+    { label: "Capteurs multidirectionnels (×4)", x: 0.22, y: 0.47, side: "left" },
+    { label: "Bulle de protection", x: 0.55, y: 0.57, side: "right" },
+    { label: "Dôme PTZ", x: 0.55, y: 0.9, side: "right" },
+  ] satisfies { label: string; x: number; y: number; side: "left" | "right" }[],
+};
+
 // Scroll-driven 3D story on /solutions: an alarm travels from the field to the operators.
 export const alarmJourney = {
   eyebrow: "Architecture",

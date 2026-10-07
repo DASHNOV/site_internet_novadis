@@ -230,6 +230,21 @@ Intro    : eyebrow "Architecture" + titre "L'architecture compte autant que les 
 
 ---
 
+## Solution Vidéosurveillance — vue éclatée AXIS Q6010-E
+
+```
+Eyebrow     : AXIS Q6010-E
+Titre       : Une caméra, pièce par pièce
+Texte       : Faites défiler pour ouvrir la caméra : quatre capteurs couvrent les alentours,
+              le dôme PTZ vient zoomer sur l'événement.
+Étiquettes  : Support mural · Capot de protection · Capteurs multidirectionnels (×4)
+              · Bulle de protection · Dôme PTZ
+```
+> ⚠️ Nouveaux textes à valider, notamment la description technique (rôle des capteurs
+> et du PTZ) avec la fiche produit Axis. Rendu Blender : design/3d/novadis-3d-scene.blend.
+
+---
+
 ## Réalité augmentée (mobile)
 
 ```

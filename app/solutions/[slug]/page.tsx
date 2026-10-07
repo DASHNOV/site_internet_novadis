@@ -9,7 +9,8 @@ import { Reveal } from "@/components/motion/reveal";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { Button } from "@/components/ui/button";
-import { getSolution, solutions } from "@/data/site";
+import { AxisExplode } from "@/components/motion/axis-explode";
+import { axisExplode, getSolution, solutions } from "@/data/site";
 
 type Params = Promise<{ slug: string }>;
 
@@ -56,6 +57,12 @@ export default async function SolutionDetailPage({ params }: { params: Params })
           Retour aux solutions
         </Link>
       </section>
+
+      {slug === axisExplode.solutionSlug && (
+        <div className="mt-16">
+          <AxisExplode />
+        </div>
+      )}
 
       <section className="shell-wide pt-16">
         <div className="grid gap-14 border-t border-[rgba(var(--hairline-strong))] pt-14 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-16">
