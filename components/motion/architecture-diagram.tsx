@@ -225,7 +225,7 @@ export function ArchitectureDiagram({ caption, label }: { caption: string; label
         {architectureLayers.map((layer, index) => {
           const z = LAYER_Z[layer.id];
           return (
-            <motion.g key={layer.id} {...layerGroup(index)}>
+            <motion.g data-reveal key={layer.id} {...layerGroup(index)}>
               {layer.id === "core" && (
                 <Links activeSlug={activeSlug} routes={routes.filter((r) => fieldSlugs.has(r.slug))} />
               )}

@@ -44,6 +44,7 @@ export function Reveal({ children, className, delay = 0, y = 22 }: RevealProps) 
     <motion.div
       animate={state === "hidden" ? { opacity: 0, y } : { opacity: 1, y: 0 }}
       className={cn(className)}
+      data-reveal
       initial={false}
       ref={ref}
       transition={

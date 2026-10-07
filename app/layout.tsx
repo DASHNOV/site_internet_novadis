@@ -63,6 +63,10 @@ export default function RootLayout({
       <body
         className={`${roboto.variable} ${oxygen.variable} ${jetbrains.variable} font-sans antialiased`}
       >
+        {/* Scroll-reveal content is server-rendered hidden; show it when JS never runs. */}
+        <noscript>
+          <style>{"[data-reveal]{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
         {children}
       </body>
     </html>
