@@ -76,7 +76,8 @@ export const mediaLibrary = {
   aboutBanner: "/novadis/images/about-banner.jpg",
   articleBanner: "/novadis/images/article-banner.jpg",
   articleVisual: "/novadis/images/article-1.png",
-  presentVideo: "https://novadis.eu/wp-content/uploads/2022/02/Export-Novadis-Compresse.mp4?_=1",
+  presentVideo: "/novadis/videos/salle-supervision.mp4",
+  presentVideoPoster: "/novadis/images/stock/salle-supervision-poster.webp",
   // Banque d'images libres de droit — sources et licences dans docs/CONTENT.md
   stockControlRoom: "/novadis/images/stock/salle-supervision.webp",
   stockBiometrics: "/novadis/images/stock/biometrie-empreinte.webp",
@@ -375,7 +376,7 @@ export const solutions: Solution[] = [
     media: {
       kind: "video",
       src: mediaLibrary.presentVideo,
-      poster: mediaLibrary.homepageVisual,
+      poster: mediaLibrary.presentVideoPoster,
       alt: "Intégrations Novadis",
     },
   },

@@ -65,7 +65,7 @@ public/novadis/   Assets statiques (images, vidéos)
 ## Ce qu'il ne faut pas toucher (démo)
 
 - `/legal` et `/privacy` : placeholders volontaires pour l'instant
-- Les videos : hébergées sur `novadis.eu/wp-content/uploads/` — lien temporaire à ne pas modifier
+- Les videos : `public/novadis/videos/` (vidéo Pexels libre de droit, remplace depuis le 07/10/2026 le lien `novadis.eu` de 84 Mo — sources dans `docs/CONTENT.md`)
 - Le formulaire de contact : non fonctionnel, affiché uniquement pour la démo
 
 ## Ce que je dois éviter

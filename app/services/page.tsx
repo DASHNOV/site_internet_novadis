@@ -30,7 +30,7 @@ export default function ServicesPage() {
           caption="Démonstration · Services Novadis"
           className="aspect-[16/11]"
           kind="video"
-          poster={mediaLibrary.homepageVisual}
+          poster={mediaLibrary.presentVideoPoster}
           src={mediaLibrary.presentVideo}
         />
       </PageHero>

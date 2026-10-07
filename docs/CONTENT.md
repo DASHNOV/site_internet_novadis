@@ -222,8 +222,11 @@ fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent 
 | `images/stock/salle-supervision.webp` | Solution Supervision globale | [Unsplash TtMKq3lJm-U](https://unsplash.com/photos/TtMKq3lJm-U) | [Licence Unsplash](https://unsplash.com/license) |
 | `images/stock/camera-videosurveillance.webp` | Solution Analyse d'image | [Unsplash pDtgBIGa0cM](https://unsplash.com/photos/pDtgBIGa0cM) | [Licence Unsplash](https://unsplash.com/license) |
 | `images/stock/biometrie-empreinte.webp` | Homepage — carte Biométrie & CNIL | [Unsplash SRFG7iwktDk](https://unsplash.com/photos/SRFG7iwktDk) | [Licence Unsplash](https://unsplash.com/license) |
+| `videos/salle-supervision.mp4` + `images/stock/salle-supervision-poster.webp` | /services, solution Intégrations | [Pexels 38779100](https://www.pexels.com/video/38779100/) — Kiwi and Camera | [Licence Pexels](https://www.pexels.com/license/) |
 | `hdri/potsdamer_platz_1k.hdr` | Éclairage du modèle 3D (/solutions) | [Poly Haven](https://polyhaven.com/a/potsdamer_platz) | [CC0](https://polyhaven.com/license) |
 
+> ⚠️ La vidéo montre un vrai centre de gestion du trafic (pas un client Novadis) :
+> à présenter comme une ambiance, jamais comme une référence.
 > ⚠️ Ce sont des visuels d'illustration, pas des installations Novadis. À remplacer
 > par des photos de chantiers réels dès que possible.
 > ⚠️ Textes alternatifs mis à jour pour décrire les nouvelles images :
