@@ -212,6 +212,20 @@ Adresse  : 14-16 Rue Clément Bayard, 92300 Levallois-Perret
 
 ---
 
+## Page Solutions — parcours 3D "de l'alarme au poste opérateur"
+
+Section pilotée au scroll, placée sous le hero. Aucun nouveau texte : elle réutilise
+```
+Intro    : eyebrow "Architecture" + titre "L'architecture compte autant que les équipements"
+Étape 1  : Terrain            → Vidéosurveillance (titre, produit, résumé)
+Étape 2  : Réseau IP Sûreté   → IT & Infrastructure
+Étape 3  : Postes opérateurs  → Supervision globale (écran en alarme rouge)
+```
+> Sans WebGL ou avec "réduire les animations", les 3 étapes s'affichent en cartes statiques.
+> ⚠️ Le titre d'intro est aussi utilisé sur la homepage (section Architecture) — à varier ?
+
+---
+
 ## Crédits médias (ressources libres de droit)
 
 Usage commercial autorisé, attribution non obligatoire. Interdit : revendre les

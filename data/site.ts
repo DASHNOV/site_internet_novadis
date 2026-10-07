@@ -749,6 +749,17 @@ export const architectureLayers: ArchitectureLayer[] = [
   },
 ];
 
+// Scroll-driven 3D story on /solutions: an alarm travels from the field to the operators.
+export const alarmJourney = {
+  eyebrow: "Architecture",
+  title: "L'architecture compte autant que les équipements",
+  steps: [
+    { layer: "field", slug: "video-surveillance" },
+    { layer: "core", slug: "it-infrastructure" },
+    { layer: "operators", slug: "supervision" },
+  ] satisfies { layer: ArchitectureLayer["id"]; slug: string }[],
+};
+
 export function getSolution(slug: string) {
   return solutions.find((solution) => solution.slug === slug);
 }

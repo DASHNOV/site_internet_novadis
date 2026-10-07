@@ -8,6 +8,7 @@ import { PartnerCloud } from "@/components/sections/partner-cloud";
 import { Reveal } from "@/components/motion/reveal";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { AlarmJourney } from "@/components/three/alarm-journey";
 import { SolutionsHeroModel } from "@/components/three/solutions-hero-model";
 import { Button } from "@/components/ui/button";
 import { solutions } from "@/data/site";
@@ -29,6 +30,8 @@ export default function SolutionsPage() {
       >
         <SolutionsHeroModel className="aspect-[16/11]" />
       </PageHero>
+
+      <AlarmJourney />
 
       <section className="shell-wide pt-16">
         <div className="flex flex-col">
