@@ -7,7 +7,7 @@ import { useReducedMotion } from "framer-motion";
 import type { Group } from "three";
 import { cn } from "@/lib/utils";
 
-const MODEL_PATH = "/novadis/models/security-camera.glb";
+const MODEL_PATH = "/novadis/models/axis-q6010-e.glb";
 
 function CameraModel({ autoRotate }: { autoRotate: boolean }) {
   const { scene } = useGLTF(MODEL_PATH);
@@ -20,7 +20,8 @@ function CameraModel({ autoRotate }: { autoRotate: boolean }) {
   });
 
   return (
-    <group ref={group}>
+    // The wall plate is on the model's +Z side: start turned so the dome faces the viewer.
+    <group ref={group} rotation={[0, Math.PI, 0]}>
       <Center>
         <primitive object={scene} />
       </Center>
@@ -39,7 +40,7 @@ export function SolutionsHeroModel({ className }: SolutionsHeroModelProps) {
 
   return (
     <div className={cn("relative overflow-hidden bg-[rgb(var(--background-elevated))]", className)}>
-      <Canvas camera={{ position: [3, 1.6, 3.6], fov: 35 }} dpr={[1, 1.75]} gl={{ alpha: true, antialias: true }}>
+      <Canvas camera={{ position: [3.2, -0.4, 3.4], fov: 35 }} dpr={[1, 1.75]} gl={{ alpha: true, antialias: true }}>
         <Suspense fallback={null}>
           <ambientLight intensity={0.7} />
           <directionalLight intensity={1.5} position={[4, 6, 4]} />

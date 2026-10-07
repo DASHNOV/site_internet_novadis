@@ -6,7 +6,7 @@ import { Center, Environment, Html, useGLTF } from "@react-three/drei";
 import type { MotionValue } from "framer-motion";
 import * as THREE from "three";
 
-const MODEL_PATH = "/novadis/models/security-camera.glb";
+const MODEL_PATH = "/novadis/models/axis-q6010-e.glb";
 const RACK_PATH = "/novadis/models/server-rack.glb";
 const ROOM_PATH = "/novadis/models/control-room.glb";
 const FLOOR = -1.4;
@@ -44,7 +44,7 @@ const CHASE_OFFSET = new THREE.Vector3(-0.6, 1.4, 3.2);
 // Keyframe 0 is the overview; keyframes 1..3 frame each station in story order.
 const KEYFRAMES = [
   { position: [7.6, 6.2, 17], target: [7.6, -0.4, 0] },
-  { position: [2.4, 1.3, 4.4], target: [0, 0.2, 0] },
+  { position: [2.3, -0.5, 4.2], target: [0, -0.15, 0] },
   { position: [9.3, 0.7, 3.6], target: [7, -0.3, -1] },
   { position: [13.1, 1.9, 6.6], target: [14, -0.2, 0] },
 ].map((k) => ({ position: new THREE.Vector3(...k.position), target: new THREE.Vector3(...k.target) }));
@@ -84,22 +84,31 @@ function CameraRig({ progress }: { progress: MotionValue<number> }) {
   return null;
 }
 
+const PILLAR = { width: 0.9, depth: 0.5 };
+
+// AXIS Q6010-E (Sketchfab, CC-BY ArtOfSylr), wall-mounted on a pillar.
 function SecurityCamera() {
   const { scene } = useGLTF(MODEL_PATH);
   // The hero on the same page renders this GLB too: a scene object can only live in one canvas.
   const model = useMemo(() => scene.clone(true), [scene]);
-  const scale = useMemo(() => {
+  const { scale, wallZ } = useMemo(() => {
     const size = new THREE.Box3().setFromObject(model).getSize(new THREE.Vector3());
-    return 2.2 / Math.max(size.x, size.y, size.z);
+    const s = 2 / Math.max(size.x, size.y, size.z);
+    // The wall plate sits on the model's +Z side; once turned to face the camera it is at -Z.
+    return { scale: s, wallZ: -(size.z / 2) * s - PILLAR.depth / 2 };
   }, [model]);
 
   return (
     <group position={STATIONS.field}>
-      <group scale={scale}>
+      <group rotation={[0, Math.PI, 0]} scale={scale}>
         <Center>
           <primitive object={model} />
         </Center>
       </group>
+      <mesh position={[0, (FLOOR + 3) / 2, wallZ]}>
+        <boxGeometry args={[PILLAR.width, 3 - FLOOR, PILLAR.depth]} />
+        <meshStandardMaterial color="#1a2333" envMapIntensity={0.3} metalness={0.1} roughness={0.85} />
+      </mesh>
     </group>
   );
 }
@@ -254,7 +263,7 @@ export function AlarmJourneyScene({ progress, activeStep, hotspots }: AlarmJourn
       </Suspense>
       <SignalPath active={activeStep >= 1} curve={FIELD_TO_CORE} />
       <SignalPath active={activeStep >= 2} curve={CORE_TO_OPERATORS} />
-      <Hotspot position={new THREE.Vector3(0.3, 0.6, 0.4)} visible={activeStep === 1} {...hotspots[0]} />
+      <Hotspot position={new THREE.Vector3(0.15, -0.55, 0.55)} visible={activeStep === 1} {...hotspots[0]} />
       <Hotspot position={new THREE.Vector3(7.2, 0.15, -0.45)} visible={activeStep === 2} {...hotspots[1]} />
       <Hotspot position={new THREE.Vector3(14, -0.16, 0.05)} visible={activeStep === 3} {...hotspots[2]} />
       <CameraRig progress={progress} />

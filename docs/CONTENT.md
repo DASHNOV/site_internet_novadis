@@ -238,10 +238,13 @@ fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent 
 | `images/stock/biometrie-empreinte.webp` | Homepage — carte Biométrie & CNIL | [Unsplash SRFG7iwktDk](https://unsplash.com/photos/SRFG7iwktDk) | [Licence Unsplash](https://unsplash.com/license) |
 | `videos/salle-supervision.mp4` + `images/stock/salle-supervision-poster.webp` | /services, solution Intégrations | [Pexels 38779100](https://www.pexels.com/video/38779100/) — Kiwi and Camera | [Licence Pexels](https://www.pexels.com/license/) |
 | `models/server-rack.glb`, `models/control-room.glb` | Parcours 3D (/solutions) | Modélisés pour Novadis dans Blender (textures d'écran générées) | Propriété Novadis |
+| `models/axis-q6010-e.glb` | Hero /solutions + parcours 3D (étape Terrain) | ["AXIS-Q6010-E Surveillance Camera"](https://sketchfab.com/3d-models/axis-q6010-e-surveillance-camera-143e552bde554ea2aaa72664efab003e) par ArtOfSylr — dôme en verre fumé pour le web | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — **crédit obligatoire** |
 | `hdri/potsdamer_platz_1k.hdr` | Éclairage du modèle 3D (/solutions) | [Poly Haven](https://polyhaven.com/a/potsdamer_platz) | [CC0](https://polyhaven.com/license) |
 
 > ⚠️ La vidéo montre un vrai centre de gestion du trafic (pas un client Novadis) :
 > à présenter comme une ambiance, jamais comme une référence.
+> ⚠️ Licence CC BY : le crédit "AXIS-Q6010-E Surveillance Camera par ArtOfSylr (CC BY 4.0)"
+> doit être visible sur le site (ex. mentions légales / crédits) avant la mise en ligne.
 > ⚠️ Ce sont des visuels d'illustration, pas des installations Novadis. À remplacer
 > par des photos de chantiers réels dès que possible.
 > ⚠️ Textes alternatifs mis à jour pour décrire les nouvelles images :
