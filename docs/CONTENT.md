@@ -212,6 +212,26 @@ Adresse  : 14-16 Rue Clément Bayard, 92300 Levallois-Perret
 
 ---
 
+## Crédits médias (ressources libres de droit)
+
+Usage commercial autorisé, attribution non obligatoire. Interdit : revendre les
+fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent Novadis.
+
+| Fichier (`public/novadis/…`) | Utilisé sur | Source | Licence |
+|---|---|---|---|
+| `images/stock/salle-supervision.webp` | Solution Supervision globale | [Unsplash TtMKq3lJm-U](https://unsplash.com/photos/TtMKq3lJm-U) | [Licence Unsplash](https://unsplash.com/license) |
+| `images/stock/camera-videosurveillance.webp` | Solution Analyse d'image | [Unsplash pDtgBIGa0cM](https://unsplash.com/photos/pDtgBIGa0cM) | [Licence Unsplash](https://unsplash.com/license) |
+| `images/stock/biometrie-empreinte.webp` | Homepage — carte Biométrie & CNIL | [Unsplash SRFG7iwktDk](https://unsplash.com/photos/SRFG7iwktDk) | [Licence Unsplash](https://unsplash.com/license) |
+| `hdri/potsdamer_platz_1k.hdr` | Éclairage du modèle 3D (/solutions) | [Poly Haven](https://polyhaven.com/a/potsdamer_platz) | [CC0](https://polyhaven.com/license) |
+
+> ⚠️ Ce sont des visuels d'illustration, pas des installations Novadis. À remplacer
+> par des photos de chantiers réels dès que possible.
+> ⚠️ Textes alternatifs mis à jour pour décrire les nouvelles images :
+> Supervision → "Opérateur face à un mur d'écrans de supervision",
+> Analyse d'image → "Caméra de vidéosurveillance fixée sur un mur".
+
+---
+
 ## À compléter / valider
 
 - [ ] Textes hero homepage exacts

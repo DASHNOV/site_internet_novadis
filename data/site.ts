@@ -77,7 +77,10 @@ export const mediaLibrary = {
   articleBanner: "/novadis/images/article-banner.jpg",
   articleVisual: "/novadis/images/article-1.png",
   presentVideo: "https://novadis.eu/wp-content/uploads/2022/02/Export-Novadis-Compresse.mp4?_=1",
-  imgSecurityOps: "/novadis/images/convergence.webp",
+  // Banque d'images libres de droit — sources et licences dans docs/CONTENT.md
+  stockControlRoom: "/novadis/images/stock/salle-supervision.webp",
+  stockBiometrics: "/novadis/images/stock/biometrie-empreinte.webp",
+  stockCamera: "/novadis/images/stock/camera-videosurveillance.webp",
   // Images produits spécifiques Novadis
   productAmadeus: "/novadis/images/amadeus8.jpg",
   productGalaxy: "/novadis/images/honeywell-galaxy.jpg",
@@ -124,8 +127,8 @@ export const solutions: Solution[] = [
     ],
     media: {
       kind: "image",
-      src: mediaLibrary.imgSecurityOps,
-      alt: "Poste de supervision globale Novadis",
+      src: mediaLibrary.stockControlRoom,
+      alt: "Opérateur face à un mur d'écrans de supervision",
     },
     docs: [
       { label: "Serveur OCB", href: "/novadis/documents/fiches/srv-ocb.pdf" },
@@ -333,8 +336,8 @@ export const solutions: Solution[] = [
     ],
     media: {
       kind: "image",
-      src: mediaLibrary.imgSecurityOps,
-      alt: "Salle de supervision et analyse vidéo Novadis",
+      src: mediaLibrary.stockCamera,
+      alt: "Caméra de vidéosurveillance fixée sur un mur",
     },
   },
   {
@@ -625,7 +628,7 @@ export const regulatoryTopics: RegulatoryTopic[] = [
       "Le cadre CNIL encadre strictement la biométrie sur le lieu de travail. Novadis déploie réseau veineux et empreinte digitale dans les règles : finalité justifiée, gabarits maîtrisés, traçabilité complète.",
     href: "/solutions/smart-integrations",
     linkLabel: "Lire la suite",
-    media: mediaLibrary.peopleVisual,
+    media: mediaLibrary.stockBiometrics,
   },
 ];
 

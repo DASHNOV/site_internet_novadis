@@ -46,7 +46,8 @@ export function SolutionsHeroModel({ className }: SolutionsHeroModelProps) {
           <Bounds fit clip observe margin={1.3}>
             <CameraModel autoRotate={!dragging} />
           </Bounds>
-          <Environment preset="city" />
+          {/* Self-hosted copy of drei's "city" preset (Poly Haven, CC0): no runtime fetch from GitHub. */}
+          <Environment files="/novadis/hdri/potsdamer_platz_1k.hdr" />
           <OrbitControls
             enablePan={false}
             enableZoom={false}
