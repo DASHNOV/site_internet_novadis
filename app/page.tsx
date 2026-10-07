@@ -13,6 +13,7 @@ import { ArchitectureDiagram } from "@/components/motion/architecture-diagram";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
 import { PartnerCloud } from "@/components/sections/partner-cloud";
+import { SectorsRail } from "@/components/sections/sectors-rail";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/sections/section-heading";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -127,54 +128,6 @@ export default function HomePage() {
       <StatRow />
       <PartnerCloud />
 
-      {/* PILLARS — fond gris doux */}
-      <section className="section-soft py-32 lg:py-40">
-        <div className="shell-wide">
-          <SectionHeading
-            eyebrow="Notre signature"
-            title={
-              <>
-                Trois temps qui structurent
-                <br />
-                chaque projet de sûreté
-              </>
-            }
-            description="Nos clients ne cherchent pas une brique technique, mais un partenaire capable de cadrer, faire converger et inscrire la sûreté dans la durée."
-          />
-          <div className="mt-16 grid gap-8 lg:grid-cols-3">
-            {pillars.map((pillar, index) => {
-              const Icon = pillarIcons[index] ?? Compass;
-              return (
-                <Reveal delay={index * 0.08} key={pillar.title}>
-                  <article className="panel h-full p-8">
-                    <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-primary">
-                      {`0${index + 1} / 03`}
-                    </span>
-                    <div className="mt-5 flex h-12 w-12 items-center justify-center rounded-xl border border-primary/30 bg-primary/10 text-primary">
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <h3 className="mt-6 font-display text-2xl font-semibold tracking-tight text-foreground-strong">
-                      {pillar.title}
-                    </h3>
-                    <p className="mt-3 text-base leading-7 text-muted-strong">{pillar.description}</p>
-                    <div className="mt-6 flex flex-wrap gap-2">
-                      {pillar.points.map((point) => (
-                        <span
-                          className="rounded-full border border-[rgba(var(--hairline-strong))] px-3 py-1.5 text-xs text-foreground"
-                          key={point}
-                        >
-                          {point}
-                        </span>
-                      ))}
-                    </div>
-                  </article>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* CONVERGENCE NARRATIVE — fond blanc */}
       <section className="py-32 lg:py-40">
         <div className="shell-wide">
@@ -244,120 +197,88 @@ export default function HomePage() {
             eyebrow="Secteurs"
             title="Des systèmes adaptés à la logique réelle de chaque environnement"
           />
-          <div className="mt-14 grid gap-x-8 gap-y-14 md:grid-cols-2 xl:grid-cols-4">
-            {industries.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <Reveal delay={index * 0.06} key={item.slug}>
-                  <article className="group flex h-full flex-col">
-                    <div className="relative aspect-[4/5] overflow-hidden rounded-[20px]">
-                      <img
-                        alt={item.title}
-                        className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
-                        src={item.media}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                      <div className="absolute left-5 top-5 flex h-10 w-10 items-center justify-center rounded-xl border border-white/30 bg-black/40 backdrop-blur">
-                        <Icon className="h-4 w-4 text-white" />
-                      </div>
-                      <div className="absolute inset-x-5 bottom-5">
-                        <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/80">
-                          {`Secteur 0${index + 1}`}
-                        </p>
-                        <h3 className="mt-2 font-display text-xl font-semibold tracking-tight text-white">
-                          {item.title}
-                        </h3>
-                      </div>
-                    </div>
-                    <p className="mt-5 text-sm leading-7 text-muted-strong">{item.summary}</p>
-                  </article>
-                </Reveal>
-              );
-            })}
+          <div className="mt-10">
+            <SectorsRail />
           </div>
         </div>
       </section>
 
-      {/* METHODOLOGY — section dark feature, contraste fort */}
+      {/* MÉTHODE — piliers + étapes du projet, fond sombre */}
       <section className="section-dark py-32 lg:py-40">
         <div className="shell-wide">
-          <div className="grid gap-16 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1fr)]">
-            <Reveal className="max-w-xl">
-              <p className="eyebrow">Services</p>
-              <h2 className="section-title mt-6 text-balance text-4xl sm:text-6xl lg:text-[3.75rem]">
-                De l&apos;étude à la maintenance, une discipline d&apos;exploitation
-              </h2>
-              <p className="mt-8 text-base leading-7 text-slate-300 sm:text-lg">
-                Les environnements complexes exigent plus qu&apos;une installation. Ils demandent rigueur, coordination
-                et logique de maintenabilité.
-              </p>
-              <Link className="mt-10 inline-block" href="/services">
+          <SectionHeading
+            eyebrow="Notre signature"
+            title={
+              <>
+                Trois temps qui structurent
+                <br />
+                chaque projet de sûreté
+              </>
+            }
+            description="Nos clients ne cherchent pas une brique technique, mais un partenaire capable de cadrer, faire converger et inscrire la sûreté dans la durée."
+            actions={
+              <Link href="/services">
                 <Button
                   className="border-white/30 bg-white/5 text-white hover:border-white/60 hover:text-white"
-                  size="lg"
+                  size="default"
                   variant="outline"
                 >
                   Voir la méthodologie
                   <ArrowUpRight className="cta-arrow h-4 w-4" />
                 </Button>
               </Link>
-            </Reveal>
-            <div className="space-y-0">
-              {processSteps.map((item, index) => (
-                <Reveal delay={index * 0.07} key={item.step}>
-                  <div className="grid gap-6 border-t border-white/12 py-8 sm:grid-cols-[100px_minmax(0,1fr)] sm:items-start">
-                    <div className="font-display text-3xl font-bold text-primary sm:text-4xl">{item.step}</div>
-                    <div>
-                      <h3 className="font-display text-xl font-semibold tracking-tight text-white">
-                        {item.title}
-                      </h3>
-                      <p className="mt-3 text-base leading-7 text-slate-300">{item.description}</p>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {item.deliverables.map((deliverable) => (
-                          <span
-                            className="rounded-full border border-white/20 px-3 py-1.5 text-xs text-slate-200"
-                            key={deliverable}
-                          >
-                            {deliverable}
-                          </span>
-                        ))}
+            }
+          />
+          <div className="mt-16 grid gap-6 lg:grid-cols-3">
+            {pillars.map((pillar, index) => {
+              const Icon = pillarIcons[index] ?? Compass;
+              return (
+                <Reveal delay={index * 0.08} key={pillar.title}>
+                  <article className="h-full rounded-[20px] border border-white/12 bg-white/[0.04] p-8">
+                    <div className="flex items-center justify-between">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-primary/40 bg-primary/10 text-primary">
+                        <Icon className="h-5 w-5" />
                       </div>
+                      <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-primary">
+                        {`0${index + 1} / 03`}
+                      </span>
                     </div>
-                  </div>
+                    <h3 className="mt-6 font-display text-2xl font-semibold tracking-tight text-white">
+                      {pillar.title}
+                    </h3>
+                    <p className="mt-3 text-base leading-7 text-slate-300">{pillar.description}</p>
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      {pillar.points.map((point) => (
+                        <span className="rounded-full border border-white/20 px-3 py-1.5 text-xs text-slate-200" key={point}>
+                          {point}
+                        </span>
+                      ))}
+                    </div>
+                  </article>
                 </Reveal>
-              ))}
-              <div className="border-t border-white/12" />
-            </div>
+              );
+            })}
           </div>
+
+          <Reveal className="mt-20">
+            <p className="eyebrow">Services</p>
+          </Reveal>
+          <ol className="mt-8 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+            {processSteps.map((item, index) => (
+              <li className="border-t border-white/12 pt-6" key={item.step}>
+                <Reveal delay={index * 0.07}>
+                  <p className="font-display text-3xl font-bold text-primary">{item.step}</p>
+                  <h3 className="mt-4 font-display text-xl font-semibold tracking-tight text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-300">{item.description}</p>
+                </Reveal>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      {/* DIFFERENTIATORS — fond blanc */}
+      {/* ABOUT + différenciateurs — fond blanc */}
       <section className="py-32 lg:py-40">
-        <div className="shell-wide">
-          <div className="grid gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-            <Reveal>
-              <p className="eyebrow">Ce qui distingue Novadis</p>
-              <h2 className="section-title mt-6 text-balance text-4xl sm:text-6xl lg:text-[3.75rem]">
-                Ouverte, évolutive, utile à la décision
-              </h2>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
-                {differentiators.map((item) => (
-                  <div className="flex items-start gap-3 border-t border-[rgba(var(--hairline))] pt-5" key={item}>
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-none text-primary" />
-                    <p className="text-base leading-7 text-foreground">{item}</p>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ABOUT — fond gris doux */}
-      <section className="section-soft py-32 lg:py-40">
         <div className="shell-wide">
           <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center">
             <Reveal>
@@ -378,6 +299,14 @@ export default function HomePage() {
                 Novadis combine expertise infrastructure, expérience terrain et discipline d&apos;intégration pour
                 livrer des systèmes que les équipes peuvent exploiter durablement, pas seulement valider sur le papier.
               </p>
+              <ul className="mt-10 grid gap-x-8 gap-y-5 sm:grid-cols-2">
+                {differentiators.map((item) => (
+                  <li className="flex items-start gap-3 border-t border-[rgba(var(--hairline))] pt-4" key={item}>
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-none text-primary" />
+                    <p className="text-sm leading-6 text-foreground">{item}</p>
+                  </li>
+                ))}
+              </ul>
               <blockquote className="mt-10 border-l-2 border-primary pl-6">
                 <p className="text-base leading-7 text-foreground">
                   «&nbsp;L&apos;Homme et sa sécurité doivent constituer la première préoccupation de toute aventure
