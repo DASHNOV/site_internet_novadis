@@ -703,7 +703,7 @@ function Bloom({ compact }: { compact: boolean }) {
   return null;
 }
 
-type CameraRigProps = { progress: MotionValue<number>; time: { current: number }; compact: boolean; city: City };
+type CameraRigProps = { progress: MotionValue<number>; time: { current: number }; compact: boolean; city: City; skipIntro: boolean };
 
 // Opening shot: skim an avenue at street level, rise along the control tower, then climb to the orbit.
 const INTRO_DURATION = 8;
@@ -721,7 +721,7 @@ function introPath(city: City) {
   ]);
 }
 
-function CameraRig({ progress, time, compact, city }: CameraRigProps) {
+function CameraRig({ progress, time, compact, city, skipIntro }: CameraRigProps) {
   const { camera, pointer } = useThree();
   const path = useMemo(() => introPath(city), [city]);
   const v = useMemo(
@@ -754,7 +754,7 @@ function CameraRig({ progress, time, compact, city }: CameraRigProps) {
     v.right.set(Math.cos(angle), 0, -Math.sin(angle)).multiplyScalar(compact ? 0 : -FRAME_SHIFT);
     v.orbitTarget.set(0, 1, 0).add(v.right);
 
-    const u = THREE.MathUtils.clamp(t / INTRO_DURATION, 0, 1);
+    const u = skipIntro ? 1 : THREE.MathUtils.clamp(t / INTRO_DURATION, 0, 1);
     const handoff = THREE.MathUtils.smoothstep(u, INTRO_HANDOFF, 1);
     if (u < 1) {
       const s = THREE.MathUtils.smoothstep(Math.min(u / INTRO_HANDOFF, 1), 0, 1);
@@ -793,7 +793,7 @@ function CameraRig({ progress, time, compact, city }: CameraRigProps) {
   return null;
 }
 
-function Scene({ progress, compact, onReady }: CityHeroSceneProps) {
+function Scene({ progress, compact, onReady, skipIntro }: CityHeroSceneProps) {
   const city = useMemo(() => generateCity(compact ? 22 : 30), [compact]);
   const time = useRef(0);
   const textures = useTexture(TEXTURES);
@@ -823,7 +823,7 @@ function Scene({ progress, compact, onReady }: CityHeroSceneProps) {
       <ControlCenter time={time} />
       <Devices city={city} time={time} />
       <Links city={city} time={time} />
-      <CameraRig city={city} compact={compact} progress={progress} time={time} />
+      <CameraRig city={city} compact={compact} progress={progress} skipIntro={skipIntro} time={time} />
       <Bloom compact={compact} />
     </>
   );
@@ -833,6 +833,8 @@ type CityHeroSceneProps = {
   progress: MotionValue<number>;
   compact: boolean;
   onReady: () => void;
+  /** Start straight in orbit (the street-level opening already played this visit). */
+  skipIntro: boolean;
 };
 
 export function CityHeroScene(props: CityHeroSceneProps) {
