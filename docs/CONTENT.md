@@ -243,6 +243,7 @@ fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent 
 | `videos/salle-supervision.mp4` + `images/stock/salle-supervision-poster.webp` | /services, solution Intégrations | [Pexels 38779100](https://www.pexels.com/video/38779100/) — Kiwi and Camera | [Licence Pexels](https://www.pexels.com/license/) |
 | `models/server-rack.glb`, `models/control-room.glb` | Parcours 3D (/solutions) | Modélisés pour Novadis dans Blender (textures d'écran générées) | Propriété Novadis |
 | `models/axis-q6010-e.glb` | Hero /solutions + parcours 3D (étape Terrain) | ["AXIS-Q6010-E Surveillance Camera"](https://sketchfab.com/3d-models/axis-q6010-e-surveillance-camera-143e552bde554ea2aaa72664efab003e) par ArtOfSylr — dôme en verre fumé pour le web | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — **crédit obligatoire** |
+| `textures/city/*.webp` (façades, toits, asphalte) | Hero 3D de la homepage | Poly Haven : [concrete_tile_facade](https://polyhaven.com/a/concrete_tile_facade), [brick_wall_09](https://polyhaven.com/a/brick_wall_09), [gravel_embedded_concrete](https://polyhaven.com/a/gravel_embedded_concrete), [aerial_asphalt_01](https://polyhaven.com/a/aerial_asphalt_01) — atlas de fenêtres généré pour Novadis | [CC0](https://polyhaven.com/license) |
 | `hdri/potsdamer_platz_1k.hdr` | Éclairage du modèle 3D (/solutions) | [Poly Haven](https://polyhaven.com/a/potsdamer_platz) | [CC0](https://polyhaven.com/license) |
 
 > ⚠️ La vidéo montre un vrai centre de gestion du trafic (pas un client Novadis) :

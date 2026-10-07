@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useReducedMotion, useScroll } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -27,6 +27,7 @@ export function CityHero({ children }: { children: React.ReactNode }) {
   const [compact, setCompact] = useState(false);
   const [ready, setReady] = useState(false);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const handleReady = useCallback(() => setReady(true), []);
 
   useEffect(() => {
     setEnabled(!reduceMotion && webglAvailable());
@@ -38,7 +39,7 @@ export function CityHero({ children }: { children: React.ReactNode }) {
       <div className={cn("absolute inset-0 transition-opacity duration-1000", ready && "opacity-0")}>{children}</div>
       {enabled && (
         <div className={cn("absolute inset-0 transition-opacity duration-1000", ready ? "opacity-100" : "opacity-0")}>
-          <CityHeroScene compact={compact} onReady={() => setReady(true)} progress={scrollYProgress} />
+          <CityHeroScene compact={compact} onReady={handleReady} progress={scrollYProgress} />
         </div>
       )}
     </div>
