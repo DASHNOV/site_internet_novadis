@@ -93,6 +93,7 @@ export function AlarmJourney() {
   const reduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const near = useInView(sectionRef, { once: true, margin: "800px 0px" });
+  const onScreen = useInView(sectionRef);
   const [mode, setMode] = useState<"pending" | "interactive" | "static">("pending");
   const [activeStep, setActiveStep] = useState(0);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
@@ -113,6 +114,7 @@ export function AlarmJourney() {
         <div className="absolute inset-0">
           {near && mode === "interactive" && (
             <AlarmJourneyScene
+              active={onScreen}
               activeStep={activeStep}
               hotspots={[
                 { label: steps[0].solution.shortTitle, sublabel: steps[0].solution.product },

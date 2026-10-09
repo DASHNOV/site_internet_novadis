@@ -1,8 +1,8 @@
 "use client";
 
-import { Suspense, useMemo, useRef } from "react";
+import { Suspense, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Center, Environment, Html, useGLTF } from "@react-three/drei";
+import { Center, Environment, Html, PerformanceMonitor, useGLTF } from "@react-three/drei";
 import type { MotionValue } from "framer-motion";
 import * as THREE from "three";
 
@@ -243,11 +243,20 @@ type AlarmJourneySceneProps = {
   progress: MotionValue<number>;
   activeStep: number;
   hotspots: [HotspotLabel, HotspotLabel, HotspotLabel];
+  /** Render only while the section is on screen. */
+  active: boolean;
 };
 
-export function AlarmJourneyScene({ progress, activeStep, hotspots }: AlarmJourneySceneProps) {
+export function AlarmJourneyScene({ progress, activeStep, hotspots, active }: AlarmJourneySceneProps) {
+  const [degraded, setDegraded] = useState(false);
   return (
-    <Canvas camera={{ fov: 38, position: KEYFRAMES[0].position.toArray() }} dpr={[1, 1.6]} gl={{ antialias: true }}>
+    <Canvas
+      camera={{ fov: 38, position: KEYFRAMES[0].position.toArray() }}
+      dpr={degraded ? 1 : [1, 1.6]}
+      frameloop={active ? "always" : "never"}
+      gl={{ antialias: true }}
+    >
+      <PerformanceMonitor onDecline={() => setDegraded(true)} />
       <color args={[BACKGROUND]} attach="background" />
       <fog args={[BACKGROUND, 10, 34]} attach="fog" />
       <ambientLight intensity={0.35} />

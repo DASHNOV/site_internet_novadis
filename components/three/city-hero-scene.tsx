@@ -1,8 +1,8 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useRef } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useTexture } from "@react-three/drei";
+import { PerformanceMonitor, useTexture } from "@react-three/drei";
 import type { MotionValue } from "framer-motion";
 import * as THREE from "three";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
@@ -682,7 +682,7 @@ function Links({ city, time }: { city: City; time: { current: number } }) {
 }
 
 // Bloom from three's own examples (no extra package): bright lights bleed like at night.
-function Bloom({ compact }: { compact: boolean }) {
+function Bloom({ compact, enabled }: { compact: boolean; enabled: boolean }) {
   const { gl, scene, camera, size } = useThree();
   const composer = useMemo(() => {
     const c = new EffectComposer(gl);
@@ -698,6 +698,10 @@ function Bloom({ compact }: { compact: boolean }) {
     composer.setSize(size.width, size.height);
   }, [composer, gl, size]);
   useEffect(() => () => composer.dispose(), [composer]);
+  // Pass 1 is the bloom; the output pass stays on so tone mapping is unchanged without it.
+  useEffect(() => {
+    composer.passes[1].enabled = enabled;
+  }, [composer, enabled]);
 
   useFrame((_, delta) => composer.render(delta), 1);
   return null;
@@ -743,7 +747,8 @@ function CameraRig({ progress, time, compact, city, skipIntro }: CameraRigProps)
   const started = useRef(false);
 
   useFrame((_, delta) => {
-    time.current += delta;
+    // Clamped: after a pause (scene off screen) the first delta would jump the animations.
+    time.current += Math.min(delta, 0.1);
     const t = time.current;
 
     // Slow orbit around the city, nudged by the pointer.
@@ -793,7 +798,7 @@ function CameraRig({ progress, time, compact, city, skipIntro }: CameraRigProps)
   return null;
 }
 
-function Scene({ progress, compact, onReady, skipIntro }: CityHeroSceneProps) {
+function Scene({ progress, compact, onReady, skipIntro, degraded }: CityHeroSceneProps & { degraded: boolean }) {
   const city = useMemo(() => generateCity(compact ? 22 : 30), [compact]);
   const time = useRef(0);
   const textures = useTexture(TEXTURES);
@@ -824,7 +829,7 @@ function Scene({ progress, compact, onReady, skipIntro }: CityHeroSceneProps) {
       <Devices city={city} time={time} />
       <Links city={city} time={time} />
       <CameraRig city={city} compact={compact} progress={progress} skipIntro={skipIntro} time={time} />
-      <Bloom compact={compact} />
+      <Bloom compact={compact} enabled={!degraded} />
     </>
   );
 }
@@ -835,21 +840,27 @@ type CityHeroSceneProps = {
   onReady: () => void;
   /** Start straight in orbit (the street-level opening already played this visit). */
   skipIntro: boolean;
+  /** Render only while the hero is on screen. */
+  active: boolean;
 };
 
 export function CityHeroScene(props: CityHeroSceneProps) {
+  // One-way: once the machine struggles, stay on the lighter settings instead of flip-flopping.
+  const [degraded, setDegraded] = useState(false);
   return (
     <Canvas
       camera={{ fov: 40, position: [12, 10.5, 14] }}
-      dpr={[1, props.compact ? 1.4 : 1.75]}
+      dpr={degraded ? 1 : [1, props.compact ? 1.4 : 1.75]}
+      frameloop={props.active ? "always" : "never"}
       gl={{ antialias: true, powerPreference: "high-performance" }}
     >
+      <PerformanceMonitor onDecline={() => setDegraded(true)} />
       <color args={[BACKGROUND]} attach="background" />
       <fog args={[BACKGROUND, FOG.near, FOG.far]} attach="fog" />
       <ambientLight intensity={0.35} />
       <directionalLight color="#9fb8ff" intensity={0.5} position={[6, 10, 4]} />
       <Suspense fallback={null}>
-        <Scene {...props} />
+        <Scene {...props} degraded={degraded} />
       </Suspense>
     </Canvas>
   );

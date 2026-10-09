@@ -76,6 +76,7 @@ export function BadgeDoor() {
   const reduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const near = useInView(sectionRef, { once: true, margin: "800px 0px" });
+  const onScreen = useInView(sectionRef);
   const [mode, setMode] = useState<"pending" | "interactive" | "static">("pending");
   const [eventShown, setEventShown] = useState(false);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
@@ -91,7 +92,7 @@ export function BadgeDoor() {
   return (
     <section className="section-dark relative h-[350vh]" ref={sectionRef}>
       <div className="sticky top-0 h-screen overflow-hidden">
-        <div className="absolute inset-0">{near && mode === "interactive" && <BadgeDoorScene progress={scrollYProgress} />}</div>
+        <div className="absolute inset-0">{near && mode === "interactive" && <BadgeDoorScene active={onScreen} progress={scrollYProgress} />}</div>
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[rgb(var(--background-dark))]/95 via-[rgb(var(--background-dark))]/20 to-transparent lg:bg-gradient-to-r lg:from-[rgb(var(--background-dark))]/90 lg:via-[rgb(var(--background-dark))]/30" />
 
         <div className="shell-wide relative flex h-full flex-col justify-between pb-16 pt-28 lg:pb-24">

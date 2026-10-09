@@ -1,8 +1,8 @@
 "use client";
 
-import { Suspense, useMemo, useRef } from "react";
+import { Suspense, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Environment, useGLTF } from "@react-three/drei";
+import { Environment, PerformanceMonitor, useGLTF } from "@react-three/drei";
 import type { MotionValue } from "framer-motion";
 import * as THREE from "three";
 import { BEATS } from "@/components/three/badge-door-beats";
@@ -105,9 +105,16 @@ function CameraRig({ progress }: { progress: MotionValue<number> }) {
   return null;
 }
 
-export function BadgeDoorScene({ progress }: { progress: MotionValue<number> }) {
+export function BadgeDoorScene({ progress, active }: { progress: MotionValue<number>; active: boolean }) {
+  const [degraded, setDegraded] = useState(false);
   return (
-    <Canvas camera={{ fov: 40, position: [2.4, 1.5, 3.9] }} dpr={[1, 1.75]} gl={{ antialias: true }}>
+    <Canvas
+      camera={{ fov: 40, position: [2.4, 1.5, 3.9] }}
+      dpr={degraded ? 1 : [1, 1.75]}
+      frameloop={active ? "always" : "never"}
+      gl={{ antialias: true }}
+    >
+      <PerformanceMonitor onDecline={() => setDegraded(true)} />
       <color args={[BACKGROUND]} attach="background" />
       <fog args={[BACKGROUND, 4, 11]} attach="fog" />
       <ambientLight intensity={0.35} />

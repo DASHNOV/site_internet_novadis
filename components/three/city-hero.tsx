@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useReducedMotion, useScroll } from "framer-motion";
+import { useInView, useReducedMotion, useScroll } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const CityHeroScene = dynamic(() => import("@/components/three/city-hero-scene").then((m) => m.CityHeroScene), {
@@ -44,6 +44,7 @@ export function CityHero({ children }: { children: React.ReactNode }) {
   const introPlayed = useRef<boolean | null>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const handleReady = useCallback(() => setReady(true), []);
+  const onScreen = useInView(ref);
 
   useEffect(() => {
     const on = !reduceMotion && webglAvailable();
@@ -60,7 +61,7 @@ export function CityHero({ children }: { children: React.ReactNode }) {
       <div className={cn("absolute inset-0 transition-opacity duration-1000", ready && "opacity-0")}>{children}</div>
       {enabled && (
         <div className={cn("absolute inset-0 transition-opacity duration-1000", ready ? "opacity-100" : "opacity-0")}>
-          <CityHeroScene compact={compact} onReady={handleReady} progress={scrollYProgress} skipIntro={skipIntro} />
+          <CityHeroScene compact={compact} onReady={handleReady} active={onScreen} progress={scrollYProgress} skipIntro={skipIntro} />
         </div>
       )}
     </div>

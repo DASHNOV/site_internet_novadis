@@ -30,7 +30,13 @@ type SolutionsHeroModelProps = {
 export function SolutionsHeroModel({ className }: SolutionsHeroModelProps) {
   return (
     <div className={cn("relative overflow-hidden bg-[rgb(var(--background-elevated))]", className)}>
-      <Canvas camera={{ position: [3.2, -0.4, 3.4], fov: 35 }} dpr={[1, 1.75]} gl={{ alpha: true, antialias: true }}>
+      {/* Static until dragged: render on demand (OrbitControls invalidates on change). */}
+      <Canvas
+        camera={{ position: [3.2, -0.4, 3.4], fov: 35 }}
+        dpr={[1, 1.75]}
+        frameloop="demand"
+        gl={{ alpha: true, antialias: true }}
+      >
         <Suspense fallback={null}>
           <ambientLight intensity={0.7} />
           <directionalLight intensity={1.5} position={[4, 6, 4]} />
@@ -41,6 +47,7 @@ export function SolutionsHeroModel({ className }: SolutionsHeroModelProps) {
           <Environment files="/novadis/hdri/potsdamer_platz_1k.hdr" />
           {/* Bounded so the visitor keeps a view of the dome: no top-down flip, never the wall plate. */}
           <OrbitControls
+            enableDamping={false}
             enablePan={false}
             enableZoom={false}
             makeDefault
