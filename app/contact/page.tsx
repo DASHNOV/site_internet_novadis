@@ -58,11 +58,11 @@ export default function ContactPage() {
         <MediaStage>
           <MediaFrame
             priority
-            alt="Novadis · article visual"
+            alt="Réunion de cadrage autour d'une table dans un bureau"
             caption="Échanges directs · cadrage projet sous 48h"
             className="aspect-[16/11]"
             kind="image"
-            src={mediaLibrary.articleVisual}
+            src={mediaLibrary.stockMeeting}
           />
         </MediaStage>
       </PageHero>

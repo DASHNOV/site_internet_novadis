@@ -73,19 +73,20 @@ export const mediaLibrary = {
   convergenceVisual: "/novadis/images/convergence.png",
   perspectiveVisual: "/novadis/images/perspective.png",
   peopleVisual: "/novadis/images/people.webp",
-  aboutBanner: "/novadis/images/about-banner.jpg",
   articleBanner: "/novadis/images/article-banner.jpg",
-  articleVisual: "/novadis/images/article-1.png",
   presentVideo: "/novadis/videos/salle-supervision.mp4",
   presentVideoPoster: "/novadis/images/stock/salle-supervision-poster.webp",
   // Banque d'images libres de droit — sources et licences dans docs/CONTENT.md
   stockControlRoom: "/novadis/images/stock/salle-supervision.webp",
   stockBiometrics: "/novadis/images/stock/biometrie-empreinte.webp",
   stockCamera: "/novadis/images/stock/camera-videosurveillance.webp",
+  stockCameraMast: "/novadis/images/stock/mat-cameras.webp",
+  stockAccessKeypad: "/novadis/images/stock/clavier-acces.webp",
+  stockDatacenter: "/novadis/images/stock/datacenter.webp",
+  stockEngineering: "/novadis/images/stock/etude-plan.webp",
+  stockMeeting: "/novadis/images/stock/reunion-projet.webp",
   // Images produits spécifiques Novadis
   productAmadeus: "/novadis/images/amadeus8.jpg",
-  productGalaxy: "/novadis/images/honeywell-galaxy.jpg",
-  productOcularis: "/novadis/images/cognyfy.jpg",
   productServer: "/novadis/images/server_dell.avif",
   architecturePrincipe: "/novadis/images/architecture-principe.webp",
   schemaSolutions: "/novadis/images/schema-solutions.webp",
@@ -258,8 +259,8 @@ export const solutions: Solution[] = [
     ],
     media: {
       kind: "image",
-      src: mediaLibrary.productGalaxy,
-      alt: "Détection intrusion Galaxy Honeywell",
+      src: mediaLibrary.stockAccessKeypad,
+      alt: "Clavier de commande rétroéclairé fixé au mur",
     },
   },
   {
@@ -296,8 +297,8 @@ export const solutions: Solution[] = [
     ],
     media: {
       kind: "image",
-      src: mediaLibrary.productOcularis,
-      alt: "VMS Ocularis Qognify",
+      src: mediaLibrary.stockCameraMast,
+      alt: "Mât équipé de plusieurs caméras de vidéosurveillance",
     },
     docs: [
       { label: "Serveur OCNVR", href: "/novadis/documents/fiches/srv-ocnvr.pdf" },
@@ -620,7 +621,7 @@ export const regulatoryTopics: RegulatoryTopic[] = [
       "La directive NIS2 étend les obligations de cybersécurité aux systèmes de sûreté physique. Novadis conçoit des architectures conformes ANSSI, segmentées et auditables, pour aborder l'échéance sans refonte brutale.",
     href: "/solutions/access-control",
     linkLabel: "Voir notre approche",
-    media: "/novadis/images/secteurs/sites-sensibles.webp",
+    media: mediaLibrary.stockDatacenter,
   },
   {
     slug: "biometrie-cnil",

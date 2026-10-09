@@ -35,11 +35,11 @@ export default function AboutPage() {
         <MediaStage>
           <MediaFrame
             priority
-            alt="Novadis · équipes & expertise"
+            alt="Deux ingénieurs annotent un plan d'implantation"
             caption="Équipes à taille humaine · Levallois-Perret"
             className="aspect-[16/11]"
             kind="image"
-            src={mediaLibrary.aboutBanner}
+            src={mediaLibrary.stockEngineering}
           />
         </MediaStage>
       </PageHero>
