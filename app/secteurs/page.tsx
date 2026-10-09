@@ -23,6 +23,7 @@ export default function SecteursPage() {
         description="La conception de la sûreté change selon qu'il s'agit d'un campus, d'une usine, d'une plateforme logistique ou d'un environnement critique. Novadis adapte l'architecture à la réalité du terrain."
       >
         <MediaFrame
+          priority
           alt={industries[0].title}
           caption="Tertiaire · convergence multi-sites"
           className="aspect-[16/11]"

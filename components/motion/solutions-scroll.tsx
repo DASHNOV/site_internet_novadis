@@ -130,7 +130,7 @@ export function SolutionsScroll({ solutions }: SolutionsScrollProps) {
                     src={solution.media.src}
                   />
                 ) : (
-                  <img
+                  <img loading="lazy"
                     alt={solution.media.alt}
                     className="h-full w-full object-cover"
                     src={solution.media.src}

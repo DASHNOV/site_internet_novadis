@@ -52,6 +52,7 @@ export default function ContactPage() {
         description="Partagez le profil de votre site, vos objectifs de modernisation, vos contraintes ou vos exigences d'intégration. Novadis peut cadrer un projet de site unique comme un environnement multi-sites."
       >
         <MediaFrame
+          priority
           alt="Novadis · article visual"
           caption="Échanges directs · cadrage projet sous 48h"
           className="aspect-[16/11]"

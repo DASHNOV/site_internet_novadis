@@ -57,7 +57,7 @@ function StaticExplode() {
       <div className="shell-wide grid items-center gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <Intro />
         <div className="relative mx-auto aspect-[8/9] w-full max-w-[560px]">
-          <img alt="" className="h-full w-full object-contain" src={axisExplode.framePath(LAST)} />
+          <img loading="lazy" alt="" className="h-full w-full object-contain" src={axisExplode.framePath(LAST)} />
           <Labels visible />
         </div>
       </div>
@@ -126,7 +126,7 @@ export function AxisExplode() {
           <Intro />
           <div className="relative mx-auto aspect-[8/9] w-full max-w-[min(560px,70vh)]">
             {/* First frame as poster until the sequence is ready (and for no-JS visitors). */}
-            <img
+            <img loading="lazy"
               alt=""
               className={cn("absolute inset-0 h-full w-full object-contain transition-opacity", loaded && "opacity-0")}
               src={axisExplode.framePath(0)}

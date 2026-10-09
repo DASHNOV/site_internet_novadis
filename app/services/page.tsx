@@ -26,6 +26,7 @@ export default function ServicesPage() {
         description="Nos services couvrent l'ensemble du cycle de vie : audit, conception, déploiement, maintenance et formation. L'objectif : protéger la qualité de déploiement, limiter les surprises lors des mises en service et préserver la maintenabilité à long terme."
       >
         <MediaFrame
+          priority
           alt="Présentation Novadis"
           caption="Démonstration · Services Novadis"
           className="aspect-[16/11]"

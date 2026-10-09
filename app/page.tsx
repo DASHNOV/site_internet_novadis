@@ -172,7 +172,7 @@ export default function HomePage() {
                   <article className="flex h-full flex-col">
                     <TiltCard className="rounded-[20px]">
                       <div className="relative aspect-[16/11] overflow-hidden rounded-[20px]">
-                        <img
+                        <img loading="lazy"
                           alt={reference.name}
                           className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
                           src={reference.image}
@@ -413,7 +413,7 @@ export default function HomePage() {
               <Reveal delay={index * 0.08} key={topic.slug}>
                 <Link className="group block" href={topic.href}>
                   <article className="relative flex min-h-[340px] flex-col justify-between overflow-hidden rounded-[20px] p-8 sm:p-10">
-                    <img
+                    <img loading="lazy"
                       alt=""
                       aria-hidden
                       className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"

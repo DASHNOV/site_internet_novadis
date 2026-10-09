@@ -10,7 +10,7 @@ type MediaFrameProps = {
   caption?: string;
 };
 
-export function MediaFrame({ kind, src, alt, poster, className, caption }: MediaFrameProps) {
+export function MediaFrame({ kind, src, alt, poster, className, caption, priority }: MediaFrameProps) {
   return (
     <figure
       className={cn(
@@ -31,6 +31,7 @@ export function MediaFrame({ kind, src, alt, poster, className, caption }: Media
       ) : (
         <img
           alt={alt}
+          loading={priority ? undefined : "lazy"}
           className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.02]"
           src={src}
         />

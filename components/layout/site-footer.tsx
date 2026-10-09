@@ -10,7 +10,7 @@ export function SiteFooter() {
         <div className="grid gap-12 py-16 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)]">
           <div>
             <Link className="inline-flex items-center" href="/">
-              <img alt="Novadis" className="h-9 w-auto object-contain" src={mediaLibrary.logoDark} />
+              <img loading="lazy" alt="Novadis" className="h-9 w-auto object-contain" src={mediaLibrary.logoDark} />
             </Link>
             <p className="mt-6 max-w-sm text-base leading-7 text-white/70">
               Créateur de solutions globales de sûreté. De l&apos;infrastructure informatique à

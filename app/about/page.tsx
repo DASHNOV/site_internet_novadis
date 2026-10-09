@@ -25,6 +25,7 @@ export default function AboutPage() {
         description="Novadis s'adresse aux organisations qui ont besoin de systèmes capables de fonctionner durablement, en conditions réelles d'exploitation, entre plusieurs équipes et sur plusieurs années."
       >
         <MediaFrame
+          priority
           alt="Novadis · équipes & expertise"
           caption="Équipes à taille humaine · Levallois-Perret"
           className="aspect-[16/11]"

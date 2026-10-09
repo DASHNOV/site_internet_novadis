@@ -41,6 +41,7 @@ export default async function SolutionDetailPage({ params }: { params: Params })
       <SiteHeader />
       <PageHero eyebrow={solution.product || "Solution Novadis"} title={solution.title} description={solution.intro}>
         <MediaFrame
+          priority
           alt={solution.media.alt}
           className="aspect-[16/11]"
           kind={solution.media.kind}
