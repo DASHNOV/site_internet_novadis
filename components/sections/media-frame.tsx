@@ -37,10 +37,10 @@ export function MediaFrame({ kind, src, alt, poster, className, caption, priorit
         />
       )}
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-transparent to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-night/60 via-transparent to-transparent" />
 
       {caption && (
-        <figcaption className="absolute bottom-5 left-5 right-5 font-mono text-[11px] uppercase tracking-[0.22em] text-foreground-strong drop-shadow-sm">
+        <figcaption className="absolute bottom-5 left-5 right-5 text-xs font-semibold text-white drop-shadow-sm">
           {caption}
         </figcaption>
       )}

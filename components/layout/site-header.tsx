@@ -12,7 +12,6 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const overDarkHero = true;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -28,7 +27,8 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-white/10 bg-[rgb(11_18_32)]/95 backdrop-blur-xl transition-all duration-300",
+        "sticky top-0 z-50 border-b backdrop-blur-xl transition-all duration-300",
+        scrolled ? "border-hairline bg-white/85 shadow-soft" : "border-transparent bg-background/70",
       )}
     >
       <div className="shell-wide">
@@ -36,21 +36,11 @@ export function SiteHeader() {
           <Link className="group flex items-center gap-3" href="/">
             <img
               alt="Novadis"
-              className="h-8 w-auto object-contain brightness-0 invert transition group-hover:opacity-90 lg:h-9"
-              src={mediaLibrary.logoDark}
+              className="h-6 w-auto object-contain transition group-hover:opacity-80 lg:h-7"
+              src={mediaLibrary.logo}
             />
-            <div
-              className={cn(
-                "hidden border-l pl-3 xl:block",
-                overDarkHero ? "border-white/20" : "border-[rgba(var(--hairline-strong))]",
-              )}
-            >
-              <p
-                className={cn(
-                  "font-mono text-[10px] uppercase tracking-[0.28em]",
-                  overDarkHero ? "text-white/70" : "text-muted",
-                )}
-              >
+            <div className="hidden border-l border-hairline-strong pl-3 xl:block">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-strong">
                 Solutions globales de sûreté
               </p>
             </div>
@@ -63,8 +53,10 @@ export function SiteHeader() {
               const link = (
                 <Link
                   className={cn(
-                    "relative flex items-center gap-1.5 px-4 py-2 text-sm font-medium transition",
-                    active ? "text-white" : "text-white/75 hover:text-white",
+                    "relative flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition",
+                    active
+                      ? "text-primary-strong"
+                      : "text-foreground hover:bg-primary/5 hover:text-foreground-strong",
                   )}
                   href={item.href}
                 >
@@ -72,7 +64,7 @@ export function SiteHeader() {
                   {item.children && (
                     <ChevronDown className="h-3 w-3 opacity-60 transition group-hover:rotate-180" />
                   )}
-                  {active && <span className="absolute inset-x-4 -bottom-0.5 h-px bg-white" />}
+                  {active && <span className="absolute inset-x-4 -bottom-0.5 h-0.5 rounded-full bg-brand-gradient" />}
                 </Link>
               );
               if (!item.children) return <span key={item.href}>{link}</span>;
@@ -80,15 +72,14 @@ export function SiteHeader() {
                 <div className="group relative" key={item.href}>
                   {link}
                   <div className="invisible absolute left-0 top-full pt-3 opacity-0 transition duration-200 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                    <div className="min-w-[260px] rounded-2xl border border-white/10 bg-[rgb(11_18_32)]/98 p-2 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.6)] backdrop-blur-xl">
+                    <div className="min-w-[260px] rounded-xl border border-hairline bg-surface p-2 shadow-lift">
                       {item.children.map((child, index) => {
                         const isIndex = child.href === item.href;
                         return (
                           <Link
                             className={cn(
-                              "block rounded-xl px-4 py-2.5 text-sm text-white/75 transition hover:bg-white/5 hover:text-white",
-                              isIndex &&
-                                "mt-2 border-t border-white/10 pt-3 font-medium text-[rgb(var(--primary))] hover:text-[rgb(var(--accent))]",
+                              "block rounded-lg px-4 py-2.5 text-sm text-foreground transition hover:bg-primary/5 hover:text-primary-strong",
+                              isIndex && "mt-2 border-t border-hairline pt-3 font-semibold text-primary-strong",
                             )}
                             href={child.href}
                             key={`${child.href}-${index}`}
@@ -113,7 +104,8 @@ export function SiteHeader() {
             </Link>
             <button
               aria-label="Menu"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(var(--hairline-strong))] bg-[rgba(var(--card))] text-foreground lg:hidden"
+              aria-expanded={open}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-surface text-foreground-strong shadow-soft lg:hidden"
               onClick={() => setOpen((value) => !value)}
               type="button"
             >
@@ -123,7 +115,7 @@ export function SiteHeader() {
         </div>
 
         {open && (
-          <nav className="border-t border-[rgba(var(--hairline))] py-4 lg:hidden">
+          <nav className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-hairline py-4 lg:hidden">
             <div className="grid gap-1">
               {navItems.map((item) => {
                 const active =
@@ -132,8 +124,8 @@ export function SiteHeader() {
                   <div key={item.href}>
                     <Link
                       className={cn(
-                        "flex items-center justify-between rounded-2xl border border-[rgba(var(--hairline))] bg-[rgba(var(--card))] px-4 py-3 text-sm",
-                        active && "border-primary/35 text-foreground",
+                        "flex items-center justify-between rounded-xl border border-hairline bg-surface px-4 py-3 text-sm font-medium text-foreground-strong",
+                        active && "border-primary/35 text-primary-strong",
                       )}
                       href={item.href}
                     >
@@ -146,7 +138,7 @@ export function SiteHeader() {
                           .filter((child) => child.href !== item.href)
                           .map((child, index) => (
                             <Link
-                              className="rounded-xl px-4 py-2 text-sm text-white/70"
+                              className="rounded-lg px-4 py-2 text-sm text-muted-strong hover:text-primary-strong"
                               href={child.href}
                               key={`${child.href}-${index}`}
                               onClick={() => setOpen(false)}

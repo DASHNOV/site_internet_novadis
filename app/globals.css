@@ -1,31 +1,43 @@
 @import "tailwindcss";
 
+/*
+ * Corporate Trust × charte Novadis.
+ * Les bleus de la charte remplacent l'indigo/violet du style : ombres teintées,
+ * dégradés bleu profond → bleu vif, surfaces blanches sur fond froid.
+ */
 :root {
-  --background: 255 255 255;
+  --background: 248 250 252;            /* #F8FAFC — fond froid */
   --background-elevated: 255 255 255;
-  --background-soft: 250 250 250;       /* #FAFAFA — gris très clair charte */
-  --background-dark: 11 18 32;
+  --background-soft: 238 245 251;       /* #EEF5FB — bleu très clair pour sections alternées */
+  --background-dark: 11 18 32;          /* #0B1220 — nuit (scènes 3D) */
+  --night: 6 43 68;                     /* #062B44 — bleu nuit dérivé de #0570A4 */
   --surface: 255 255 255;
   --foreground: 54 53 53;               /* #363535 — gris foncé charte */
-  --foreground-strong: 30 29 29;        /* near-black chaud */
-  --muted: 155 155 155;                 /* #9B9B9B — Gris Novadis */
-  --muted-strong: 110 110 110;          /* #6E6E6E — gris moyen charte */
-  --hairline: 54 53 53 / 0.08;
-  --hairline-strong: 54 53 53 / 0.14;
+  --foreground-strong: 30 29 29;
+  --muted: 155 155 155;                 /* #9B9B9B — Gris Novadis (décoratif uniquement) */
+  --muted-strong: 100 100 100;          /* #646464 — texte secondaire, AA sur fond clair */
+  --hairline: 226 232 240 / 1;          /* #E2E8F0 */
+  --hairline-strong: 203 213 225 / 1;   /* #CBD5E1 */
   --card: 255 255 255 / 1;
   --card-strong: 255 255 255 / 1;
-  --primary: 54 164 217;                /* #36A4D9 — bleu vif Novadis */
-  --primary-strong: 18 145 206;         /* #1291CE — bleu profond */
-  --primary-deep: 5 112 164;            /* #0570A4 — bleu très foncé */
-  --accent: 90 188 235;                 /* #5ABCEB — bleu moyen */
-  --glow: 129 207 245;                  /* #81CFF5 — bleu marque */
-  --shadow: 54 53 53;
+  --primary: 18 145 206;                /* #1291CE — bleu profond Novadis */
+  --primary-strong: 5 112 164;          /* #0570A4 — bleu très foncé, texte sur clair */
+  --primary-deep: 4 78 115;             /* #044E73 */
+  --accent: 54 164 217;                 /* #36A4D9 — bleu vif Novadis */
+  --glow: 129 207 245;                  /* #81CFF5 — bleu marque (point du logo) */
+  --success: 16 185 129;                /* #10B981 */
+  --shadow: 18 145 206;
   --grid: 54 53 53 / 0.04;
+
+  --gradient-brand: linear-gradient(135deg, rgb(var(--primary-strong)) 0%, rgb(var(--primary)) 100%);
+  --gradient-text: linear-gradient(110deg, rgb(var(--primary-strong)) 0%, rgb(var(--primary)) 55%, rgb(var(--accent)) 100%);
+  --gradient-night: linear-gradient(155deg, rgb(var(--night)) 0%, rgb(var(--background-dark)) 75%);
 }
 
 @theme inline {
   --color-background: rgb(var(--background));
   --color-background-elevated: rgb(var(--background-elevated));
+  --color-background-soft: rgb(var(--background-soft));
   --color-surface: rgb(var(--surface));
   --color-foreground: rgb(var(--foreground));
   --color-foreground-strong: rgb(var(--foreground-strong));
@@ -35,9 +47,53 @@
   --color-primary-strong: rgb(var(--primary-strong));
   --color-primary-deep: rgb(var(--primary-deep));
   --color-accent: rgb(var(--accent));
+  --color-glow: rgb(var(--glow));
+  --color-success: rgb(var(--success));
+  --color-night: rgb(var(--night));
+  --color-hairline: rgba(var(--hairline));
+  --color-hairline-strong: rgba(var(--hairline-strong));
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+@theme {
+  --shadow-soft: 0 4px 20px -2px rgb(18 145 206 / 0.1);
+  --shadow-lift: 0 10px 25px -5px rgb(18 145 206 / 0.16), 0 8px 10px -6px rgb(18 145 206 / 0.1);
+  --shadow-cta: 0 4px 14px 0 rgb(18 145 206 / 0.32);
+  --shadow-cta-hover: 0 8px 22px -2px rgb(18 145 206 / 0.42);
+  --shadow-glow: 0 0 20px rgb(18 145 206 / 0.5);
+  --shadow-float: 0 24px 50px -12px rgb(5 112 164 / 0.28);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-breathe: breathe 4s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes breathe {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 0.85; }
+  }
+}
+
+@utility bg-brand-gradient {
+  background-image: var(--gradient-brand);
+}
+
+@utility bg-night-gradient {
+  background-image: var(--gradient-night);
+}
+
+@utility text-gradient {
+  background-image: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 * {
@@ -54,7 +110,7 @@ body {
   min-height: 100vh;
   background: rgb(var(--background));
   color: rgb(var(--foreground));
-  letter-spacing: -0.005em;
+  line-height: 1.65;
 }
 
 main {
@@ -62,12 +118,35 @@ main {
   z-index: 1;
 }
 
+/* Rythme vertical : 64 → 80 → 96px */
+.section-y {
+  padding-block: 4rem;
+}
+
+@media (min-width: 640px) {
+  .section-y {
+    padding-block: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-y {
+    padding-block: 6rem;
+  }
+}
+
 .section-soft {
-  background: rgb(var(--background-soft));
+  background: linear-gradient(
+    180deg,
+    rgb(var(--background)) 0%,
+    rgb(var(--background-soft)) 14%,
+    rgb(var(--background-soft)) 86%,
+    rgb(var(--background)) 100%
+  );
 }
 
 .section-dark {
-  background: rgb(var(--background-dark));
+  background: var(--gradient-night);
   color: rgb(248 250 255);
 }
 
@@ -91,93 +170,112 @@ main {
   color: rgb(148 163 184) !important;
 }
 
-.section-dark .eyebrow {
-  color: rgb(125 211 252);
+.section-dark .text-gradient {
+  background-image: linear-gradient(110deg, rgb(var(--glow)) 0%, rgb(var(--accent)) 100%);
 }
 
-.section-dark .eyebrow::before {
-  background: rgb(125 211 252);
+.section-dark .eyebrow {
+  color: rgb(var(--glow));
+  background: rgb(255 255 255 / 0.06);
+  border-color: rgb(255 255 255 / 0.14);
 }
 
 a,
 button {
   transition:
-    color 200ms ease,
-    border-color 200ms ease,
-    background-color 200ms ease,
-    transform 200ms ease,
-    box-shadow 200ms ease,
-    opacity 200ms ease;
+    color 200ms ease-out,
+    border-color 200ms ease-out,
+    background-color 200ms ease-out,
+    transform 200ms ease-out,
+    box-shadow 200ms ease-out,
+    opacity 200ms ease-out;
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--primary));
+  outline-offset: 2px;
 }
 
 ::selection {
-  background: rgba(var(--primary), 0.22);
+  background: rgb(var(--primary) / 0.18);
   color: rgb(var(--foreground-strong));
 }
 
-.shell {
-  width: min(1240px, calc(100vw - 32px));
-  margin-inline: auto;
-}
-
+.shell,
 .shell-wide {
-  width: min(1380px, calc(100vw - 32px));
+  width: min(1280px, calc(100% - 32px));
   margin-inline: auto;
 }
 
 .shell-narrow {
-  width: min(960px, calc(100vw - 32px));
+  width: min(960px, calc(100% - 32px));
   margin-inline: auto;
+}
+
+@media (min-width: 640px) {
+  .shell,
+  .shell-wide {
+    width: min(1280px, calc(100% - 48px));
+  }
+
+  .shell-narrow {
+    width: min(960px, calc(100% - 48px));
+  }
 }
 
 .panel {
   background: rgba(var(--card));
   border: 1px solid rgba(var(--hairline));
-  box-shadow:
-    0 1px 2px -1px rgba(var(--shadow), 0.04),
-    0 12px 32px -16px rgba(var(--shadow), 0.10);
-  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  border-radius: 12px;
 }
 
 .panel-strong {
   background: rgba(var(--card-strong));
   border-color: rgba(var(--hairline-strong));
-  box-shadow:
-    0 1px 2px -1px rgba(var(--shadow), 0.05),
-    0 24px 60px -28px rgba(var(--shadow), 0.16);
+  box-shadow: var(--shadow-lift);
 }
 
 .divider {
   height: 1px;
   width: 100%;
-  background: rgba(var(--hairline-strong));
+  background: rgba(var(--hairline));
 }
 
 .section-title {
   font-family: var(--font-display);
   font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.05;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
   color: rgb(var(--foreground-strong));
 }
 
+/* Pastille d'en-tête de section : point lumineux + libellé */
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 11px;
+  gap: 0.55rem;
+  padding: 0.35rem 0.85rem 0.35rem 0.7rem;
+  border: 1px solid rgb(var(--primary) / 0.18);
+  border-radius: 999px;
+  background: rgb(var(--primary) / 0.07);
+  font-family: var(--font-sans);
+  font-size: 12px;
   font-weight: 600;
+  line-height: 1.2;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
-  color: rgb(var(--primary));
+  letter-spacing: 0.08em;
+  color: rgb(var(--primary-strong));
 }
 
 .eyebrow::before {
   content: "";
-  width: 28px;
-  height: 1px;
-  background: rgb(var(--primary));
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 999px;
+  background: var(--gradient-brand);
+  box-shadow: 0 0 10px rgb(var(--primary) / 0.7);
 }
 
 .lede {
@@ -205,13 +303,21 @@ button {
 }
 
 .cta-arrow {
-  transition: transform 220ms ease;
+  transition: transform 200ms ease-out;
 }
 
 .group:hover .cta-arrow,
 a:hover .cta-arrow,
 button:hover .cta-arrow {
-  transform: translateX(3px);
+  transform: translateX(4px);
+}
+
+/* Halos d'arrière-plan */
+.blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(64px);
+  pointer-events: none;
 }
 
 @keyframes ticker {
@@ -223,14 +329,53 @@ button:hover .cta-arrow {
   animation: ticker 38s linear infinite;
 }
 
+/* Socle isométrique : la carte se redresse au survol */
+.iso-stage {
+  perspective: 2000px;
+}
+
+.iso-card {
+  transform: rotateX(5deg) rotateY(-12deg);
+  transform-style: preserve-3d;
+  transition: transform 500ms ease-out;
+}
+
+.iso-stage:hover .iso-card {
+  transform: rotateX(2deg) rotateY(-8deg);
+}
+
+.iso-card-reverse {
+  transform: rotateX(4deg) rotateY(8deg);
+}
+
+.iso-stage:hover .iso-card-reverse {
+  transform: rotateX(2deg) rotateY(4deg);
+}
+
+@media (max-width: 1023px) {
+  .iso-card,
+  .iso-card-reverse,
+  .iso-stage:hover .iso-card,
+  .iso-stage:hover .iso-card-reverse {
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .ticker-track {
+  .ticker-track,
+  .animate-float,
+  .animate-breathe {
     animation: none;
+  }
+
+  .iso-card,
+  .iso-card-reverse {
+    transition: none;
   }
 }
 
 .gradient-text {
-  background: linear-gradient(120deg, rgb(var(--foreground-strong)) 0%, rgb(var(--foreground-strong)) 45%, rgb(var(--primary)) 100%);
+  background-image: var(--gradient-text);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -245,11 +390,12 @@ button:hover .cta-arrow {
 }
 
 .kicker {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.22em;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgb(var(--muted));
+  color: rgb(var(--muted-strong));
 }
 
 .link-underline {

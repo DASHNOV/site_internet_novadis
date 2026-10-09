@@ -1,19 +1,20 @@
 import { CountUp } from "@/components/motion/count-up";
 import { Reveal } from "@/components/motion/reveal";
 import { siteMetrics } from "@/data/site";
+import { cn } from "@/lib/utils";
 
-export function StatRow() {
+export function StatRow({ className }: { className?: string }) {
   return (
-    <section className="shell-wide pt-24">
+    <section className={cn("shell-wide relative z-10 pt-16", className)}>
       <Reveal>
-        <div className="grid divide-y divide-[rgba(var(--hairline-strong))] sm:grid-cols-2 sm:divide-y-0 sm:divide-x lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-hairline bg-hairline shadow-lift md:grid-cols-4">
           {siteMetrics.map((stat) => (
-            <div className="flex flex-col gap-2 px-4 py-7 sm:px-8" key={stat.label}>
-              <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-primary">{stat.caption}</p>
-              <p className="font-display text-4xl font-bold tracking-tight text-foreground-strong sm:text-5xl">
+            <div className="flex flex-col gap-1.5 bg-surface px-5 py-7 sm:px-8 sm:py-8" key={stat.label}>
+              <p className="font-display text-3xl font-extrabold tracking-tight text-gradient sm:text-4xl lg:text-[2.75rem]">
                 <CountUp value={stat.value} />
               </p>
-              <p className="text-sm text-muted-strong">{stat.label}</p>
+              <p className="text-sm font-semibold text-foreground-strong">{stat.label}</p>
+              {stat.caption && <p className="text-xs text-muted-strong">{stat.caption}</p>}
             </div>
           ))}
         </div>

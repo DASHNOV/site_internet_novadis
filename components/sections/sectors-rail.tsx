@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { IconBadge } from "@/components/ui/icon-badge";
 import { industries } from "@/data/site";
 
 export function SectorsRail() {
@@ -61,34 +62,34 @@ export function SectorsRail() {
         </Button>
       </div>
       <ul
-        className="mt-6 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="-mx-2 mt-6 flex snap-x snap-mandatory gap-6 overflow-x-auto px-2 pb-6 pt-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         onScroll={updateEdges}
         ref={railRef}
       >
         {industries.map((item, index) => {
           const Icon = item.icon;
           return (
-            <li className="group w-[80%] flex-none snap-start sm:w-[46%] lg:w-[31%] xl:w-[27%]" key={item.slug}>
-              <article className="flex h-full flex-col">
-                <div className="relative aspect-[4/5] overflow-hidden rounded-[20px]">
+            <li className="group w-[82%] flex-none snap-start sm:w-[46%] lg:w-[31%] xl:w-[27%]" key={item.slug}>
+              <article className="flex h-full flex-col overflow-hidden rounded-xl border border-hairline bg-surface shadow-soft transition-all duration-200 ease-out group-hover:-translate-y-1 group-hover:shadow-lift">
+                <div className="relative aspect-[4/3] overflow-hidden">
                   <img
                     alt={item.title}
-                    className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                     loading="lazy"
                     src={item.media}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                  <div className="absolute left-5 top-5 flex h-10 w-10 items-center justify-center rounded-xl border border-white/30 bg-black/40 backdrop-blur">
-                    <Icon className="h-4 w-4 text-white" />
-                  </div>
-                  <div className="absolute inset-x-5 bottom-5">
-                    <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/80">
-                      {`Secteur 0${index + 1}`}
-                    </p>
-                    <h3 className="mt-2 font-display text-xl font-semibold tracking-tight text-white">{item.title}</h3>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-night/60 via-transparent to-transparent" />
+                  <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-primary-strong backdrop-blur">
+                    {`Secteur 0${index + 1}`}
+                  </span>
                 </div>
-                <p className="mt-5 text-sm leading-7 text-muted-strong">{item.summary}</p>
+                <div className="flex flex-1 flex-col p-6">
+                  <div className="flex items-center gap-3">
+                    <IconBadge icon={Icon} size="sm" />
+                    <h3 className="font-display text-lg font-semibold tracking-tight text-foreground-strong">{item.title}</h3>
+                  </div>
+                  <p className="mt-4 text-sm leading-7 text-muted-strong">{item.summary}</p>
+                </div>
               </article>
             </li>
           );

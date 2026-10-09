@@ -64,7 +64,7 @@ export const siteMetrics: Metric[] = [
 ];
 
 export const mediaLibrary = {
-  logo: "/novadis/logos/logo-light.svg",
+  logo: "/novadis/logos/logo-light-wide.svg",
   logoDark: "/novadis/logos/logo-dark.svg",
   heroPrimary: "/novadis/images/poster-1.png",
   heroSecondary: "/novadis/images/poster-2.png",
@@ -799,6 +799,17 @@ export const alarmJourney = {
     { layer: "core", slug: "it-infrastructure" },
     { layer: "operators", slug: "supervision" },
   ] satisfies { layer: ArchitectureLayer["id"]; slug: string }[],
+};
+
+// Visuel « console de supervision » du hero d'accueil.
+export const heroConsole = {
+  title: "Hyperviseur de sûreté",
+  subtitle: "Supervision unifiée · temps réel",
+  status: "Opérationnel",
+  moduleStatus: "Actif",
+  modules: ["supervision", "access-control", "intrusion-detection", "video-surveillance"],
+  badge: "Conforme ANSSI",
+  highlight: "Corrélation multi-systèmes",
 };
 
 export function getSolution(slug: string) {
