@@ -42,10 +42,9 @@ const contactCards = [
 ];
 
 const inputClass =
-  "w-full border-0 border-b border-[rgba(var(--hairline-strong))] bg-transparent px-0 py-3 text-base text-foreground-strong placeholder:text-muted outline-none transition focus:border-primary";
+  "min-h-11 w-full rounded-lg border border-hairline bg-surface px-4 py-2.5 text-base font-normal text-foreground-strong shadow-[0_1px_2px_rgb(18_145_206/0.05)] placeholder:text-muted-strong/70 outline-none transition hover:border-hairline-strong focus:border-primary focus:ring-2 focus:ring-primary/60 focus:ring-offset-1 focus:ring-offset-surface";
 
-const labelClass =
-  "grid gap-2 font-mono text-[10.5px] uppercase tracking-[0.22em] text-muted-strong";
+const labelClass = "grid gap-2 text-sm font-semibold text-foreground-strong";
 
 export default function ContactPage() {
   return (
