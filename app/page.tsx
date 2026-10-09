@@ -15,18 +15,21 @@ import { ArchitectureDiagram } from "@/components/motion/architecture-diagram";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { HeroConsole } from "@/components/sections/hero-console";
 import { MediaFrame } from "@/components/sections/media-frame";
+import { MediaStage } from "@/components/sections/media-stage";
 import { PartnerCloud } from "@/components/sections/partner-cloud";
+import { ReferenceCard } from "@/components/sections/reference-card";
 import { SectorsRail } from "@/components/sections/sectors-rail";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/sections/section-heading";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { StatRow } from "@/components/sections/stat-row";
-import { Badge } from "@/components/ui/badge";
 import { Blobs } from "@/components/ui/blobs";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { CheckList } from "@/components/ui/check-list";
 import { IconBadge } from "@/components/ui/icon-badge";
+import { NumberBadge } from "@/components/ui/number-badge";
 import { cn } from "@/lib/utils";
 import {
   challenges,
@@ -138,28 +141,7 @@ export default function HomePage() {
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {featuredReferences.map((reference, index) => (
               <Reveal className="h-full" delay={index * 0.07} key={reference.name}>
-                <Link className="group block h-full" href="/references">
-                  <Card className="flex h-full flex-col overflow-hidden" interactive>
-                    <div className="relative aspect-[16/10] overflow-hidden">
-                      <img
-                        alt={reference.name}
-                        className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                        loading="lazy"
-                        src={reference.image}
-                      />
-                      <div className="absolute inset-0 bg-night/0 transition duration-500 group-hover:bg-night/15" />
-                    </div>
-                    <div className="flex flex-1 flex-col p-6">
-                      <Badge className="self-start" tone="primary">
-                        {reference.sector}
-                      </Badge>
-                      <h3 className="mt-4 font-display text-xl font-bold tracking-tight text-foreground-strong">
-                        {reference.name}
-                      </h3>
-                      <p className="mt-3 text-sm leading-7 text-muted-strong">{reference.scope}</p>
-                    </div>
-                  </Card>
-                </Link>
+                <ReferenceCard href="/references" reference={reference} />
               </Reveal>
             ))}
           </div>
@@ -278,40 +260,24 @@ export default function HomePage() {
                   key={solution.slug}
                 >
                   <Reveal className="lg:w-1/2">
-                    <div className="group perspective-[2000px]">
-                      <div
-                        className={cn(
-                          "overflow-hidden rounded-2xl border border-hairline bg-surface p-2 shadow-float transition-transform duration-500 ease-out lg:group-hover:rotate-y-0",
-                          reversed ? "lg:-rotate-y-6" : "lg:rotate-y-6",
-                        )}
-                      >
-                        <MediaFrame
-                          alt={solution.media.alt}
-                          className="aspect-[16/10] rounded-xl"
-                          kind={solution.media.kind}
-                          poster={solution.media.poster}
-                          src={solution.media.src}
-                        />
-                      </div>
-                    </div>
+                    <MediaStage tilt={reversed ? "left" : "right"}>
+                      <MediaFrame
+                        alt={solution.media.alt}
+                        className="aspect-[16/10]"
+                        kind={solution.media.kind}
+                        poster={solution.media.poster}
+                        src={solution.media.src}
+                      />
+                    </MediaStage>
                   </Reveal>
                   <Reveal className="lg:w-1/2" delay={0.1}>
                     <div className="flex items-center gap-4">
-                      <span className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-brand-gradient font-display text-sm font-bold text-white shadow-glow">
-                        {`0${index + 1}`}
-                      </span>
+                      <NumberBadge value={index + 1} />
                       {solution.product && <p className="text-sm font-medium text-muted-strong">{solution.product}</p>}
                     </div>
                     <h3 className="section-title mt-6 text-2xl sm:text-3xl lg:text-4xl">{solution.title}</h3>
                     <p className="mt-5 max-w-xl text-base leading-7 text-muted-strong sm:text-lg">{solution.summary}</p>
-                    <ul className="mt-7 grid gap-3 sm:grid-cols-2">
-                      {solution.benefits.map((benefit) => (
-                        <li className="flex items-center gap-3 text-sm font-medium text-foreground-strong" key={benefit}>
-                          <CheckCircle2 aria-hidden className="h-5 w-5 flex-none text-success" />
-                          {benefit}
-                        </li>
-                      ))}
-                    </ul>
+                    <CheckList className="mt-7" columns={2} items={solution.benefits} tone="success" />
                     <Link
                       className="group mt-8 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary-strong hover:text-primary"
                       href={`/solutions/${solution.slug}`}
@@ -418,9 +384,7 @@ export default function HomePage() {
                   />
                 )}
                 <Reveal delay={index * 0.07}>
-                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-gradient font-display text-base font-bold text-white shadow-glow">
-                    {item.step}
-                  </span>
+                  <NumberBadge size="lg" value={item.step} />
                   <h3 className="mt-6 font-display text-xl font-semibold tracking-tight text-white">{item.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-slate-300">{item.description}</p>
                 </Reveal>
@@ -477,17 +441,15 @@ export default function HomePage() {
         <div className="shell-wide">
           <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
             <Reveal>
-              <div className="relative perspective-[2000px]">
-                <div className="overflow-hidden rounded-2xl border border-hairline bg-surface p-2 shadow-float lg:rotate-x-[4deg] lg:rotate-y-[8deg]">
-                  <MediaFrame
-                    alt={industries[2].title}
-                    caption="Novadis · 14-16 Rue Clément Bayard · Levallois-Perret"
-                    className="aspect-[16/12] rounded-xl"
-                    kind="image"
-                    src={industries[2].media}
-                  />
-                </div>
-              </div>
+              <MediaStage>
+                <MediaFrame
+                  alt={industries[2].title}
+                  caption="Novadis · 14-16 Rue Clément Bayard · Levallois-Perret"
+                  className="aspect-[16/12]"
+                  kind="image"
+                  src={industries[2].media}
+                />
+              </MediaStage>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="eyebrow">À propos</p>

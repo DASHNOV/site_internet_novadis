@@ -2,11 +2,16 @@ import type { Metadata } from "next";
 import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
+import { MediaStage } from "@/components/sections/media-stage";
 import { PageHero } from "@/components/sections/page-hero";
 import { Reveal } from "@/components/motion/reveal";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { IconBadge } from "@/components/ui/icon-badge";
+import { NumberBadge } from "@/components/ui/number-badge";
+import { SplitTitle } from "@/components/ui/split-title";
 import { mediaLibrary } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -44,74 +49,67 @@ const labelClass =
 
 export default function ContactPage() {
   return (
-    <main className="relative pb-20">
+    <main className="relative">
       <SiteHeader />
       <PageHero
         eyebrow="Contact"
         title="Démarrez une conversation de sûreté ancrée dans votre réalité opérationnelle"
         description="Partagez le profil de votre site, vos objectifs de modernisation, vos contraintes ou vos exigences d'intégration. Novadis peut cadrer un projet de site unique comme un environnement multi-sites."
       >
-        <MediaFrame
-          priority
-          alt="Novadis · article visual"
-          caption="Échanges directs · cadrage projet sous 48h"
-          className="aspect-[16/11]"
-          kind="image"
-          src={mediaLibrary.articleVisual}
-        />
+        <MediaStage>
+          <MediaFrame
+            priority
+            alt="Novadis · article visual"
+            caption="Échanges directs · cadrage projet sous 48h"
+            className="aspect-[16/11]"
+            kind="image"
+            src={mediaLibrary.articleVisual}
+          />
+        </MediaStage>
       </PageHero>
 
-      <section className="shell-wide pt-12">
-        <div className="grid gap-px bg-[rgba(var(--hairline-strong))] sm:grid-cols-3">
-          {contactCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <Reveal key={card.label}>
-                <a
-                  className="group flex h-full items-start gap-4 bg-[rgb(var(--background))] p-6 transition hover:bg-[rgb(var(--background-elevated))]"
-                  href={card.href}
-                >
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/15 text-primary">
-                    <Icon className="h-4 w-4" />
-                  </div>
+      <section className="shell-wide">
+        <div className="grid gap-4 sm:grid-cols-3">
+          {contactCards.map((card, index) => (
+            <Reveal className="h-full" delay={index * 0.06} key={card.label}>
+              <a className="group block h-full" href={card.href}>
+                <Card className="flex h-full items-start gap-4 p-6" interactive>
+                  <IconBadge icon={card.icon} />
                   <div className="flex-1">
-                    <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-muted">{card.label}</p>
-                    <p className="mt-2 text-sm font-semibold text-foreground-strong">{card.value}</p>
+                    <p className="text-xs font-medium text-muted-strong">{card.label}</p>
+                    <p className="mt-1 text-sm font-semibold text-foreground-strong">{card.value}</p>
                   </div>
-                  <ArrowUpRight className="cta-arrow h-4 w-4 text-foreground" />
-                </a>
-              </Reveal>
-            );
-          })}
+                  <ArrowUpRight aria-hidden className="cta-arrow h-4 w-4 text-primary-strong" />
+                </Card>
+              </a>
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      <section className="shell-wide pt-24">
-        <div className="grid gap-16 border-t border-[rgba(var(--hairline-strong))] pt-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
+      <section className="section-y">
+        <div className="shell-wide grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
           <Reveal>
             <div>
               <p className="eyebrow">Cadrage projet</p>
-              <h2 className="section-title mt-5 text-balance text-2xl font-semibold sm:text-3xl">
-                Les éléments que nous abordons en première discussion
+              <h2 className="section-title mt-5 text-balance text-2xl sm:text-3xl">
+                <SplitTitle text="Les éléments que nous abordons en première discussion" />
               </h2>
-              <ul className="mt-8 divide-y divide-[rgba(var(--hairline))] border-t border-[rgba(var(--hairline))]">
+              <ol className="mt-8 space-y-3">
                 {[
                   "Infrastructure existante et contraintes de site",
                   "Exigences de contrôle d'accès et d'identité",
                   "Vidéo, analyse, preuves et workflows d'investigation",
                   "Maintenance, uptime et attentes de gouvernance",
                 ].map((item, index) => (
-                  <li
-                    className="flex items-start gap-5 py-4 text-base leading-7 text-foreground-strong"
-                    key={item}
-                  >
-                    <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-primary">
-                      0{index + 1}
-                    </span>
-                    {item}
+                  <li key={item}>
+                    <Card className="flex items-center gap-4 p-4">
+                      <NumberBadge size="sm" value={index + 1} />
+                      <span className="text-base leading-7 text-foreground-strong">{item}</span>
+                    </Card>
                   </li>
                 ))}
-              </ul>
+              </ol>
               <p className="mt-9 max-w-md text-sm leading-7 text-muted-strong">
                 Vous préférez une rencontre directe ? Nous nous déplaçons sur vos sites en France, au Luxembourg
                 et en Belgique pour cadrer le projet en conditions réelles.
@@ -120,10 +118,10 @@ export default function ContactPage() {
           </Reveal>
 
           <Reveal delay={0.08}>
-            <div>
+            <Card className="p-6 shadow-lift sm:p-10">
               <p className="eyebrow">Demander une consultation</p>
-              <h2 className="section-title mt-5 text-balance text-2xl font-semibold sm:text-3xl">
-                Un message direct, traité par l&apos;équipe ingénierie
+              <h2 className="section-title mt-5 text-balance text-2xl sm:text-3xl">
+                Un message direct, <span className="text-gradient">traité par l&apos;équipe ingénierie</span>
               </h2>
               <form className="mt-9 grid gap-7 sm:grid-cols-2">
                 <label className={labelClass}>
@@ -156,7 +154,7 @@ export default function ContactPage() {
                   </Button>
                 </div>
               </form>
-            </div>
+            </Card>
           </Reveal>
         </div>
       </section>

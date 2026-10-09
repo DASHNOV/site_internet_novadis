@@ -1,14 +1,22 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, CheckCircle2, FileText } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, CheckCircle2, FileText, Sparkles } from "lucide-react";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
+import { MediaStage } from "@/components/sections/media-stage";
 import { PageHero } from "@/components/sections/page-hero";
+import { SectionHeading } from "@/components/sections/section-heading";
 import { Reveal } from "@/components/motion/reveal";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { Blobs } from "@/components/ui/blobs";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { CheckList } from "@/components/ui/check-list";
+import { IconBadge } from "@/components/ui/icon-badge";
+import { NumberBadge } from "@/components/ui/number-badge";
+import { SplitTitle } from "@/components/ui/split-title";
 import { AxisExplode } from "@/components/motion/axis-explode";
 import { BadgeDoor } from "@/components/three/badge-door";
 import { axisExplode, badgeDoor, getSolution, solutions } from "@/data/site";
@@ -34,28 +42,28 @@ export default async function SolutionDetailPage({ params }: { params: Params })
   const solution = getSolution(slug);
   if (!solution) notFound();
 
-  const Icon = solution.icon;
-
   return (
-    <main className="relative pb-20">
+    <main className="relative">
       <SiteHeader />
       <PageHero eyebrow={solution.product || "Solution Novadis"} title={solution.title} description={solution.intro}>
-        <MediaFrame
-          priority
-          alt={solution.media.alt}
-          className="aspect-[16/11]"
-          kind={solution.media.kind}
-          poster={solution.media.poster}
-          src={solution.media.src}
-        />
+        <MediaStage>
+          <MediaFrame
+            priority
+            alt={solution.media.alt}
+            className="aspect-[16/11]"
+            kind={solution.media.kind}
+            poster={solution.media.poster}
+            src={solution.media.src}
+          />
+        </MediaStage>
       </PageHero>
 
-      <section className="shell-wide pt-6">
+      <section className="shell-wide">
         <Link
-          className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-strong hover:text-primary"
+          className="inline-flex min-h-11 items-center gap-2 rounded-full border border-hairline bg-surface px-4 text-sm font-medium text-foreground shadow-soft hover:-translate-y-0.5 hover:text-primary-strong"
           href="/solutions"
         >
-          <ArrowLeft className="h-3.5 w-3.5" />
+          <ArrowLeft aria-hidden className="h-4 w-4" />
           Retour aux solutions
         </Link>
       </section>
@@ -72,130 +80,107 @@ export default async function SolutionDetailPage({ params }: { params: Params })
         </div>
       )}
 
-      <section className="shell-wide pt-16">
-        <div className="grid gap-14 border-t border-[rgba(var(--hairline-strong))] pt-14 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-16">
-          <Reveal>
-            <div>
+      <section className="section-y">
+        <div className="shell-wide grid gap-6 lg:grid-cols-2 lg:gap-8">
+          <Reveal className="h-full">
+            <Card className="h-full p-7 sm:p-9">
               <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-primary/35 text-primary">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-primary">Constat</span>
+                <IconBadge icon={solution.icon} />
+                <p className="eyebrow">Constat</p>
               </div>
-              <h2 className="section-title mt-6 text-balance text-3xl sm:text-4xl">Le contexte que nous rencontrons</h2>
-              <p className="mt-6 text-base leading-7 text-muted-strong">{solution.problem}</p>
-
-              <div className="mt-10">
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-muted">Capacités clés</p>
-                <ul className="mt-4 grid gap-3 border-t border-[rgba(var(--hairline))]">
-                  {solution.capabilities.map((item) => (
-                    <li
-                      className="flex items-center gap-3 border-b border-[rgba(var(--hairline))] py-3 text-sm text-foreground-strong"
-                      key={item}
-                    >
-                      <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+              <h2 className="section-title mt-6 text-balance text-2xl sm:text-3xl">
+                <SplitTitle lead={2} text="Le contexte que nous rencontrons" />
+              </h2>
+              <p className="mt-5 text-base leading-7 text-muted-strong">{solution.problem}</p>
+              <p className="kicker mt-8">Capacités clés</p>
+              <CheckList className="mt-4" items={solution.capabilities} />
+            </Card>
           </Reveal>
 
-          <Reveal delay={0.08}>
-            <div>
-              <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-primary">Réponse Novadis</span>
-              <h2 className="section-title mt-5 text-balance text-3xl sm:text-4xl">Comment nous y répondons</h2>
-              <p className="mt-6 text-base leading-7 text-muted-strong">{solution.solution}</p>
-              <ul className="mt-9 grid gap-px bg-[rgba(var(--hairline-strong))] sm:grid-cols-2">
+          <Reveal className="h-full" delay={0.08}>
+            <Card className="h-full border-primary/25 p-7 shadow-lift sm:p-9">
+              <div className="flex items-center gap-3">
+                <IconBadge icon={Sparkles} tone="solid" />
+                <p className="eyebrow">Réponse Novadis</p>
+              </div>
+              <h2 className="section-title mt-6 text-balance text-2xl sm:text-3xl">
+                <SplitTitle lead={2} text="Comment nous y répondons" />
+              </h2>
+              <p className="mt-5 text-base leading-7 text-muted-strong">{solution.solution}</p>
+              <ul className="mt-8 grid gap-3 sm:grid-cols-2">
                 {solution.benefits.map((benefit) => (
                   <li
-                    className="flex items-start gap-3 bg-[rgb(var(--background))] px-5 py-5 text-sm leading-6 text-foreground-strong"
+                    className="flex items-start gap-3 rounded-xl bg-primary/[0.06] px-4 py-4 text-sm font-medium leading-6 text-foreground-strong"
                     key={benefit}
                   >
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-primary" />
+                    <CheckCircle2 aria-hidden className="mt-0.5 h-5 w-5 flex-none text-success" />
                     {benefit}
                   </li>
                 ))}
               </ul>
-            </div>
+            </Card>
           </Reveal>
         </div>
       </section>
 
-      <section className="shell-wide pt-24">
-        <Reveal>
-          <div className="grid gap-10 border-t border-[rgba(var(--hairline-strong))] pt-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-start">
-            <div>
-              <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-primary">Impact opérationnel</span>
-              <h2 className="section-title mt-5 text-balance text-3xl font-semibold sm:text-4xl">
-                Ce que cela change sur le terrain
-              </h2>
-            </div>
-            <ul className="grid gap-px bg-[rgba(var(--hairline-strong))] sm:grid-cols-2">
-              {solution.outcomes.map((outcome) => (
-                <li
-                  className="bg-[rgb(var(--background))] px-5 py-6 text-sm leading-6 text-foreground-strong"
-                  key={outcome}
-                >
-                  {outcome}
-                </li>
-              ))}
-            </ul>
+      <section className="section-soft section-y">
+        <div className="shell-wide">
+          <SectionHeading eyebrow="Impact opérationnel" title="Ce que cela change sur le terrain" />
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {solution.outcomes.map((outcome, index) => (
+              <Reveal className="h-full" delay={index * 0.06} key={outcome}>
+                <Card className="h-full p-6" interactive>
+                  <NumberBadge size="sm" value={index + 1} />
+                  <p className="mt-5 font-display text-lg font-semibold leading-snug text-foreground-strong">{outcome}</p>
+                </Card>
+              </Reveal>
+            ))}
           </div>
-        </Reveal>
+        </div>
       </section>
 
       {solution.docs && solution.docs.length > 0 && (
-        <section className="shell-wide pt-24">
-          <Reveal>
-            <div className="border-t border-[rgba(var(--hairline-strong))] pt-14">
-              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-primary">Documentation technique</p>
-              <h2 className="section-title mt-4 text-balance text-2xl sm:text-3xl">Fiches produits</h2>
-              <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {solution.docs.map((doc) => (
-                  <a
-                    className="group flex items-center gap-4 rounded-xl border border-[rgba(var(--hairline-strong))] bg-[rgba(var(--card))] px-5 py-4 transition hover:border-primary/40 hover:bg-[rgb(var(--background-elevated))]"
-                    href={doc.href}
-                    key={doc.href}
-                    rel="noopener"
-                    target="_blank"
-                  >
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                      <FileText className="h-4 w-4" />
-                    </div>
+        <section className="section-y">
+          <div className="shell-wide">
+            <SectionHeading eyebrow="Documentation technique" title="Fiches produits" />
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {solution.docs.map((doc) => (
+                <a className="group block" href={doc.href} key={doc.href} rel="noopener" target="_blank">
+                  <Card className="flex items-center gap-4 px-5 py-4" interactive>
+                    <IconBadge icon={FileText} size="sm" />
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-semibold text-foreground-strong">{doc.label}</p>
-                      <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted">PDF</p>
+                      <p className="mt-0.5 text-xs font-medium text-muted-strong">PDF</p>
                     </div>
-                    <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-muted opacity-0 transition-opacity group-hover:opacity-100" />
-                  </a>
-                ))}
-              </div>
+                    <ArrowUpRight aria-hidden className="cta-arrow h-4 w-4 shrink-0 text-primary-strong" />
+                  </Card>
+                </a>
+              ))}
             </div>
-          </Reveal>
+          </div>
         </section>
       )}
 
-      <section className="shell-wide pt-24">
+      <section className="shell-wide">
         <Reveal>
-          <div className="flex flex-col gap-6 border-t border-[rgba(var(--hairline-strong))] pt-14 lg:flex-row lg:items-end lg:justify-between">
+          <Card className="relative isolate flex flex-col gap-6 overflow-hidden p-8 sm:p-10 lg:flex-row lg:items-center lg:justify-between">
+            <Blobs />
             <div className="max-w-2xl">
-              <h2 className="section-title text-balance text-3xl sm:text-4xl">
-                Discutons de cette solution dans le contexte réel de votre site
+              <h2 className="section-title text-balance text-2xl sm:text-3xl">
+                Discutons de cette solution <span className="text-gradient">dans le contexte réel de votre site</span>
               </h2>
-              <p className="mt-5 text-base leading-7 text-muted-strong">
+              <p className="mt-4 text-base leading-7 text-muted-strong">
                 Novadis conçoit chaque capacité pour servir un modèle d&apos;exploitation global, pas seulement une
                 fonction technique isolée.
               </p>
             </div>
-            <Link href="/contact">
+            <Link className="flex-none" href="/contact">
               <Button size="lg" variant="primary">
                 Parler à Novadis
                 <ArrowUpRight className="cta-arrow h-4 w-4" />
               </Button>
             </Link>
-          </div>
+          </Card>
         </Reveal>
       </section>
 

@@ -2,14 +2,16 @@
 
 import Link from "next/link";
 import { ArrowUpRight, RefreshCw } from "lucide-react";
+import { Blobs } from "@/components/ui/blobs";
 import { Button } from "@/components/ui/button";
 
 export default function GlobalError({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
-    <main className="relative pb-20">
-      <section className="shell-wide flex min-h-[70vh] flex-col justify-center pt-24">
-        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-primary">Erreur serveur</p>
-        <h1 className="section-title mt-6 text-balance text-4xl sm:text-6xl">
+    <main className="relative isolate overflow-hidden">
+      <Blobs variant="hero" />
+      <section className="shell-wide flex min-h-[70vh] flex-col justify-center py-24">
+        <p className="eyebrow self-start">Erreur serveur</p>
+        <h1 className="section-title mt-6 max-w-4xl text-balance text-4xl font-extrabold sm:text-5xl lg:text-6xl">
           Un incident technique nous empêche d&apos;afficher cette page
         </h1>
         <p className="mt-7 max-w-xl text-base leading-7 text-muted-strong sm:text-lg">

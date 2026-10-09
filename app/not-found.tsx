@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { Blobs } from "@/components/ui/blobs";
 import { Button } from "@/components/ui/button";
 
 export const metadata = {
@@ -10,11 +11,12 @@ export const metadata = {
 
 export default function NotFound() {
   return (
-    <main className="relative pb-20">
+    <main className="relative isolate overflow-hidden">
       <SiteHeader />
-      <section className="shell-wide flex min-h-[60vh] flex-col justify-center pt-24">
-        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-primary">Erreur 404</p>
-        <h1 className="section-title mt-6 text-balance text-4xl sm:text-6xl">
+      <Blobs variant="hero" />
+      <section className="shell-wide flex min-h-[60vh] flex-col justify-center py-24">
+        <p className="eyebrow self-start">Erreur 404</p>
+        <h1 className="section-title mt-6 max-w-4xl text-balance text-4xl font-extrabold sm:text-5xl lg:text-6xl">
           Cette page n&apos;existe plus ou a été déplacée
         </h1>
         <p className="mt-7 max-w-xl text-base leading-7 text-muted-strong sm:text-lg">
