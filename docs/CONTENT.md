@@ -320,6 +320,10 @@ fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent 
 > Supervision → "Opérateur face à un mur d'écrans de supervision",
 > Analyse d'image → "Caméra de vidéosurveillance fixée sur un mur".
 
+> ⚠️ Hero /solutions (modèle 3D AXIS Q6010-E) : nouvelle indication « Faites pivoter la caméra »
+> (`solutionsHeroModel.hint`, `data/site.ts`) à valider. Les deux étiquettes flottantes reprennent
+> les libellés de la vue éclatée (« Capteurs multidirectionnels (×4) », « Dôme PTZ »).
+
 ---
 
 ## À compléter / valider

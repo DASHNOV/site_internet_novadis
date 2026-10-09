@@ -791,6 +791,16 @@ export const axisExplode = {
   ] satisfies { label: string; x: number; y: number; side: "left" | "right" }[],
 };
 
+// Modèle 3D interactif du hero /solutions : libellés repris de la vue éclatée (axisExplode).
+export const solutionsHeroModel = {
+  name: arPreview.title,
+  hint: "Faites pivoter la caméra",
+  callouts: [
+    { label: "Capteurs multidirectionnels (×4)", position: "left" },
+    { label: "Dôme PTZ", position: "right" },
+  ] satisfies { label: string; position: "left" | "right" }[],
+};
+
 // Scroll-driven 3D story on /solutions: an alarm travels from the field to the operators.
 export const alarmJourney = {
   eyebrow: "Architecture",
