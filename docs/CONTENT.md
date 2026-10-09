@@ -324,6 +324,11 @@ fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent 
 > (`solutionsHeroModel.hint`, `data/site.ts`) à valider. Les deux étiquettes flottantes reprennent
 > les libellés de la vue éclatée (« Capteurs multidirectionnels (×4) », « Dôme PTZ »).
 
+> Logos partenaires ajoutés (`public/novadis/logos/partners/`) : `microsoft.webp` et `vmware.webp`
+> rendus depuis les SVG de Wikimedia Commons (Microsoft_logo_(2012).svg, Vmware.svg) ; `aperio.webp`
+> extrait de la fiche produit `_sources/02-Fiches_produits/FP_Novadis_Aperio-Pas_a_jour.pdf`.
+> Marques de leurs propriétaires, affichées au titre du partenariat.
+
 ---
 
 ## À compléter / valider
