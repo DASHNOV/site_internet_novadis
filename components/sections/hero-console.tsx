@@ -49,14 +49,15 @@ export function HeroConsole() {
         </ul>
       </div>
 
-      <div className="absolute -left-4 top-[42%] z-10 hidden animate-float items-center gap-3 rounded-xl border border-hairline bg-surface px-4 py-3 shadow-lift sm:flex lg:-left-12">
-        <IconBadge icon={ShieldCheck} size="sm" tone="solid" />
-        <p className="text-sm font-semibold text-foreground-strong">{heroConsole.badge}</p>
-      </div>
-
-      <div className="absolute -bottom-12 right-6 z-10 hidden animate-float items-center gap-3 rounded-xl border border-hairline bg-surface px-4 py-3 shadow-lift [animation-delay:-3s] sm:flex lg:right-10">
-        <CheckCircle2 aria-hidden className="h-5 w-5 text-success" />
-        <p className="text-sm font-semibold text-foreground-strong">{heroConsole.highlight}</p>
+      <div className="absolute -bottom-12 right-6 z-10 hidden items-center gap-3 sm:flex lg:right-10">
+        <div className="flex animate-float items-center gap-3 rounded-xl border border-hairline bg-surface px-4 py-3 shadow-lift">
+          <ShieldCheck aria-hidden className="h-5 w-5 text-primary" />
+          <p className="text-sm font-semibold text-foreground-strong">{heroConsole.badge}</p>
+        </div>
+        <div className="flex animate-float items-center gap-3 rounded-xl border border-hairline bg-surface px-4 py-3 shadow-lift [animation-delay:-3s]">
+          <CheckCircle2 aria-hidden className="h-5 w-5 text-success" />
+          <p className="text-sm font-semibold text-foreground-strong">{heroConsole.highlight}</p>
+        </div>
       </div>
     </div>
   );

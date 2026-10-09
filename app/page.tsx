@@ -58,7 +58,7 @@ export default function HomePage() {
           aria-hidden
           className="absolute inset-0 -z-10 bg-[radial-gradient(rgb(var(--primary)/0.14)_1px,transparent_1px)] [background-size:26px_26px] [mask-image:radial-gradient(ellipse_70%_60%_at_30%_20%,black,transparent)]"
         />
-        <div className="shell-wide grid gap-16 pb-10 pt-12 sm:pt-16 lg:grid-cols-2 lg:items-center lg:gap-12 lg:pb-16 lg:pt-20">
+        <div className="shell-wide grid gap-16 pb-10 pt-12 sm:pb-16 sm:pt-16 lg:grid-cols-2 lg:items-center lg:gap-12 lg:pb-16 lg:pt-20">
           <div>
             <Reveal>
               <p className="eyebrow">Créateur de solutions globales de sûreté</p>
