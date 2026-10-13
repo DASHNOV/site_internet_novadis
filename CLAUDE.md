@@ -65,7 +65,7 @@ public/novadis/   Assets statiques (images, vidéos)
 ## Ce qu'il ne faut pas toucher (démo)
 
 - `/legal` et `/privacy` : placeholders volontaires pour l'instant
-- Les videos : `public/novadis/videos/` (vidéo Pexels libre de droit, remplace depuis le 07/10/2026 le lien `novadis.eu` de 84 Mo — sources dans `docs/CONTENT.md`)
+- Les videos : `public/novadis/videos/` (boucle de salle de supervision générée par IA avec Higgsfield, remplace depuis le 13/10/2026 la vidéo Pexels — sources dans `docs/CONTENT.md`)
 - Le formulaire de contact : non fonctionnel, affiché uniquement pour la démo
 
 ## Ce que je dois éviter

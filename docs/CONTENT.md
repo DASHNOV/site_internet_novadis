@@ -283,31 +283,28 @@ fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent 
 | `images/stock/salle-supervision.webp` | Solution Supervision globale | [Unsplash TtMKq3lJm-U](https://unsplash.com/photos/TtMKq3lJm-U) | [Licence Unsplash](https://unsplash.com/license) |
 | `images/stock/camera-videosurveillance.webp` | Solution Analyse d'image | [Unsplash pDtgBIGa0cM](https://unsplash.com/photos/pDtgBIGa0cM) | [Licence Unsplash](https://unsplash.com/license) |
 | `images/stock/biometrie-empreinte.webp` | Homepage — carte Biométrie & CNIL | [Unsplash SRFG7iwktDk](https://unsplash.com/photos/SRFG7iwktDk) | [Licence Unsplash](https://unsplash.com/license) |
-| `images/secteurs/tertiaire.webp` | Secteur Tertiaire | [Unsplash atYoXjIr8qY](https://unsplash.com/photos/atYoXjIr8qY) — Nopparuj Lamaikul | [Licence Unsplash](https://unsplash.com/license) |
-| `images/secteurs/industrie.webp` | Secteur Industrie | [Unsplash pWUyHVJgLhg](https://unsplash.com/photos/pWUyHVJgLhg) — Homa Appliances | [Licence Unsplash](https://unsplash.com/license) |
-| `images/secteurs/logistique.webp` | Secteur Logistique | [Unsplash c_4eaGRDSVU](https://unsplash.com/photos/c_4eaGRDSVU) — Adrian Sulyok | [Licence Unsplash](https://unsplash.com/license) |
-| `images/secteurs/sites-sensibles.webp` | Secteur Sites sensibles | [Unsplash VuR4oHZ3ucc](https://unsplash.com/photos/VuR4oHZ3ucc) — American Public Power Association | [Licence Unsplash](https://unsplash.com/license) |
-| `images/secteurs/multi-sites.webp` | Secteur Réseaux multi-sites | [Unsplash 8lQ252pO1xM](https://unsplash.com/photos/8lQ252pO1xM) — Scott Szarapka | [Licence Unsplash](https://unsplash.com/license) |
-| `images/secteurs/erp.webp` | Secteur ERP | [Unsplash CCexwt3Rl4A](https://unsplash.com/photos/CCexwt3Rl4A) — Yucel M | [Licence Unsplash](https://unsplash.com/license) |
+| `images/secteurs/*.webp` (6 images) | Secteurs (accueil, /secteurs) | Générées par IA avec Higgsfield le 13/10/2026 — originaux PNG dans `_sources/higgsfield/secteurs/` (non versionné) | Conditions du plan Higgsfield — **usage commercial à confirmer** |
 | `images/stock/datacenter.webp` | Homepage — carte NIS2 | [Unsplash aWslrFhs1w4](https://unsplash.com/photos/aWslrFhs1w4) — Taylor Vick | [Licence Unsplash](https://unsplash.com/license) |
 | `images/stock/mat-cameras.webp` | Solution Vidéosurveillance — Ocularis | [Unsplash a40akJxBhT8](https://unsplash.com/photos/a40akJxBhT8) — Milan Malkomes | [Licence Unsplash](https://unsplash.com/license) |
 | `images/stock/clavier-acces.webp` | Solution Intrusion — Galaxy | [Unsplash qB8tpVXQh6Y](https://unsplash.com/photos/qB8tpVXQh6Y) — vuk burgic | [Licence Unsplash](https://unsplash.com/license) |
 | `images/stock/etude-plan.webp` | Hero /about | [Unsplash xYCBw1uIP_M](https://unsplash.com/photos/xYCBw1uIP_M) — ThisisEngineering | [Licence Unsplash](https://unsplash.com/license) |
 | `images/stock/reunion-projet.webp` | Hero /contact | [Unsplash 05gac-Qn0k4](https://unsplash.com/photos/05gac-Qn0k4) — Cherrydeck | [Licence Unsplash](https://unsplash.com/license) |
 | `images/clients/casino-monaco.webp` | Référence Casino de Monaco, hero de l'accueil | [Unsplash CSMbdyGa8mE](https://unsplash.com/photos/CSMbdyGa8mE) — Mony Misheal | [Licence Unsplash](https://unsplash.com/license) |
-| `videos/salle-supervision.mp4` + `images/stock/salle-supervision-poster.webp` | /services, solution Intégrations | [Pexels 38779100](https://www.pexels.com/video/38779100/) — Kiwi and Camera | [Licence Pexels](https://www.pexels.com/license/) |
+| `videos/salle-supervision.mp4` + `images/stock/salle-supervision-poster.webp` | /services, solution Intégrations | Générée par IA avec Higgsfield le 13/10/2026 (image puis animation), montée en boucle de 7 s avec fondu — originaux dans `_sources/higgsfield/` (non versionné) | Conditions du plan Higgsfield — **usage commercial à confirmer** |
 | `models/server-rack.glb`, `models/control-room.glb` | Parcours 3D (/solutions) | Modélisés pour Novadis dans Blender (textures d'écran générées) | Propriété Novadis |
 | `models/axis-q6010-e.glb` | Hero /solutions + parcours 3D (étape Terrain) | ["AXIS-Q6010-E Surveillance Camera"](https://sketchfab.com/3d-models/axis-q6010-e-surveillance-camera-143e552bde554ea2aaa72664efab003e) par ArtOfSylr — dôme en verre fumé pour le web | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — **crédit obligatoire** |
 | `textures/city/*.webp` (façades, toits, asphalte) | Hero 3D de la homepage | Poly Haven : [concrete_tile_facade](https://polyhaven.com/a/concrete_tile_facade), [brick_wall_09](https://polyhaven.com/a/brick_wall_09), [gravel_embedded_concrete](https://polyhaven.com/a/gravel_embedded_concrete), [aerial_asphalt_01](https://polyhaven.com/a/aerial_asphalt_01) — atlas de fenêtres généré pour Novadis | [CC0](https://polyhaven.com/license) |
 | `hdri/potsdamer_platz_1k.hdr` | Éclairage du modèle 3D (/solutions) | [Poly Haven](https://polyhaven.com/a/potsdamer_platz) | [CC0](https://polyhaven.com/license) |
 
-> ⚠️ La vidéo montre un vrai centre de gestion du trafic (pas un client Novadis) :
-> à présenter comme une ambiance, jamais comme une référence.
+> ⚠️ 13/10/2026 — La vidéo de salle de supervision et les six images de secteurs sont générées
+> par IA (elles remplacent la vidéo Pexels et les photos Unsplash) : ce sont des ambiances,
+> jamais des références ni des installations Novadis. Le mur d'écrans affiche un planisphère
+> avec des points sur plusieurs continents — à valider (Novadis n'a pas d'implantation mondiale).
 > ⚠️ Licence CC BY : le crédit "AXIS-Q6010-E Surveillance Camera par ArtOfSylr (CC BY 4.0)"
 > doit être visible sur le site (ex. mentions légales / crédits) avant la mise en ligne.
 > ⚠️ Ce sont des visuels d'illustration, pas des installations Novadis. À remplacer
 > par des photos de chantiers réels dès que possible.
-> Toutes les photos Unsplash sont téléchargées et étalonnées (tons froids, voile bleu
+> Les photos Unsplash restantes sont téléchargées et étalonnées (tons froids, voile bleu
 > Novadis, sauf la photo du Casino de Monaco) par `scripts/fetch-stock-images.mjs` :
 > pour remplacer une image, modifier l'identifiant dans son manifeste et relancer le script.
 > ⚠️ La légende du hero /about, « Équipes à taille humaine · Levallois-Perret », accompagne

@@ -13,12 +13,6 @@ const OUT_ROOT = resolve(process.cwd(), "public/novadis/images");
 const WIDTH = 1800;
 
 const manifest = [
-  { id: "atYoXjIr8qY", out: "secteurs/tertiaire.webp" },
-  { id: "pWUyHVJgLhg", out: "secteurs/industrie.webp" },
-  { id: "c_4eaGRDSVU", out: "secteurs/logistique.webp" },
-  { id: "VuR4oHZ3ucc", out: "secteurs/sites-sensibles.webp" },
-  { id: "8lQ252pO1xM", out: "secteurs/multi-sites.webp" },
-  { id: "CCexwt3Rl4A", out: "secteurs/erp.webp" },
   { id: "aWslrFhs1w4", out: "stock/datacenter.webp" },
   { id: "a40akJxBhT8", out: "stock/mat-cameras.webp" },
   { id: "qB8tpVXQh6Y", out: "stock/clavier-acces.webp" },
