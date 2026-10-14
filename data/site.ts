@@ -44,6 +44,18 @@ export type Solution = {
     alt: string;
   };
   docs?: { label: string; href: string }[];
+  equipment?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    items: Camera[];
+  };
+};
+
+export type Camera = {
+  brand: string;
+  type: string;
+  src: string;
 };
 
 export type Industry = {
@@ -93,6 +105,19 @@ export const mediaLibrary = {
   spacInterview: "/novadis/videos/spac-interview.mp4",
   spacPoster: "/novadis/images/spac-poster.webp",
 };
+
+// Visuels fabricants (fond blanc, détourés) — sources dans _sources/équipement/caméra/
+const cameras = {
+  axisBullet: { brand: "Axis", type: "Bullet extérieure", src: "/novadis/images/cameras/axis-bullet-2.webp" },
+  axisBulletIr: { brand: "Axis", type: "Bullet à éclairage intégré", src: "/novadis/images/cameras/axis-bullet-1.webp" },
+  axisPtz: { brand: "Axis", type: "Mini-dôme PTZ", src: "/novadis/images/cameras/axis-ptz-mini-dome.webp" },
+  axisMulti: { brand: "Axis", type: "Multicapteur double", src: "/novadis/images/cameras/axis-multicapteur-double.webp" },
+  hikvisionBullet: { brand: "Hikvision", type: "Bullet", src: "/novadis/images/cameras/hikvision-bullet.webp" },
+  hikvisionDome: { brand: "Hikvision", type: "Dôme varifocal", src: "/novadis/images/cameras/hikvision-dome.webp" },
+  dahuaBullet: { brand: "Dahua", type: "Bullet compacte", src: "/novadis/images/cameras/dahua-bullet.webp" },
+  dahuaDome: { brand: "Dahua", type: "Dôme varifocal", src: "/novadis/images/cameras/dahua-dome.webp" },
+  dahuaDualDome: { brand: "Dahua", type: "Dôme double capteur", src: "/novadis/images/cameras/dahua-dome-double-capteur.webp" },
+} satisfies Record<string, Camera>;
 
 export const solutions: Solution[] = [
   {
@@ -303,6 +328,22 @@ export const solutions: Solution[] = [
     docs: [
       { label: "Serveur OCNVR", href: "/novadis/documents/fiches/srv-ocnvr.pdf" },
     ],
+    equipment: {
+      eyebrow: "Parc caméras",
+      title: "Toutes les caméras, un seul VMS",
+      description:
+        "Ocularis pilote les caméras des principaux fabricants via ONVIF : bullets, dômes, PTZ et multicapteurs cohabitent dans le même poste opérateur.",
+      items: [
+        cameras.axisBullet,
+        cameras.axisPtz,
+        cameras.axisMulti,
+        cameras.hikvisionBullet,
+        cameras.hikvisionDome,
+        cameras.dahuaBullet,
+        cameras.dahuaDome,
+        cameras.dahuaDualDome,
+      ],
+    },
   },
   {
     slug: "ai-video-analytics",
@@ -340,6 +381,13 @@ export const solutions: Solution[] = [
       kind: "image",
       src: mediaLibrary.stockCamera,
       alt: "Caméra de vidéosurveillance fixée sur un mur",
+    },
+    equipment: {
+      eyebrow: "Capteurs",
+      title: "Des caméras choisies pour l'analyse",
+      description:
+        "La qualité d'une détection commence au capteur : optique, éclairage et champ de vision sont dimensionnés selon chaque scénario d'analyse.",
+      items: [cameras.axisBulletIr, cameras.axisMulti, cameras.hikvisionDome, cameras.dahuaDualDome],
     },
   },
   {
@@ -675,6 +723,9 @@ export const partners: { name: string; role: string; kind: PartnerKind; logo?: s
   { name: "DDS", role: "Éditeur Amadeus", kind: "tech", logo: "/novadis/logos/partners/dds.webp" },
   { name: "Qognify", role: "Éditeur Ocularis", kind: "tech", logo: "/novadis/logos/partners/qognify.webp" },
   { name: "Honeywell", role: "Galaxy · Intrusion", kind: "tech", logo: "/novadis/logos/partners/honeywell.webp" },
+  { name: "Axis", role: "Caméras IP", kind: "tech", logo: "/novadis/logos/partners/axis.webp" },
+  { name: "Hikvision", role: "Caméras IP", kind: "tech", logo: "/novadis/logos/partners/hikvision.webp" },
+  { name: "Dahua", role: "Caméras IP", kind: "tech", logo: "/novadis/logos/partners/dahua.webp" },
   { name: "HID", role: "Lecteurs & badges", kind: "tech", logo: "/novadis/logos/partners/hid.webp" },
   { name: "STid", role: "Lecteurs RFID", kind: "tech", logo: "/novadis/logos/partners/stid.webp" },
   { name: "Dell", role: "OEM Infrastructure", kind: "tech", logo: "/novadis/logos/partners/dell.webp" },

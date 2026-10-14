@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, CheckCircle2, FileText, Sparkles } from "lucide-react";
 import { CtaBanner } from "@/components/sections/cta-banner";
+import { EquipmentGallery } from "@/components/sections/equipment-gallery";
 import { MediaFrame } from "@/components/sections/media-frame";
 import { MediaStage } from "@/components/sections/media-stage";
 import { PageHero } from "@/components/sections/page-hero";
@@ -138,6 +139,8 @@ export default async function SolutionDetailPage({ params }: { params: Params })
           </div>
         </div>
       </section>
+
+      {solution.equipment && <EquipmentGallery {...solution.equipment} />}
 
       {solution.docs && solution.docs.length > 0 && (
         <section className="section-y">

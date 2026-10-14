@@ -197,9 +197,13 @@ Biométrie & CNIL : Le cadre CNIL encadre strictement la biométrie sur le lieu 
 
 ---
 
-## Partenaires (10)
+## Partenaires (13)
 
-DDS · Qognify · Microsoft · Dell · VMware · Hyper-V · Aperio · Honeywell · Arseg · Synergie
+DDS · Qognify · Microsoft · Dell · VMware · Hyper-V · Aperio · Honeywell · Axis · Hikvision · Dahua · Arseg · Synergie
+
+> Axis, Hikvision et Dahua (caméras) : partenaires confirmés le 14/10/2026, ajoutés au ticker
+> avec le rôle « Caméras IP » (à valider). Logos d'origine dans `_sources/logos-partenaires/`
+> (non versionné), détourés pour le site dans `public/novadis/logos/partners/`.
 
 > ⚠️ Arseg et Synergie sont des associations professionnelles, pas des partenaires technologiques. Les distinguer visuellement ?
 
@@ -263,6 +267,26 @@ Texte       : Faites défiler pour ouvrir la caméra : quatre capteurs couvrent 
 ```
 > ⚠️ Nouveaux textes à valider, notamment la description technique (rôle des capteurs
 > et du PTZ) avec la fiche produit Axis. Rendu Blender : design/3d/novadis-3d-scene.blend.
+
+---
+
+## Solutions Vidéosurveillance & Analyse d'image — galeries caméras
+
+```
+Vidéosurveillance : eyebrow "Parc caméras" · titre "Toutes les caméras, un seul VMS"
+                    Texte : Ocularis pilote les caméras des principaux fabricants via ONVIF : bullets,
+                    dômes, PTZ et multicapteurs cohabitent dans le même poste opérateur.
+                    8 caméras : Axis (bullet, mini-dôme PTZ, multicapteur double),
+                    Hikvision (bullet, dôme), Dahua (bullet, dôme, dôme double capteur)
+Analyse d'image   : eyebrow "Capteurs" · titre "Des caméras choisies pour l'analyse"
+                    Texte : La qualité d'une détection commence au capteur : optique, éclairage et
+                    champ de vision sont dimensionnés selon chaque scénario d'analyse.
+                    4 caméras : Axis (bullet, multicapteur), Hikvision (dôme), Dahua (dôme double capteur)
+```
+> ⚠️ Nouveaux textes à valider. Types de caméras déduits des photos, sans référence de modèle.
+> Axis, Hikvision et Dahua sont partenaires de Novadis (confirmé le 14/10/2026).
+> ⚠️ Photos produits récupérées sur le web (`_sources/équipement/caméra/`) : à remplacer par
+> les visuels officiels des kits partenaires avant la mise en ligne.
 
 ---
 
