@@ -17,6 +17,7 @@ import {
   Users,
   Video,
 } from "lucide-react";
+import explodeAnchors from "./axis-explode-anchors.json";
 
 export type Metric = {
   value: string;
@@ -56,6 +57,8 @@ export type Camera = {
   brand: string;
   type: string;
   src: string;
+  /** Version détourée (fond transparent) pour les scènes sur fond nuit. */
+  cutout: string;
 };
 
 export type Industry = {
@@ -108,15 +111,15 @@ export const mediaLibrary = {
 
 // Visuels fabricants (fond blanc, détourés) — sources dans _sources/équipement/caméra/
 const cameras = {
-  axisBullet: { brand: "Axis", type: "Bullet extérieure", src: "/novadis/images/cameras/axis-bullet-2.webp" },
-  axisBulletIr: { brand: "Axis", type: "Bullet à éclairage intégré", src: "/novadis/images/cameras/axis-bullet-1.webp" },
-  axisPtz: { brand: "Axis", type: "Mini-dôme PTZ", src: "/novadis/images/cameras/axis-ptz-mini-dome.webp" },
-  axisMulti: { brand: "Axis", type: "Multicapteur double", src: "/novadis/images/cameras/axis-multicapteur-double.webp" },
-  hikvisionBullet: { brand: "Hikvision", type: "Bullet", src: "/novadis/images/cameras/hikvision-bullet.webp" },
-  hikvisionDome: { brand: "Hikvision", type: "Dôme varifocal", src: "/novadis/images/cameras/hikvision-dome.webp" },
-  dahuaBullet: { brand: "Dahua", type: "Bullet compacte", src: "/novadis/images/cameras/dahua-bullet.webp" },
-  dahuaDome: { brand: "Dahua", type: "Dôme varifocal", src: "/novadis/images/cameras/dahua-dome.webp" },
-  dahuaDualDome: { brand: "Dahua", type: "Dôme double capteur", src: "/novadis/images/cameras/dahua-dome-double-capteur.webp" },
+  axisBullet: { brand: "Axis", type: "Bullet extérieure", src: "/novadis/images/cameras/axis-bullet-2.webp", cutout: "/novadis/images/cameras/cutout/axis-bullet-2.webp" },
+  axisBulletIr: { brand: "Axis", type: "Bullet à éclairage intégré", src: "/novadis/images/cameras/axis-bullet-1.webp", cutout: "/novadis/images/cameras/cutout/axis-bullet-1.webp" },
+  axisPtz: { brand: "Axis", type: "Mini-dôme PTZ", src: "/novadis/images/cameras/axis-ptz-mini-dome.webp", cutout: "/novadis/images/cameras/cutout/axis-ptz-mini-dome.webp" },
+  axisMulti: { brand: "Axis", type: "Multicapteur double", src: "/novadis/images/cameras/axis-multicapteur-double.webp", cutout: "/novadis/images/cameras/cutout/axis-multicapteur-double.webp" },
+  hikvisionBullet: { brand: "Hikvision", type: "Bullet", src: "/novadis/images/cameras/hikvision-bullet.webp", cutout: "/novadis/images/cameras/cutout/hikvision-bullet.webp" },
+  hikvisionDome: { brand: "Hikvision", type: "Dôme varifocal", src: "/novadis/images/cameras/hikvision-dome.webp", cutout: "/novadis/images/cameras/cutout/hikvision-dome.webp" },
+  dahuaBullet: { brand: "Dahua", type: "Bullet compacte", src: "/novadis/images/cameras/dahua-bullet.webp", cutout: "/novadis/images/cameras/cutout/dahua-bullet.webp" },
+  dahuaDome: { brand: "Dahua", type: "Dôme varifocal", src: "/novadis/images/cameras/dahua-dome.webp", cutout: "/novadis/images/cameras/cutout/dahua-dome.webp" },
+  dahuaDualDome: { brand: "Dahua", type: "Dôme double capteur", src: "/novadis/images/cameras/dahua-dome-double-capteur.webp", cutout: "/novadis/images/cameras/cutout/dahua-dome-double-capteur.webp" },
 } satisfies Record<string, Camera>;
 
 export const solutions: Solution[] = [
@@ -823,7 +826,9 @@ export const badgeDoor = {
 };
 
 // Scroll-scrubbed exploded view rendered in Blender (design/3d/novadis-3d-scene.blend).
-// Label anchors are the parts' screen positions on the last frame, as fractions of the image.
+// Séquence Blender (design/3d/novadis-explode-v2.blend) : la caméra s'ouvre (frames 14-60),
+// les capteurs s'allument (64-80) puis le PTZ balaie (82-99).
+// anchors[frame][label] = position projetée de la pièce, en fraction de l'image (exportée de Blender).
 export const axisExplode = {
   solutionSlug: "video-surveillance",
   eyebrow: "AXIS Q6010-E",
@@ -831,15 +836,32 @@ export const axisExplode = {
   description:
     "Faites défiler pour ouvrir la caméra : quatre capteurs couvrent les alentours, le dôme PTZ vient zoomer sur l'événement.",
   scrollHint: "Faites défiler",
-  frameCount: 49,
+  frameCount: 100,
   framePath: (index: number) => `/novadis/sequences/axis-explode/${String(index).padStart(2, "0")}.webp`,
+  anchors: explodeAnchors as [number, number][][],
+  labelsFrom: 58,
   labels: [
-    { label: "Support mural", x: 0.27, y: 0.27, side: "left" },
-    { label: "Capot de protection", x: 0.6, y: 0.23, side: "right" },
-    { label: "Capteurs multidirectionnels (×4)", x: 0.22, y: 0.47, side: "left" },
-    { label: "Bulle de protection", x: 0.55, y: 0.57, side: "right" },
-    { label: "Dôme PTZ", x: 0.55, y: 0.9, side: "right" },
-  ] satisfies { label: string; x: number; y: number; side: "left" | "right" }[],
+    { label: "Support mural", side: "left" },
+    { label: "Capot de protection", side: "right" },
+    { label: "Capteurs multidirectionnels (×4)", side: "left" },
+    { label: "Bulle de protection", side: "right" },
+    { label: "Dôme PTZ", side: "right" },
+  ] satisfies { label: string; side: "left" | "right" }[],
+  steps: [
+    { title: "Ouvrir", text: "Support, capot, bulle : une architecture modulaire, pensée pour la pose et la maintenance." },
+    { title: "Couvrir", text: "Quatre capteurs couvrent les alentours, le dôme PTZ zoome sur l'événement." },
+    { title: "Fédérer", text: "Axis, Hikvision, Dahua : tout le parc remonte dans le même poste opérateur." },
+  ],
+  hub: "Un seul VMS · tout le parc",
+  // Constellation finale, positions en fraction de la scène.
+  fleet: [
+    { camera: cameras.axisMulti, x: 0.13, y: 0.13 },
+    { camera: cameras.hikvisionDome, x: 0.87, y: 0.12 },
+    { camera: cameras.dahuaBullet, x: 0.93, y: 0.5 },
+    { camera: cameras.axisPtz, x: 0.85, y: 0.87 },
+    { camera: cameras.dahuaDualDome, x: 0.15, y: 0.87 },
+    { camera: cameras.hikvisionBullet, x: 0.07, y: 0.5 },
+  ] satisfies { camera: Camera; x: number; y: number }[],
 };
 
 // Modèle 3D interactif du hero /solutions : libellés repris de la vue éclatée (axisExplode).

@@ -264,9 +264,19 @@ Texte       : Faites défiler pour ouvrir la caméra : quatre capteurs couvrent 
               le dôme PTZ vient zoomer sur l'événement.
 Étiquettes  : Support mural · Capot de protection · Capteurs multidirectionnels (×4)
               · Bulle de protection · Dôme PTZ
+Étapes      : 01 Ouvrir — Support, capot, bulle : une architecture modulaire, pensée pour la
+              pose et la maintenance.
+              02 Couvrir — Quatre capteurs couvrent les alentours, le dôme PTZ zoome sur l'événement.
+              03 Fédérer — Axis, Hikvision, Dahua : tout le parc remonte dans le même poste opérateur.
+Pastille    : Un seul VMS · tout le parc
+Constellation : Axis (multicapteur double, mini-dôme PTZ), Hikvision (dôme, bullet),
+                Dahua (bullet, dôme double capteur)
 ```
 > ⚠️ Nouveaux textes à valider, notamment la description technique (rôle des capteurs
-> et du PTZ) avec la fiche produit Axis. Rendu Blender : design/3d/novadis-3d-scene.blend.
+> et du PTZ) avec la fiche produit Axis, et « architecture modulaire » (étape 01).
+> Rendu Blender : design/3d/novadis-explode-v2.blend (100 frames : ouverture, cônes de
+> vision des capteurs, balayage PTZ — les faisceaux sont une illustration, pas des champs
+> de vision mesurés). Caméras détourées dans public/novadis/images/cameras/cutout/.
 
 ---
 
