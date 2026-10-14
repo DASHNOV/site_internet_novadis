@@ -116,6 +116,9 @@ export function AlarmJourney() {
             <AlarmJourneyScene
               active={onScreen}
               activeStep={activeStep}
+              detection={alarmJourney.detection}
+              feed={alarmJourney.feed}
+              gateFeed={alarmJourney.gateFeed}
               hotspots={[
                 { label: steps[0].solution.shortTitle, sublabel: steps[0].solution.product },
                 { label: steps[1].solution.shortTitle, sublabel: steps[1].solution.product },
@@ -163,7 +166,7 @@ export function AlarmJourney() {
           </div>
         </div>
 
-        <ol aria-hidden className="absolute right-6 top-1/2 hidden -translate-y-1/2 flex-col gap-4 lg:flex">
+        <ol aria-hidden className="absolute right-6 top-28 hidden flex-col gap-4 lg:flex">
           {steps.map((step, index) => (
             <li
               className={cn(

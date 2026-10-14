@@ -10,9 +10,9 @@ import { ArButton } from "@/components/three/ar-button";
 import { solutionsHeroModel } from "@/data/site";
 import { cn } from "@/lib/utils";
 
-const MODEL_PATH = "/novadis/models/axis-q6010-e.glb";
-// The wall plate is on the model's +Z side: turned so the dome faces the viewer.
-const FACING = Math.PI;
+const MODEL_PATH = "/novadis/models/axis-p1465-le.glb";
+// The lens looks down the model's +Z axis, wall plate behind: no turn needed.
+const FACING = 0;
 
 function useModelSize() {
   const { scene } = useGLTF(MODEL_PATH);
@@ -95,16 +95,16 @@ export function SolutionsHeroModel({ className }: SolutionsHeroModelProps) {
           <GroundShadow />
           {/* Self-hosted copy of drei's "city" preset (Poly Haven, CC0): no runtime fetch from GitHub. */}
           <Environment files="/novadis/hdri/potsdamer_platz_1k.hdr" />
-          {/* Bounded so the visitor keeps a view of the dome: no top-down flip, never the wall plate. */}
+          {/* Bounded so the visitor keeps a view of the lens: no top-down flip, never behind the wall plate. */}
           <OrbitControls
             enableDamping={false}
             enablePan={false}
             enableZoom={false}
             makeDefault
-            maxAzimuthAngle={1.95}
+            maxAzimuthAngle={1.75}
             maxPolarAngle={Math.PI * 0.62}
-            minAzimuthAngle={-0.45}
-            minPolarAngle={Math.PI * 0.38}
+            minAzimuthAngle={-1.3}
+            minPolarAngle={Math.PI * 0.34}
           />
         </Suspense>
       </Canvas>
@@ -118,7 +118,7 @@ export function SolutionsHeroModel({ className }: SolutionsHeroModelProps) {
         <span
           className={cn(
             "pointer-events-none absolute hidden items-center gap-2 whitespace-nowrap text-xs font-semibold text-foreground-strong xl:inline-flex",
-            callout.position === "left" ? "right-[57%] top-[44%]" : "left-[56%] top-[75%] flex-row-reverse",
+            callout.position === "left" ? "right-[66%] top-[37%]" : "left-[64%] top-[51%] flex-row-reverse",
           )}
           key={callout.label}
         >

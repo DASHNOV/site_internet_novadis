@@ -804,12 +804,12 @@ export const architectureLayers: ArchitectureLayer[] = [
   },
 ];
 
-// Mobile AR preview of the hero camera, at the datasheet's real size (Ø 395 mm).
+// Mobile AR preview of the hero camera (model: design/3d/axis-p1465-le.blend, ~ 37 cm with its wall mount).
 export const arPreview = {
   label: "Voir dans votre espace",
-  title: "AXIS Q6010-E",
-  glb: "/novadis/models/axis-q6010-e-ar.glb",
-  usdz: "/novadis/models/axis-q6010-e.usdz",
+  title: "AXIS P1465-LE",
+  glb: "/novadis/models/axis-p1465-le-ar.glb",
+  usdz: "/novadis/models/axis-p1465-le.usdz",
 };
 
 // Scroll-driven badge door scene on the access-control page (model: design/3d/novadis-3d-scene.blend).
@@ -864,20 +864,25 @@ export const axisExplode = {
   ] satisfies { camera: Camera; x: number; y: number }[],
 };
 
-// Modèle 3D interactif du hero /solutions : libellés repris de la vue éclatée (axisExplode).
+// Modèle 3D interactif du hero /solutions : caméra bullet AXIS P1465-LE.
 export const solutionsHeroModel = {
   name: arPreview.title,
   hint: "Faites pivoter la caméra",
   callouts: [
-    { label: "Capteurs multidirectionnels (×4)", position: "left" },
-    { label: "Dôme PTZ", position: "right" },
+    { label: "Éclairage IR intégré", position: "left" },
+    { label: "Support mural", position: "right" },
   ] satisfies { label: string; position: "left" | "right" }[],
 };
 
 // Scroll-driven 3D story on /solutions: an alarm travels from the field to the operators.
+// Sets: design/3d/alarm-journey-sets.blend. Video wall feeds are crops of the site film's last frame;
+// the alarm screen plays the gate camera film (Higgsfield, sources in _sources/higgsfield/journey/).
 export const alarmJourney = {
   eyebrow: "Architecture",
   title: "L'architecture compte autant que les équipements",
+  feed: "/novadis/images/hero/site-end.webp",
+  gateFeed: "/novadis/videos/journey-gate.mp4",
+  detection: "Intrusion · Portail 01",
   steps: [
     { layer: "field", slug: "video-surveillance" },
     { layer: "core", slug: "it-infrastructure" },

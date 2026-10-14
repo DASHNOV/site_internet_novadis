@@ -332,7 +332,10 @@ fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent 
 | `images/clients/casino-monaco.webp` | Référence Casino de Monaco, hero de l'accueil | [Unsplash CSMbdyGa8mE](https://unsplash.com/photos/CSMbdyGa8mE) — Mony Misheal | [Licence Unsplash](https://unsplash.com/license) |
 | `videos/salle-supervision.mp4` + `images/stock/salle-supervision-poster.webp` | /services, solution Intégrations | Générée par IA avec Higgsfield le 13/10/2026 (image puis animation), montée en boucle de 7 s avec fondu — originaux dans `_sources/higgsfield/` (non versionné) | Conditions du plan Higgsfield — **usage commercial à confirmer** |
 | `models/server-rack.glb`, `models/control-room.glb` | Parcours 3D (/solutions) | Modélisés pour Novadis dans Blender (textures d'écran générées) | Propriété Novadis |
-| `models/axis-q6010-e.glb` | Hero /solutions + parcours 3D (étape Terrain) | ["AXIS-Q6010-E Surveillance Camera"](https://sketchfab.com/3d-models/axis-q6010-e-surveillance-camera-143e552bde554ea2aaa72664efab003e) par ArtOfSylr — dôme en verre fumé pour le web | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — **crédit obligatoire** |
+| `models/axis-p1465-le.glb`, `axis-p1465-le-ar.glb`, `axis-p1465-le.usdz` | Hero /solutions (modèle interactif + aperçu AR) | Caméra bullet modélisée pour Novadis dans Blender (`design/3d/axis-p1465-le.blend`) d'après la photo produit `images/cameras/axis-bullet-2.webp` | Propriété Novadis (marque AXIS reproduite sur le capot) |
+| `videos/journey-gate.mp4` | Parcours 3D (/solutions) : flux de la caméra du portail sur l'écran d'alarme | Généré par IA avec Higgsfield le 14/10/2026 (image Nano Banana 2 puis animation Seedance 2.0), réencodé en 960×540 sans son — originaux dans `_sources/higgsfield/journey/` (non versionné) | Conditions du plan Higgsfield — **usage commercial à confirmer** |
+| `models/alarm-journey-sets.glb` | Parcours 3D (/solutions) : maquettes Terrain (façade, portail, guérite), local technique, salle de supervision | Modélisées pour Novadis dans Blender (`design/3d/alarm-journey-sets.blend`) ; le mur d'images affiche des recadrages de `images/hero/site-end.webp` (Higgsfield) | Propriété Novadis — image Higgsfield : **usage commercial à confirmer** |
+| `models/axis-q6010-e.glb` | Plus utilisé sur le site depuis le 14/10/2026 (remplacé par la P1465-LE) | ["AXIS-Q6010-E Surveillance Camera"](https://sketchfab.com/3d-models/axis-q6010-e-surveillance-camera-143e552bde554ea2aaa72664efab003e) par ArtOfSylr — dôme en verre fumé pour le web | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — **crédit obligatoire** |
 | `textures/city/*.webp` (façades, toits, asphalte) | Hero 3D de la homepage | Poly Haven : [concrete_tile_facade](https://polyhaven.com/a/concrete_tile_facade), [brick_wall_09](https://polyhaven.com/a/brick_wall_09), [gravel_embedded_concrete](https://polyhaven.com/a/gravel_embedded_concrete), [aerial_asphalt_01](https://polyhaven.com/a/aerial_asphalt_01) — atlas de fenêtres généré pour Novadis | [CC0](https://polyhaven.com/license) |
 | `videos/hero-site.mp4` + `images/hero/site-start.webp`, `site-end.webp` | Hero de l'accueil | Scène de cadrage modélisée dans Blender (`design/3d/novadis-hero.blend`), image et vidéo générées par IA avec Higgsfield le 13/10/2026, vidéo inversée et ralentie au montage — originaux dans `_sources/higgsfield/hero/` (non versionné) | Conditions du plan Higgsfield — **usage commercial à confirmer** |
 | `hdri/potsdamer_platz_1k.hdr` | Éclairage du modèle 3D (/solutions) | [Poly Haven](https://polyhaven.com/a/potsdamer_platz) | [CC0](https://polyhaven.com/license) |
@@ -358,9 +361,12 @@ fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent 
 > Supervision → "Opérateur face à un mur d'écrans de supervision",
 > Analyse d'image → "Caméra de vidéosurveillance fixée sur un mur".
 
-> ⚠️ Hero /solutions (modèle 3D AXIS Q6010-E) : nouvelle indication « Faites pivoter la caméra »
-> (`solutionsHeroModel.hint`, `data/site.ts`) à valider. Les deux étiquettes flottantes reprennent
-> les libellés de la vue éclatée (« Capteurs multidirectionnels (×4) », « Dôme PTZ »).
+> ⚠️ Hero /solutions : le dôme AXIS Q6010-E est remplacé le 14/10/2026 par une caméra bullet
+> AXIS P1465-LE modélisée dans Blender (aussi utilisée pour l'aperçu AR). Indication « Faites
+> pivoter la caméra » et nouvelles étiquettes flottantes « Éclairage IR intégré » et « Support
+> mural » (`solutionsHeroModel`, `data/site.ts`) à valider.
+> ⚠️ Parcours 3D /solutions (14/10/2026) : nouveau libellé affiché sur l'écran d'alarme,
+> « Intrusion · Portail 01 » (`alarmJourney.detection`, `data/site.ts`), à valider.
 
 > Logos partenaires ajoutés (`public/novadis/logos/partners/`) : `microsoft.webp` et `vmware.webp`
 > rendus depuis les SVG de Wikimedia Commons (Microsoft_logo_(2012).svg, Vmware.svg) ; `aperio.webp`
