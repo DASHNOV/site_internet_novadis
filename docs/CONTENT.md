@@ -259,6 +259,24 @@ Indice    : Faites défiler
 
 ---
 
+## Solution Intrusion — film de l'entrepôt
+
+```
+Eyebrow   : Galaxy
+Titre     : Une intrusion, en trois temps
+Étape 1   : Zone sous surveillance — Capteurs intérieurs et extérieurs : la centrale Galaxy veille en continu sur chaque zone armée.
+Étape 2   : Intrusion détectée — Conforme NFA2P : le détecteur déclenche, la centrale qualifie l'alarme et la localise.
+Étape 3   : Escalade immédiate — Supervision unifiée : l'alarme remonte aussitôt dans Amadeus, l'opérateur engage la réponse.
+HUD       : Détecteur · Zone 04 / Zone armée / Surveillance active / Mouvement détecté / Centrale Galaxy · NFA2P / Intrus
+Notif.    : Intrusion · Zone 04 · Entrepôt · Allée B · Remontée à Amadeus
+Indice    : Faites défiler
+```
+> ⚠️ 14/10/2026 — Nouveaux textes (reprennent les avantages Galaxy "Conforme NFA2P",
+> "Supervision unifiée" et les capacités "Capteurs intérieurs et extérieurs") — à valider.
+> Détecteur générique, sans marque ; zone et allée fictives.
+
+---
+
 ## Solution Vidéosurveillance — vue éclatée AXIS Q6010-E
 
 ```
@@ -338,6 +356,7 @@ fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent 
 | `models/server-rack.glb`, `models/control-room.glb` | Parcours 3D (/solutions) | Modélisés pour Novadis dans Blender (textures d'écran générées) | Propriété Novadis |
 | `models/axis-p1465-le.glb`, `axis-p1465-le-ar.glb`, `axis-p1465-le.usdz` | Hero /solutions (modèle interactif + aperçu AR) | Caméra bullet modélisée pour Novadis dans Blender (`design/3d/axis-p1465-le.blend`) d'après la photo produit `images/cameras/axis-bullet-2.webp` | Propriété Novadis (marque AXIS reproduite sur le capot) |
 | `sequences/access-door/*.webp` (97 images) | Solution Contrôle d'accès : film de la porte à badge piloté par le défilement | Généré par IA avec Higgsfield le 14/10/2026, une image sur deux extraite en WebP 1600×900 — original `_sources/higgsfield/access_door.mp4` (non versionné) | Conditions du plan Higgsfield — **usage commercial à confirmer** |
+| `sequences/intrusion/*.webp` (97 images) | Solution Intrusion : film de l'entrepôt piloté par le défilement | Généré par IA avec Higgsfield le 14/10/2026 (images de début et de fin puis animation), une image sur deux extraite en WebP 1600×900 — originaux dans `_sources/higgsfield/intrusion/` (non versionné) | Conditions du plan Higgsfield — **usage commercial à confirmer** |
 | `videos/journey-gate.mp4` | Parcours 3D (/solutions) : flux de la caméra du portail sur l'écran d'alarme | Généré par IA avec Higgsfield le 14/10/2026 (image Nano Banana 2 puis animation Seedance 2.0), réencodé en 960×540 sans son — originaux dans `_sources/higgsfield/journey/` (non versionné) | Conditions du plan Higgsfield — **usage commercial à confirmer** |
 | `models/alarm-journey-sets.glb` | Parcours 3D (/solutions) : maquettes Terrain (façade, portail, guérite), local technique, salle de supervision | Modélisées pour Novadis dans Blender (`design/3d/alarm-journey-sets.blend`) ; le mur d'images affiche des recadrages de `images/hero/site-end.webp` (Higgsfield) | Propriété Novadis — image Higgsfield : **usage commercial à confirmer** |
 | `models/axis-q6010-e.glb` | Plus utilisé sur le site depuis le 14/10/2026 (remplacé par la P1465-LE) | ["AXIS-Q6010-E Surveillance Camera"](https://sketchfab.com/3d-models/axis-q6010-e-surveillance-camera-143e552bde554ea2aaa72664efab003e) par ArtOfSylr — dôme en verre fumé pour le web | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — **crédit obligatoire** |

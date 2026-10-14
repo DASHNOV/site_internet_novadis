@@ -1,16 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import {
-  motion,
-  transform,
-  useInView,
-  useMotionValueEvent,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, transform, useMotionValueEvent, useReducedMotion, useTransform, type MotionValue } from "framer-motion";
+import { useFrameSequence } from "@/components/motion/film-scene";
 import { axisExplode } from "@/data/site";
 import { cn } from "@/lib/utils";
 
@@ -193,60 +185,15 @@ function StaticExplode() {
 export function AxisExplode() {
   const reduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const frames = useRef<HTMLImageElement[]>([]);
-  const current = useRef(-1);
-  const near = useInView(sectionRef, { once: true, margin: "800px 0px" });
-  const [loaded, setLoaded] = useState(false);
-  const [frame, setFrame] = useState(0);
   const [step, setStep] = useState(0);
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
-  const frameProgress = useTransform(scrollYProgress, [PLAY[0], PLAY[1]], [0, 1], { clamp: true });
+  const { canvasRef, loaded, frame, scrollYProgress } = useFrameSequence(sectionRef, axisExplode, PLAY, !reduceMotion);
   // Function forms: a plain range would be offloaded to a native scroll timeline that ignores clamping.
   const fleetProgress = useTransform(scrollYProgress, (v) => transform(v, FLEET, [0, 1]));
   const stageScale = useTransform(fleetProgress, (v) => transform(v, [0, 0.6], [1, 0.74]));
   const stageDim = useTransform(fleetProgress, (v) => transform(v, [0, 0.6], [1, 0.55]));
   const hintOpacity = useTransform(scrollYProgress, (v) => transform(v, [0, 0.06], [1, 0]));
 
-  const draw = (index: number) => {
-    const canvas = canvasRef.current;
-    const image = frames.current[index];
-    if (!canvas || !image?.complete || !image.naturalWidth || index === current.current) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    current.current = index;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-  };
-
-  useEffect(() => {
-    if (!near || reduceMotion) return;
-    let remaining = axisExplode.frameCount;
-    frames.current = Array.from({ length: axisExplode.frameCount }, (_, i) => {
-      const image = new Image();
-      image.decoding = "async";
-      image.onload = image.onerror = () => {
-        remaining -= 1;
-        if (i === 0) draw(0);
-        if (remaining === 0) setLoaded(true);
-      };
-      image.src = axisExplode.framePath(i);
-      return image;
-    });
-    // draw only reads refs, so it is deliberately left out of the dependencies.
-  }, [near, reduceMotion]);
-
-  useMotionValueEvent(frameProgress, "change", (value) => {
-    const index = Math.round(value * LAST);
-    draw(index);
-    setFrame(index);
-  });
-
   useMotionValueEvent(scrollYProgress, "change", (value) => setStep(stepAt(value)));
-
-  useEffect(() => {
-    if (loaded) draw(Math.round(frameProgress.get() * LAST));
-  }, [loaded]);
 
   if (reduceMotion) return <StaticExplode />;
 

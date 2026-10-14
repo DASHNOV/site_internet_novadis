@@ -26,6 +26,7 @@
   --accent: 54 164 217;                 /* #36A4D9 — bleu vif Novadis */
   --glow: 129 207 245;                  /* #81CFF5 — bleu marque (point du logo) */
   --success: 16 185 129;                /* #10B981 */
+  --danger: 239 68 68;                  /* #EF4444 — alarme */
   --shadow: 18 145 206;
   --grid: 54 53 53 / 0.04;
 
@@ -49,6 +50,7 @@
   --color-accent: rgb(var(--accent));
   --color-glow: rgb(var(--glow));
   --color-success: rgb(var(--success));
+  --color-danger: rgb(var(--danger));
   --color-night: rgb(var(--night));
   --color-hairline: rgba(var(--hairline));
   --color-hairline-strong: rgba(var(--hairline-strong));

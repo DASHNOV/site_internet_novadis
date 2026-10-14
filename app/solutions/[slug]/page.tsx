@@ -20,7 +20,8 @@ import { NumberBadge } from "@/components/ui/number-badge";
 import { SplitTitle } from "@/components/ui/split-title";
 import { AxisExplode } from "@/components/motion/axis-explode";
 import { BadgeDoor } from "@/components/motion/badge-door";
-import { axisExplode, badgeDoor, getSolution, solutions } from "@/data/site";
+import { IntrusionScene } from "@/components/motion/intrusion-scene";
+import { axisExplode, badgeDoor, getSolution, intrusionScene, solutions } from "@/data/site";
 
 type Params = Promise<{ slug: string }>;
 
@@ -72,6 +73,12 @@ export default async function SolutionDetailPage({ params }: { params: Params })
       {slug === badgeDoor.solutionSlug && (
         <div className="mt-16">
           <BadgeDoor />
+        </div>
+      )}
+
+      {slug === intrusionScene.solutionSlug && (
+        <div className="mt-16">
+          <IntrusionScene />
         </div>
       )}
 

@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import accessDoorAnchors from "./access-door-anchors.json";
 import explodeAnchors from "./axis-explode-anchors.json";
+import intrusionAnchors from "./intrusion-anchors.json";
 
 export type Metric = {
   value: string;
@@ -838,6 +839,38 @@ export const badgeDoor = {
     decision: "Décision locale",
   },
   event: { title: "Accès autorisé", detail: "Porte 01 · Hall d'accueil", logged: "Journalisé · supervision" },
+  scrollHint: "Faites défiler",
+};
+
+// Scroll-scrubbed intrusion film on the intrusion page (Higgsfield, _sources/higgsfield/intrusion/).
+// Une image sur deux du film : silhouette dès 10, LED rouge à 33, sirène dès 37, avancée vers le détecteur dès 48.
+// anchors.detector[frame] / anchors.intruder[frame] = [x0, y0, x1, y1] en fraction de l'image (suivis sur le film).
+export const intrusionScene = {
+  solutionSlug: "intrusion-detection",
+  eyebrow: "Galaxy",
+  title: "Une intrusion, en trois temps",
+  frameCount: 97,
+  framePath: (index: number) => `/novadis/sequences/intrusion/${String(index).padStart(2, "0")}.webp`,
+  anchors: intrusionAnchors as {
+    detector: [number, number, number, number][];
+    intruder: ([number, number, number, number] | null)[];
+  },
+  staticFrame: 45,
+  beats: { detected: 33, escalated: 54 },
+  steps: [
+    { label: "Zone sous surveillance", text: "Capteurs intérieurs et extérieurs : la centrale Galaxy veille en continu sur chaque zone armée." },
+    { label: "Intrusion détectée", text: "Conforme NFA2P : le détecteur déclenche, la centrale qualifie l'alarme et la localise." },
+    { label: "Escalade immédiate", text: "Supervision unifiée : l'alarme remonte aussitôt dans Amadeus, l'opérateur engage la réponse." },
+  ],
+  hud: {
+    detector: "Détecteur · Zone 04",
+    armed: "Zone armée",
+    watching: "Surveillance active",
+    detected: "Mouvement détecté",
+    panel: "Centrale Galaxy · NFA2P",
+    intruder: "Intrus",
+  },
+  event: { title: "Intrusion · Zone 04", detail: "Entrepôt · Allée B", logged: "Remontée à Amadeus" },
   scrollHint: "Faites défiler",
 };
 
