@@ -19,7 +19,7 @@ import { IconBadge } from "@/components/ui/icon-badge";
 import { NumberBadge } from "@/components/ui/number-badge";
 import { SplitTitle } from "@/components/ui/split-title";
 import { AxisExplode } from "@/components/motion/axis-explode";
-import { BadgeDoor } from "@/components/three/badge-door";
+import { BadgeDoor } from "@/components/motion/badge-door";
 import { axisExplode, badgeDoor, getSolution, solutions } from "@/data/site";
 
 type Params = Promise<{ slug: string }>;

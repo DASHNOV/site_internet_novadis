@@ -240,7 +240,7 @@ Intro    : eyebrow "Architecture" + titre "L'architecture compte autant que les 
 
 ---
 
-## Solution Contrôle d'accès — scène 3D de la porte à badge
+## Solution Contrôle d'accès — film de la porte à badge
 
 ```
 Eyebrow   : Amadeus
@@ -248,10 +248,14 @@ Titre     : Un accès, en trois temps
 Étape 1   : Badge présenté — Le lecteur identifie le badge et interroge le contrôleur de la porte.
 Étape 2   : Droit vérifié — Intelligence distribuée : le contrôleur décide localement, en une fraction de seconde.
 Étape 3   : Porte ouverte, événement tracé — Gestion temps réel : l'accès est journalisé et remonte aussitôt à la supervision.
-Notif.    : Accès autorisé · Porte 01 · Hall d'accueil
+HUD       : Lecteur · Porte 01 / Lecture du badge / ID 04·7A·19·C2 / Droit valide / Décision locale
+Notif.    : Accès autorisé · Porte 01 · Hall d'accueil · Journalisé · supervision
+Indice    : Faites défiler
 ```
 > ⚠️ Nouveaux textes (reprennent les avantages Amadeus "Intelligence distribuée" et
 > "Gestion temps réel") — à valider. Lecteur et badge génériques, sans marque.
+> 14/10/2026 — la scène 3D est remplacée par un film Higgsfield piloté par le défilement ;
+> textes HUD ajoutés (identifiant de badge fictif) — à valider.
 
 ---
 
@@ -333,6 +337,7 @@ fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent 
 | `videos/salle-supervision.mp4` + `images/stock/salle-supervision-poster.webp` | /services, solution Intégrations | Générée par IA avec Higgsfield le 13/10/2026 (image puis animation), montée en boucle de 7 s avec fondu — originaux dans `_sources/higgsfield/` (non versionné) | Conditions du plan Higgsfield — **usage commercial à confirmer** |
 | `models/server-rack.glb`, `models/control-room.glb` | Parcours 3D (/solutions) | Modélisés pour Novadis dans Blender (textures d'écran générées) | Propriété Novadis |
 | `models/axis-p1465-le.glb`, `axis-p1465-le-ar.glb`, `axis-p1465-le.usdz` | Hero /solutions (modèle interactif + aperçu AR) | Caméra bullet modélisée pour Novadis dans Blender (`design/3d/axis-p1465-le.blend`) d'après la photo produit `images/cameras/axis-bullet-2.webp` | Propriété Novadis (marque AXIS reproduite sur le capot) |
+| `sequences/access-door/*.webp` (97 images) | Solution Contrôle d'accès : film de la porte à badge piloté par le défilement | Généré par IA avec Higgsfield le 14/10/2026, une image sur deux extraite en WebP 1600×900 — original `_sources/higgsfield/access_door.mp4` (non versionné) | Conditions du plan Higgsfield — **usage commercial à confirmer** |
 | `videos/journey-gate.mp4` | Parcours 3D (/solutions) : flux de la caméra du portail sur l'écran d'alarme | Généré par IA avec Higgsfield le 14/10/2026 (image Nano Banana 2 puis animation Seedance 2.0), réencodé en 960×540 sans son — originaux dans `_sources/higgsfield/journey/` (non versionné) | Conditions du plan Higgsfield — **usage commercial à confirmer** |
 | `models/alarm-journey-sets.glb` | Parcours 3D (/solutions) : maquettes Terrain (façade, portail, guérite), local technique, salle de supervision | Modélisées pour Novadis dans Blender (`design/3d/alarm-journey-sets.blend`) ; le mur d'images affiche des recadrages de `images/hero/site-end.webp` (Higgsfield) | Propriété Novadis — image Higgsfield : **usage commercial à confirmer** |
 | `models/axis-q6010-e.glb` | Plus utilisé sur le site depuis le 14/10/2026 (remplacé par la P1465-LE) | ["AXIS-Q6010-E Surveillance Camera"](https://sketchfab.com/3d-models/axis-q6010-e-surveillance-camera-143e552bde554ea2aaa72664efab003e) par ArtOfSylr — dôme en verre fumé pour le web | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — **crédit obligatoire** |

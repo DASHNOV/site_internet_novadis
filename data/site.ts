@@ -17,6 +17,7 @@ import {
   Users,
   Video,
 } from "lucide-react";
+import accessDoorAnchors from "./access-door-anchors.json";
 import explodeAnchors from "./axis-explode-anchors.json";
 
 export type Metric = {
@@ -812,17 +813,32 @@ export const arPreview = {
   usdz: "/novadis/models/axis-p1465-le.usdz",
 };
 
-// Scroll-driven badge door scene on the access-control page (model: design/3d/novadis-3d-scene.blend).
+// Scroll-scrubbed badge door film on the access-control page (Higgsfield, _sources/higgsfield/access_door.mp4).
+// Une image sur deux du film (24 i/s) : badge présenté (0-20), LED verte à 21, portes qui s'ouvrent dès 47.
+// anchors[frame] = [x, y, échelle] du lecteur, en fraction de l'image (suivi de la LED).
 export const badgeDoor = {
   solutionSlug: "access-control",
   eyebrow: "Amadeus",
   title: "Un accès, en trois temps",
+  frameCount: 97,
+  framePath: (index: number) => `/novadis/sequences/access-door/${String(index).padStart(2, "0")}.webp`,
+  anchors: accessDoorAnchors as [number, number, number][],
+  staticFrame: 36,
+  beats: { granted: 21, open: 47 },
   steps: [
     { label: "Badge présenté", text: "Le lecteur identifie le badge et interroge le contrôleur de la porte." },
     { label: "Droit vérifié", text: "Intelligence distribuée : le contrôleur décide localement, en une fraction de seconde." },
     { label: "Porte ouverte, événement tracé", text: "Gestion temps réel : l'accès est journalisé et remonte aussitôt à la supervision." },
   ],
-  event: { title: "Accès autorisé", detail: "Porte 01 · Hall d'accueil" },
+  hud: {
+    reader: "Lecteur · Porte 01",
+    reading: "Lecture du badge",
+    badgeId: "ID 04·7A·19·C2",
+    granted: "Droit valide",
+    decision: "Décision locale",
+  },
+  event: { title: "Accès autorisé", detail: "Porte 01 · Hall d'accueil", logged: "Journalisé · supervision" },
+  scrollHint: "Faites défiler",
 };
 
 // Scroll-scrubbed exploded view rendered in Blender (design/3d/novadis-3d-scene.blend).
