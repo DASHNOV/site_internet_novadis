@@ -54,7 +54,7 @@ export default function HomePage() {
   });
 
   return (
-    <main className="relative overflow-hidden">
+    <main className="relative overflow-clip">
       <SiteHeader />
 
       {/* HERO — plan drone du site, puis les repères de supervision se verrouillent sur l'image */}
@@ -326,17 +326,14 @@ export default function HomePage() {
       </section>
 
       {/* SECTEURS */}
-      <section className="section-soft section-y">
-        <div className="shell-wide">
+      <SectorsRail
+        heading={
           <SectionHeading
             eyebrow="Secteurs"
             title="Des systèmes adaptés à la logique réelle de chaque environnement"
           />
-          <div className="mt-10">
-            <SectorsRail />
-          </div>
-        </div>
-      </section>
+        }
+      />
 
       {/* MÉTHODE — piliers + étapes, section nuit */}
       <section className="section-dark section-y relative isolate overflow-hidden">

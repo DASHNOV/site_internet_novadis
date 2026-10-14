@@ -1,100 +1,82 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { motion, transform, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { IconBadge } from "@/components/ui/icon-badge";
+import { cn } from "@/lib/utils";
 import { industries } from "@/data/site";
 
-export function SectorsRail() {
+// Pinned section: vertical scroll drives the card rail sideways. The section is
+// exactly as tall as the rail's overflow, so the pin releases on the last card.
+export function SectorsRail({ heading }: { heading: ReactNode }) {
+  const sectionRef = useRef<HTMLElement>(null);
   const railRef = useRef<HTMLUListElement>(null);
-  const [edges, setEdges] = useState({ start: true, end: false });
-
-  const updateEdges = useCallback(() => {
-    const rail = railRef.current;
-    if (!rail) return;
-    setEdges({
-      start: rail.scrollLeft <= 4,
-      end: rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4,
-    });
-  }, []);
+  const [distance, setDistance] = useState(0);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
+  // Function form: a plain range would be offloaded to a native scroll timeline that ignores clamping.
+  const x = useTransform(scrollYProgress, (v) => transform(v, [0, 1], [0, -distance]));
 
   useEffect(() => {
-    updateEdges();
-    window.addEventListener("resize", updateEdges);
-    return () => window.removeEventListener("resize", updateEdges);
-  }, [updateEdges]);
-
-  // Targets the neighbouring card's exact offset: a relative smooth scrollBy
-  // fights scroll-snap and can land back on the current card.
-  const scrollByCard = (direction: 1 | -1) => {
     const rail = railRef.current;
     if (!rail) return;
-    const offsets = Array.from(rail.children, (card) => (card as HTMLElement).offsetLeft - rail.offsetLeft);
-    const current = offsets.reduce(
-      (best, offset, index) => (Math.abs(offset - rail.scrollLeft) < Math.abs(offsets[best] - rail.scrollLeft) ? index : best),
-      0,
-    );
-    const target = offsets[Math.min(Math.max(current + direction, 0), offsets.length - 1)];
-    rail.scrollTo({ left: target, behavior: "smooth" });
-  };
+    const measure = () => setDistance(Math.max(0, rail.scrollWidth - rail.clientWidth));
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(rail);
+    return () => observer.disconnect();
+  }, []);
+
+  const pinned = !reduceMotion;
 
   return (
-    <div>
-      <div className="flex justify-end gap-2">
-        <Button
-          aria-label="Secteurs précédents"
-          disabled={edges.start}
-          onClick={() => scrollByCard(-1)}
-          size="icon"
-          variant="outline"
-        >
-          <ArrowLeft className="h-4 w-4" />
-        </Button>
-        <Button
-          aria-label="Secteurs suivants"
-          disabled={edges.end}
-          onClick={() => scrollByCard(1)}
-          size="icon"
-          variant="outline"
-        >
-          <ArrowRight className="h-4 w-4" />
-        </Button>
+    <section
+      className="section-soft relative"
+      ref={sectionRef}
+      style={pinned ? { height: `calc(100vh + ${distance}px)` } : undefined}
+    >
+      <div className={cn("overflow-hidden", pinned ? "sticky top-0 flex h-screen flex-col justify-center pb-10 pt-24" : "section-y")}>
+        <div className="shell-wide">
+          {heading}
+          <motion.ul
+            className={cn(
+              "-mx-2 mt-10 flex gap-6 px-2 pb-6 pt-2",
+              !pinned && "snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+            )}
+            ref={railRef}
+            style={pinned ? { x } : undefined}
+          >
+            {industries.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <li className="group w-[82%] flex-none snap-start sm:w-[46%] lg:w-[31%] xl:w-[27%]" key={item.slug}>
+                  <article className="flex h-full flex-col overflow-hidden rounded-xl border border-hairline bg-surface shadow-soft transition-all duration-200 ease-out group-hover:-translate-y-1 group-hover:shadow-lift">
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <img
+                        alt={item.title}
+                        className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                        loading="lazy"
+                        src={item.media}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-night/60 via-transparent to-transparent" />
+                      <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-primary-strong backdrop-blur">
+                        {`Secteur 0${index + 1}`}
+                      </span>
+                    </div>
+                    <div className="flex flex-1 flex-col p-6">
+                      <div className="flex items-center gap-3">
+                        <IconBadge icon={Icon} size="sm" />
+                        <h3 className="font-display text-lg font-semibold tracking-tight text-foreground-strong">{item.title}</h3>
+                      </div>
+                      <p className="mt-4 text-sm leading-7 text-muted-strong">{item.summary}</p>
+                    </div>
+                  </article>
+                </li>
+              );
+            })}
+          </motion.ul>
+        </div>
       </div>
-      <ul
-        className="-mx-2 mt-6 flex snap-x snap-mandatory gap-6 overflow-x-auto px-2 pb-6 pt-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        onScroll={updateEdges}
-        ref={railRef}
-      >
-        {industries.map((item, index) => {
-          const Icon = item.icon;
-          return (
-            <li className="group w-[82%] flex-none snap-start sm:w-[46%] lg:w-[31%] xl:w-[27%]" key={item.slug}>
-              <article className="flex h-full flex-col overflow-hidden rounded-xl border border-hairline bg-surface shadow-soft transition-all duration-200 ease-out group-hover:-translate-y-1 group-hover:shadow-lift">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img
-                    alt={item.title}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                    loading="lazy"
-                    src={item.media}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-night/60 via-transparent to-transparent" />
-                  <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-primary-strong backdrop-blur">
-                    {`Secteur 0${index + 1}`}
-                  </span>
-                </div>
-                <div className="flex flex-1 flex-col p-6">
-                  <div className="flex items-center gap-3">
-                    <IconBadge icon={Icon} size="sm" />
-                    <h3 className="font-display text-lg font-semibold tracking-tight text-foreground-strong">{item.title}</h3>
-                  </div>
-                  <p className="mt-4 text-sm leading-7 text-muted-strong">{item.summary}</p>
-                </div>
-              </article>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+    </section>
   );
 }
