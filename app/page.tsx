@@ -12,8 +12,8 @@ import {
 } from "lucide-react";
 import { featuredReferences } from "@/data/references";
 import { ArchitectureDiagram } from "@/components/motion/architecture-diagram";
+import { HeroFilm } from "@/components/motion/hero-film";
 import { CtaBanner } from "@/components/sections/cta-banner";
-import { HeroConsole } from "@/components/sections/hero-console";
 import { MediaFrame } from "@/components/sections/media-frame";
 import { MediaStage } from "@/components/sections/media-stage";
 import { PartnerCloud } from "@/components/sections/partner-cloud";
@@ -34,6 +34,8 @@ import { cn } from "@/lib/utils";
 import {
   challenges,
   differentiators,
+  getSolution,
+  heroFilm,
   industries,
   pillars,
   processSteps,
@@ -46,20 +48,31 @@ export default function HomePage() {
   const spotlightSolutions = solutions.slice(0, 3);
   const otherSolutions = solutions.slice(3);
   const pillarIcons = [Compass, Layers, Network];
+  const heroMarkers = heroFilm.markers.flatMap((marker) => {
+    const solution = getSolution(marker.slug);
+    return solution ? [{ id: marker.slug, label: solution.shortTitle, x: marker.x, y: marker.y, side: marker.side }] : [];
+  });
 
   return (
     <main className="relative overflow-hidden">
       <SiteHeader />
 
-      {/* HERO — texte d'abord, console de supervision isométrique à droite */}
-      <section className="relative isolate overflow-hidden">
-        <Blobs variant="hero" />
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10 bg-[radial-gradient(rgb(var(--primary)/0.14)_1px,transparent_1px)] [background-size:26px_26px] [mask-image:radial-gradient(ellipse_70%_60%_at_30%_20%,black,transparent)]"
-        />
-        <div className="shell-wide grid gap-16 pb-10 pt-12 sm:pb-16 sm:pt-16 lg:grid-cols-2 lg:items-center lg:gap-12 lg:pb-16 lg:pt-20">
-          <div>
+      {/* HERO — plan drone du site, puis les repères de supervision se verrouillent sur l'image */}
+      <section className="section-dark relative isolate overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <HeroFilm
+            focusX={heroFilm.focusX}
+            hubId={heroFilm.hub}
+            markers={heroMarkers}
+            perimeter={heroFilm.perimeter}
+            posterEnd={heroFilm.posterEnd}
+            posterStart={heroFilm.posterStart}
+            status={heroFilm.status}
+            video={heroFilm.video}
+          />
+        </div>
+        <div className="shell-wide flex min-h-[calc(100svh-4rem)] items-center pb-20 pt-16 lg:min-h-[calc(100svh-5rem)] lg:pb-24 lg:pt-20">
+          <div className="max-w-2xl">
             <Reveal>
               <p className="eyebrow">Créateur de solutions globales de sûreté</p>
             </Reveal>
@@ -69,7 +82,7 @@ export default function HomePage() {
               </h1>
             </Reveal>
             <Reveal delay={0.14}>
-              <p className="mt-7 max-w-xl text-base leading-7 text-muted-strong sm:text-lg sm:leading-8">
+              <p className="mt-7 max-w-xl text-base leading-7 text-slate-200 sm:text-lg sm:leading-8">
                 Novadis conçoit, intègre et maintient des systèmes de sûreté pour les entreprises, les sites
                 industriels et les infrastructures critiques. De l&apos;informatique à la supervision intelligente,
                 chaque couche est pensée pour durer.
@@ -83,7 +96,11 @@ export default function HomePage() {
                 </Button>
               </Link>
               <Link href="/solutions">
-                <Button className="w-full sm:w-auto" size="lg" variant="outline">
+                <Button
+                  className="w-full border-white/30 bg-white/5 text-white hover:border-white/60 hover:text-white sm:w-auto"
+                  size="lg"
+                  variant="outline"
+                >
                   Découvrir les solutions
                 </Button>
               </Link>
@@ -95,10 +112,10 @@ export default function HomePage() {
                   .filter((signal) => !signal.startsWith("Membre"))
                   .map((signal) => (
                     <span
-                      className="inline-flex items-center gap-1.5 rounded-full border border-hairline bg-surface px-3 py-1.5 text-xs font-medium text-foreground shadow-soft"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm"
                       key={signal}
                     >
-                      <ShieldCheck aria-hidden className="h-3.5 w-3.5 text-primary" />
+                      <ShieldCheck aria-hidden className="h-3.5 w-3.5 text-accent" />
                       {signal}
                     </span>
                   ))}
@@ -113,14 +130,10 @@ export default function HomePage() {
               </div>
             </Reveal>
           </div>
-
-          <Reveal delay={0.2}>
-            <HeroConsole />
-          </Reveal>
         </div>
       </section>
 
-      <StatRow className="pt-10 lg:pt-12" />
+      <StatRow className="pt-12 lg:pt-16" />
 
       {/* RÉFÉRENCES — preuve client remontée en haut de page */}
       <section className="section-soft section-y mt-8">

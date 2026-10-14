@@ -64,6 +64,12 @@ Fond             : photo Casino de Monaco (référence client) + légende "site
                    corporate testée est un plan interview, inadaptée en fond)
 Badges           : Conforme ANSSI · Norme NFA2P · CNIL biométrie (sous les CTA)
 ```
+> ⚠️ 13/10/2026 — Hero plein écran sombre : film de drone qui plonge sur un site d'entreprise
+> à l'heure bleue (site fictif, généré par IA), puis quatre repères se verrouillent sur l'image
+> (Supervision globale, Vidéosurveillance, Contrôle d'accès, Intrusion · statut "Actif") avec le
+> tracé du périmètre. Le film rejoue à chaque chargement ; image fixe directement avec
+> "réduire les animations". Sur téléphone, pas de repères. Textes du hero inchangés. La console
+> de supervision et la photo du Casino de Monaco ne sont plus affichées dans le hero. À valider.
 > ⚠️ 07/10/2026 — Fond du hero remplacé par une ville 3D de nuit "sous surveillance"
 > (équipements qui s'allument par vagues depuis un centre de supervision, faisceaux,
 > balayage radar, plongée au scroll). La photo du Casino de Monaco et sa légende
@@ -294,6 +300,7 @@ fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent 
 | `models/server-rack.glb`, `models/control-room.glb` | Parcours 3D (/solutions) | Modélisés pour Novadis dans Blender (textures d'écran générées) | Propriété Novadis |
 | `models/axis-q6010-e.glb` | Hero /solutions + parcours 3D (étape Terrain) | ["AXIS-Q6010-E Surveillance Camera"](https://sketchfab.com/3d-models/axis-q6010-e-surveillance-camera-143e552bde554ea2aaa72664efab003e) par ArtOfSylr — dôme en verre fumé pour le web | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — **crédit obligatoire** |
 | `textures/city/*.webp` (façades, toits, asphalte) | Hero 3D de la homepage | Poly Haven : [concrete_tile_facade](https://polyhaven.com/a/concrete_tile_facade), [brick_wall_09](https://polyhaven.com/a/brick_wall_09), [gravel_embedded_concrete](https://polyhaven.com/a/gravel_embedded_concrete), [aerial_asphalt_01](https://polyhaven.com/a/aerial_asphalt_01) — atlas de fenêtres généré pour Novadis | [CC0](https://polyhaven.com/license) |
+| `videos/hero-site.mp4` + `images/hero/site-start.webp`, `site-end.webp` | Hero de l'accueil | Scène de cadrage modélisée dans Blender (`design/3d/novadis-hero.blend`), image et vidéo générées par IA avec Higgsfield le 13/10/2026, vidéo inversée et ralentie au montage — originaux dans `_sources/higgsfield/hero/` (non versionné) | Conditions du plan Higgsfield — **usage commercial à confirmer** |
 | `hdri/potsdamer_platz_1k.hdr` | Éclairage du modèle 3D (/solutions) | [Poly Haven](https://polyhaven.com/a/potsdamer_platz) | [CC0](https://polyhaven.com/license) |
 
 > ⚠️ 13/10/2026 — La vidéo de salle de supervision et les six images de secteurs sont générées

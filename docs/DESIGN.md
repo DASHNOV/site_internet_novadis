@@ -132,7 +132,7 @@ Signature du style : les premiers mots en gris foncé, la suite en dégradé.
 | `SectionHeading` | En-tête de section (eyebrow, titre, description, actions) |
 | `MediaStage` | Cadre blanc incliné en perspective (`tilt` left / right / none), se redresse au survol, à plat sur mobile |
 | `MediaFrame` | Image ou vidéo avec légende |
-| `HeroConsole` | Visuel isométrique « console de supervision » du hero d'accueil (libellés dans `heroConsole`, `data/site.ts`) |
+| `HeroFilm` | Fond du hero d'accueil : film drone qui se fige, puis repères animés verrouillés sur le site (vidéo, images et coordonnées dans `heroFilm`, `data/site.ts`) |
 | `ReferenceCard` | Carte de référence client, avec tags de solutions optionnels |
 | `StatRow` | Métriques clés en carte, chiffres en dégradé |
 | `PartnerCloud` | Ticker des partenaires + normes et associations |

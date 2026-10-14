@@ -812,15 +812,32 @@ export const alarmJourney = {
   ] satisfies { layer: ArchitectureLayer["id"]; slug: string }[],
 };
 
-// Visuel « console de supervision » du hero d'accueil.
-export const heroConsole = {
-  title: "Hyperviseur de sûreté",
-  subtitle: "Supervision unifiée · temps réel",
-  status: "Opérationnel",
-  moduleStatus: "Actif",
-  modules: ["supervision", "access-control", "intrusion-detection", "video-surveillance"],
-  badge: "Conforme ANSSI",
-  highlight: "Corrélation multi-systèmes",
+// Film du hero d'accueil : plan drone qui se fige, puis les repères se verrouillent sur le site.
+// Coordonnées en % de l'image finale 16:9 (posterEnd), à remesurer si le film change.
+export const heroFilm = {
+  status: "Actif",
+  video: "/novadis/videos/hero-site.mp4",
+  posterStart: "/novadis/images/hero/site-start.webp",
+  posterEnd: "/novadis/images/hero/site-end.webp",
+  focusX: 72,
+  hub: "supervision",
+  markers: [
+    { slug: "supervision", x: 75.9, y: 28, side: "right" },
+    { slug: "video-surveillance", x: 68.4, y: 53, side: "right" },
+    { slug: "access-control", x: 75, y: 63.1, side: "right" },
+    { slug: "intrusion-detection", x: 51.9, y: 65.8, side: "right" },
+  ] satisfies { slug: string; x: number; y: number; side: "left" | "right" }[],
+  perimeter: [
+    [
+      [29.4, 42.2],
+      [24.4, 68.7],
+      [61.9, 65.6],
+    ],
+    [
+      [80.6, 64.4],
+      [100, 63.3],
+    ],
+  ] satisfies [number, number][][],
 };
 
 export function getSolution(slug: string) {
