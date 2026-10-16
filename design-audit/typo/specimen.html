@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Spécimen titres Novadis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Schibsted+Grotesk:wght@400..800&family=Hanken+Grotesk:wght@400..800&family=Plus+Jakarta+Sans:wght@500..800&family=Roboto:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #F8FAFC; font-family: Roboto, sans-serif; color: #363535; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid #CBD5E1; }
+  .light, .night { padding: 40px 48px 44px; }
+  .night { background: #0B1220; color: #CBD5E1; border-left: 1px solid #1E293B; }
+  .tag { font: 500 11px/1 "JetBrains Mono", monospace; letter-spacing: .16em; text-transform: uppercase; color: #0570A4; margin-bottom: 18px; display: flex; gap: 12px; }
+  .night .tag { color: #81CFF5; }
+  .tag b { color: #646464; font-weight: 500; }
+  .night .tag b { color: #94A3B8; }
+  h1 { margin: 0; font-size: 54px; line-height: 1.04; letter-spacing: -0.025em; color: #1E1D1D; max-width: 15ch; }
+  h1 span { color: #646464; }
+  .night h1 { color: #fff; font-size: 40px; max-width: 18ch; }
+  .night h1 span { color: #94A3B8; }
+  p { margin: 18px 0 0; font-size: 17px; line-height: 1.65; max-width: 46ch; }
+  .stat { display: flex; gap: 40px; margin-top: 26px; }
+  .stat div { font-size: 13px; color: #646464; }
+  .night .stat div { color: #94A3B8; }
+  .stat strong { display: block; font-size: 34px; line-height: 1; letter-spacing: -0.02em; color: #1E1D1D; margin-bottom: 6px; }
+  .night .stat strong { color: #fff; }
+  .f-archivo { font-family: Archivo; font-stretch: 87.5%; font-weight: 700; }
+  .f-schibsted { font-family: "Schibsted Grotesk"; font-weight: 700; }
+  .f-hanken { font-family: "Hanken Grotesk"; font-weight: 700; }
+  .f-jakarta { font-family: "Plus Jakarta Sans"; font-weight: 800; }
+</style>
+</head>
+<body>
+<script>
+  const fonts = [
+    ["f-archivo", "1 · Archivo (semi-condensé, 700)"],
+    ["f-schibsted", "2 · Schibsted Grotesk (700)"],
+    ["f-hanken", "3 · Hanken Grotesk (700)"],
+    ["f-jakarta", "Actuel · Plus Jakarta Sans (800)"],
+  ];
+  for (const [cls, label] of fonts) {
+    document.write(`
+    <div class="row">
+      <div class="light">
+        <div class="tag">${label} <b>· section claire</b></div>
+        <h1 class="${cls}">Une seule architecture. <span>Vidéo, accès, intrusion, supervisés ensemble.</span></h1>
+        <p>Novadis conçoit, intègre et maintient des systèmes de sûreté ouverts, exploitables au quotidien par vos opérateurs.</p>
+        <div class="stat"><div><strong class="${cls}">12 000+</strong>caméras supervisées</div><div><strong class="${cls}">40 000+</strong>points d'accès gérés</div><div><strong class="${cls}">2,3 M m²</strong>de sites exploités</div></div>
+      </div>
+      <div class="night">
+        <div class="tag">PC sécurité · Porte 01 <b>· section nuit</b></div>
+        <h1 class="${cls}">Un accès, en trois temps. <span>Badge présenté, droit vérifié, porte ouverte.</span></h1>
+        <p>Décision locale au lecteur, événement remonté à la supervision en moins d'une seconde.</p>
+      </div>
+    </div>`);
+  }
+</script>
+</body>
+</html>
