@@ -48,6 +48,8 @@ export function HeroFilm({ video, posterStart, posterEnd, focusX, hubId, status,
 
   useEffect(() => {
     if (mode !== "film") return;
+    // Played faster so the HUD lands while the visitor is still reading the headline.
+    if (videoRef.current) videoRef.current.playbackRate = 1.5;
     // Autoplay can be refused (data saver, low-power mode): fall back to the still frame.
     videoRef.current?.play().catch(() => {
       setMode("still");

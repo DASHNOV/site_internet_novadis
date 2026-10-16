@@ -69,9 +69,9 @@ export function useFrameSequence(
 type Step = { label: string; text: string };
 
 export const tones = {
-  glow: { border: "border-glow", soft: "border-glow/30", bg: "bg-glow", line: "bg-glow/70", text: "text-glow", shadow: "shadow-[0_0_40px_rgb(var(--glow)/0.8)]", rgb: "var(--glow)" },
-  success: { border: "border-success", soft: "border-success/40", bg: "bg-success", line: "bg-success/70", text: "text-success", shadow: "shadow-[0_0_40px_rgb(var(--success)/0.8)]", rgb: "var(--success)" },
-  danger: { border: "border-danger", soft: "border-danger/40", bg: "bg-danger", line: "bg-danger/70", text: "text-danger", shadow: "shadow-[0_0_40px_rgb(var(--danger)/0.8)]", rgb: "var(--danger)" },
+  glow: { border: "border-glow", soft: "border-glow/30", bg: "bg-glow", line: "bg-glow/70", text: "text-glow", shadow: "", rgb: "var(--glow)" },
+  success: { border: "border-success", soft: "border-success/40", bg: "bg-success", line: "bg-success/70", text: "text-success", shadow: "", rgb: "var(--success)" },
+  danger: { border: "border-danger", soft: "border-danger/40", bg: "bg-danger", line: "bg-danger/70", text: "text-danger", shadow: "", rgb: "var(--danger)" },
 } as const;
 export type Tone = keyof typeof tones;
 
@@ -148,7 +148,7 @@ export function HudPanel({ side, tone, children }: { side: "left" | "right"; ton
       <span className={cn("h-px w-10 transition-colors duration-300 lg:w-16", tones[tone].line)} />
       <div
         className={cn(
-          "w-56 rounded-xl border bg-night/80 px-4 py-3 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.8)] backdrop-blur transition-colors duration-300",
+          "w-56 rounded-xl border bg-night/80 px-4 py-3 backdrop-blur transition-colors duration-300",
           tones[tone].soft,
         )}
       >
@@ -178,7 +178,7 @@ export function EventToast({
     <div
       aria-live="polite"
       className={cn(
-        "absolute right-6 top-28 w-72 rounded-2xl border bg-[rgb(var(--background-dark))]/85 px-5 py-4 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.7)] backdrop-blur transition-all duration-500 lg:right-12",
+        "absolute right-6 top-28 w-72 rounded-xl border bg-[rgb(var(--background-dark))]/85 px-5 py-4 backdrop-blur transition-all duration-500 lg:right-12",
         tones[tone].soft,
         visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0",
       )}
@@ -187,10 +187,10 @@ export function EventToast({
         <Icon className={cn("h-5 w-5 flex-none", tones[tone].text)} />
         <div>
           <p className="text-sm font-semibold text-white">{title}</p>
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-slate-400">{detail}</p>
+          <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-muted-strong">{detail}</p>
         </div>
       </div>
-      <p className="mt-3 flex items-center gap-2 border-t border-white/10 pt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-glow">
+      <p className="mt-3 flex items-center gap-2 border-t border-white/10 pt-3 font-mono text-[12px] uppercase tracking-[0.14em] text-glow">
         <span className="relative h-1.5 w-1.5 rounded-full bg-glow">
           <span className="absolute inset-0 animate-ping rounded-full bg-glow" />
         </span>
@@ -211,9 +211,9 @@ function Steps({ steps, active }: { steps: readonly Step[]; active: number }) {
           )}
           key={step.label}
         >
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-primary">{`0${index + 1} / 0${steps.length}`}</p>
+          <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-primary">{`0${index + 1} / 0${steps.length}`}</p>
           <h3 className="mt-3 font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">{step.label}</h3>
-          <p className="mt-4 max-w-md text-base leading-7 text-slate-300">{step.text}</p>
+          <p className="mt-4 max-w-md text-base leading-7 text-foreground">{step.text}</p>
         </div>
       ))}
     </div>
@@ -222,19 +222,18 @@ function Steps({ steps, active }: { steps: readonly Step[]; active: number }) {
 
 type SceneText = { eyebrow: string; title: string; steps: readonly Step[] };
 
-export function StaticFilmScene({ eyebrow, title, steps, image }: SceneText & { image: string }) {
+export function StaticFilmScene({ title, steps, image }: SceneText & { image: string }) {
   return (
     <section className="section-dark py-24 lg:py-32">
       <div className="shell-wide">
-        <p className="eyebrow">{eyebrow}</p>
-        <h2 className="section-title mt-6 text-balance text-4xl sm:text-5xl">{title}</h2>
-        <img alt="" className="mt-12 aspect-video w-full rounded-2xl object-cover" loading="lazy" src={image} />
+        <h2 className="section-title text-balance text-4xl sm:text-5xl">{title}</h2>
+        <img alt="" className="mt-12 aspect-video w-full rounded-xl object-cover" loading="lazy" src={image} />
         <ol className="mt-14 grid gap-8 lg:grid-cols-3">
           {steps.map((step, index) => (
             <li className="border-t border-white/12 pt-6" key={step.label}>
-              <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-primary">{`0${index + 1}`}</p>
+              <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-primary">{`0${index + 1}`}</p>
               <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight text-white">{step.label}</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-300">{step.text}</p>
+              <p className="mt-3 text-sm leading-7 text-foreground">{step.text}</p>
             </li>
           ))}
         </ol>
@@ -279,8 +278,7 @@ export function FilmScene({
 
         <div className="shell-wide relative flex h-full flex-col justify-between pb-16 pt-28 lg:pb-24">
           <div>
-            <p className="eyebrow">{text.eyebrow}</p>
-            <h2 className="section-title mt-6 max-w-lg text-balance text-4xl sm:text-5xl">{text.title}</h2>
+            <h2 className="section-title max-w-lg text-balance text-4xl sm:text-5xl">{text.title}</h2>
           </div>
           <Steps active={active} steps={text.steps} />
         </div>
@@ -288,7 +286,7 @@ export function FilmScene({
         {overlay}
 
         <motion.p
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.22em] text-white/50"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-[12px] uppercase tracking-[0.14em] text-white/50"
           style={{ opacity: hintOpacity }}
         >
           {hint}

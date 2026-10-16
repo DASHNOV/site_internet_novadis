@@ -12,19 +12,12 @@ type ReferenceCardProps = {
 export function ReferenceCard({ reference, href, tags }: ReferenceCardProps) {
   const card = (
     <Card className="flex h-full flex-col overflow-hidden" interactive={Boolean(href)}>
-      <div className="relative aspect-[16/10] overflow-hidden">
-        <img
-          alt={reference.name}
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-          loading="lazy"
-          src={reference.image}
-        />
+      <div className="aspect-[16/10] overflow-hidden border-b border-hairline">
+        <img alt={reference.name} className="h-full w-full object-cover" loading="lazy" src={reference.image} />
       </div>
       <div className="flex flex-1 flex-col p-6">
-        <Badge className="self-start" tone="primary">
-          {reference.sector}
-        </Badge>
-        <h3 className="mt-4 font-display text-xl font-bold tracking-tight text-foreground-strong">{reference.name}</h3>
+        <h3 className="font-display text-2xl font-bold tracking-tight text-foreground-strong">{reference.name}</h3>
+        <p className="mt-1 text-sm font-medium text-primary-strong">{reference.sector}</p>
         <p className="mt-3 text-sm leading-7 text-muted-strong">{reference.scope}</p>
         {tags && tags.length > 0 && (
           <div className="mt-auto flex flex-wrap gap-2 pt-5">
@@ -39,7 +32,7 @@ export function ReferenceCard({ reference, href, tags }: ReferenceCardProps) {
     </Card>
   );
 
-  if (!href) return <div className="group h-full">{card}</div>;
+  if (!href) return <div className="h-full">{card}</div>;
   return (
     <Link className="group block h-full" href={href}>
       {card}

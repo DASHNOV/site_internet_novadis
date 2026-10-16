@@ -33,12 +33,12 @@ function Labels({ frame, visible }: { frame: number; visible: boolean }) {
             key={item.label}
             style={{ left: `${x * 100}%`, top: `${y * 100}%`, transitionDelay: `${visible ? index * 90 : 0}ms` }}
           >
-            <span className="relative -mt-px h-2 w-2 flex-none -translate-y-1/2 rounded-full bg-glow shadow-[0_0_12px_rgb(var(--glow)/0.9)]">
+            <span className="relative -mt-px h-2 w-2 flex-none -translate-y-1/2 rounded-full bg-glow">
               <span className="absolute inset-0 animate-ping rounded-full bg-glow/60" />
             </span>
             {/* Narrow screens keep the dots only: side labels would run off the viewport. */}
             <span className="hidden h-px w-14 -translate-y-1/2 bg-gradient-to-r from-glow/70 to-white/20 sm:block" />
-            <span className="hidden -translate-y-1/2 whitespace-nowrap rounded-full border border-glow/25 bg-night/85 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white shadow-[0_0_20px_rgb(var(--accent)/0.2)] sm:block">
+            <span className="hidden -translate-y-1/2 whitespace-nowrap rounded-full border border-glow/25 bg-night/85 px-3 py-1 font-mono text-[12px] uppercase tracking-[0.14em] text-white sm:block">
               {item.label}
             </span>
           </div>
@@ -81,11 +81,11 @@ function FleetItem({ index, progress }: { index: number; progress: MotionValue<n
     >
       <img
         alt={`Caméra ${camera.brand} — ${camera.type}`}
-        className="mx-auto aspect-[4/3] w-full object-contain drop-shadow-[0_10px_24px_rgb(var(--accent)/0.45)]"
+        className="mx-auto aspect-[4/3] w-full object-contain drop-"
         loading="lazy"
         src={camera.cutout}
       />
-      <figcaption className="mt-1 font-mono text-[9px] uppercase tracking-[0.2em] text-glow sm:text-[10px]">
+      <figcaption className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-glow sm:text-[12px]">
         {camera.brand}
       </figcaption>
     </motion.figure>
@@ -114,7 +114,7 @@ function Fleet({ progress }: { progress: MotionValue<number> }) {
         <FleetItem index={index} key={item.camera.cutout} progress={progress} />
       ))}
       <motion.p
-        className="absolute left-1/2 top-[97%] -translate-x-1/2 whitespace-nowrap rounded-full border border-glow/30 bg-night/70 px-4 py-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-white backdrop-blur"
+        className="absolute left-1/2 top-[97%] -translate-x-1/2 whitespace-nowrap rounded-full border border-glow/30 bg-night/70 px-4 py-1.5 font-mono text-[12px] uppercase tracking-[0.14em] text-white backdrop-blur"
         style={{ opacity: hubOpacity }}
       >
         {axisExplode.hub}
@@ -136,12 +136,12 @@ function Steps({ active }: { active: number }) {
             )}
             key={step.title}
           >
-            <p className={cn("font-mono text-[11px] uppercase tracking-[0.22em] transition-colors", on ? "text-glow" : "text-white/35")}>
+            <p className={cn("font-mono text-[12px] uppercase tracking-[0.14em] transition-colors", on ? "text-glow" : "text-white/55")}>
               {String(index + 1).padStart(2, "0")} · {step.title}
             </p>
             <p
               className={cn(
-                "grid text-sm leading-6 text-slate-300 transition-all duration-500 sm:text-base sm:leading-7",
+                "grid text-sm leading-6 text-foreground transition-all duration-500 sm:text-base sm:leading-7",
                 on ? "mt-2 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
               )}
             >
@@ -160,9 +160,8 @@ function StaticExplode() {
     <section className="section-dark py-24 lg:py-32">
       <div className="shell-wide grid items-center gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
         <div className="max-w-md">
-          <p className="eyebrow">{axisExplode.eyebrow}</p>
-          <h2 className="section-title mt-6 text-balance text-4xl sm:text-5xl">{axisExplode.title}</h2>
-          <p className="mt-6 text-base leading-7 text-slate-300">{axisExplode.description}</p>
+          <h2 className="section-title text-balance text-4xl sm:text-5xl">{axisExplode.title}</h2>
+          <p className="mt-6 text-base leading-7 text-foreground">{axisExplode.description}</p>
         </div>
         <div className="relative mx-auto aspect-square w-full max-w-[620px]">
           <Radar />
@@ -174,7 +173,7 @@ function StaticExplode() {
         {axisExplode.fleet.map(({ camera }) => (
           <li className="text-center" key={camera.cutout}>
             <img alt={`Caméra ${camera.brand} — ${camera.type}`} className="mx-auto aspect-[4/3] w-full object-contain" loading="lazy" src={camera.cutout} />
-            <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-glow">{camera.brand}</p>
+            <p className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-glow">{camera.brand}</p>
           </li>
         ))}
       </ul>
@@ -206,8 +205,7 @@ export function AxisExplode() {
         />
         <div className="shell-wide relative grid w-full items-center gap-6 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-10">
           <div className="max-w-md">
-            <p className="eyebrow">{axisExplode.eyebrow}</p>
-            <h2 className="section-title mt-5 text-balance text-3xl sm:text-5xl lg:mt-6">{axisExplode.title}</h2>
+            <h2 className="section-title text-balance text-3xl sm:text-5xl lg:mt-6">{axisExplode.title}</h2>
             <Steps active={step} />
           </div>
           <div className="relative mx-auto aspect-square w-full max-w-[min(680px,58vh)] lg:max-w-[min(720px,82vh)]">
@@ -229,7 +227,7 @@ export function AxisExplode() {
           </div>
         </div>
         <motion.p
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.22em] text-white/50"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-[12px] uppercase tracking-[0.14em] text-white/50"
           style={{ opacity: hintOpacity }}
         >
           {axisExplode.scrollHint}

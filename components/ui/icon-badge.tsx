@@ -2,17 +2,18 @@ import type { LucideIcon } from "lucide-react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-const iconBadgeVariants = cva("flex flex-none items-center justify-center rounded-xl", {
+// Icône en ligne, sans pastille : elle accompagne un titre, elle ne le surmonte pas.
+const iconBadgeVariants = cva("inline-flex flex-none items-center justify-center [&>svg]:stroke-[1.75]", {
   variants: {
     tone: {
-      soft: "bg-primary/10 text-primary-strong",
-      solid: "bg-brand-gradient text-white shadow-glow",
-      glass: "border border-white/15 bg-white/10 text-glow",
+      soft: "text-primary-strong",
+      solid: "text-primary-strong",
+      glass: "text-glow",
     },
     size: {
-      md: "h-12 w-12 [&>svg]:h-5 [&>svg]:w-5",
-      lg: "h-14 w-14 [&>svg]:h-6 [&>svg]:w-6",
-      sm: "h-10 w-10 rounded-lg [&>svg]:h-4 [&>svg]:w-4",
+      sm: "[&>svg]:h-4 [&>svg]:w-4",
+      md: "[&>svg]:h-5 [&>svg]:w-5",
+      lg: "[&>svg]:h-6 [&>svg]:w-6",
     },
   },
   defaultVariants: {

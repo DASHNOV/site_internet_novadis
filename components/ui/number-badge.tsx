@@ -1,14 +1,15 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
+// Numéro d'étape : réservé aux séquences où l'ordre compte.
 const numberBadgeVariants = cva(
-  "flex flex-none items-center justify-center rounded-full bg-brand-gradient font-display font-bold text-white shadow-glow",
+  "tabular flex flex-none items-center justify-center rounded-full border border-hairline-strong font-mono font-medium text-primary-strong",
   {
     variants: {
       size: {
         sm: "h-8 w-8 text-xs",
-        md: "h-11 w-11 text-sm",
-        lg: "h-12 w-12 text-base",
+        md: "h-10 w-10 text-xs",
+        lg: "h-12 w-12 text-sm",
       },
     },
     defaultVariants: {

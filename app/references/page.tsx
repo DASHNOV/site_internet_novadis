@@ -11,9 +11,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { featuredReferences } from "@/data/references";
 import { sectors } from "@/data/sectors";
 import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
 import { IconBadge } from "@/components/ui/icon-badge";
-import { NumberBadge } from "@/components/ui/number-badge";
 
 export const metadata: Metadata = {
   title: "Références clients",
@@ -37,30 +35,27 @@ export default function ReferencesPage() {
       <SiteHeader />
 
       <PageHero
-        eyebrow="Références clients"
         title="Des architectures de sûreté éprouvées sur le terrain"
         description="Chaque projet est unique. Ces cas illustrent comment Novadis adapte son expertise aux contraintes réelles de chaque environnement — de l'agence bancaire au CHU multi-sites, du flagship de luxe à la plateforme aéroportuaire."
       />
 
-      <section className="shell-wide">
-        <Reveal>
-          <Card className="flex items-start gap-4 p-5">
-            <IconBadge icon={Info} size="sm" />
-            <p className="text-sm leading-6 text-muted-strong">
-              Certaines références emblématiques sont présentées avec l&apos;accord du client.
-              Les autres cas sont anonymisés ; les données techniques et les périmètres restent réels.
-            </p>
-          </Card>
-        </Reveal>
+      <section className="shell-wide pt-8">
+        <p className="flex max-w-3xl items-start gap-3 text-sm leading-6 text-muted-strong">
+          <IconBadge className="mt-1" icon={Info} size="sm" />
+          Certaines références emblématiques sont présentées avec l&apos;accord du client. Les autres cas sont
+          anonymisés ; les données techniques et les périmètres restent réels.
+        </p>
       </section>
 
-      <StatRow className="pt-10" />
+      <div className="shell-wide pt-10">
+        <StatRow />
+      </div>
 
       {/* Clients phares (nommés, avec accord) */}
       <section className="section-y">
         <div className="shell-wide">
-          <SectionHeading eyebrow="Clients phares" title="Des environnements à très forte exigence" />
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <SectionHeading title="Des environnements à très forte exigence" />
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {featuredReferences.map((ref, i) => (
               <Reveal className="h-full" delay={i * 0.05} key={ref.name}>
                 <ReferenceCard reference={ref} tags={ref.solutions.map((sol) => solutionLabels[sol] ?? sol)} />
@@ -73,45 +68,35 @@ export default function ReferencesPage() {
       {/* Études de cas par secteur (anonymisées) */}
       <section className="section-soft section-y">
         <div className="shell-wide">
-          <SectionHeading eyebrow="Études de cas" title="Déploiements par secteur" />
+          <SectionHeading title="Déploiements par secteur" />
 
-          <div className="mt-12 flex flex-col gap-6">
-            {sectors.map((sector, sectorIndex) => (
-              <Reveal delay={0.04} key={sector.slug}>
-                <Card className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,2fr)]">
+          <div className="mt-12 border-t border-hairline">
+            {sectors.map((sector) => (
+              <Reveal key={sector.slug}>
+                <article className="grid gap-8 border-b border-hairline py-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,2fr)] lg:gap-12">
                   <div>
-                    <Badge tone="primary">{`Secteur 0${sectorIndex + 1}`}</Badge>
-                    <h3 className="mt-4 font-display text-2xl font-bold tracking-tight text-foreground-strong">
-                      {sector.title}
-                    </h3>
+                    <h3 className="font-display text-2xl font-bold tracking-tight text-foreground-strong">{sector.title}</h3>
                     <p className="mt-2 text-sm font-semibold text-primary-strong">{sector.tagline}</p>
                     <p className="mt-4 text-sm leading-6 text-muted-strong">{sector.desc}</p>
-
-                    <p className="kicker mt-6">Solutions déployées</p>
-                    <div className="mt-3 flex flex-wrap gap-2">
+                    <h4 className="mt-6 text-sm font-semibold text-foreground-strong">Solutions déployées</h4>
+                    <ul className="mt-3 flex flex-wrap gap-2">
                       {sector.solutions.map((sol) => (
-                        <Badge key={sol} tone="outline">
-                          {solutionLabels[sol] ?? sol}
-                        </Badge>
+                        <li key={sol}>
+                          <Badge tone="outline">{solutionLabels[sol] ?? sol}</Badge>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
 
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    {sector.examples.map((example, i) => (
-                      <div
-                        className="flex flex-col gap-3 rounded-xl border border-hairline bg-background p-5 transition-all duration-200 ease-out hover:-translate-y-1 hover:border-primary/20 hover:bg-surface hover:shadow-lift"
-                        key={i}
-                      >
-                        <NumberBadge size="sm" value={sectorIndex * 2 + i + 1} />
-                        <h4 className="font-display text-base font-semibold leading-snug text-foreground-strong">
-                          {example.title}
-                        </h4>
+                  <ul className="grid border-l border-t border-hairline sm:grid-cols-2">
+                    {sector.examples.map((example) => (
+                      <li className="flex flex-col gap-3 border-b border-r border-hairline bg-surface p-6" key={example.title}>
+                        <h4 className="font-display text-lg font-bold leading-snug text-foreground-strong">{example.title}</h4>
                         <p className="text-sm leading-6 text-muted-strong">{example.body}</p>
-                      </div>
+                      </li>
                     ))}
-                  </div>
-                </Card>
+                  </ul>
+                </article>
               </Reveal>
             ))}
           </div>

@@ -85,14 +85,14 @@ function DetectorHud({ frame, step }: { frame: number; step: number }) {
       {step === 1 && <Shockwave tone="danger" />}
       {/* Left of the detector: it sits on the right edge of the frame. */}
       <HudPanel side="left" tone={tone}>
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">{intrusionScene.hud.detector}</p>
+        <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-muted-strong">{intrusionScene.hud.detector}</p>
         {alarm ? (
           <>
             <div className="mt-2 flex items-center gap-2">
               <TriangleAlert className="h-4 w-4 flex-none text-danger" />
               <p className="text-sm font-semibold text-white">{intrusionScene.hud.detected}</p>
             </div>
-            <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.16em] text-danger">{intrusionScene.hud.panel}</p>
+            <p className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-danger">{intrusionScene.hud.panel}</p>
           </>
         ) : (
           <>
@@ -100,7 +100,7 @@ function DetectorHud({ frame, step }: { frame: number; step: number }) {
               <Radar className="h-4 w-4 flex-none text-glow" />
               <p className="text-sm font-semibold text-white">{intrusionScene.hud.armed}</p>
             </div>
-            <p className="mt-1 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-glow">
+            <p className="mt-1 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.12em] text-glow">
               <span className="relative h-1.5 w-1.5 rounded-full bg-glow">
                 <span className="absolute inset-0 animate-ping rounded-full bg-glow" />
               </span>
@@ -121,7 +121,7 @@ function IntruderHud({ frame, step }: { frame: number; step: number }) {
   // The tracked box stops at the ankles: extra room below keeps the feet inside.
   return (
     <LockBox box={[x0 - pad, y0 - 0.02, x1 + pad, y1 + 0.04]} tone="danger" visible={step === 1}>
-      <p className="absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-full border border-danger/40 bg-night/80 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white backdrop-blur">
+      <p className="absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-full border border-danger/40 bg-night/80 px-2.5 py-0.5 font-mono text-[12px] uppercase tracking-[0.14em] text-white backdrop-blur">
         {intrusionScene.hud.intruder}
       </p>
     </LockBox>
@@ -152,7 +152,7 @@ export function IntrusionScene() {
           {/* Escalation: the frame edges pulse red while the alarm is up. */}
           <div
             className={cn(
-              "pointer-events-none absolute inset-0 animate-pulse shadow-[inset_0_0_180px_rgb(var(--danger)/0.5)] transition-opacity duration-700",
+              "pointer-events-none absolute inset-0 animate-pulse transition-opacity duration-700",
               step === 2 ? "opacity-100" : "opacity-0",
             )}
           />

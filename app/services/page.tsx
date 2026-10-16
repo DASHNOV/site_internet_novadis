@@ -2,16 +2,13 @@ import type { Metadata } from "next";
 import { CheckCircle2, ClipboardList, Hammer, LineChart, ShieldCheck } from "lucide-react";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
-import { MediaStage } from "@/components/sections/media-stage";
 import { PageHero } from "@/components/sections/page-hero";
 import { Reveal } from "@/components/motion/reveal";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
 import { IconBadge } from "@/components/ui/icon-badge";
 import { NumberBadge } from "@/components/ui/number-badge";
-import { mediaLibrary, processSteps } from "@/data/site";
+import { mediaLibrary, processSteps, serviceCommitments } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Services & méthodologie",
@@ -26,79 +23,80 @@ export default function ServicesPage() {
     <main className="relative">
       <SiteHeader />
       <PageHero
-        eyebrow="Services"
         title="Un modèle de delivery rigoureux pour les environnements de sûreté complexes"
         description="Nos services couvrent l'ensemble du cycle de vie : audit, conception, déploiement, maintenance et formation. L'objectif : protéger la qualité de déploiement, limiter les surprises lors des mises en service et préserver la maintenabilité à long terme."
       >
-        <MediaStage>
-          <MediaFrame
-            priority
-            alt="Présentation Novadis"
-            caption="Démonstration · Services Novadis"
-            className="aspect-[16/11]"
-            kind="video"
-            poster={mediaLibrary.presentVideoPoster}
-            src={mediaLibrary.presentVideo}
-          />
-        </MediaStage>
+        <MediaFrame
+          priority
+          alt="Présentation Novadis"
+          caption="Démonstration · Services Novadis"
+          className="aspect-[16/11]"
+          kind="video"
+          poster={mediaLibrary.presentVideoPoster}
+          src={mediaLibrary.presentVideo}
+        />
       </PageHero>
 
       <section className="section-y">
         <div className="shell-wide">
-          <ol className="relative space-y-6 before:absolute before:bottom-10 before:left-6 before:top-10 before:hidden before:w-px before:bg-gradient-to-b before:from-primary/50 before:via-accent/30 before:to-transparent sm:before:block">
-            {processSteps.map((item, index) => (
-              <li className="relative grid gap-5 sm:grid-cols-[48px_minmax(0,1fr)] sm:gap-8" key={item.step}>
-                <Reveal>
-                  <NumberBadge className="relative z-10" size="lg" value={item.step} />
-                </Reveal>
-                <Reveal delay={0.06}>
-                  <Card className="p-6 sm:p-8" interactive>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <IconBadge icon={stepIcons[index] ?? ClipboardList} size="sm" />
-                      <Badge tone="primary">{`Étape ${item.step} · ${item.deliverables.length} livrables`}</Badge>
-                    </div>
-                    <h2 className="section-title mt-5 text-balance text-2xl sm:text-3xl">{item.title}</h2>
-                    <p className="mt-4 max-w-3xl text-base leading-7 text-muted-strong">{item.description}</p>
-                    <div className="mt-6 flex flex-wrap gap-2">
+          <ol className="border-t border-hairline">
+            {processSteps.map((item, index) => {
+              const Icon = stepIcons[index] ?? ClipboardList;
+              return (
+                <li
+                  className="grid gap-6 border-b border-hairline py-10 sm:grid-cols-[64px_minmax(0,1fr)] sm:gap-8 lg:grid-cols-[64px_minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-14 lg:py-14"
+                  key={item.step}
+                >
+                  <Reveal>
+                    <NumberBadge size="lg" value={item.step} />
+                  </Reveal>
+                  <Reveal delay={0.04}>
+                    <h2 className="section-title flex items-center gap-3 text-balance text-[clamp(1.5rem,2.4vw,2rem)]">
+                      <IconBadge icon={Icon} size="lg" />
+                      {item.title}
+                    </h2>
+                    <p className="mt-4 max-w-2xl text-base leading-7 text-muted-strong">{item.description}</p>
+                  </Reveal>
+                  <Reveal className="sm:col-start-2 lg:col-start-3" delay={0.08}>
+                    <h3 className="data-label">{`${item.deliverables.length} livrables`}</h3>
+                    <ul className="mt-3 border-t border-hairline">
                       {item.deliverables.map((deliverable) => (
-                        <Badge key={deliverable} tone="outline">
+                        <li className="border-b border-hairline py-2.5 text-sm text-foreground-strong" key={deliverable}>
                           {deliverable}
-                        </Badge>
+                        </li>
                       ))}
-                    </div>
-                  </Card>
-                </Reveal>
-              </li>
-            ))}
+                    </ul>
+                  </Reveal>
+                </li>
+              );
+            })}
           </ol>
         </div>
       </section>
 
-      <section className="section-soft section-y">
+      <section className="section-dark section-y">
         <div className="shell-wide grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center">
           <Reveal>
-            <p className="eyebrow">Engagement Novadis</p>
-            <h2 className="section-title mt-5 text-balance text-3xl sm:text-4xl">
-              Une méthode conçue <span className="text-gradient">pour rester opérationnelle après le déploiement</span>
+            <h2 className="section-title text-balance text-[clamp(2rem,3.4vw,3rem)]">
+              Une méthode conçue <span className="text-second">pour rester opérationnelle après le déploiement</span>
             </h2>
           </Reveal>
-          <ul className="grid gap-4 sm:grid-cols-2">
-            {[
-              "Documentation technique livrée à chaque jalon",
-              "Coordination avec exploitation, IT et services généraux",
-              "Maintenance préventive planifiée par site",
-              "Support 24/7 pour les environnements sensibles",
-            ].map((label, index) => (
-              <li className="h-full" key={label}>
-                <Reveal className="h-full" delay={index * 0.06}>
-                  <Card className="flex h-full items-start gap-4 p-5" interactive>
-                    <CheckCircle2 aria-hidden className="mt-0.5 h-5 w-5 flex-none text-success" />
-                    <p className="text-sm font-medium leading-6 text-foreground-strong">{label}</p>
-                  </Card>
-                </Reveal>
-              </li>
-            ))}
-          </ul>
+          <Reveal className="console overflow-hidden" delay={0.06}>
+            <div className="console-head">
+              <span>Engagement Novadis</span>
+            </div>
+            <ul>
+              {serviceCommitments.map((label) => (
+                <li
+                  className="flex items-start gap-3 border-b border-night-line px-5 py-4 text-sm font-medium leading-6 text-white last:border-b-0"
+                  key={label}
+                >
+                  <CheckCircle2 aria-hidden className="mt-0.5 h-4 w-4 flex-none text-glow" />
+                  {label}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
         </div>
       </section>
 

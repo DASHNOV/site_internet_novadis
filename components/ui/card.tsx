@@ -2,20 +2,21 @@ import type { HTMLAttributes } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-const cardVariants = cva("relative rounded-xl", {
+// Tuile plate : la profondeur vient du filet, jamais d'une ombre.
+const cardVariants = cva("relative rounded-xl border", {
   variants: {
     tone: {
-      surface: "border border-hairline bg-surface shadow-soft",
-      glass: "border border-white/12 bg-white/[0.05] backdrop-blur-sm",
+      surface: "border-hairline bg-surface",
+      console: "rounded-lg border-night-line bg-night-panel",
     },
     interactive: {
-      true: "transition-all duration-200 ease-out hover:-translate-y-1",
+      true: "transition-colors duration-150 ease-out",
       false: "",
     },
   },
   compoundVariants: [
-    { tone: "surface", interactive: true, className: "hover:border-primary/20 hover:shadow-lift" },
-    { tone: "glass", interactive: true, className: "hover:border-white/25 hover:bg-white/[0.08]" },
+    { tone: "surface", interactive: true, className: "hover:border-primary" },
+    { tone: "console", interactive: true, className: "hover:border-glow/50" },
   ],
   defaultVariants: {
     tone: "surface",

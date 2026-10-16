@@ -5,20 +5,26 @@ import { cn } from "@/lib/utils";
 
 export function StatRow({ className }: { className?: string }) {
   return (
-    <section className={cn("shell-wide relative z-10 pt-16", className)}>
-      <Reveal>
-        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-hairline bg-hairline shadow-lift lg:grid-cols-4">
-          {siteMetrics.map((stat) => (
-            <div className="flex flex-col gap-1.5 bg-surface px-5 py-7 sm:px-8 sm:py-8" key={stat.label}>
-              <p className="font-display text-3xl font-extrabold tracking-tight text-gradient sm:text-4xl lg:text-[2.75rem]">
-                <CountUp value={stat.value} />
-              </p>
-              <p className="text-sm font-semibold text-foreground-strong">{stat.label}</p>
-              {stat.caption && <p className="text-xs text-muted-strong">{stat.caption}</p>}
-            </div>
-          ))}
-        </div>
-      </Reveal>
-    </section>
+    <Reveal className={className}>
+      <dl className="grid grid-cols-2 border-y border-hairline lg:grid-cols-4">
+        {siteMetrics.map((stat, index) => (
+          <div
+            className={cn(
+              "flex flex-col gap-2 px-1 py-7 sm:px-6 sm:py-9",
+              index % 2 === 1 && "border-l border-hairline pl-5",
+              index >= 2 && "border-t border-hairline lg:border-t-0",
+              index === 2 && "lg:border-l lg:pl-6",
+            )}
+            key={stat.label}
+          >
+            <dt className="order-2 text-sm font-medium text-foreground-strong">{stat.label}</dt>
+            <dd className="tabular order-1 font-display text-[clamp(2rem,3.6vw,3rem)] font-bold leading-none tracking-[-0.03em] text-foreground-strong">
+              <CountUp value={stat.value} />
+            </dd>
+            {stat.caption && <dd className="order-3 text-sm text-muted-strong">{stat.caption}</dd>}
+          </div>
+        ))}
+      </dl>
+    </Reveal>
   );
 }

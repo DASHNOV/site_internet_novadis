@@ -1,22 +1,11 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  ArrowUpRight,
-  CheckCircle2,
-  Compass,
-  Layers,
-  Network,
-  ShieldCheck,
-  Sparkles,
-  Workflow,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { featuredReferences } from "@/data/references";
 import { ArchitectureDiagram } from "@/components/motion/architecture-diagram";
 import { HeroFilm } from "@/components/motion/hero-film";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
-import { MediaStage } from "@/components/sections/media-stage";
-import { PartnerCloud } from "@/components/sections/partner-cloud";
+import { NormsList, PartnerGrid } from "@/components/sections/partner-cloud";
 import { ReferenceCard } from "@/components/sections/reference-card";
 import { SectorsRail } from "@/components/sections/sectors-rail";
 import { Reveal } from "@/components/motion/reveal";
@@ -24,18 +13,16 @@ import { SectionHeading } from "@/components/sections/section-heading";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { StatRow } from "@/components/sections/stat-row";
-import { Blobs } from "@/components/ui/blobs";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { CheckList } from "@/components/ui/check-list";
 import { IconBadge } from "@/components/ui/icon-badge";
 import { NumberBadge } from "@/components/ui/number-badge";
-import { cn } from "@/lib/utils";
 import {
+  architecturePoints,
   challenges,
   differentiators,
   getSolution,
   heroFilm,
+  heroTechnologies,
   industries,
   pillars,
   processSteps,
@@ -45,9 +32,6 @@ import {
 } from "@/data/site";
 
 export default function HomePage() {
-  const spotlightSolutions = solutions.slice(0, 3);
-  const otherSolutions = solutions.slice(3);
-  const pillarIcons = [Compass, Layers, Network];
   const heroMarkers = heroFilm.markers.flatMap((marker) => {
     const solution = getSolution(marker.slug);
     return solution ? [{ id: marker.slug, label: solution.shortTitle, x: marker.x, y: marker.y, side: marker.side }] : [];
@@ -57,7 +41,7 @@ export default function HomePage() {
     <main className="relative overflow-clip">
       <SiteHeader />
 
-      {/* HERO — plan drone du site, puis les repères de supervision se verrouillent sur l'image */}
+      {/* 1 · HERO — plan drone du site, puis les repères de supervision se verrouillent sur l'image */}
       <section className="section-dark relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <HeroFilm
@@ -71,77 +55,60 @@ export default function HomePage() {
             video={heroFilm.video}
           />
         </div>
-        <div className="shell-wide flex min-h-[calc(100svh-4rem)] items-center pb-20 pt-16 lg:min-h-[calc(100svh-5rem)] lg:pb-24 lg:pt-20">
+        <div className="shell-wide flex min-h-[calc(100svh-4rem)] items-end pb-14 pt-24 md:items-center md:pb-24 lg:min-h-[calc(100svh-5rem)]">
           <div className="max-w-2xl">
             <Reveal>
-              <p className="eyebrow">Créateur de solutions globales de sûreté</p>
-            </Reveal>
-            <Reveal delay={0.06}>
-              <h1 className="section-title mt-7 text-balance text-4xl font-extrabold leading-[1.08] sm:text-5xl lg:text-6xl">
-                Protégez vos sites, <span className="text-gradient">vos équipes et vos données</span>
+              <h1 className="section-title text-balance text-[clamp(2.5rem,5.4vw,4.5rem)]">
+                Protégez vos sites, <span className="text-second">vos équipes et vos données</span>
               </h1>
             </Reveal>
-            <Reveal delay={0.14}>
-              <p className="mt-7 max-w-xl text-base leading-7 text-slate-200 sm:text-lg sm:leading-8">
+            <Reveal delay={0.08}>
+              <p className="mt-6 max-w-xl text-base leading-7 text-foreground sm:text-lg sm:leading-8">
                 Novadis conçoit, intègre et maintient des systèmes de sûreté pour les entreprises, les sites
                 industriels et les infrastructures critiques. De l&apos;informatique à la supervision intelligente,
                 chaque couche est pensée pour durer.
               </p>
             </Reveal>
-            <Reveal className="mt-9 flex flex-col gap-3 sm:flex-row" delay={0.22}>
+            <Reveal className="mt-9 flex flex-col gap-3 sm:flex-row" delay={0.14}>
               <Link href="/contact">
-                <Button className="w-full sm:w-auto" size="lg" variant="primary">
+                <Button className="w-full sm:w-auto" size="lg" variant="inverse">
                   Prendre contact
                   <ArrowUpRight className="cta-arrow h-4 w-4" />
                 </Button>
               </Link>
               <Link href="/solutions">
-                <Button
-                  className="w-full border-white/30 bg-white/5 text-white hover:border-white/60 hover:text-white sm:w-auto"
-                  size="lg"
-                  variant="outline"
-                >
+                <Button className="w-full sm:w-auto" size="lg" variant="outline-night">
                   Découvrir les solutions
                 </Button>
               </Link>
             </Reveal>
 
-            <Reveal className="mt-10" delay={0.3}>
-              <div className="flex flex-wrap items-center gap-2">
+            <Reveal className="mt-12 hidden border-t border-night-line pt-6 sm:block" delay={0.2}>
+              <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-foreground">
                 {trustSignals
                   .filter((signal) => !signal.startsWith("Membre"))
                   .map((signal) => (
-                    <span
-                      className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm"
-                      key={signal}
-                    >
-                      <ShieldCheck aria-hidden className="h-3.5 w-3.5 text-accent" />
-                      {signal}
-                    </span>
+                    <li key={signal}>{signal}</li>
                   ))}
-              </div>
-              <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
-                <p className="kicker">Technologies</p>
-                {["Amadeus", "Ocularis", "Galaxy"].map((label) => (
-                  <span className="font-display text-sm font-bold text-foreground-strong" key={label}>
+              </ul>
+              <p className="mt-3 flex flex-wrap items-baseline gap-x-5 gap-y-1">
+                <span className="data-label">Technologies</span>
+                {heroTechnologies.map((label) => (
+                  <span className="font-display text-base font-bold text-white" key={label}>
                     {label}
                   </span>
                 ))}
-              </div>
+              </p>
             </Reveal>
           </div>
         </div>
       </section>
 
-      <StatRow className="pt-12 lg:pt-16" />
-
-      {/* RÉFÉRENCES — preuve client remontée en haut de page */}
-      <section className="section-soft section-y mt-8">
+      {/* 2 · PREUVE — chiffres puis références nommées */}
+      <section className="section-y">
         <div className="shell-wide">
+          <StatRow />
           <SectionHeading
-            eyebrow="Ils nous font confiance"
-            title="Des environnements à très forte exigence"
-            description="Hôpitaux, sites patrimoniaux, environnements de luxe : Novadis opère là où l'erreur n'est pas permise."
             actions={
               <Link href="/references">
                 <Button variant="outline">
@@ -150,10 +117,13 @@ export default function HomePage() {
                 </Button>
               </Link>
             }
+            className="mt-20 lg:mt-28"
+            description="Hôpitaux, sites patrimoniaux, environnements de luxe : Novadis opère là où l'erreur n'est pas permise."
+            title="Des environnements à très forte exigence"
           />
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
             {featuredReferences.map((reference, index) => (
-              <Reveal className="h-full" delay={index * 0.07} key={reference.name}>
+              <Reveal className="h-full" delay={index * 0.06} key={reference.name}>
                 <ReferenceCard href="/references" reference={reference} />
               </Reveal>
             ))}
@@ -161,242 +131,173 @@ export default function HomePage() {
         </div>
       </section>
 
-      <PartnerCloud />
-
-      {/* ARCHITECTURE — schéma isométrique */}
-      <section className="section-y relative isolate">
-        <Blobs />
-        <div className="shell-wide">
-          <div className="grid gap-14 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center">
-            <Reveal>
-              <p className="eyebrow">Architecture</p>
-              <h2 className="section-title mt-5 text-balance text-3xl sm:text-4xl lg:text-5xl">
-                L&apos;architecture compte <span className="text-gradient">autant que les équipements</span>
-              </h2>
-              <p className="mt-6 max-w-xl text-base leading-7 text-muted-strong sm:text-lg">
-                Chez Novadis, la valeur ne vient pas d&apos;une juxtaposition de briques techniques. Elle vient
-                d&apos;un système cohérent, documenté, évolutif et lisible pour les équipes qui l&apos;exploitent.
-              </p>
-              <div className="mt-10 grid gap-3 sm:grid-cols-2">
-                {[
-                  { label: "Couche opérationnelle unifiée", icon: Workflow },
-                  { label: "Corrélation inter-systèmes", icon: Network },
-                  { label: "Conception durcie & maintenable", icon: ShieldCheck },
-                  { label: "Intégrations prêtes pour l'évolution", icon: Sparkles },
-                ].map((item) => (
-                  <Card className="flex items-center gap-4 p-4" interactive key={item.label}>
-                    <IconBadge icon={item.icon} size="sm" />
-                    <p className="text-sm font-semibold text-foreground-strong">{item.label}</p>
-                  </Card>
-                ))}
-              </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <div className="iso-stage">
-                <div className="iso-card-reverse rounded-2xl border border-hairline bg-surface p-3 shadow-float sm:p-4">
-                  <ArchitectureDiagram
-                    caption="Architecture de principe · Réseau IP Sûreté Novadis"
-                    label="Architecture de principe Novadis — réseau IP sûreté, serveurs, postes opérateurs, terrain"
-                  />
-                </div>
-              </div>
-            </Reveal>
-          </div>
+      {/* 3 · CONVERGENCE — l'architecture de principe en console */}
+      <section className="section-dark section-y">
+        <div className="shell-wide grid gap-14 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center">
+          <Reveal>
+            <h2 className="section-title text-balance text-[clamp(2rem,3.4vw,3rem)]">
+              L&apos;architecture compte <span className="text-second">autant que les équipements</span>
+            </h2>
+            <p className="mt-6 max-w-xl text-base leading-7 text-muted-strong sm:text-lg">
+              Chez Novadis, la valeur ne vient pas d&apos;une juxtaposition de briques techniques. Elle vient
+              d&apos;un système cohérent, documenté, évolutif et lisible pour les équipes qui l&apos;exploitent.
+            </p>
+            <ul className="mt-10 divide-y divide-night-line border-y border-night-line">
+              {architecturePoints.map((item) => (
+                <li className="flex items-center gap-3 py-3.5 text-sm font-medium text-white" key={item.label}>
+                  <IconBadge icon={item.icon} tone="glass" />
+                  {item.label}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <div className="console overflow-hidden">
+              <ArchitectureDiagram
+                caption="Architecture de principe · Réseau IP Sûreté Novadis"
+                label="Architecture de principe Novadis — réseau IP sûreté, serveurs, postes opérateurs, terrain"
+              />
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* ENJEUX — entrée par problème métier */}
-      <section className="section-soft section-y">
-        <div className="shell-wide">
-          <SectionHeading
-            eyebrow="Vos enjeux"
-            title={
-              <>
-                Chaque projet commence <span className="text-gradient">par un problème concret</span>
-              </>
-            }
-            description="Conformité, migration, multi-sites, charge opérateur : partez de votre enjeu, nous le relions à la bonne architecture."
-          />
-          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {challenges.map((challenge, index) => (
-              <Reveal className="h-full" delay={index * 0.06} key={challenge.slug}>
-                <Link className="group block h-full" href={challenge.href}>
-                  <Card className="flex h-full flex-col p-7" interactive>
-                    <IconBadge icon={challenge.icon} />
-                    <h3 className="mt-6 font-display text-xl font-semibold tracking-tight text-foreground-strong">
-                      {challenge.title}
-                    </h3>
-                    <p className="mt-3 text-sm leading-7 text-muted-strong">{challenge.description}</p>
-                    <ul className="mt-5 space-y-2.5">
-                      {challenge.points.map((point) => (
-                        <li className="flex items-center gap-3 text-sm text-foreground" key={point}>
-                          <CheckCircle2 aria-hidden className="h-4 w-4 flex-none text-primary" />
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-                    <p className="mt-auto flex items-center gap-2 pt-6 text-sm font-semibold text-primary-strong">
-                      En savoir plus
-                      <ArrowRight className="cta-arrow h-4 w-4" />
-                    </p>
-                  </Card>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SOLUTIONS — zig-zag des solutions phares, puis grille */}
+      {/* 4 · ENJEUX → SOLUTIONS — on entre par le problème, on sort sur la brique */}
       <section className="section-y">
         <div className="shell-wide">
           <SectionHeading
-            eyebrow="Nos solutions"
-            title="Des briques métiers conçues pour fonctionner ensemble"
-            description="Chaque domaine apporte sa propre valeur. L'avantage Novadis est de les faire converger en un environnement homogène, durable et lisible."
-            actions={
-              <Link href="/solutions">
+            description="Conformité, migration, multi-sites, charge opérateur : partez de votre enjeu, nous le relions à la bonne architecture."
+            title={
+              <>
+                Chaque projet commence <span className="text-second">par un problème concret</span>
+              </>
+            }
+          />
+          <ul className="mt-12 grid border-l border-t border-hairline md:grid-cols-2 xl:grid-cols-3">
+            {challenges.map((challenge) => (
+              <li className="border-b border-r border-hairline" key={challenge.slug}>
+                <Link
+                  className="group flex h-full flex-col bg-surface p-7 transition-colors duration-150 hover:bg-background-soft sm:p-8"
+                  href={challenge.href}
+                >
+                  <h3 className="flex items-start gap-3 font-display text-xl font-bold tracking-tight text-foreground-strong group-hover:text-primary-strong">
+                    <IconBadge className="mt-1" icon={challenge.icon} />
+                    {challenge.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-muted-strong">{challenge.description}</p>
+                  <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-1.5 text-sm text-foreground">
+                    {challenge.points.map((point) => (
+                      <li className="flex items-center gap-2" key={point}>
+                        <span aria-hidden className="h-1 w-1 rounded-full bg-primary" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                  <span className="mt-auto flex items-center gap-2 pt-7 text-sm font-semibold text-primary-strong">
+                    En savoir plus
+                    <ArrowRight aria-hidden className="cta-arrow h-4 w-4" />
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-20 grid gap-10 lg:mt-28 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
+            <Reveal>
+              <h2 className="section-title text-balance text-[clamp(1.75rem,2.6vw,2.25rem)]">
+                Des briques métiers <span className="text-second">conçues pour fonctionner ensemble</span>
+              </h2>
+              <p className="mt-5 max-w-md text-base leading-7 text-muted-strong">
+                Chaque domaine apporte sa propre valeur. L&apos;avantage Novadis est de les faire converger en un
+                environnement homogène, durable et lisible.
+              </p>
+              <Link className="mt-8 inline-block" href="/solutions">
                 <Button variant="outline">
                   Voir toutes les solutions
                   <ArrowUpRight className="cta-arrow h-4 w-4" />
                 </Button>
               </Link>
-            }
-          />
-
-          <div className="mt-16 space-y-20 lg:space-y-28">
-            {spotlightSolutions.map((solution, index) => {
-              const reversed = index % 2 === 1;
-              return (
-                <div
-                  className={cn("flex flex-col gap-10 lg:items-center lg:gap-16", reversed ? "lg:flex-row-reverse" : "lg:flex-row")}
-                  key={solution.slug}
-                >
-                  <Reveal className="lg:w-1/2">
-                    <MediaStage tilt={reversed ? "left" : "right"}>
-                      <MediaFrame
-                        alt={solution.media.alt}
-                        className="aspect-[16/10]"
-                        kind={solution.media.kind}
-                        poster={solution.media.poster}
-                        src={solution.media.src}
-                      />
-                    </MediaStage>
-                  </Reveal>
-                  <Reveal className="lg:w-1/2" delay={0.1}>
-                    <div className="flex items-center gap-4">
-                      <NumberBadge value={index + 1} />
-                      {solution.product && <p className="text-sm font-medium text-muted-strong">{solution.product}</p>}
-                    </div>
-                    <h3 className="section-title mt-6 text-2xl sm:text-3xl lg:text-4xl">{solution.title}</h3>
-                    <p className="mt-5 max-w-xl text-base leading-7 text-muted-strong sm:text-lg">{solution.summary}</p>
-                    <CheckList className="mt-7" columns={2} items={solution.benefits} tone="success" />
+            </Reveal>
+            <Reveal delay={0.06}>
+              <ul className="border-t border-hairline">
+                {solutions.map((solution) => (
+                  <li className="border-b border-hairline" key={solution.slug}>
                     <Link
-                      className="group mt-8 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary-strong hover:text-primary"
+                      className="group grid min-h-16 grid-cols-[1fr_auto] items-center gap-x-6 gap-y-1 py-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)_auto]"
                       href={`/solutions/${solution.slug}`}
                     >
-                      Découvrir la solution
-                      <ArrowRight className="cta-arrow h-4 w-4" />
+                      <span className="flex items-center gap-3 font-display text-lg font-bold text-foreground-strong group-hover:text-primary-strong">
+                        <IconBadge icon={solution.icon} />
+                        {solution.title}
+                      </span>
+                      <span className="col-start-1 row-start-2 pl-8 text-sm text-muted-strong sm:col-start-2 sm:row-start-1 sm:pl-0">
+                        {solution.product}
+                      </span>
+                      <ArrowRight
+                        aria-hidden
+                        className="cta-arrow col-start-2 row-span-2 row-start-1 h-4 w-4 text-primary-strong sm:col-start-3 sm:row-span-1"
+                      />
                     </Link>
-                  </Reveal>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="mt-20 grid gap-6 sm:grid-cols-2 lg:mt-28 lg:grid-cols-4">
-            {otherSolutions.map((solution, index) => (
-              <Reveal className="h-full" delay={index * 0.06} key={solution.slug}>
-                <Link className="group block h-full" href={`/solutions/${solution.slug}`}>
-                  <Card className="flex h-full flex-col p-6" interactive>
-                    <IconBadge icon={solution.icon} />
-                    <h3 className="mt-5 font-display text-lg font-semibold tracking-tight text-foreground-strong">
-                      {solution.title}
-                    </h3>
-                    <p className="mt-2 line-clamp-3 text-sm leading-6 text-muted-strong">{solution.summary}</p>
-                    <span className="mt-auto pt-5 text-primary-strong">
-                      <ArrowRight aria-hidden className="cta-arrow h-4 w-4" />
-                    </span>
-                  </Card>
-                </Link>
-              </Reveal>
-            ))}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* SECTEURS */}
-      <SectorsRail
-        heading={
-          <SectionHeading
-            eyebrow="Secteurs"
-            title="Des systèmes adaptés à la logique réelle de chaque environnement"
-          />
-        }
-      />
+      {/* 5 · SECTEURS */}
+      <SectorsRail heading={<SectionHeading title="Des systèmes adaptés à la logique réelle de chaque environnement" />} />
 
-      {/* MÉTHODE — piliers + étapes, section nuit */}
-      <section className="section-dark section-y relative isolate overflow-hidden">
-        <Blobs variant="night" />
+      {/* 6 · MÉTHODE — trois temps puis les quatre étapes de service */}
+      <section className="section-dark section-y">
         <div className="shell-wide">
           <SectionHeading
-            eyebrow="Notre signature"
-            title={
-              <>
-                Trois temps qui structurent <span className="text-gradient">chaque projet de sûreté</span>
-              </>
-            }
-            description="Nos clients ne cherchent pas une brique technique, mais un partenaire capable de cadrer, faire converger et inscrire la sûreté dans la durée."
             actions={
               <Link href="/services">
-                <Button variant="glass">
+                <Button variant="outline-night">
                   Voir la méthodologie
                   <ArrowUpRight className="cta-arrow h-4 w-4" />
                 </Button>
               </Link>
             }
+            description="Nos clients ne cherchent pas une brique technique, mais un partenaire capable de cadrer, faire converger et inscrire la sûreté dans la durée."
+            title={
+              <>
+                Trois temps qui structurent <span className="text-second">chaque projet de sûreté</span>
+              </>
+            }
           />
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          <div className="mt-14 grid gap-4 lg:grid-cols-3">
             {pillars.map((pillar, index) => (
-              <Reveal className="h-full" delay={index * 0.08} key={pillar.title}>
-                <Card className="h-full p-8" interactive tone="glass">
-                  <div className="flex items-center justify-between">
-                    <IconBadge icon={pillarIcons[index] ?? Compass} tone="solid" />
-                    <span className="text-xs font-semibold tracking-[0.12em] text-glow">{`0${index + 1} / 03`}</span>
+              <Reveal className="h-full" delay={index * 0.06} key={pillar.title}>
+                <article className="console flex h-full flex-col">
+                  <div className="p-7 sm:p-8">
+                    <h3 className="font-display text-2xl font-bold tracking-tight text-white">{pillar.title}</h3>
+                    <p className="mt-3 text-base leading-7 text-muted-strong">{pillar.description}</p>
                   </div>
-                  <h3 className="mt-6 font-display text-2xl font-bold tracking-tight text-white">{pillar.title}</h3>
-                  <p className="mt-3 text-base leading-7 text-slate-300">{pillar.description}</p>
-                  <div className="mt-6 flex flex-wrap gap-2">
+                  <ul className="mt-auto border-t border-night-line">
                     {pillar.points.map((point) => (
-                      <span
-                        className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-200"
-                        key={point}
-                      >
+                      <li className="data-label border-b border-night-line px-7 py-3 last:border-b-0 sm:px-8" key={point}>
                         {point}
-                      </span>
+                      </li>
                     ))}
-                  </div>
-                </Card>
+                  </ul>
+                </article>
               </Reveal>
             ))}
           </div>
 
-          <Reveal className="mt-20">
-            <p className="eyebrow">Services</p>
-          </Reveal>
-          <ol className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+          <ol className="mt-20 grid gap-x-8 gap-y-12 border-t border-night-line pt-12 sm:grid-cols-2 lg:grid-cols-4">
             {processSteps.map((item, index) => (
               <li className="relative" key={item.step}>
                 {index < processSteps.length - 1 && (
-                  <span
-                    aria-hidden
-                    className="absolute left-14 right-[-2rem] top-6 hidden h-px bg-gradient-to-r from-glow/50 to-white/0 lg:block"
-                  />
+                  <span aria-hidden className="absolute left-14 right-[-2rem] top-5 hidden h-px bg-night-line lg:block" />
                 )}
-                <Reveal delay={index * 0.07}>
-                  <NumberBadge size="lg" value={item.step} />
-                  <h3 className="mt-6 font-display text-xl font-semibold tracking-tight text-white">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-300">{item.description}</p>
+                <Reveal delay={index * 0.06}>
+                  <NumberBadge className="border-night-line bg-background-dark" value={item.step} />
+                  <h3 className="mt-6 font-display text-xl font-bold tracking-tight text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-muted-strong">{item.description}</p>
                 </Reveal>
               </li>
             ))}
@@ -404,97 +305,96 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SUJETS DU MOMENT — la réglementation comme accroche */}
+      {/* 7 · CONFORMITÉ — réglementation, normes et partenaires regroupés */}
       <section className="section-y">
         <div className="shell-wide">
           <SectionHeading
-            eyebrow="Les sujets du moment"
-            title="La réglementation redessine la sûreté"
             description="NIS2, ANSSI, CNIL : les échéances réglementaires deviennent le premier déclencheur des projets de sûreté. Nous les transformons en feuille de route."
+            title="La réglementation redessine la sûreté"
           />
-          <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          <div className="mt-12 grid gap-5 lg:grid-cols-2">
             {regulatoryTopics.map((topic, index) => (
-              <Reveal delay={index * 0.08} key={topic.slug}>
-                <Link className="group block" href={topic.href}>
-                  <article className="relative flex min-h-[340px] flex-col justify-between overflow-hidden rounded-2xl p-8 shadow-soft transition-all duration-200 ease-out group-hover:-translate-y-1 group-hover:shadow-lift sm:p-10">
-                    <img
-                      alt=""
-                      aria-hidden
-                      className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                      loading="lazy"
-                      src={topic.media}
-                    />
-                    <div
-                      aria-hidden
-                      className="absolute inset-0 bg-gradient-to-t from-night/95 via-night/70 to-primary-deep/40"
-                    />
-                    <div className="relative">
-                      <h3 className="font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                        {topic.title}
-                      </h3>
-                      <p className="mt-4 max-w-lg text-sm leading-7 text-slate-200 sm:text-base">{topic.description}</p>
-                    </div>
-                    <p className="relative mt-8 inline-flex items-center gap-2 self-start rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
+              <Reveal className="h-full" delay={index * 0.06} key={topic.slug}>
+                <Link
+                  className="group flex h-full flex-col overflow-hidden rounded-xl border border-hairline bg-surface transition-colors duration-150 hover:border-primary sm:flex-row"
+                  href={topic.href}
+                >
+                  <img
+                    alt=""
+                    className="aspect-[16/9] w-full border-b border-hairline object-cover sm:aspect-auto sm:w-2/5 sm:border-b-0 sm:border-r"
+                    loading="lazy"
+                    src={topic.media}
+                  />
+                  <div className="flex flex-1 flex-col p-7">
+                    <h3 className="font-display text-3xl font-bold tracking-tight text-foreground-strong">{topic.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-muted-strong">{topic.description}</p>
+                    <span className="mt-auto flex items-center gap-2 pt-6 text-sm font-semibold text-primary-strong">
                       {topic.linkLabel}
-                      <ArrowRight className="cta-arrow h-4 w-4" />
-                    </p>
-                  </article>
+                      <ArrowRight aria-hidden className="cta-arrow h-4 w-4" />
+                    </span>
+                  </div>
                 </Link>
               </Reveal>
             ))}
           </div>
+
+          <Reveal className="mt-20 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:items-end">
+            <h2 className="section-title text-balance text-[clamp(1.75rem,2.6vw,2.25rem)]">Partenaires & conformité</h2>
+            <p className="max-w-xl text-base leading-7 text-muted-strong">
+              Une chaîne de partenariats stricts et un cadre normatif clair pour bâtir des architectures ouvertes,
+              normées et tenues dans la durée.
+            </p>
+          </Reveal>
+          <Reveal className="mt-10">
+            <NormsList />
+          </Reveal>
+          <Reveal className="mt-10">
+            <PartnerGrid />
+          </Reveal>
         </div>
       </section>
 
-      {/* À PROPOS + différenciateurs */}
+      {/* 8 · À PROPOS */}
       <section className="section-soft section-y">
-        <div className="shell-wide">
-          <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
-            <Reveal>
-              <MediaStage>
-                <MediaFrame
-                  alt={industries[2].title}
-                  caption="Novadis · 14-16 Rue Clément Bayard · Levallois-Perret"
-                  className="aspect-[16/12]"
-                  kind="image"
-                  src={industries[2].media}
-                />
-              </MediaStage>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="eyebrow">À propos</p>
-              <h2 className="section-title mt-5 text-balance text-3xl sm:text-4xl lg:text-5xl">
-                Une ingénierie centrée <span className="text-gradient">sur l&apos;humain et la continuité de service</span>
-              </h2>
-              <p className="mt-6 text-base leading-7 text-muted-strong sm:text-lg">
-                Novadis combine expertise infrastructure, expérience terrain et discipline d&apos;intégration pour
-                livrer des systèmes que les équipes peuvent exploiter durablement, pas seulement valider sur le papier.
+        <div className="shell-wide grid gap-14 lg:grid-cols-2 lg:items-center">
+          <Reveal>
+            <MediaFrame
+              alt={industries[2].title}
+              caption="Novadis · 14-16 Rue Clément Bayard · Levallois-Perret"
+              className="aspect-[16/12]"
+              kind="image"
+              src={industries[2].media}
+            />
+          </Reveal>
+          <Reveal delay={0.08}>
+            <h2 className="section-title text-balance text-[clamp(2rem,3.4vw,3rem)]">
+              Une ingénierie centrée <span className="text-second">sur l&apos;humain et la continuité de service</span>
+            </h2>
+            <p className="mt-6 text-base leading-7 text-muted-strong sm:text-lg">
+              Novadis combine expertise infrastructure, expérience terrain et discipline d&apos;intégration pour
+              livrer des systèmes que les équipes peuvent exploiter durablement, pas seulement valider sur le papier.
+            </p>
+            <ul className="mt-8 grid border-t border-hairline sm:grid-cols-2 sm:gap-x-8">
+              {differentiators.map((item) => (
+                <li className="border-b border-hairline py-3 text-sm leading-6 text-foreground-strong" key={item}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <blockquote className="mt-10">
+              <p className="font-display text-xl font-semibold leading-snug tracking-tight text-foreground-strong sm:text-2xl">
+                «&nbsp;L&apos;Homme et sa sécurité doivent constituer la première préoccupation de toute aventure
+                technologique.&nbsp;»
               </p>
-              <ul className="mt-8 grid gap-x-6 gap-y-4 sm:grid-cols-2">
-                {differentiators.map((item) => (
-                  <li className="flex items-start gap-3" key={item}>
-                    <CheckCircle2 aria-hidden className="mt-0.5 h-5 w-5 flex-none text-success" />
-                    <p className="text-sm leading-6 text-foreground">{item}</p>
-                  </li>
-                ))}
-              </ul>
-              <blockquote className="panel mt-8 border-l-4 border-l-primary p-6">
-                <p className="text-base leading-7 text-foreground-strong">
-                  «&nbsp;L&apos;Homme et sa sécurité doivent constituer la première préoccupation de toute aventure
-                  technologique.&nbsp;»
-                </p>
-                <p className="mt-3 text-xs font-semibold text-muted-strong">Albert Einstein — principe fondateur Novadis</p>
-              </blockquote>
-              <div className="mt-8">
-                <Link href="/about">
-                  <Button variant="outline">
-                    Découvrir Novadis
-                    <ArrowUpRight className="cta-arrow h-4 w-4" />
-                  </Button>
-                </Link>
-              </div>
-            </Reveal>
-          </div>
+              <footer className="mt-3 text-sm text-muted-strong">Albert Einstein — principe fondateur Novadis</footer>
+            </blockquote>
+            <Link className="mt-10 inline-block" href="/about">
+              <Button variant="outline">
+                Découvrir Novadis
+                <ArrowUpRight className="cta-arrow h-4 w-4" />
+              </Button>
+            </Link>
+          </Reveal>
         </div>
       </section>
 

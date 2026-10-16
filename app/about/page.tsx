@@ -1,21 +1,16 @@
 import type { Metadata } from "next";
-import { Award, KeyRound, ShieldCheck, Users } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
-import { MediaStage } from "@/components/sections/media-stage";
 import { PageHero } from "@/components/sections/page-hero";
 import { PartnerCloud } from "@/components/sections/partner-cloud";
 import { Reveal } from "@/components/motion/reveal";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { StatRow } from "@/components/sections/stat-row";
-import { Badge } from "@/components/ui/badge";
-import { Blobs } from "@/components/ui/blobs";
-import { Card } from "@/components/ui/card";
 import { IconBadge } from "@/components/ui/icon-badge";
-import { NumberBadge } from "@/components/ui/number-badge";
 import { SplitTitle } from "@/components/ui/split-title";
-import { mediaLibrary, trustSignals } from "@/data/site";
+import { aboutApproach, aboutHighlights, mediaLibrary, trustSignals } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "À propos de Novadis",
@@ -28,29 +23,27 @@ export default function AboutPage() {
     <main className="relative">
       <SiteHeader />
       <PageHero
-        eyebrow="À propos"
         title="Une ingénierie centrée sur l'humain pour les environnements où la fiabilité compte"
         description="Novadis s'adresse aux organisations qui ont besoin de systèmes capables de fonctionner durablement, en conditions réelles d'exploitation, entre plusieurs équipes et sur plusieurs années."
       >
-        <MediaStage>
-          <MediaFrame
-            priority
-            alt="Deux ingénieurs annotent un plan d'implantation"
-            caption="Équipes à taille humaine · Levallois-Perret"
-            className="aspect-[16/11]"
-            kind="image"
-            src={mediaLibrary.stockEngineering}
-          />
-        </MediaStage>
+        <MediaFrame
+          priority
+          alt="Deux ingénieurs annotent un plan d'implantation"
+          caption="Équipes à taille humaine · Levallois-Perret"
+          className="aspect-[16/11]"
+          kind="image"
+          src={mediaLibrary.stockEngineering}
+        />
       </PageHero>
 
-      <StatRow />
+      <div className="shell-wide pt-10">
+        <StatRow />
+      </div>
 
       <section className="section-y">
         <div className="shell-wide grid gap-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20">
           <Reveal>
-            <p className="eyebrow">Principe fondateur</p>
-            <h2 className="section-title mt-5 text-balance text-3xl sm:text-4xl lg:text-5xl">
+            <h2 className="section-title text-balance text-[clamp(2rem,3.4vw,3rem)]">
               <SplitTitle text="L'humain au cœur de chaque projet technologique" />
             </h2>
             <p className="mt-6 max-w-xl text-base leading-7 text-muted-strong sm:text-lg">
@@ -58,64 +51,58 @@ export default function AboutPage() {
               réduire la fragmentation entre cyber et sûreté physique. Nos équipes accompagnent chaque projet
               de l&apos;analyse de besoin à la maintenance et la formation des opérateurs.
             </p>
-            <div className="mt-9 grid gap-4 sm:grid-cols-3">
-              {[
-                { label: "Pionnière de la solution globale en France", icon: Award },
-                { label: "Exclusivité nationale sur ses produits clés", icon: KeyRound },
-                { label: "Zéro sous-traitance", icon: Users },
-              ].map((item) => (
-                <Card className="p-5" interactive key={item.label}>
-                  <IconBadge icon={item.icon} size="sm" tone="solid" />
-                  <p className="mt-4 text-sm font-semibold leading-6 text-foreground-strong">{item.label}</p>
-                </Card>
-              ))}
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.08}>
-            <p className="eyebrow">Approche</p>
-            <ol className="mt-7 space-y-3">
-              {[
-                "Une coordination transverse entre IT, services généraux et équipes sûreté",
-                "Des choix technologiques guidés par l'interopérabilité plutôt que par le verrouillage fournisseur",
-                "Des modèles de maintenance pensés pour l'uptime et l'évolution à long terme",
-                "Une responsabilité sur l'ensemble du cycle de vie : audit, design, déploiement, maintenance",
-              ].map((item, index) => (
-                <li key={item}>
-                  <Card className="flex items-start gap-4 p-5">
-                    <NumberBadge size="sm" value={index + 1} />
-                    <span className="text-base leading-7 text-foreground-strong">{item}</span>
-                  </Card>
+            <ul className="mt-10 grid border-l border-t border-hairline sm:grid-cols-3">
+              {aboutHighlights.map((item) => (
+                <li className="flex flex-col gap-3 border-b border-r border-hairline bg-surface p-5" key={item.label}>
+                  <IconBadge icon={item.icon} />
+                  <p className="text-sm font-semibold leading-6 text-foreground-strong">{item.label}</p>
                 </li>
               ))}
-            </ol>
+            </ul>
+          </Reveal>
+
+          <Reveal delay={0.06}>
+            <h2 className="font-display text-2xl font-bold tracking-tight text-foreground-strong">Approche</h2>
+            <ul className="mt-6 border-t border-hairline">
+              {aboutApproach.map((item) => (
+                <li className="border-b border-hairline py-4 text-base leading-7 text-foreground-strong" key={item}>
+                  {item}
+                </li>
+              ))}
+            </ul>
           </Reveal>
         </div>
       </section>
 
-      <section className="section-soft section-y">
+      <section className="section-dark section-y">
         <div className="shell-wide grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:items-center">
           <Reveal>
-            <p className="eyebrow">Ils en parlent</p>
-            <h2 className="section-title mt-5 text-balance text-3xl sm:text-4xl">
+            <h2 className="section-title text-balance text-[clamp(2rem,3.4vw,3rem)]">
               <SplitTitle text="La vision Novadis en 40 secondes" />
             </h2>
             <p className="mt-5 text-base leading-7 text-muted-strong">
               Alexis Roumelian (CEO) et Nicolas Jdanoff (Sales Director) présentent l&apos;approche Novadis lors
               de l&apos;interview SPAC Members — convergence, expertise et engagement terrain.
             </p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              <Badge tone="outline">Alexis Roumelian · CEO</Badge>
-              <Badge tone="outline">Nicolas Jdanoff · Sales Director</Badge>
-              <Badge tone="primary">SPAC Members</Badge>
-            </div>
+            <ul className="mt-8 divide-y divide-night-line border-y border-night-line text-sm">
+              <li className="flex justify-between gap-4 py-3">
+                <span className="font-semibold text-white">Alexis Roumelian</span>
+                <span className="text-muted-strong">CEO</span>
+              </li>
+              <li className="flex justify-between gap-4 py-3">
+                <span className="font-semibold text-white">Nicolas Jdanoff</span>
+                <span className="text-muted-strong">Sales Director</span>
+              </li>
+              <li className="flex justify-between gap-4 py-3">
+                <span className="font-semibold text-white">SPAC Members</span>
+                <span className="text-muted-strong">Interview</span>
+              </li>
+            </ul>
           </Reveal>
-          <Reveal delay={0.08}>
-            <MediaStage tilt="left">
-              <video className="w-full" controls playsInline poster={mediaLibrary.spacPoster} preload="none">
-                <source src={mediaLibrary.spacInterview} type="video/mp4" />
-              </video>
-            </MediaStage>
+          <Reveal className="console overflow-hidden" delay={0.06}>
+            <video className="block w-full" controls playsInline poster={mediaLibrary.spacPoster} preload="none">
+              <source src={mediaLibrary.spacInterview} type="video/mp4" />
+            </video>
           </Reveal>
         </div>
       </section>
@@ -123,8 +110,7 @@ export default function AboutPage() {
       <section className="section-y">
         <div className="shell-wide flex flex-col items-center gap-10 lg:flex-row lg:gap-16">
           <Reveal className="lg:w-1/2">
-            <p className="eyebrow">Périmètre d&apos;expertise</p>
-            <h2 className="section-title mt-5 text-balance text-3xl sm:text-4xl">
+            <h2 className="section-title text-balance text-[clamp(2rem,3.4vw,3rem)]">
               <SplitTitle text="Un spectre complet, pensé pour la convergence" />
             </h2>
             <p className="mt-6 text-base leading-7 text-muted-strong">
@@ -132,16 +118,15 @@ export default function AboutPage() {
               Novadis couvre l&apos;ensemble des disciplines qui constituent un système de sûreté global et cohérent.
             </p>
           </Reveal>
-          <Reveal className="w-full lg:w-1/2" delay={0.08}>
-            <Card className="relative isolate flex justify-center overflow-hidden p-6 sm:p-10">
-              <Blobs />
+          <Reveal className="w-full lg:w-1/2" delay={0.06}>
+            <div className="panel flex justify-center p-6 sm:p-10">
               <img
                 alt="Schéma des solutions globales de sûreté Novadis"
                 className="w-full max-w-[440px] object-contain"
                 loading="lazy"
                 src={mediaLibrary.schemaSolutions}
               />
-            </Card>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -149,8 +134,7 @@ export default function AboutPage() {
       <section className="section-soft section-y">
         <div className="shell-wide grid gap-12 lg:grid-cols-2 lg:items-center">
           <Reveal>
-            <p className="eyebrow">Conformité & affiliations</p>
-            <h2 className="section-title mt-5 text-balance text-3xl sm:text-4xl">
+            <h2 className="section-title text-balance text-[clamp(2rem,3.4vw,3rem)]">
               <SplitTitle text="Membres et standards qui structurent nos engagements" />
             </h2>
             <p className="mt-6 max-w-xl text-base leading-7 text-muted-strong">
@@ -158,16 +142,16 @@ export default function AboutPage() {
               systèmes de sûreté. Nos partenariats stratégiques sécurisent la chaîne de valeur de bout en bout.
             </p>
           </Reveal>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {trustSignals.map((signal, index) => (
-              <Reveal delay={index * 0.05} key={signal}>
-                <Card className="flex items-center gap-3 p-4" interactive>
+          <Reveal delay={0.06}>
+            <ul className="border-t border-hairline">
+              {trustSignals.map((signal) => (
+                <li className="flex items-center gap-3 border-b border-hairline py-4 text-sm font-semibold text-foreground-strong" key={signal}>
                   <IconBadge icon={ShieldCheck} size="sm" />
-                  <span className="text-sm font-semibold text-foreground-strong">{signal}</span>
-                </Card>
-              </Reveal>
-            ))}
-          </div>
+                  {signal}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
         </div>
       </section>
 

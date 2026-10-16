@@ -81,7 +81,7 @@ function Plate({ z, label }: { z: number; label: string }) {
         />
       ))}
       <text
-        className="pointer-events-none fill-muted-strong font-mono text-[10.5px] uppercase"
+        className="pointer-events-none fill-muted-strong font-mono text-[12px] uppercase"
         style={{ letterSpacing: "0.18em" }}
         // Lays the label flat on the plate, along its front edge.
         transform={`matrix(0.866 0.5 -0.866 0.5 ${labelX} ${labelY})`}
@@ -142,7 +142,7 @@ function Node({ slug, x, y, z, height, active, onSelect }: NodeProps) {
         points={poly(right)}
       />
       <polygon
-        className={cn("stroke-primary/60 transition-colors duration-300", active ? "fill-primary" : "fill-background")}
+        className={cn("stroke-primary/60 transition-colors duration-300", active ? "fill-primary" : "fill-night-panel")}
         points={poly(top)}
         strokeWidth={1}
       />
@@ -156,7 +156,7 @@ function Node({ slug, x, y, z, height, active, onSelect }: NodeProps) {
       <circle
         className={cn(
           "node-badge transition-colors duration-300",
-          active ? "fill-primary stroke-primary" : "fill-background stroke-primary/50",
+          active ? "fill-primary stroke-primary" : "fill-night-panel stroke-primary/50",
         )}
         cx={cx}
         cy={badgeY}
@@ -220,7 +220,7 @@ export function ArchitectureDiagram({ caption, label }: { caption: string; label
   });
 
   return (
-    <figure className="panel overflow-hidden p-0" ref={ref}>
+    <figure className="overflow-hidden" ref={ref}>
       <svg aria-label={label} className="block h-auto w-full" role="group" viewBox="0 0 440 550">
         {architectureLayers.map((layer, index) => {
           const z = LAYER_Z[layer.id];
@@ -285,7 +285,7 @@ export function ArchitectureDiagram({ caption, label }: { caption: string; label
         )}
       </svg>
 
-      <div aria-live="polite" className="border-t border-[rgba(var(--hairline))] p-6 sm:p-8">
+      <div aria-live="polite" className="border-t border-night-line p-6 sm:p-8">
         <AnimatePresence initial={false} mode="wait">
           {activeSolution && (
             <motion.div
@@ -295,13 +295,13 @@ export function ArchitectureDiagram({ caption, label }: { caption: string; label
               key={activeSolution.slug}
               transition={{ duration: reduceMotion ? 0 : 0.25 }}
             >
-              <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-primary">{activeLayer?.label}</p>
+              <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-primary">{activeLayer?.label}</p>
               <div className="mt-3 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
                 <h3 className="font-display text-xl font-semibold tracking-tight text-foreground-strong">
                   {activeSolution.shortTitle}
                 </h3>
                 {activeSolution.product && (
-                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-strong">
+                  <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-muted-strong">
                     {activeSolution.product}
                   </p>
                 )}
@@ -319,7 +319,7 @@ export function ArchitectureDiagram({ caption, label }: { caption: string; label
         </AnimatePresence>
       </div>
 
-      <figcaption className="border-t border-[rgba(var(--hairline))] px-6 py-4 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-strong sm:px-8">
+      <figcaption className="border-t border-night-line px-6 py-4 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-strong sm:px-8">
         {caption}
       </figcaption>
     </figure>

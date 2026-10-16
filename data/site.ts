@@ -16,6 +16,13 @@ import {
   Truck,
   Users,
   Video,
+  Workflow,
+  Award,
+  KeyRound,
+  Mail,
+  MapPin,
+  Phone,
+  Sparkles,
 } from "lucide-react";
 import accessDoorAnchors from "./access-door-anchors.json";
 import explodeAnchors from "./axis-explode-anchors.json";
@@ -966,6 +973,70 @@ export const heroFilm = {
     ],
   ] satisfies [number, number][][],
 };
+
+export const serviceCommitments = [
+  "Documentation technique livrée à chaque jalon",
+  "Coordination avec exploitation, IT et services généraux",
+  "Maintenance préventive planifiée par site",
+  "Support 24/7 pour les environnements sensibles",
+];
+
+export const aboutHighlights: { label: string; icon: LucideIcon }[] = [
+  { label: "Pionnière de la solution globale en France", icon: Award },
+  { label: "Exclusivité nationale sur ses produits clés", icon: KeyRound },
+  { label: "Zéro sous-traitance", icon: Users },
+];
+
+export const aboutApproach = [
+  "Une coordination transverse entre IT, services généraux et équipes sûreté",
+  "Des choix technologiques guidés par l'interopérabilité plutôt que par le verrouillage fournisseur",
+  "Des modèles de maintenance pensés pour l'uptime et l'évolution à long terme",
+  "Une responsabilité sur l'ensemble du cycle de vie : audit, design, déploiement, maintenance",
+];
+
+export const contactChannels: { label: string; value: string; href: string; icon: LucideIcon }[] = [
+  { icon: Mail, label: "Email", value: "contact@novadis.eu", href: "mailto:contact@novadis.eu" },
+  { icon: Phone, label: "Téléphone", value: "+352 26 19 01 73", href: "tel:+35226190173" },
+  {
+    icon: MapPin,
+    label: "Adresse",
+    value: "14-16 Rue Clément Bayard, 92300 Levallois-Perret",
+    href: "https://maps.google.com/?q=14-16+Rue+Cl%C3%A9ment+Bayard+Levallois-Perret",
+  },
+];
+
+export const contactTopics = [
+  "Infrastructure existante et contraintes de site",
+  "Exigences de contrôle d'accès et d'identité",
+  "Vidéo, analyse, preuves et workflows d'investigation",
+  "Maintenance, uptime et attentes de gouvernance",
+];
+
+// Fiche Supervision globale : PC sécurité modélisé (design/3d/supervision-room.blend).
+// Chaque repère pointe un écran du mur (Screen_0..5, 3 x 2, de gauche à droite puis de haut en bas).
+export const supervisionRoom = {
+  solutionSlug: "supervision",
+  challengeSlug: "systemes-en-silo",
+  model: "/novadis/models/supervision-room.glb",
+  poster: "/novadis/images/supervision/supervision-room.webp",
+  feed: "/novadis/images/hero/site-end.webp",
+  caption: "Modélisation 3D · interfaces illustratives",
+  points: [
+    { slug: "video-surveillance", screen: 0 },
+    { slug: "access-control", screen: 2 },
+    { slug: "ai-video-analytics", screen: 3 },
+    { slug: "intrusion-detection", screen: 4 },
+  ],
+};
+
+export const heroTechnologies = ["Amadeus", "Ocularis", "Galaxy"];
+
+export const architecturePoints: { label: string; icon: LucideIcon }[] = [
+  { label: "Couche opérationnelle unifiée", icon: Workflow },
+  { label: "Corrélation inter-systèmes", icon: Network },
+  { label: "Conception durcie & maintenable", icon: ShieldCheck },
+  { label: "Intégrations prêtes pour l'évolution", icon: Sparkles },
+];
 
 export function getSolution(slug: string) {
   return solutions.find((solution) => solution.slug === slug);

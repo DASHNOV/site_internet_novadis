@@ -27,8 +27,8 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b backdrop-blur-xl transition-all duration-300",
-        scrolled ? "border-hairline bg-white/85 shadow-soft" : "border-transparent bg-background/70",
+        "sticky top-0 z-50 border-b transition-colors duration-150",
+        scrolled ? "border-hairline bg-surface" : "border-transparent bg-background",
       )}
     >
       <div className="shell-wide">
@@ -40,7 +40,7 @@ export function SiteHeader() {
               src={mediaLibrary.logo}
             />
             <div className="hidden border-l border-hairline-strong pl-3 xl:block">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-strong">
+              <p className="text-xs font-medium text-muted-strong">
                 Solutions globales de sûreté
               </p>
             </div>
@@ -56,7 +56,7 @@ export function SiteHeader() {
                     "relative flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition",
                     active
                       ? "text-primary-strong"
-                      : "text-foreground hover:bg-primary/5 hover:text-foreground-strong",
+                      : "text-foreground hover:text-primary-strong",
                   )}
                   href={item.href}
                 >
@@ -64,7 +64,7 @@ export function SiteHeader() {
                   {item.children && (
                     <ChevronDown className="h-3 w-3 opacity-60 transition group-hover:rotate-180" />
                   )}
-                  {active && <span className="absolute inset-x-4 -bottom-0.5 h-0.5 rounded-full bg-brand-gradient" />}
+                  {active && <span className="absolute inset-x-4 -bottom-0.5 h-0.5 bg-primary-strong" />}
                 </Link>
               );
               if (!item.children) return <span key={item.href}>{link}</span>;
@@ -72,13 +72,13 @@ export function SiteHeader() {
                 <div className="group relative" key={item.href}>
                   {link}
                   <div className="invisible absolute left-0 top-full pt-3 opacity-0 transition duration-200 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                    <div className="min-w-[260px] rounded-xl border border-hairline bg-surface p-2 shadow-lift">
+                    <div className="min-w-[260px] rounded-xl border border-hairline bg-surface p-2 shadow-overlay">
                       {item.children.map((child, index) => {
                         const isIndex = child.href === item.href;
                         return (
                           <Link
                             className={cn(
-                              "block rounded-lg px-4 py-2.5 text-sm text-foreground transition hover:bg-primary/5 hover:text-primary-strong",
+                              "block rounded-lg px-4 py-2.5 text-sm text-foreground transition hover:bg-background-soft hover:text-primary-strong",
                               isIndex && "mt-2 border-t border-hairline pt-3 font-semibold text-primary-strong",
                             )}
                             href={child.href}
@@ -105,7 +105,7 @@ export function SiteHeader() {
             <button
               aria-label="Menu"
               aria-expanded={open}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-surface text-foreground-strong shadow-soft lg:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-surface text-foreground-strong lg:hidden"
               onClick={() => setOpen((value) => !value)}
               type="button"
             >

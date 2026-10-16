@@ -69,18 +69,17 @@ function StaticJourney() {
   return (
     <section className="section-dark py-24 lg:py-32">
       <div className="shell-wide">
-        <p className="eyebrow">{alarmJourney.eyebrow}</p>
-        <h2 className="section-title mt-6 max-w-3xl text-balance text-4xl sm:text-5xl">{alarmJourney.title}</h2>
+        <h2 className="section-title max-w-3xl text-balance text-4xl sm:text-5xl">{alarmJourney.title}</h2>
         <ol className="mt-14 grid gap-8 lg:grid-cols-3">
           {steps.map((step, index) => (
             <li className="border-t border-white/12 pt-6" key={step.slug}>
-              <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-primary">
+              <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-primary">
                 {`0${index + 1} · ${step.layerLabel}`}
               </p>
               <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight text-white">
                 {step.solution.shortTitle}
               </h3>
-              <p className="mt-3 text-sm leading-7 text-slate-300">{step.solution.summary}</p>
+              <p className="mt-3 text-sm leading-7 text-foreground">{step.solution.summary}</p>
             </li>
           ))}
         </ol>
@@ -133,23 +132,22 @@ export function AlarmJourney() {
         <div className="shell-wide relative flex h-full items-end pb-16 lg:pb-24">
           <div className="relative h-[340px] w-full max-w-xl">
             <StepText index={0} progress={scrollYProgress}>
-              <p className="eyebrow">{alarmJourney.eyebrow}</p>
-              <h2 className="section-title mt-6 text-balance text-4xl sm:text-5xl lg:text-[3.4rem]">{alarmJourney.title}</h2>
+              <h2 className="section-title text-balance text-4xl sm:text-5xl lg:text-[3.4rem]">{alarmJourney.title}</h2>
             </StepText>
             {steps.map((step, index) => (
               <StepText index={index + 1} key={step.slug} progress={scrollYProgress}>
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-primary">
+                <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-primary">
                   {`0${index + 1} / 0${steps.length} · ${step.layerLabel}`}
                 </p>
                 <h3 className="mt-4 font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">
                   {step.solution.shortTitle}
                 </h3>
                 {step.solution.product && (
-                  <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.18em] text-slate-400">
+                  <p className="mt-2 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-strong">
                     {step.solution.product}
                   </p>
                 )}
-                <p className="mt-4 text-base leading-7 text-slate-300">{step.solution.summary}</p>
+                <p className="mt-4 text-base leading-7 text-foreground">{step.solution.summary}</p>
                 <Link
                   className={cn(
                     "mt-5 inline-flex items-center gap-2 text-sm font-medium text-white",
@@ -170,8 +168,8 @@ export function AlarmJourney() {
           {steps.map((step, index) => (
             <li
               className={cn(
-                "flex items-center justify-end gap-3 font-mono text-[10px] uppercase tracking-[0.22em] transition-colors duration-300",
-                activeStep === index + 1 ? "text-white" : "text-white/35",
+                "flex items-center justify-end gap-3 font-mono text-[12px] uppercase tracking-[0.14em] transition-colors duration-300",
+                activeStep === index + 1 ? "text-white" : "text-white/55",
               )}
               key={step.slug}
             >

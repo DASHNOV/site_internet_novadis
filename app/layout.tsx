@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Roboto, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { Archivo, JetBrains_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 
 const roboto = Roboto({
@@ -10,11 +10,11 @@ const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const archivo = Archivo({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
-  weight: ["500", "600", "700", "800"],
+  axes: ["wdth"],
 });
 
 const jetbrains = JetBrains_Mono({
@@ -61,7 +61,7 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <body
-        className={`${roboto.variable} ${jakarta.variable} ${jetbrains.variable} font-sans antialiased`}
+        className={`${roboto.variable} ${archivo.variable} ${jetbrains.variable} font-sans antialiased`}
       >
         {/* Scroll-reveal content is server-rendered hidden; show it when JS never runs. */}
         <noscript>

@@ -109,7 +109,7 @@ export function SolutionsHeroModel({ className }: SolutionsHeroModelProps) {
         </Suspense>
       </Canvas>
 
-      <span className="pointer-events-none absolute left-3 top-3 inline-flex items-center gap-2 rounded-full border border-hairline bg-surface/90 px-3 py-1.5 text-xs font-semibold text-foreground-strong shadow-soft backdrop-blur sm:left-4 sm:top-4">
+      <span className="pointer-events-none absolute left-3 top-3 inline-flex items-center gap-2 rounded-full border border-hairline bg-surface/90 px-3 py-1.5 text-xs font-semibold text-foreground-strong backdrop-blur sm:left-4 sm:top-4">
         <Cctv aria-hidden className="h-4 w-4 text-primary" />
         {solutionsHeroModel.name}
       </span>
@@ -122,11 +122,11 @@ export function SolutionsHeroModel({ className }: SolutionsHeroModelProps) {
           )}
           key={callout.label}
         >
-          <span className="rounded-full border border-hairline bg-surface/90 px-3 py-1.5 shadow-soft backdrop-blur">
+          <span className="rounded-full border border-hairline bg-surface/90 px-3 py-1.5 backdrop-blur">
             {callout.label}
           </span>
           <span aria-hidden className="h-px w-10 bg-primary/40" />
-          <span aria-hidden className="h-2 w-2 rounded-full bg-primary shadow-glow" />
+          <span aria-hidden className="h-2 w-2 rounded-full bg-primary" />
         </span>
       ))}
 

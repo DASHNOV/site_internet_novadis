@@ -1,37 +1,34 @@
 @import "tailwindcss";
 
 /*
- * Corporate Trust × charte Novadis.
- * Les bleus de la charte remplacent l'indigo/violet du style : ombres teintées,
- * dégradés bleu profond → bleu vif, surfaces blanches sur fond froid.
+ * Système Novadis : preuve claire, démonstration nuit (voir DESIGN.md).
+ * Sections claires plates et filetées, sections nuit en console de supervision.
  */
 :root {
-  --background: 248 250 252;            /* #F8FAFC — fond froid */
+  --background: 248 250 252;            /* #F8FAFC */
   --background-elevated: 255 255 255;
-  --background-soft: 238 245 251;       /* #EEF5FB — bleu très clair pour sections alternées */
-  --background-dark: 11 18 32;          /* #0B1220 — nuit (scènes 3D) */
-  --night: 6 43 68;                     /* #062B44 — bleu nuit dérivé de #0570A4 */
+  --background-soft: 238 245 251;       /* #EEF5FB — bande alternée, à plat */
+  --background-dark: 11 18 32;          /* #0B1220 — nuit */
+  --night: 6 43 68;                     /* #062B44 */
+  --night-panel: 15 26 43;              /* #0F1A2B — panneaux de console */
+  --night-line: 255 255 255 / 0.1;
   --surface: 255 255 255;
-  --foreground: 54 53 53;               /* #363535 — gris foncé charte */
-  --foreground-strong: 30 29 29;
-  --muted: 155 155 155;                 /* #9B9B9B — Gris Novadis (décoratif uniquement) */
-  --muted-strong: 100 100 100;          /* #646464 — texte secondaire, AA sur fond clair */
+  --foreground: 54 53 53;               /* #363535 */
+  --foreground-strong: 30 29 29;        /* #1E1D1D */
+  --muted: 155 155 155;                 /* #9B9B9B — décoratif uniquement */
+  --muted-strong: 100 100 100;          /* #646464 — 5,9:1 sur blanc */
   --hairline: 226 232 240 / 1;          /* #E2E8F0 */
   --hairline-strong: 203 213 225 / 1;   /* #CBD5E1 */
   --card: 255 255 255 / 1;
-  --card-strong: 255 255 255 / 1;
-  --primary: 18 145 206;                /* #1291CE — bleu profond Novadis */
-  --primary-strong: 5 112 164;          /* #0570A4 — bleu très foncé, texte sur clair */
+  --primary: 18 145 206;                /* #1291CE — bleu marque, jamais en texte */
+  --primary-strong: 5 112 164;          /* #0570A4 — couleur d'action, 5,4:1 avec blanc */
   --primary-deep: 4 78 115;             /* #044E73 */
-  --accent: 54 164 217;                 /* #36A4D9 — bleu vif Novadis */
-  --glow: 129 207 245;                  /* #81CFF5 — bleu marque (point du logo) */
-  --success: 16 185 129;                /* #10B981 */
+  --accent: 54 164 217;                 /* #36A4D9 */
+  --glow: 129 207 245;                  /* #81CFF5 — accent sur nuit */
+  --success: 16 185 129;                /* #10B981 — actif */
+  --warning: 245 158 11;                /* #F59E0B — défaut */
   --danger: 239 68 68;                  /* #EF4444 — alarme */
-  --shadow: 18 145 206;
-  --grid: 54 53 53 / 0.04;
 
-  --gradient-brand: linear-gradient(135deg, rgb(var(--primary-strong)) 0%, rgb(var(--primary)) 100%);
-  --gradient-text: linear-gradient(110deg, rgb(var(--primary-strong)) 0%, rgb(var(--primary)) 55%, rgb(var(--accent)) 100%);
   --gradient-night: linear-gradient(155deg, rgb(var(--night)) 0%, rgb(var(--background-dark)) 75%);
 }
 
@@ -39,6 +36,7 @@
   --color-background: rgb(var(--background));
   --color-background-elevated: rgb(var(--background-elevated));
   --color-background-soft: rgb(var(--background-soft));
+  --color-background-dark: rgb(var(--background-dark));
   --color-surface: rgb(var(--surface));
   --color-foreground: rgb(var(--foreground));
   --color-foreground-strong: rgb(var(--foreground-strong));
@@ -50,52 +48,36 @@
   --color-accent: rgb(var(--accent));
   --color-glow: rgb(var(--glow));
   --color-success: rgb(var(--success));
+  --color-warning: rgb(var(--warning));
   --color-danger: rgb(var(--danger));
   --color-night: rgb(var(--night));
+  --color-night-panel: rgb(var(--night-panel));
+  --color-night-line: rgba(var(--night-line));
   --color-hairline: rgba(var(--hairline));
   --color-hairline-strong: rgba(var(--hairline-strong));
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --font-mono: var(--font-mono);
 }
 
 @theme {
-  --shadow-soft: 0 4px 20px -2px rgb(18 145 206 / 0.1);
-  --shadow-lift: 0 10px 25px -5px rgb(18 145 206 / 0.16), 0 8px 10px -6px rgb(18 145 206 / 0.1);
-  --shadow-cta: 0 4px 14px 0 rgb(18 145 206 / 0.32);
-  --shadow-cta-hover: 0 8px 22px -2px rgb(18 145 206 / 0.42);
-  --shadow-glow: 0 0 20px rgb(18 145 206 / 0.5);
-  --shadow-float: 0 24px 50px -12px rgb(5 112 164 / 0.28);
+  --shadow-overlay: 0 12px 32px -12px rgb(11 18 32 / 0.18);
 
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-breathe: breathe 4s ease-in-out infinite;
+  --animate-status: status 2s ease-in-out infinite;
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+  @keyframes status {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
   }
-
-  @keyframes breathe {
-    0%, 100% { opacity: 0.55; }
-    50% { opacity: 0.85; }
-  }
-}
-
-@utility bg-brand-gradient {
-  background-image: var(--gradient-brand);
 }
 
 @utility bg-night-gradient {
   background-image: var(--gradient-night);
 }
 
-@utility text-gradient {
-  background-image: var(--gradient-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
+/* Second ton des titres : le gris remplace l'ancien dégradé. */
+@utility text-second {
+  color: rgb(var(--muted-strong));
 }
 
 * {
@@ -106,6 +88,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  scrollbar-color: rgb(var(--hairline-strong)) transparent;
 }
 
 body {
@@ -113,6 +96,7 @@ body {
   background: rgb(var(--background));
   color: rgb(var(--foreground));
   line-height: 1.65;
+  caret-color: rgb(var(--primary-strong));
 }
 
 main {
@@ -120,42 +104,43 @@ main {
   z-index: 1;
 }
 
-/* Rythme vertical : 64 → 80 → 96px */
+.font-display,
+.section-title {
+  font-stretch: 87.5%;
+}
+
+/* Chiffres alignés partout où l'on compare des valeurs. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Rythme vertical : 72 → 96 → 128px */
 .section-y {
-  padding-block: 4rem;
+  padding-block: 4.5rem;
 }
 
 @media (min-width: 640px) {
-  .section-y {
-    padding-block: 5rem;
-  }
-}
-
-@media (min-width: 1024px) {
   .section-y {
     padding-block: 6rem;
   }
 }
 
+@media (min-width: 1024px) {
+  .section-y {
+    padding-block: 8rem;
+  }
+}
+
 .section-soft {
-  background: linear-gradient(
-    180deg,
-    rgb(var(--background)) 0%,
-    rgb(var(--background-soft)) 14%,
-    rgb(var(--background-soft)) 86%,
-    rgb(var(--background)) 100%
-  );
+  background: rgb(var(--background-soft));
 }
 
 .section-dark {
-  background: var(--gradient-night);
-  color: rgb(248 250 255);
+  background: rgb(var(--background-dark));
+  color: rgb(226 232 240);
 }
 
-.section-dark .section-title {
-  color: rgb(255 255 255);
-}
-
+.section-dark .section-title,
 .section-dark .text-foreground-strong {
   color: rgb(255 255 255) !important;
 }
@@ -164,33 +149,32 @@ main {
   color: rgb(226 232 240) !important;
 }
 
-.section-dark .text-muted-strong {
-  color: rgb(203 213 225) !important;
+.section-dark .text-muted-strong,
+.section-dark .text-second {
+  color: rgb(148 163 184) !important;
 }
 
 .section-dark .text-muted {
   color: rgb(148 163 184) !important;
 }
 
-.section-dark .text-gradient {
-  background-image: linear-gradient(110deg, rgb(var(--glow)) 0%, rgb(var(--accent)) 100%);
+/* Sur nuit, le bleu marque n'est pas lisible en texte : on passe au bleu glacier. */
+.section-dark .text-primary,
+.section-dark .text-primary-strong {
+  color: rgb(var(--glow)) !important;
 }
 
-.section-dark .eyebrow {
-  color: rgb(var(--glow));
-  background: rgb(255 255 255 / 0.06);
-  border-color: rgb(255 255 255 / 0.14);
+.section-dark :focus-visible {
+  outline-color: rgb(var(--glow));
 }
 
 a,
 button {
   transition:
-    color 200ms ease-out,
-    border-color 200ms ease-out,
-    background-color 200ms ease-out,
-    transform 200ms ease-out,
-    box-shadow 200ms ease-out,
-    opacity 200ms ease-out;
+    color 150ms ease-out,
+    border-color 150ms ease-out,
+    background-color 150ms ease-out,
+    opacity 150ms ease-out;
 }
 
 :focus-visible {
@@ -201,6 +185,11 @@ button {
 ::selection {
   background: rgb(var(--primary) / 0.18);
   color: rgb(var(--foreground-strong));
+}
+
+.section-dark ::selection {
+  background: rgb(var(--glow) / 0.3);
+  color: rgb(255 255 255);
 }
 
 .shell,
@@ -225,17 +214,39 @@ button {
   }
 }
 
+/* Tuile claire : filet, pas d'ombre. */
 .panel {
   background: rgba(var(--card));
   border: 1px solid rgba(var(--hairline));
-  box-shadow: var(--shadow-soft);
   border-radius: 12px;
 }
 
-.panel-strong {
-  background: rgba(var(--card-strong));
-  border-color: rgba(var(--hairline-strong));
-  box-shadow: var(--shadow-lift);
+/* Panneau de console nuit. */
+.console {
+  background: rgb(var(--night-panel));
+  border: 1px solid rgba(var(--night-line));
+  border-radius: 8px;
+}
+
+.console-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid rgba(var(--night-line));
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(148 163 184);
+}
+
+@media (max-width: 639px) {
+  .console-head {
+    letter-spacing: 0.08em;
+  }
 }
 
 .divider {
@@ -247,41 +258,44 @@ button {
 .section-title {
   font-family: var(--font-display);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  letter-spacing: -0.025em;
+  line-height: 1.06;
   color: rgb(var(--foreground-strong));
 }
 
-/* Pastille d'en-tête de section : point lumineux + libellé */
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.35rem 0.85rem 0.35rem 0.7rem;
-  border: 1px solid rgb(var(--primary) / 0.18);
-  border-radius: 999px;
-  background: rgb(var(--primary) / 0.07);
-  font-family: var(--font-sans);
+/* Libellé de données (identifiant d'équipement, étape, légende technique). */
+.data-label {
+  font-family: var(--font-mono);
   font-size: 12px;
-  font-weight: 600;
-  line-height: 1.2;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  color: rgb(var(--muted-strong));
+}
+
+.section-dark .data-label {
+  color: rgb(148 163 184);
+}
+
+/* Réservé aux placeholders /legal et /privacy, hors périmètre de la refonte. */
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: rgb(var(--primary-strong));
 }
 
-.eyebrow::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  flex: none;
-  border-radius: 999px;
-  background: var(--gradient-brand);
-  box-shadow: 0 0 10px rgb(var(--primary) / 0.7);
+.section-dark .eyebrow {
+  color: rgb(var(--glow));
 }
 
 .lede {
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   line-height: 1.7;
   color: rgb(var(--muted-strong));
   max-width: 38rem;
@@ -305,82 +319,13 @@ button {
 }
 
 .cta-arrow {
-  transition: transform 200ms ease-out;
+  transition: transform 150ms ease-out;
 }
 
 .group:hover .cta-arrow,
 a:hover .cta-arrow,
 button:hover .cta-arrow {
-  transform: translateX(4px);
-}
-
-/* Halos d'arrière-plan */
-.blob {
-  position: absolute;
-  border-radius: 999px;
-  filter: blur(64px);
-  pointer-events: none;
-}
-
-@keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.ticker-track {
-  animation: ticker 38s linear infinite;
-}
-
-/* Socle isométrique : la carte se redresse au survol */
-.iso-stage {
-  perspective: 2000px;
-}
-
-.iso-card {
-  transform: rotateX(5deg) rotateY(-12deg);
-  transform-style: preserve-3d;
-  transition: transform 500ms ease-out;
-}
-
-.iso-stage:hover .iso-card {
-  transform: rotateX(2deg) rotateY(-8deg);
-}
-
-.iso-card-reverse {
-  transform: rotateX(4deg) rotateY(8deg);
-}
-
-.iso-stage:hover .iso-card-reverse {
-  transform: rotateX(2deg) rotateY(4deg);
-}
-
-@media (max-width: 1023px) {
-  .iso-card,
-  .iso-card-reverse,
-  .iso-stage:hover .iso-card,
-  .iso-stage:hover .iso-card-reverse {
-    transform: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ticker-track,
-  .animate-float,
-  .animate-breathe {
-    animation: none;
-  }
-
-  .iso-card,
-  .iso-card-reverse {
-    transition: none;
-  }
-}
-
-.gradient-text {
-  background-image: var(--gradient-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  transform: translateX(3px);
 }
 
 .divider-dot {
@@ -391,23 +336,24 @@ button:hover .cta-arrow {
   display: inline-block;
 }
 
-.kicker {
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgb(var(--muted-strong));
-}
-
 .link-underline {
-  background-image: linear-gradient(rgb(var(--primary)), rgb(var(--primary)));
-  background-size: 0% 1px;
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  transition: background-size 280ms ease;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 150ms ease-out;
 }
 
 .link-underline:hover {
-  background-size: 100% 1px;
+  text-decoration-color: currentColor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-status {
+    animation: none;
+  }
+}
+
+.section-dark .fill-muted-strong {
+  fill: rgb(148 163 184);
 }

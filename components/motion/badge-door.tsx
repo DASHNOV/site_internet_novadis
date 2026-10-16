@@ -38,14 +38,14 @@ function ReaderHud({ frame, step }: { frame: number; step: number }) {
 
       {/* Left of the reader, clear of the hand coming in from the right. */}
       <HudPanel side="left" tone={tone}>
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">{badgeDoor.hud.reader}</p>
+        <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-muted-strong">{badgeDoor.hud.reader}</p>
         {ok ? (
           <>
             <div className="mt-2 flex items-center gap-2">
               <CheckCircle2 className="h-4 w-4 flex-none text-success" />
               <p className="text-sm font-semibold text-white">{badgeDoor.hud.granted}</p>
             </div>
-            <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.16em] text-success">{badgeDoor.hud.decision}</p>
+            <p className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-success">{badgeDoor.hud.decision}</p>
           </>
         ) : (
           <>
@@ -53,7 +53,7 @@ function ReaderHud({ frame, step }: { frame: number; step: number }) {
               <ScanLine className="h-4 w-4 flex-none text-glow" />
               <p className="text-sm font-semibold text-white">{badgeDoor.hud.reading}</p>
             </div>
-            <p className="mt-1 font-mono text-[11px] tracking-[0.12em] text-glow">{badgeDoor.hud.badgeId}</p>
+            <p className="mt-1 font-mono text-[12px] tracking-[0.12em] text-glow">{badgeDoor.hud.badgeId}</p>
             <span className="mt-2 block h-0.5 overflow-hidden rounded-full bg-white/10">
               <span className="block h-full origin-left bg-glow transition-transform duration-150" style={{ transform: `scaleX(${reading})` }} />
             </span>

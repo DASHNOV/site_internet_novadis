@@ -59,7 +59,7 @@ export function ArButton({ className }: { className?: string }) {
   if (!platform || !href) return null;
 
   const classes = cn(
-    "inline-flex items-center gap-2 rounded-full border border-[rgba(var(--hairline-strong))] bg-background/90 px-4 py-2.5 text-sm font-semibold text-foreground-strong shadow-sm backdrop-blur",
+    "inline-flex items-center gap-2 rounded-full border border-[rgba(var(--hairline-strong))] bg-background/90 px-4 py-2.5 text-sm font-semibold text-foreground-strong backdrop-blur",
     className,
   );
 

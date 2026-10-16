@@ -1,93 +1,74 @@
 import { Reveal } from "@/components/motion/reveal";
 import { partners } from "@/data/site";
 
-export function PartnerCloud() {
+export function PartnerGrid() {
   const techPartners = partners.filter((p) => p.kind === "tech");
+  return (
+    <ul className="grid grid-cols-2 border-l border-t border-hairline sm:grid-cols-3 lg:grid-cols-6">
+      {techPartners.map((partner) => (
+        <li className="group flex flex-col justify-between gap-4 border-b border-r border-hairline bg-surface p-5" key={partner.name}>
+          {partner.logo ? (
+            <img
+              alt={partner.name}
+              className="h-8 max-w-[120px] object-contain object-left opacity-70 grayscale transition duration-150 group-hover:opacity-100 group-hover:grayscale-0"
+              loading="lazy"
+              src={partner.logo}
+            />
+          ) : (
+            <p className="font-display text-lg font-bold text-foreground-strong">{partner.name}</p>
+          )}
+          <p className="text-xs font-medium text-muted-strong">{partner.role}</p>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export function NormsList() {
   const norms = partners.filter((p) => p.kind === "norm");
   const associations = partners.filter((p) => p.kind === "association");
-  const ticker = [...techPartners, ...techPartners];
-
   return (
-    <section className="shell-wide pt-16 sm:pt-20">
-      <Reveal>
-        <div className="panel grid gap-8 p-6 sm:p-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,2.15fr)] lg:items-center">
-          <div>
-            <p className="eyebrow">Partenaires & conformité</p>
-            <p className="mt-4 max-w-sm text-base leading-7 text-muted-strong">
-              Une chaîne de partenariats stricts et un cadre normatif clair pour bâtir des architectures
-              ouvertes, normées et tenues dans la durée.
-            </p>
-          </div>
-          <div className="relative overflow-hidden">
-            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-surface to-transparent" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-surface to-transparent" />
-            <div className="ticker-track flex w-max items-center gap-10">
-              {ticker.map((partner, index) =>
-                partner.logo ? (
-                  <div
-                    className="flex min-w-[130px] flex-col items-start gap-2"
-                    key={`${partner.name}-${index}`}
-                  >
-                    <img
-                      alt={partner.name}
-                      className="h-8 max-w-[120px] object-contain grayscale transition-all duration-300 hover:grayscale-0"
-                      loading="lazy"
-                      src={partner.logo}
-                      style={{ opacity: 0.6 }}
-                    />
-                    <p className="text-[11px] font-medium text-muted-strong">{partner.role}</p>
-                  </div>
-                ) : (
-                  <div
-                    className="flex min-w-[150px] items-center gap-3"
-                    key={`${partner.name}-${index}`}
-                  >
-                    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 font-mono text-[10px] font-semibold text-primary-strong">
-                      {partner.name.slice(0, 2).toUpperCase()}
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-foreground-strong">{partner.name}</p>
-                      <p className="text-[11px] font-medium text-muted-strong">{partner.role}</p>
-                    </div>
-                  </div>
-                )
-              )}
-            </div>
-          </div>
-        </div>
-      </Reveal>
+    <div className="grid gap-10 sm:grid-cols-2">
+      <div>
+        <h3 className="font-display text-lg font-bold text-foreground-strong">Conformité & normes</h3>
+        <ul className="mt-4 divide-y divide-hairline border-y border-hairline">
+          {norms.map((norm) => (
+            <li className="flex items-baseline justify-between gap-4 py-3" key={norm.name}>
+              <span className="font-semibold text-foreground-strong">{norm.name}</span>
+              <span className="text-sm text-muted-strong">{norm.role}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3 className="font-display text-lg font-bold text-foreground-strong">Associations professionnelles</h3>
+        <ul className="mt-4 divide-y divide-hairline border-y border-hairline">
+          {associations.map((asso) => (
+            <li className="py-3 font-semibold text-foreground-strong" key={asso.name}>
+              Membre {asso.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
 
-      <Reveal delay={0.05}>
-        <div className="grid gap-8 px-2 pt-8 lg:grid-cols-2">
-          <div>
-            <p className="kicker">Conformité & normes</p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {norms.map((norm) => (
-                <span
-                  className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.07] px-3 py-1.5 text-xs font-semibold text-primary-strong"
-                  key={norm.name}
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand-gradient" />
-                  {norm.name}
-                  <span className="text-[11px] font-medium text-muted-strong">{norm.role}</span>
-                </span>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="kicker">Associations professionnelles</p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {associations.map((asso) => (
-                <span
-                  className="inline-flex items-center gap-2 rounded-full border border-hairline bg-surface px-3 py-1.5 text-xs font-medium text-foreground-strong shadow-soft"
-                  key={asso.name}
-                >
-                  Membre {asso.name}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
+export function PartnerCloud() {
+  return (
+    <section className="shell-wide section-y">
+      <Reveal className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:items-end">
+        <h2 className="section-title text-balance text-[clamp(1.75rem,2.6vw,2.25rem)]">Partenaires & conformité</h2>
+        <p className="max-w-xl text-base leading-7 text-muted-strong">
+          Une chaîne de partenariats stricts et un cadre normatif clair pour bâtir des architectures ouvertes, normées
+          et tenues dans la durée.
+        </p>
+      </Reveal>
+      <Reveal className="mt-10" delay={0.05}>
+        <PartnerGrid />
+      </Reveal>
+      <Reveal className="mt-12" delay={0.1}>
+        <NormsList />
       </Reveal>
     </section>
   );
