@@ -1,4 +1,5 @@
 import type { Field, GlobalConfig } from "payload";
+import { canEdit, isLoggedIn, publishedOrLoggedIn } from "../access";
 import { drafts, text } from "../fields";
 
 // Le nombre d'étapes et d'étiquettes suit les films et les modèles 3D : il est figé.
@@ -30,7 +31,7 @@ export const Demos: GlobalConfig = {
     group: "Éléments communs",
     description: "Textes affichés dans les films et les scènes 3D. Les animations elles-mêmes restent gérées par l'équipe technique.",
   },
-  access: { read: () => true },
+  access: { read: publishedOrLoggedIn, readVersions: isLoggedIn, update: canEdit },
   versions: drafts,
   fields: [
     {

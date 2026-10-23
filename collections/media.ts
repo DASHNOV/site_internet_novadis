@@ -1,5 +1,6 @@
 import path from "node:path";
 import type { CollectionConfig } from "payload";
+import { isLoggedIn, isPublisher } from "../access";
 
 export const Media: CollectionConfig = {
   slug: "media",
@@ -7,6 +8,9 @@ export const Media: CollectionConfig = {
   admin: { group: "Médias" },
   access: {
     read: () => true,
+    create: isLoggedIn,
+    update: isLoggedIn,
+    delete: isPublisher,
   },
   upload: {
     staticDir: path.resolve(process.cwd(), "cms/media"),

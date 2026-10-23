@@ -14,15 +14,19 @@ import { Common } from "./globals/common";
 import { Demos } from "./globals/demos";
 import { pageGlobals } from "./globals/pages";
 
+// Démo locale : préremplit l'écran de connexion avec un compte de .env.local, choisi par CMS_PREFILL_ROLE.
+function demoPrefill() {
+  if (process.env.NODE_ENV !== "development") return false;
+  const prefix = { admin: "CMS_ADMIN", publieur: "CMS_PUBLISHER", redacteur: "CMS_EDITOR" }[process.env.CMS_PREFILL_ROLE ?? "admin"];
+  const email = prefix && process.env[`${prefix}_EMAIL`];
+  return email ? { email, password: process.env[`${prefix}_PASSWORD`], prefillOnly: true } : false;
+}
+
 export default buildConfig({
   admin: {
     user: Users.slug,
     meta: { titleSuffix: " · Novadis — Contenus" },
-    // Démo locale : préremplit l'écran de connexion avec le compte de test de .env.local.
-    autoLogin:
-      process.env.NODE_ENV === "development" && process.env.CMS_ADMIN_EMAIL
-        ? { email: process.env.CMS_ADMIN_EMAIL, password: process.env.CMS_ADMIN_PASSWORD, prefillOnly: true }
-        : false,
+    autoLogin: demoPrefill(),
   },
   collections: [Solutions, Sectors, References, Challenges, Media, Users],
   globals: [...pageGlobals, Common, Demos],

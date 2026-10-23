@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { canEdit, isAdmin, isLoggedIn, publishedOrLoggedIn } from "../access";
 import { drafts, icon, image, slug, text, textList } from "../fields";
 
 export const Solutions: CollectionConfig = {
@@ -10,7 +11,14 @@ export const Solutions: CollectionConfig = {
     defaultColumns: ["title", "product", "updatedAt"],
   },
   defaultSort: "order",
-  access: { read: () => true },
+  access: {
+    read: publishedOrLoggedIn,
+    readVersions: isLoggedIn,
+    // L'offre est fixe pour la démo : seuls les admins ajoutent ou retirent des fiches.
+    create: isAdmin,
+    update: canEdit,
+    delete: isAdmin,
+  },
   versions: drafts,
   fields: [
     slug,

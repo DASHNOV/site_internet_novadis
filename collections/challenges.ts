@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { canEdit, isAdmin, isLoggedIn, publishedOrLoggedIn } from "../access";
 import { drafts, icon, link, slug, text, textList } from "../fields";
 
 export const Challenges: CollectionConfig = {
@@ -11,7 +12,14 @@ export const Challenges: CollectionConfig = {
     description: "Bloc « Chaque projet commence par un problème concret » de l'accueil.",
   },
   defaultSort: "order",
-  access: { read: () => true },
+  access: {
+    read: publishedOrLoggedIn,
+    readVersions: isLoggedIn,
+    // L'offre est fixe pour la démo : seuls les admins ajoutent ou retirent des fiches.
+    create: isAdmin,
+    update: canEdit,
+    delete: isAdmin,
+  },
   versions: drafts,
   fields: [
     slug,

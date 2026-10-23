@@ -1,4 +1,5 @@
 import type { Field, GlobalConfig, Tab } from "payload";
+import { canEdit, isLoggedIn, publishedOrLoggedIn } from "../access";
 import { accentTitle, drafts, icon, image, link, text, textList } from "../fields";
 
 function pageGlobal(slug: string, label: string, fields: Field[]): GlobalConfig {
@@ -6,7 +7,7 @@ function pageGlobal(slug: string, label: string, fields: Field[]): GlobalConfig 
     slug,
     label,
     admin: { group: "Pages" },
-    access: { read: () => true },
+    access: { read: publishedOrLoggedIn, readVersions: isLoggedIn, update: canEdit },
     versions: drafts,
     fields,
   };

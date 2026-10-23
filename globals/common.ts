@@ -1,11 +1,12 @@
 import type { GlobalConfig } from "payload";
+import { canEdit, isLoggedIn, publishedOrLoggedIn } from "../access";
 import { accentTitle, drafts, link, text, textList } from "../fields";
 
 export const Common: GlobalConfig = {
   slug: "common",
   label: "Éléments communs",
   admin: { group: "Éléments communs", description: "Textes repris sur plusieurs pages du site." },
-  access: { read: () => true },
+  access: { read: publishedOrLoggedIn, readVersions: isLoggedIn, update: canEdit },
   versions: drafts,
   fields: [
     {

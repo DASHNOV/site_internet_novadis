@@ -86,13 +86,22 @@ Le découpage suit les pages, pour que les commerciaux retrouvent facilement cha
 
 ## Étape 4 — Rôles et circuit de validation
 
-- [ ] Ajouter un champ `role` aux utilisateurs, avec trois valeurs : `redacteur`, `publieur`, `admin`.
-- [ ] **Rédacteur** : il peut créer et modifier, mais seulement en brouillon. Le passage à l'état « publié » est bloqué par une règle d'accès ou un hook `beforeChange`.
-- [ ] **Publieur** (le responsable commercial) : il peut relire, publier ou revenir à une version précédente.
-- [ ] **Admin** (toi) : il a tous les droits, y compris sur les comptes.
-- [ ] Créer les comptes de démo (un rédacteur, un publieur) via le script de l'étape 5, avec des identifiants de test rangés dans `.env.local`.
+- [x] Les comptes ont un `nom` et un `rôle` (`redacteur`, `publieur` ou `admin`, enregistré dans le jeton de session). Seul un admin peut changer un rôle, créer ou supprimer un compte. Chacun peut lire et modifier son propre compte, et la rubrique « Utilisateurs » est masquée pour les autres rôles.
+- [x] Les règles sont dans `access/index.ts` :
+  - **Rédacteur** : il modifie et enregistre en brouillon. La règle `canEdit` refuse tout passage à l'état « publié ». L'admin interroge cette même règle pour afficher « Publier », donc le bouton disparaît, et la restauration d'une version publiée est refusée elle aussi.
+  - **Publieur** (le responsable commercial) : il relit la preview, publie, et revient à une version précédente.
+  - **Admin** : il a tous les droits. Lui seul ajoute ou retire une fiche de l'offre, qui reste fixe pour la démo.
+  - **Visiteur** : il ne lit que la version publiée, collections comme globals, même s'il demande `?draft=true`.
+  - **Médiathèque** : tout compte connecté ajoute ou remplace une image, et seuls publieurs et admins en suppriment.
+- [x] Comptes de démo : `npm run cms:accounts` crée ou remet à jour un compte par rôle (`scripts/cms-accounts.ts`, avec la fonction réutilisable `scripts/lib/demo-accounts.ts`). Les identifiants de test sont rangés dans `.env.local` (`CMS_ADMIN_*`, `CMS_PUBLISHER_*`, `CMS_EDITOR_*`).
+- [x] Sous `next dev`, `CMS_PREFILL_ROLE` (`admin`, `publieur` ou `redacteur`) choisit le compte prérempli sur `/admin/login`. Il faut redémarrer le serveur après l'avoir changé.
 
 **Terminé quand :** un rédacteur n'a pas accès au bouton « Publier », et un publieur si.
+
+✅ Vérifié le 23/10/2026 :
+- **Par l'API, 22 vérifications réussies.** Le rédacteur enregistre un brouillon mais ne peut ni publier, ni restaurer une version publiée, ni créer de fiche ou de compte, ni changer son rôle. Le visiteur ne voit jamais le brouillon. Le publieur publie, puis revient à la version précédente, et le site public suit à chaque fois.
+- **Dans l'admin**, le rédacteur n'a ni « Publier » ni « Utilisateurs », alors que le publieur a « Publier les modifications ».
+- **Build** : `next build` passe, sans « lidar » ni identifiant de démo dans `.next/static`.
 
 ## Étape 5 — Migration du contenu existant
 
@@ -100,7 +109,7 @@ Le découpage suit les pages, pour que les commerciaux retrouvent facilement cha
   - lire `data/site.ts`, `data/sectors.ts` et `data/references.ts` ;
   - importer les images utilisées depuis `public/novadis/images` vers la médiathèque ;
   - remplir les collections et les globals, puis publier cette première version ;
-  - créer les comptes de démo.
+  - créer les comptes de démo, avec `upsertDemoAccounts` (`scripts/lib/demo-accounts.ts`).
 - [ ] Rendre le script relançable, c'est-à-dire capable de remettre la base à zéro. Ça servira à réinitialiser la démo.
 - [ ] Ajouter le script npm `"cms:seed": "payload run scripts/seed-cms.ts"`.
 

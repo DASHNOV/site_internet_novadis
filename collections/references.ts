@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { canEdit, isAdmin, isLoggedIn, publishedOrLoggedIn } from "../access";
 import { drafts, image, text } from "../fields";
 
 export const References: CollectionConfig = {
@@ -11,7 +12,14 @@ export const References: CollectionConfig = {
     description: "Cas phares anonymisés, affichés sur l'accueil et la page Références.",
   },
   defaultSort: "order",
-  access: { read: () => true },
+  access: {
+    read: publishedOrLoggedIn,
+    readVersions: isLoggedIn,
+    // L'offre est fixe pour la démo : seuls les admins ajoutent ou retirent des fiches.
+    create: isAdmin,
+    update: canEdit,
+    delete: isAdmin,
+  },
   versions: drafts,
   fields: [
     {

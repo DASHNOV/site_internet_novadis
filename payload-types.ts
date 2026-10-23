@@ -398,6 +398,11 @@ export interface Challenge {
  */
 export interface User {
   id: number;
+  name: string;
+  /**
+   * Rédacteur : modifie en brouillon. Publieur : relit et publie. Administrateur : gère aussi les comptes.
+   */
+  role: 'redacteur' | 'publieur' | 'admin';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -651,6 +656,8 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

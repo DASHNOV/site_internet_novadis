@@ -10,7 +10,8 @@
     "lint": "next lint",
     "payload": "payload --use-swc",
     "cms:importmap": "payload generate:importmap --use-swc",
-    "cms:types": "payload generate:types --use-swc"
+    "cms:types": "payload generate:types --use-swc",
+    "cms:accounts": "payload run scripts/cms-accounts.ts --use-swc"
   },
   "dependencies": {
     "@payloadcms/db-sqlite": "3.92.0",
