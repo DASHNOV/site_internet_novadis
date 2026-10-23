@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { revalidateOnDelete, revalidateOnPublish } from "../hooks/revalidate";
 import { canEdit, isAdmin, isLoggedIn, publishedOrLoggedIn } from "../access";
 import { drafts, image, text } from "../fields";
 
@@ -12,6 +13,7 @@ export const References: CollectionConfig = {
     description: "Cas phares anonymisés, affichés sur l'accueil et la page Références.",
   },
   defaultSort: "order",
+  hooks: { afterChange: [revalidateOnPublish], afterDelete: [revalidateOnDelete] },
   access: {
     read: publishedOrLoggedIn,
     readVersions: isLoggedIn,

@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, transform, useMotionValueEvent, useReducedMotion, useTransform } from "framer-motion";
+import { useSiteContent } from "@/components/content-provider";
 import { useFrameSequence } from "@/components/motion/film-scene";
 import { axisExplode } from "@/data/site";
 import { cn } from "@/lib/utils";
@@ -15,6 +16,7 @@ function stepAt(progress: number) {
 }
 
 function Labels({ frame, visible }: { frame: number; visible: boolean }) {
+  const { axisExplode } = useSiteContent();
   const points = axisExplode.anchors[frame];
   return (
     <>
@@ -63,6 +65,7 @@ function Radar() {
 }
 
 function Steps({ active }: { active: number }) {
+  const { axisExplode } = useSiteContent();
   return (
     <ol className="mt-8 space-y-1 lg:mt-10">
       {axisExplode.steps.map((step, index) => {
@@ -95,6 +98,7 @@ function Steps({ active }: { active: number }) {
 
 // Static state for reduced motion: last frame with its labels.
 function StaticExplode() {
+  const { axisExplode } = useSiteContent();
   return (
     <section className="section-dark py-24 lg:py-32">
       <div className="shell-wide grid items-center gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
@@ -113,6 +117,7 @@ function StaticExplode() {
 }
 
 export function AxisExplode() {
+  const { axisExplode } = useSiteContent();
   const reduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const [step, setStep] = useState(0);

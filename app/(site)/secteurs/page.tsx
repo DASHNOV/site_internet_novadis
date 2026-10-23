@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getSiteContent } from "@/lib/content/server";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
 import { PageHero } from "@/components/sections/page-hero";
@@ -8,8 +9,6 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { Badge } from "@/components/ui/badge";
 import { CheckList } from "@/components/ui/check-list";
 import { IconBadge } from "@/components/ui/icon-badge";
-import { sectorsPage as copy } from "@/data/pages";
-import { industries } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -18,7 +17,8 @@ export const metadata: Metadata = {
     "Tertiaire, industrie, logistique, sites sensibles, réseaux multi-sites, ERP : Novadis adapte chaque architecture à la logique d'exploitation du site.",
 };
 
-export default function SecteursPage() {
+export default async function SecteursPage() {
+  const { industries, sectorsPage: copy } = await getSiteContent();
   return (
     <main className="relative">
       <SiteHeader />

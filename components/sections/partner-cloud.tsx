@@ -1,8 +1,8 @@
+import { getSiteContent } from "@/lib/content/server";
 import { Reveal } from "@/components/motion/reveal";
-import { normsCopy as copy } from "@/data/pages";
-import { partners } from "@/data/site";
 
-export function NormsList() {
+export async function NormsList() {
+  const { partners, normsCopy: copy } = await getSiteContent();
   const norms = partners.filter((p) => p.kind === "norm");
   const associations = partners.filter((p) => p.kind === "association");
   return (
@@ -32,7 +32,8 @@ export function NormsList() {
   );
 }
 
-export function PartnerCloud() {
+export async function PartnerCloud() {
+  const { normsCopy: copy } = await getSiteContent();
   return (
     <section className="shell-wide section-y">
       <Reveal className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:items-end">

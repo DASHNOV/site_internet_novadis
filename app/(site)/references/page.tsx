@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Info } from "lucide-react";
+import { getSiteContent } from "@/lib/content/server";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { PageHero } from "@/components/sections/page-hero";
 import { ReferenceCard } from "@/components/sections/reference-card";
@@ -8,9 +9,6 @@ import { StatRow } from "@/components/sections/stat-row";
 import { Reveal } from "@/components/motion/reveal";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
-import { referencesPage as copy } from "@/data/pages";
-import { featuredReferences } from "@/data/references";
-import { sectors } from "@/data/sectors";
 import { Badge } from "@/components/ui/badge";
 import { IconBadge } from "@/components/ui/icon-badge";
 
@@ -20,9 +18,9 @@ export const metadata: Metadata = {
     "Études de cas anonymisées : découvrez comment Novadis conçoit et déploie des architectures de sûreté dans les environnements les plus exigeants.",
 };
 
-const { solutionLabels } = copy;
-
-export default function ReferencesPage() {
+export default async function ReferencesPage() {
+  const { sectors, featuredReferences, referencesPage: copy } = await getSiteContent();
+  const { solutionLabels } = copy;
   return (
     <main className="relative">
       <SiteHeader />

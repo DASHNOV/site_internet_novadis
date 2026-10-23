@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { revalidateOnDelete, revalidateOnPublish } from "../hooks/revalidate";
 import { canEdit, isAdmin, isLoggedIn, publishedOrLoggedIn } from "../access";
 import { drafts, icon, image, slug, text, textList } from "../fields";
 
@@ -11,6 +12,7 @@ export const Sectors: CollectionConfig = {
     defaultColumns: ["title", "updatedAt"],
   },
   defaultSort: "order",
+  hooks: { afterChange: [revalidateOnPublish], afterDelete: [revalidateOnDelete] },
   access: {
     read: publishedOrLoggedIn,
     readVersions: isLoggedIn,

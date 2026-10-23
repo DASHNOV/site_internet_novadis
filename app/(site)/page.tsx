@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { featuredReferences } from "@/data/references";
+import { getSiteContent } from "@/lib/content/server";
 import { ArchitectureDiagram } from "@/components/motion/architecture-diagram";
 import { HeroFilm } from "@/components/motion/hero-film";
 import { CtaBanner } from "@/components/sections/cta-banner";
@@ -17,23 +17,9 @@ import { Button } from "@/components/ui/button";
 import { IconBadge } from "@/components/ui/icon-badge";
 import { NumberBadge } from "@/components/ui/number-badge";
 import { AccentTitle } from "@/components/ui/split-title";
-import { homePage, normsCopy, uiLabels } from "@/data/pages";
-import {
-  architecturePoints,
-  challenges,
-  differentiators,
-  getSolution,
-  heroFilm,
-  heroTechnologies,
-  industries,
-  pillars,
-  processSteps,
-  regulatoryTopics,
-  solutions,
-  trustSignals,
-} from "@/data/site";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { solutions, getSolution, industries, processSteps, differentiators, challenges, regulatoryTopics, trustSignals, pillars, heroFilm, heroTechnologies, architecturePoints, featuredReferences, uiLabels, normsCopy, homePage } = await getSiteContent();
   const { hero, proof, architecture, challenges: challengesCopy, solutions: solutionsCopy, method, compliance, about } =
     homePage;
   const heroMarkers = heroFilm.markers.flatMap((marker) => {

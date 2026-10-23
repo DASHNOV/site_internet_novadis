@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { SiteContentProvider } from "@/components/content-provider";
+import { getCmsRaw } from "@/lib/content/server";
 import { fontVariables } from "./fonts";
 import "./globals.css";
 
@@ -30,11 +32,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
+  const raw = await getCmsRaw();
   return (
     <html lang="fr" suppressHydrationWarning>
       <body
@@ -44,7 +47,7 @@ export default function RootLayout({
         <noscript>
           <style>{"[data-reveal]{opacity:1!important;transform:none!important}"}</style>
         </noscript>
-        {children}
+        <SiteContentProvider raw={raw}>{children}</SiteContentProvider>
       </body>
     </html>
   );

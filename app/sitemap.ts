@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
-import { navItems, solutions } from "@/data/site";
+import { getPublishedContent } from "@/lib/content/server";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const { navItems, solutions } = await getPublishedContent();
   const baseUrl = "https://novadis.eu";
 
   const staticRoutes = ["", ...navItems.map((item) => item.href), "/legal", "/privacy"].map((path) => ({

@@ -4,11 +4,12 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, transform, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { IconBadge } from "@/components/ui/icon-badge";
 import { cn } from "@/lib/utils";
-import { industries } from "@/data/site";
+import { useSiteContent } from "@/components/content-provider";
 
 // From tablet up, vertical scroll drives the card rail sideways; the section is exactly as tall as
 // the rail's overflow, so the pin releases on the last card. Phones keep a native swipe rail.
 export function SectorsRail({ heading }: { heading: ReactNode }) {
+  const { industries } = useSiteContent();
   const sectionRef = useRef<HTMLElement>(null);
   const railRef = useRef<HTMLUListElement>(null);
   const [distance, setDistance] = useState(0);

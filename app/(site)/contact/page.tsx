@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
+import { getSiteContent } from "@/lib/content/server";
 import { MediaFrame } from "@/components/sections/media-frame";
 import { PageHero } from "@/components/sections/page-hero";
 import { Reveal } from "@/components/motion/reveal";
@@ -8,8 +9,6 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { Button } from "@/components/ui/button";
 import { IconBadge } from "@/components/ui/icon-badge";
 import { AccentTitle, SplitTitle } from "@/components/ui/split-title";
-import { contactPage as copy } from "@/data/pages";
-import { contactChannels, contactTopics, mediaLibrary } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -22,7 +21,8 @@ const inputClass =
 
 const labelClass = "grid gap-2 text-sm font-semibold text-foreground-strong";
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const { mediaLibrary, contactChannels, contactTopics, contactPage: copy } = await getSiteContent();
   return (
     <main className="relative">
       <SiteHeader />

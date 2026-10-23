@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Box } from "lucide-react";
-import { arPreview } from "@/data/site";
 import { cn } from "@/lib/utils";
+import { useSiteContent } from "@/components/content-provider";
 
 type Platform = "ios" | "android" | null;
 
@@ -33,6 +33,7 @@ function pillImage(label: string) {
 
 // Native AR viewers, no extra package: Quick Look on iOS, Google Scene Viewer on Android.
 export function ArButton({ className }: { className?: string }) {
+  const { arPreview } = useSiteContent();
   const [platform, setPlatform] = useState<Platform>(null);
   const [href, setHref] = useState("");
 

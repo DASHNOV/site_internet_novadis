@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { getSiteContent } from "@/lib/content/server";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
 import { PageHero } from "@/components/sections/page-hero";
@@ -14,8 +15,6 @@ import { Button } from "@/components/ui/button";
 import { CheckList } from "@/components/ui/check-list";
 import { IconBadge } from "@/components/ui/icon-badge";
 import { cn } from "@/lib/utils";
-import { solutionsPage as copy } from "@/data/pages";
-import { solutions } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Solutions globales de sûreté",
@@ -23,7 +22,8 @@ export const metadata: Metadata = {
     "Un portefeuille modulaire conçu comme un système cohérent : Amadeus, vidéosurveillance, détection d'intrusion, infrastructure IT, analyse d'image, intégrations.",
 };
 
-export default function SolutionsPage() {
+export default async function SolutionsPage() {
+  const { solutions, solutionsPage: copy } = await getSiteContent();
   return (
     <main className="relative">
       <SiteHeader />

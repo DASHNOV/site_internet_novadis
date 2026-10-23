@@ -7,8 +7,8 @@ import { useInView, useReducedMotion } from "framer-motion";
 import { Box3, type Group, Vector3 } from "three";
 import { Cctv, Rotate3d } from "lucide-react";
 import { ArButton } from "@/components/three/ar-button";
-import { solutionsHeroModel } from "@/data/site";
 import { cn } from "@/lib/utils";
+import { useSiteContent } from "@/components/content-provider";
 
 const MODEL_PATH = "/novadis/models/axis-p1465-le.glb";
 // The lens looks down the model's +Z axis, wall plate behind: no turn needed.
@@ -59,6 +59,7 @@ type SolutionsHeroModelProps = {
 };
 
 export function SolutionsHeroModel({ className }: SolutionsHeroModelProps) {
+  const { solutionsHeroModel } = useSiteContent();
   const ref = useRef<HTMLDivElement>(null);
   const onScreen = useInView(ref);
   const reduceMotion = useReducedMotion();

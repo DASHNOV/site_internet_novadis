@@ -121,15 +121,23 @@ Le découpage suit les pages, pour que les commerciaux retrouvent facilement cha
 
 ## Étape 6 — Branchement des pages sur Payload
 
-- [ ] Créer `lib/cms.ts` : récupérer le contenu avec `getPayload()` et des fonctions par page (`getAccueil()`, `getSolution(slug)`…).
-- [ ] Remplacer, page par page, les imports de `data/` par ces fonctions. Les composants ne changent pas : on leur passe les mêmes données.
-- [ ] Faire correspondre les icônes par une table `clé → composant lucide`.
-- [ ] Brancher `generateStaticParams` pour les solutions et les secteurs sur Payload.
-- [ ] Mode brouillon : une route `/edition` (hors de `/api`, réservé à Payload) active `draftMode()`. Quand il est actif, les requêtes lisent les brouillons (`draft: true`).
-- [ ] Ajouter un hook `afterChange` qui appelle `revalidatePath`, pour que la publication soit visible tout de suite sur le site.
-- [ ] Une fois toutes les pages branchées, supprimer les données éditables de `data/` : Payload devient la seule source.
+- [x] `lib/content/build.ts` (`buildSiteContent`) reconstruit, à partir des contenus Payload, **les mêmes objets que `data/`** : `solutions`, `navItems`, `badgeDoor`, `homePage`, etc. Les réglages techniques (coordonnées, films, modèles 3D) restent pris dans `data/site.ts`, et les composants n'ont pas changé de forme.
+- [x] **Pages et composants serveur** : `getSiteContent()` (`lib/content/server.ts`). En dehors du mode édition, les règles d'accès d'un visiteur s'appliquent, donc seule la version publiée est lue. `generateStaticParams` et le sitemap lisent la version publiée (`getPublishedContent()`).
+- [x] **Composants client** : le layout du site, et la 404 globale, transmettent les contenus à `<SiteContentProvider>`, lu avec `useSiteContent()`. Les icônes sont enregistrées par nom et retrouvées par `lib/icons.ts`.
+- [x] **Images** : celles de l'offre (solutions, secteurs, références, sujets réglementaires) viennent de la médiathèque (`/api/media/file/…`). Les visuels fixes des pages (photos des hauts de page, logos, schémas) restent dans `public/`.
+- [x] **Mode brouillon** : `/edition?page=/…` vérifie la session Payload, active `draftMode()` et redirige vers la page demandée. Sans session, il renvoie vers la connexion, et une adresse externe est neutralisée. `/edition/quitter` désactive le mode. Les brouillons ne sont lus que si le cookie de brouillon ET une session valide sont présents.
+- [x] **Publication** : des hooks `afterChange` et `afterDelete` appellent `revalidatePath("/", "layout")`. Un simple brouillon n'invalide rien.
+- [x] **Fiches locales** : sous `next dev`, les solutions que `data/site.ts` ajoute en local (absentes du CMS) restent affichées.
+- [x] **`data/` est conservé** comme contenu de référence pour `npm run cms:seed`, mais les pages ne le lisent plus pour les textes.
 
 **Terminé quand :** les pages s'affichent à l'identique des captures de l'étape 0, avec le contenu venant de Payload.
+
+✅ Vérifié le 23/10/2026 :
+- **Rendu** : 11 pages ont un texte strictement identique à la capture d'avant. Sur l'accueil, la page Solutions et la fiche Supervision, aucune ligne n'est ajoutée ou retirée, et seuls les repères d'animation varient. Pas d'erreur JavaScript, et les 17 images de la médiathèque se chargent.
+- **Circuit brouillon/publication, en dev puis sur un build de production (`next start`)** : le brouillon d'un rédacteur n'apparaît que dans `/edition`, le visiteur garde la version publiée, et un cookie de brouillon sans session ne montre rien. Après publication, la page statique (`x-nextjs-cache: HIT`) est régénérée et le visiteur voit le nouveau texte.
+- **Build** : `next build` passe, sans « lidar » dans `.next/static`. En dev, la page locale répond toujours.
+
+À savoir : le build lit la base SQLite pour générer les pages statiques. En production, il faudra donc que la base soit accessible au moment du build.
 
 ## Étape 7 — Édition directe dans la page
 

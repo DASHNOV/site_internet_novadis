@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { revalidateOnDelete, revalidateOnPublish } from "../hooks/revalidate";
 import { canEdit, isAdmin, isLoggedIn, publishedOrLoggedIn } from "../access";
 import { drafts, icon, link, slug, text, textList } from "../fields";
 
@@ -12,6 +13,7 @@ export const Challenges: CollectionConfig = {
     description: "Bloc « Chaque projet commence par un problème concret » de l'accueil.",
   },
   defaultSort: "order",
+  hooks: { afterChange: [revalidateOnPublish], afterDelete: [revalidateOnDelete] },
   access: {
     read: publishedOrLoggedIn,
     readVersions: isLoggedIn,

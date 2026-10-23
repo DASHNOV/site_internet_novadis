@@ -1,5 +1,6 @@
 import type { Field, GlobalConfig, Tab } from "payload";
 import { canEdit, isLoggedIn, publishedOrLoggedIn } from "../access";
+import { revalidateOnPublish } from "../hooks/revalidate";
 import { accentTitle, drafts, icon, image, link, text, textList } from "../fields";
 
 function pageGlobal(slug: string, label: string, fields: Field[]): GlobalConfig {
@@ -8,6 +9,7 @@ function pageGlobal(slug: string, label: string, fields: Field[]): GlobalConfig 
     label,
     admin: { group: "Pages" },
     access: { read: publishedOrLoggedIn, readVersions: isLoggedIn, update: canEdit },
+    hooks: { afterChange: [revalidateOnPublish] },
     versions: drafts,
     fields,
   };

@@ -1,5 +1,6 @@
 import type { GlobalConfig } from "payload";
 import { canEdit, isLoggedIn, publishedOrLoggedIn } from "../access";
+import { revalidateOnPublish } from "../hooks/revalidate";
 import { accentTitle, drafts, link, text, textList } from "../fields";
 
 export const Common: GlobalConfig = {
@@ -7,6 +8,7 @@ export const Common: GlobalConfig = {
   label: "Éléments communs",
   admin: { group: "Éléments communs", description: "Textes repris sur plusieurs pages du site." },
   access: { read: publishedOrLoggedIn, readVersions: isLoggedIn, update: canEdit },
+  hooks: { afterChange: [revalidateOnPublish] },
   versions: drafts,
   fields: [
     {

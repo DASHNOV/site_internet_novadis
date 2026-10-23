@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CheckCircle2, ClipboardList, Hammer, LineChart, ShieldCheck } from "lucide-react";
+import { getSiteContent } from "@/lib/content/server";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
 import { PageHero } from "@/components/sections/page-hero";
@@ -9,8 +10,6 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { IconBadge } from "@/components/ui/icon-badge";
 import { NumberBadge } from "@/components/ui/number-badge";
 import { AccentTitle } from "@/components/ui/split-title";
-import { servicesPage as copy } from "@/data/pages";
-import { mediaLibrary, processSteps, serviceCommitments } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Services & méthodologie",
@@ -20,7 +19,8 @@ export const metadata: Metadata = {
 
 const stepIcons = [ClipboardList, Hammer, ShieldCheck, LineChart];
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const { mediaLibrary, processSteps, serviceCommitments, servicesPage: copy } = await getSiteContent();
   return (
     <main className="relative">
       <SiteHeader />

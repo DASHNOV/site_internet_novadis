@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { SiteContentProvider } from "@/components/content-provider";
+import { getCmsRaw } from "@/lib/content/server";
 import NotFound from "./(site)/not-found";
 import { fontVariables } from "./(site)/fonts";
 import "./(site)/globals.css";
@@ -8,11 +10,14 @@ export const metadata: Metadata = {
   title: "Page introuvable · Novadis",
 };
 
-export default function GlobalNotFound() {
+export default async function GlobalNotFound() {
+  const raw = await getCmsRaw();
   return (
     <html lang="fr">
       <body className={`${fontVariables} font-sans antialiased`}>
-        <NotFound />
+        <SiteContentProvider raw={raw}>
+          <NotFound />
+        </SiteContentProvider>
       </body>
     </html>
   );

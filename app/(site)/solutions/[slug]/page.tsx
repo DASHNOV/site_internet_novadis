@@ -11,21 +11,22 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { CheckList } from "@/components/ui/check-list";
 import { SplitTitle } from "@/components/ui/split-title";
-import { solutionDetailPage as copy } from "@/data/pages";
 import { AxisExplode } from "@/components/motion/axis-explode";
 import { BadgeDoor } from "@/components/motion/badge-door";
 import { IntrusionScene } from "@/components/motion/intrusion-scene";
 import { SupervisionRoom } from "@/components/three/supervision-room";
-import { axisExplode, badgeDoor, getSolution, intrusionScene, solutions, supervisionRoom } from "@/data/site";
+import { getPublishedContent, getSiteContent } from "@/lib/content/server";
 
 type Params = Promise<{ slug: string }>;
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const { solutions } = await getPublishedContent();
   return solutions.map((solution) => ({ slug: solution.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params;
+  const { getSolution } = await getSiteContent();
   const solution = getSolution(slug);
   if (!solution) return {};
   return {
@@ -36,6 +37,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function SolutionDetailPage({ params }: { params: Params }) {
   const { slug } = await params;
+  const { getSolution, badgeDoor, intrusionScene, supervisionRoom, axisExplode, solutionDetailPage: copy } =
+    await getSiteContent();
   const solution = getSolution(slug);
   if (!solution) notFound();
 

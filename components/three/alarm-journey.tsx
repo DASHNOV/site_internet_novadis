@@ -14,8 +14,8 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { uiLabels } from "@/data/pages";
-import { alarmJourney, architectureLayers, getSolution } from "@/data/site";
+import { useSiteContent } from "@/components/content-provider";
+import { alarmJourney } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 const AlarmJourneyScene = dynamic(
@@ -23,14 +23,17 @@ const AlarmJourneyScene = dynamic(
   { ssr: false },
 );
 
-const steps = alarmJourney.steps.map((step) => ({
-  ...step,
-  layerLabel: architectureLayers.find((layer) => layer.id === step.layer)?.label ?? "",
-  solution: getSolution(step.slug)!,
-}));
+function useSteps() {
+  const { alarmJourney, architectureLayers, getSolution } = useSiteContent();
+  return alarmJourney.steps.map((step) => ({
+    ...step,
+    layerLabel: architectureLayers.find((layer) => layer.id === step.layer)?.label ?? "",
+    solution: getSolution(step.slug)!,
+  }));
+}
 
 // Index 0 is the overview, 1..n the steps; must match the scene's keyframes.
-const FRAMES = steps.length;
+const FRAMES = alarmJourney.steps.length;
 
 function webglAvailable() {
   try {
@@ -67,6 +70,8 @@ function StepText({ index, progress, children }: { index: number; progress: Moti
 }
 
 function StaticJourney() {
+  const { alarmJourney } = useSiteContent();
+  const steps = useSteps();
   return (
     <section className="section-dark py-24 lg:py-32">
       <div className="shell-wide">
@@ -90,6 +95,8 @@ function StaticJourney() {
 }
 
 export function AlarmJourney() {
+  const { alarmJourney, uiLabels } = useSiteContent();
+  const steps = useSteps();
   const reduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const near = useInView(sectionRef, { once: true, margin: "800px 0px" });

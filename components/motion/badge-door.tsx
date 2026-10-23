@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { transform, useReducedMotion } from "framer-motion";
 import { CheckCircle2, ScanLine } from "lucide-react";
+import { useSiteContent } from "@/components/content-provider";
 import { EventToast, FilmScene, Flash, HudPanel, LockBox, Shockwave, StaticFilmScene, useFrameSequence } from "@/components/motion/film-scene";
 import { badgeDoor } from "@/data/site";
 
@@ -18,6 +19,7 @@ function stepAt(frame: number) {
 }
 
 function ReaderHud({ frame, step }: { frame: number; step: number }) {
+  const { badgeDoor } = useSiteContent();
   const [x, y, s] = badgeDoor.anchors[frame];
   const ok = step >= 1;
   const tone = ok ? "success" : "glow";
@@ -65,6 +67,7 @@ function ReaderHud({ frame, step }: { frame: number; step: number }) {
 }
 
 export function BadgeDoor() {
+  const { badgeDoor } = useSiteContent();
   const reduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const sequence = useFrameSequence(sectionRef, badgeDoor, PLAY, !reduceMotion);

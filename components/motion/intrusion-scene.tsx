@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useReducedMotion } from "framer-motion";
 import { Radar, Siren, TriangleAlert } from "lucide-react";
+import { useSiteContent } from "@/components/content-provider";
 import { EventToast, FilmScene, Flash, HudPanel, LockBox, Shockwave, StaticFilmScene, tones, useFrameSequence } from "@/components/motion/film-scene";
 import { intrusionScene } from "@/data/site";
 import { cn } from "@/lib/utils";
@@ -75,6 +76,7 @@ function Field({ frame, step }: { frame: number; step: number }) {
 }
 
 function DetectorHud({ frame, step }: { frame: number; step: number }) {
+  const { intrusionScene } = useSiteContent();
   const alarm = step >= 1;
   const tone = alarm ? "danger" : "glow";
   const [x0, y0, x1, y1] = detector[frame];
@@ -114,6 +116,7 @@ function DetectorHud({ frame, step }: { frame: number; step: number }) {
 }
 
 function IntruderHud({ frame, step }: { frame: number; step: number }) {
+  const { intrusionScene } = useSiteContent();
   const box = intruder[frame];
   if (!box) return null;
   const [x0, y0, x1, y1] = box;
@@ -129,6 +132,7 @@ function IntruderHud({ frame, step }: { frame: number; step: number }) {
 }
 
 export function IntrusionScene() {
+  const { intrusionScene } = useSiteContent();
   const reduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const sequence = useFrameSequence(sectionRef, intrusionScene, PLAY, !reduceMotion);

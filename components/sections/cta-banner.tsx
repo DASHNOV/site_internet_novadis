@@ -1,15 +1,15 @@
 import Link from "next/link";
 import { ArrowUpRight, Mail, Phone } from "lucide-react";
+import { getSiteContent } from "@/lib/content/server";
 import { Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 import { AccentTitle } from "@/components/ui/split-title";
-import { ctaBannerCopy as copy } from "@/data/pages";
-import { contactDetails } from "@/data/site";
 
 const contactRow =
   "group flex min-h-16 items-center justify-between gap-4 border-b border-night-line px-5 py-4 transition-colors duration-150 hover:bg-white/[0.03]";
 
-export function CtaBanner() {
+export async function CtaBanner() {
+  const { contactDetails, ctaBannerCopy: copy } = await getSiteContent();
   return (
     <section className="shell-wide pt-16 sm:pt-20 lg:pt-24">
       <Reveal>

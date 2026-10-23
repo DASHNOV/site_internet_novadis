@@ -1,9 +1,10 @@
+import { getSiteContent } from "@/lib/content/server";
 import { CountUp } from "@/components/motion/count-up";
 import { Reveal } from "@/components/motion/reveal";
-import { siteMetrics } from "@/data/site";
 import { cn } from "@/lib/utils";
 
-export function StatRow({ className }: { className?: string }) {
+export async function StatRow({ className }: { className?: string }) {
+  const { siteMetrics } = await getSiteContent();
   return (
     <Reveal className={className}>
       <dl className="grid grid-cols-2 border-y border-hairline lg:grid-cols-4">

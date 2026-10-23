@@ -1,11 +1,11 @@
+import { getSiteContent } from "@/lib/content/server";
 import Link from "next/link";
 import { ArrowUpRight, MapPin, Mail, Phone } from "lucide-react";
-import { footerCopy as copy } from "@/data/pages";
-import { contactDetails, mediaLibrary, navItems, trustSignals } from "@/data/site";
 
 const columnTitle = "font-display text-base font-bold text-white";
 
-export function SiteFooter() {
+export async function SiteFooter() {
+  const { mediaLibrary, navItems, trustSignals, contactDetails, footerCopy: copy } = await getSiteContent();
   return (
     <footer className="section-dark mt-16 sm:mt-20 lg:mt-24">
       <div className="shell-wide">

@@ -6,14 +6,14 @@ import { useCallback, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { supervisionRoomCopy, uiLabels } from "@/data/pages";
-import { challenges, getSolution, supervisionRoom } from "@/data/site";
 import { cn } from "@/lib/utils";
 import { useCanRender3d } from "./use-can-render-3d";
+import { useSiteContent } from "@/components/content-provider";
 
 const Scene = dynamic(() => import("./supervision-room-scene"), { ssr: false });
 
 export function SupervisionRoom() {
+  const { getSolution, challenges, supervisionRoom, uiLabels, supervisionRoomCopy } = useSiteContent();
   const challenge = challenges.find((c) => c.slug === supervisionRoom.challengeSlug);
   const points = supervisionRoom.points.flatMap((point) => {
     const solution = getSolution(point.slug);

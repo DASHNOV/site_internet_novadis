@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ShieldCheck } from "lucide-react";
+import { getSiteContent } from "@/lib/content/server";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
 import { PageHero } from "@/components/sections/page-hero";
@@ -10,8 +11,6 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { StatRow } from "@/components/sections/stat-row";
 import { IconBadge } from "@/components/ui/icon-badge";
 import { SplitTitle } from "@/components/ui/split-title";
-import { aboutPage as copy } from "@/data/pages";
-import { aboutApproach, aboutHighlights, mediaLibrary, trustSignals } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "À propos de Novadis",
@@ -19,7 +18,8 @@ export const metadata: Metadata = {
     "Une ingénierie centrée sur l'humain. Plus de 20 ans d'expertise, 2,3 M m² protégés, des partenariats stricts et des équipes à taille humaine.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const { mediaLibrary, trustSignals, aboutHighlights, aboutApproach, aboutPage: copy } = await getSiteContent();
   return (
     <main className="relative">
       <SiteHeader />

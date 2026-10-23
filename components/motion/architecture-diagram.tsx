@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { uiLabels } from "@/data/pages";
-import { architectureLayers, getSolution, type ArchitectureLayer } from "@/data/site";
+import { useSiteContent } from "@/components/content-provider";
+import { architectureLayers, type ArchitectureLayer } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 const UNIT = 34;
@@ -106,6 +106,7 @@ type NodeProps = {
 };
 
 function Node({ slug, x, y, z, height, active, onSelect }: NodeProps) {
+  const { getSolution } = useSiteContent();
   const solution = getSolution(slug);
   if (!solution) return null;
   const Icon = solution.icon;
@@ -198,6 +199,7 @@ function Links({ routes: subset, activeSlug }: { routes: Route[]; activeSlug: st
 }
 
 export function ArchitectureDiagram({ caption, label }: { caption: string; label: string }) {
+  const { getSolution, architectureLayers, uiLabels } = useSiteContent();
   const reduceMotion = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-15% 0px" });
