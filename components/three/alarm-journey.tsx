@@ -14,6 +14,7 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { uiLabels } from "@/data/pages";
 import { alarmJourney, architectureLayers, getSolution } from "@/data/site";
 import { cn } from "@/lib/utils";
 
@@ -156,7 +157,7 @@ export function AlarmJourney() {
                   href={`/solutions/${step.slug}`}
                   tabIndex={activeStep === index + 1 ? 0 : -1}
                 >
-                  En savoir plus
+                  {uiLabels.learnMore}
                   <ArrowUpRight className="cta-arrow h-4 w-4" />
                 </Link>
               </StepText>

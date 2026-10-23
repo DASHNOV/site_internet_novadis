@@ -11,6 +11,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { CheckList } from "@/components/ui/check-list";
 import { SplitTitle } from "@/components/ui/split-title";
+import { solutionDetailPage as copy } from "@/data/pages";
 import { AxisExplode } from "@/components/motion/axis-explode";
 import { BadgeDoor } from "@/components/motion/badge-door";
 import { IntrusionScene } from "@/components/motion/intrusion-scene";
@@ -47,7 +48,7 @@ export default async function SolutionDetailPage({ params }: { params: Params })
           href="/solutions"
         >
           <ArrowLeft aria-hidden className="h-4 w-4" />
-          Retour aux solutions
+          {copy.backLink}
         </Link>
       </nav>
       <PageHero title={solution.title} description={solution.intro}>
@@ -90,19 +91,19 @@ export default async function SolutionDetailPage({ params }: { params: Params })
         <div className="shell-wide grid border-y border-hairline lg:grid-cols-2">
           <Reveal className="h-full border-hairline py-12 lg:border-r lg:py-14 lg:pr-14">
             <h2 className="section-title text-balance text-[clamp(1.75rem,2.6vw,2.25rem)]">
-              <SplitTitle lead={2} text="Le contexte que nous rencontrons" />
+              <SplitTitle lead={2} text={copy.contextTitle} />
             </h2>
             <p className="mt-5 text-base leading-7 text-muted-strong">{solution.problem}</p>
-            <h3 className="mt-10 font-display text-lg font-bold text-foreground-strong">Capacités clés</h3>
+            <h3 className="mt-10 font-display text-lg font-bold text-foreground-strong">{copy.capabilitiesTitle}</h3>
             <CheckList className="mt-4" items={solution.capabilities} />
           </Reveal>
 
           <Reveal className="h-full border-t border-hairline py-12 lg:border-t-0 lg:py-14 lg:pl-14" delay={0.06}>
             <h2 className="section-title text-balance text-[clamp(1.75rem,2.6vw,2.25rem)]">
-              <SplitTitle lead={2} text="Comment nous y répondons" />
+              <SplitTitle lead={2} text={copy.answerTitle} />
             </h2>
             <p className="mt-5 text-base leading-7 text-muted-strong">{solution.solution}</p>
-            <h3 className="mt-10 font-display text-lg font-bold text-foreground-strong">Bénéfices</h3>
+            <h3 className="mt-10 font-display text-lg font-bold text-foreground-strong">{copy.benefitsTitle}</h3>
             <CheckList className="mt-4" items={solution.benefits} tone="success" />
           </Reveal>
         </div>
@@ -110,7 +111,7 @@ export default async function SolutionDetailPage({ params }: { params: Params })
 
       <section className="section-soft section-y">
         <div className="shell-wide">
-          <SectionHeading title="Ce que cela change sur le terrain" />
+          <SectionHeading title={copy.outcomesTitle} />
           <ul className="mt-12 grid border-l border-t border-hairline sm:grid-cols-2 lg:grid-cols-4">
             {solution.outcomes.map((outcome) => (
               <li

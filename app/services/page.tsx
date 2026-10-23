@@ -8,6 +8,8 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { IconBadge } from "@/components/ui/icon-badge";
 import { NumberBadge } from "@/components/ui/number-badge";
+import { AccentTitle } from "@/components/ui/split-title";
+import { servicesPage as copy } from "@/data/pages";
 import { mediaLibrary, processSteps, serviceCommitments } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -22,14 +24,11 @@ export default function ServicesPage() {
   return (
     <main className="relative">
       <SiteHeader />
-      <PageHero
-        title="Un modèle de delivery rigoureux pour les environnements de sûreté complexes"
-        description="Nos services couvrent l'ensemble du cycle de vie : audit, conception, déploiement, maintenance et formation. L'objectif : protéger la qualité de déploiement, limiter les surprises lors des mises en service et préserver la maintenabilité à long terme."
-      >
+      <PageHero title={copy.hero.title} description={copy.hero.description}>
         <MediaFrame
           priority
-          alt="Présentation Novadis"
-          caption="Démonstration · Services Novadis"
+          alt={copy.hero.mediaAlt}
+          caption={copy.hero.mediaCaption}
           className="aspect-[16/11]"
           kind="video"
           poster={mediaLibrary.presentVideoPoster}
@@ -58,7 +57,7 @@ export default function ServicesPage() {
                     <p className="mt-4 max-w-2xl text-base leading-7 text-muted-strong">{item.description}</p>
                   </Reveal>
                   <Reveal className="sm:col-start-2 lg:col-start-3" delay={0.08}>
-                    <h3 className="data-label">{`${item.deliverables.length} livrables`}</h3>
+                    <h3 className="data-label">{`${item.deliverables.length} ${copy.deliverablesSuffix}`}</h3>
                     <ul className="mt-3 border-t border-hairline">
                       {item.deliverables.map((deliverable) => (
                         <li className="border-b border-hairline py-2.5 text-sm text-foreground-strong" key={deliverable}>
@@ -78,12 +77,12 @@ export default function ServicesPage() {
         <div className="shell-wide grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center">
           <Reveal>
             <h2 className="section-title text-balance text-[clamp(2rem,3.4vw,3rem)]">
-              Une méthode conçue <span className="text-second">pour rester opérationnelle après le déploiement</span>
+              <AccentTitle title={copy.method.title} />
             </h2>
           </Reveal>
           <Reveal className="console overflow-hidden" delay={0.06}>
             <div className="console-head">
-              <span>Engagement Novadis</span>
+              <span>{copy.method.commitmentsTitle}</span>
             </div>
             <ul>
               {serviceCommitments.map((label) => (

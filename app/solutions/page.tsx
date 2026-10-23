@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { CheckList } from "@/components/ui/check-list";
 import { IconBadge } from "@/components/ui/icon-badge";
 import { cn } from "@/lib/utils";
+import { solutionsPage as copy } from "@/data/pages";
 import { solutions } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -26,11 +27,7 @@ export default function SolutionsPage() {
   return (
     <main className="relative">
       <SiteHeader />
-      <PageHero
-
-        title="Un portefeuille modulaire conçu comme un système cohérent"
-        description="Un environnement de sûreté complet couvre l'infrastructure, l'accès, la détection, la vidéo, l'analyse et les intégrations. Cette page montre comment Novadis structure chaque couche."
-      >
+      <PageHero title={copy.hero.title} description={copy.hero.description}>
         <SolutionsHeroModel className="aspect-[16/11]" />
       </PageHero>
 
@@ -70,7 +67,7 @@ export default function SolutionsPage() {
                   <div className="mt-9">
                     <Link href={`/solutions/${solution.slug}`}>
                       <Button variant="outline">
-                        Voir le détail
+                        {copy.detailCta}
                         <ArrowUpRight className="cta-arrow h-4 w-4" />
                       </Button>
                     </Link>

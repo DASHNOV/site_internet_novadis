@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { uiLabels } from "@/data/pages";
 import { architectureLayers, getSolution, type ArchitectureLayer } from "@/data/site";
 import { cn } from "@/lib/utils";
 
@@ -311,7 +312,7 @@ export function ArchitectureDiagram({ caption, label }: { caption: string; label
                 className="group mt-4 inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-strong"
                 href={`/solutions/${activeSolution.slug}`}
               >
-                En savoir plus
+                {uiLabels.learnMore}
                 <ArrowUpRight className="cta-arrow h-4 w-4" />
               </Link>
             </motion.div>

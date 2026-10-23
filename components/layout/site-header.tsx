@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { headerCopy as copy } from "@/data/pages";
 import { mediaLibrary, navItems } from "@/data/site";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -40,9 +41,7 @@ export function SiteHeader() {
               src={mediaLibrary.logo}
             />
             <div className="hidden border-l border-hairline-strong pl-3 xl:block">
-              <p className="text-xs font-medium text-muted-strong">
-                Solutions globales de sûreté
-              </p>
+              <p className="text-xs font-medium text-muted-strong">{copy.tagline}</p>
             </div>
           </Link>
 
@@ -98,12 +97,12 @@ export function SiteHeader() {
           <div className="flex items-center gap-2">
             <Link className="hidden sm:block" href="/contact">
               <Button size="default" variant="primary">
-                Prendre contact
+                {copy.contactCta}
                 <ArrowUpRight className="cta-arrow h-4 w-4" />
               </Button>
             </Link>
             <button
-              aria-label="Menu"
+              aria-label={copy.menuLabel}
               aria-expanded={open}
               className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-surface text-foreground-strong lg:hidden"
               onClick={() => setOpen((value) => !value)}
@@ -153,7 +152,7 @@ export function SiteHeader() {
               })}
               <Link className="mt-2" href="/contact">
                 <Button className="w-full" size="lg" variant="primary">
-                  Prendre contact
+                  {copy.contactCta}
                   <ArrowUpRight className="cta-arrow h-4 w-4" />
                 </Button>
               </Link>

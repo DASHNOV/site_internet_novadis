@@ -10,6 +10,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { StatRow } from "@/components/sections/stat-row";
 import { IconBadge } from "@/components/ui/icon-badge";
 import { SplitTitle } from "@/components/ui/split-title";
+import { aboutPage as copy } from "@/data/pages";
 import { aboutApproach, aboutHighlights, mediaLibrary, trustSignals } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -22,14 +23,11 @@ export default function AboutPage() {
   return (
     <main className="relative">
       <SiteHeader />
-      <PageHero
-        title="Une ingénierie centrée sur l'humain pour les environnements où la fiabilité compte"
-        description="Novadis s'adresse aux organisations qui ont besoin de systèmes capables de fonctionner durablement, en conditions réelles d'exploitation, entre plusieurs équipes et sur plusieurs années."
-      >
+      <PageHero title={copy.hero.title} description={copy.hero.description}>
         <MediaFrame
           priority
-          alt="Deux ingénieurs annotent un plan d'implantation"
-          caption="Équipes à taille humaine · Levallois-Perret"
+          alt={copy.hero.mediaAlt}
+          caption={copy.hero.mediaCaption}
           className="aspect-[16/11]"
           kind="image"
           src={mediaLibrary.stockEngineering}
@@ -44,12 +42,10 @@ export default function AboutPage() {
         <div className="shell-wide grid gap-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20">
           <Reveal>
             <h2 className="section-title text-balance text-[clamp(2rem,3.4vw,3rem)]">
-              <SplitTitle text="L'humain au cœur de chaque projet technologique" />
+              <SplitTitle text={copy.human.title} />
             </h2>
             <p className="mt-6 max-w-xl text-base leading-7 text-muted-strong sm:text-lg">
-              Novadis combine expertise infrastructure, expérience terrain et discipline d&apos;intégration pour
-              réduire la fragmentation entre cyber et sûreté physique. Nos équipes accompagnent chaque projet
-              de l&apos;analyse de besoin à la maintenance et la formation des opérateurs.
+              {copy.human.description}
             </p>
             <ul className="mt-10 grid border-l border-t border-hairline sm:grid-cols-3">
               {aboutHighlights.map((item) => (
@@ -62,7 +58,7 @@ export default function AboutPage() {
           </Reveal>
 
           <Reveal delay={0.06}>
-            <h2 className="font-display text-2xl font-bold tracking-tight text-foreground-strong">Approche</h2>
+            <h2 className="font-display text-2xl font-bold tracking-tight text-foreground-strong">{copy.human.approachTitle}</h2>
             <ul className="mt-6 border-t border-hairline">
               {aboutApproach.map((item) => (
                 <li className="border-b border-hairline py-4 text-base leading-7 text-foreground-strong" key={item}>
@@ -78,25 +74,18 @@ export default function AboutPage() {
         <div className="shell-wide grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:items-center">
           <Reveal>
             <h2 className="section-title text-balance text-[clamp(2rem,3.4vw,3rem)]">
-              <SplitTitle text="La vision Novadis en 40 secondes" />
+              <SplitTitle text={copy.vision.title} />
             </h2>
             <p className="mt-5 text-base leading-7 text-muted-strong">
-              Alexis Roumelian (CEO) et Nicolas Jdanoff (Sales Director) présentent l&apos;approche Novadis lors
-              de l&apos;interview SPAC Members — convergence, expertise et engagement terrain.
+              {copy.vision.description}
             </p>
             <ul className="mt-8 divide-y divide-night-line border-y border-night-line text-sm">
-              <li className="flex justify-between gap-4 py-3">
-                <span className="font-semibold text-white">Alexis Roumelian</span>
-                <span className="text-muted-strong">CEO</span>
-              </li>
-              <li className="flex justify-between gap-4 py-3">
-                <span className="font-semibold text-white">Nicolas Jdanoff</span>
-                <span className="text-muted-strong">Sales Director</span>
-              </li>
-              <li className="flex justify-between gap-4 py-3">
-                <span className="font-semibold text-white">SPAC Members</span>
-                <span className="text-muted-strong">Interview</span>
-              </li>
+              {copy.vision.people.map((person) => (
+                <li className="flex justify-between gap-4 py-3" key={person.name}>
+                  <span className="font-semibold text-white">{person.name}</span>
+                  <span className="text-muted-strong">{person.role}</span>
+                </li>
+              ))}
             </ul>
           </Reveal>
           <Reveal className="console overflow-hidden" delay={0.06}>
@@ -111,17 +100,16 @@ export default function AboutPage() {
         <div className="shell-wide flex flex-col items-center gap-10 lg:flex-row lg:gap-16">
           <Reveal className="lg:w-1/2">
             <h2 className="section-title text-balance text-[clamp(2rem,3.4vw,3rem)]">
-              <SplitTitle text="Un spectre complet, pensé pour la convergence" />
+              <SplitTitle text={copy.spectrum.title} />
             </h2>
             <p className="mt-6 text-base leading-7 text-muted-strong">
-              De la supervision à la protection périmétrique, de l&apos;informatique embarquée à la biométrie —
-              Novadis couvre l&apos;ensemble des disciplines qui constituent un système de sûreté global et cohérent.
+              {copy.spectrum.description}
             </p>
           </Reveal>
           <Reveal className="w-full lg:w-1/2" delay={0.06}>
             <div className="panel flex justify-center p-6 sm:p-10">
               <img
-                alt="Schéma des solutions globales de sûreté Novadis"
+                alt={copy.spectrum.schemaAlt}
                 className="w-full max-w-[440px] object-contain"
                 loading="lazy"
                 src={mediaLibrary.schemaSolutions}
@@ -135,11 +123,10 @@ export default function AboutPage() {
         <div className="shell-wide grid gap-12 lg:grid-cols-2 lg:items-center">
           <Reveal>
             <h2 className="section-title text-balance text-[clamp(2rem,3.4vw,3rem)]">
-              <SplitTitle text="Membres et standards qui structurent nos engagements" />
+              <SplitTitle text={copy.members.title} />
             </h2>
             <p className="mt-6 max-w-xl text-base leading-7 text-muted-strong">
-              Novadis exerce dans le respect des normes du secteur et des cadres réglementaires applicables aux
-              systèmes de sûreté. Nos partenariats stratégiques sécurisent la chaîne de valeur de bout en bout.
+              {copy.members.description}
             </p>
           </Reveal>
           <Reveal delay={0.06}>

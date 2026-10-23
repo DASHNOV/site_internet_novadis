@@ -7,7 +7,8 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { Button } from "@/components/ui/button";
 import { IconBadge } from "@/components/ui/icon-badge";
-import { SplitTitle } from "@/components/ui/split-title";
+import { AccentTitle, SplitTitle } from "@/components/ui/split-title";
+import { contactPage as copy } from "@/data/pages";
 import { contactChannels, contactTopics, mediaLibrary } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -25,14 +26,11 @@ export default function ContactPage() {
   return (
     <main className="relative">
       <SiteHeader />
-      <PageHero
-        title="Démarrez une conversation de sûreté ancrée dans votre réalité opérationnelle"
-        description="Partagez le profil de votre site, vos objectifs de modernisation, vos contraintes ou vos exigences d'intégration. Novadis peut cadrer un projet de site unique comme un environnement multi-sites."
-      >
+      <PageHero title={copy.hero.title} description={copy.hero.description}>
         <MediaFrame
           priority
-          alt="Réunion de cadrage autour d'une table dans un bureau"
-          caption="Échanges directs · cadrage projet sous 48h"
+          alt={copy.hero.mediaAlt}
+          caption={copy.hero.mediaCaption}
           className="aspect-[16/11]"
           kind="image"
           src={mediaLibrary.stockMeeting}
@@ -65,7 +63,7 @@ export default function ContactPage() {
         <div className="shell-wide grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
           <Reveal>
             <h2 className="section-title text-balance text-[clamp(1.75rem,2.6vw,2.25rem)]">
-              <SplitTitle text="Les éléments que nous abordons en première discussion" />
+              <SplitTitle text={copy.topicsTitle} />
             </h2>
             <ul className="mt-8 border-t border-hairline">
               {contactTopics.map((item) => (
@@ -74,16 +72,13 @@ export default function ContactPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-9 max-w-md text-sm leading-7 text-muted-strong">
-              Vous préférez une rencontre directe ? Nous nous déplaçons sur vos sites en France, au Luxembourg
-              et en Belgique pour cadrer le projet en conditions réelles.
-            </p>
+            <p className="mt-9 max-w-md text-sm leading-7 text-muted-strong">{copy.meetingNote}</p>
           </Reveal>
 
           <Reveal delay={0.06}>
             <div className="panel p-6 sm:p-10">
               <h2 className="section-title text-balance text-[clamp(1.75rem,2.6vw,2.25rem)]">
-                Un message direct, <span className="text-second">traité par l&apos;équipe ingénierie</span>
+                <AccentTitle title={copy.formTitle} />
               </h2>
               <form className="mt-9 grid gap-7 sm:grid-cols-2">
                 <label className={labelClass}>

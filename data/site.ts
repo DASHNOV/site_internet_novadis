@@ -902,9 +902,17 @@ export const aboutApproach = [
   "Une responsabilité sur l'ensemble du cycle de vie : audit, design, déploiement, maintenance",
 ];
 
+export const contactDetails = {
+  email: "contact@novadis.eu",
+  phone: "+352 26 19 01 73",
+  phoneHref: "tel:+35226190173",
+  addressLines: ["14-16 Rue Clément Bayard", "92300 Levallois-Perret · France"],
+  regions: "FR · LU · BE",
+};
+
 export const contactChannels: { label: string; value: string; href: string; icon: LucideIcon }[] = [
-  { icon: Mail, label: "Email", value: "contact@novadis.eu", href: "mailto:contact@novadis.eu" },
-  { icon: Phone, label: "Téléphone", value: "+352 26 19 01 73", href: "tel:+35226190173" },
+  { icon: Mail, label: "Email", value: contactDetails.email, href: `mailto:${contactDetails.email}` },
+  { icon: Phone, label: "Téléphone", value: contactDetails.phone, href: contactDetails.phoneHref },
   {
     icon: MapPin,
     label: "Adresse",

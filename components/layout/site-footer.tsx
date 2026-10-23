@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, MapPin, Mail, Phone } from "lucide-react";
-import { mediaLibrary, navItems, trustSignals } from "@/data/site";
+import { footerCopy as copy } from "@/data/pages";
+import { contactDetails, mediaLibrary, navItems, trustSignals } from "@/data/site";
 
 const columnTitle = "font-display text-base font-bold text-white";
 
@@ -13,15 +14,12 @@ export function SiteFooter() {
             <Link className="inline-flex items-center" href="/">
               <img alt="Novadis" className="h-7 w-auto object-contain" loading="lazy" src={mediaLibrary.logoDark} />
             </Link>
-            <p className="mt-6 max-w-sm text-base leading-7 text-muted-strong">
-              Créateur de solutions globales de sûreté. De l&apos;infrastructure informatique à
-              l&apos;analyse d&apos;image, Novadis livre des systèmes pensés pour la durée et l&apos;exploitation.
-            </p>
-            <p className="mt-7 text-sm font-semibold text-glow">#DetailsMakeTheDifference</p>
+            <p className="mt-6 max-w-sm text-base leading-7 text-muted-strong">{copy.description}</p>
+            <p className="mt-7 text-sm font-semibold text-glow">{copy.hashtag}</p>
           </div>
 
           <nav aria-label="Pied de page">
-            <h2 className={columnTitle}>Navigation</h2>
+            <h2 className={columnTitle}>{copy.navigationTitle}</h2>
             <div className="mt-5 grid">
               {navItems.map((item) => (
                 <Link
@@ -37,29 +35,32 @@ export function SiteFooter() {
           </nav>
 
           <div>
-            <h2 className={columnTitle}>Contact</h2>
+            <h2 className={columnTitle}>{copy.contactTitle}</h2>
             <div className="mt-5 space-y-4 text-sm text-foreground">
-              <a className="flex min-h-11 items-start gap-3 hover:text-glow" href="mailto:contact@novadis.eu">
+              <a className="flex min-h-11 items-start gap-3 hover:text-glow" href={`mailto:${contactDetails.email}`}>
                 <Mail aria-hidden className="mt-0.5 h-4 w-4 text-glow" />
-                contact@novadis.eu
+                {contactDetails.email}
               </a>
-              <a className="tabular flex min-h-11 items-start gap-3 hover:text-glow" href="tel:+35226190173">
+              <a className="tabular flex min-h-11 items-start gap-3 hover:text-glow" href={contactDetails.phoneHref}>
                 <Phone aria-hidden className="mt-0.5 h-4 w-4 text-glow" />
-                +352 26 19 01 73
+                {contactDetails.phone}
               </a>
               <div className="flex items-start gap-3">
                 <MapPin aria-hidden className="mt-0.5 h-4 w-4 text-glow" />
                 <span className="leading-6 text-muted-strong">
-                  14-16 Rue Clément Bayard
-                  <br />
-                  92300 Levallois-Perret · France
+                  {contactDetails.addressLines.map((line, index) => (
+                    <span key={line}>
+                      {index > 0 && <br />}
+                      {line}
+                    </span>
+                  ))}
                 </span>
               </div>
             </div>
           </div>
 
           <div>
-            <h2 className={columnTitle}>Conformité</h2>
+            <h2 className={columnTitle}>{copy.complianceTitle}</h2>
             <ul className="mt-5 divide-y divide-night-line border-y border-night-line">
               {trustSignals.map((signal) => (
                 <li className="py-2.5 text-sm text-foreground" key={signal}>
@@ -71,17 +72,19 @@ export function SiteFooter() {
         </div>
 
         <div className="flex flex-col gap-4 border-t border-night-line py-6 text-sm text-muted-strong sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Novadis · Tous droits réservés</p>
+          <p>
+            © {new Date().getFullYear()} {copy.rights}
+          </p>
           <div className="flex flex-wrap items-center gap-5">
             <Link className="hover:text-glow" href="/legal">
-              Mentions légales
+              {copy.legalLabel}
             </Link>
             <span aria-hidden className="divider-dot" />
             <Link className="hover:text-glow" href="/privacy">
-              Confidentialité
+              {copy.privacyLabel}
             </Link>
             <span aria-hidden className="divider-dot" />
-            <span className="font-mono text-xs tracking-[0.14em] text-glow">FR · LU · BE</span>
+            <span className="font-mono text-xs tracking-[0.14em] text-glow">{contactDetails.regions}</span>
           </div>
         </div>
       </div>

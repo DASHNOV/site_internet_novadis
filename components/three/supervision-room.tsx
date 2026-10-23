@@ -6,6 +6,7 @@ import { useCallback, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
+import { supervisionRoomCopy, uiLabels } from "@/data/pages";
 import { challenges, getSolution, supervisionRoom } from "@/data/site";
 import { cn } from "@/lib/utils";
 import { useCanRender3d } from "./use-can-render-3d";
@@ -40,7 +41,7 @@ export function SupervisionRoom() {
           <figure className="console overflow-hidden">
             <div className="relative aspect-[16/10]" ref={stageRef}>
               <img
-                alt="Salle de supervision modélisée : mur de six écrans, pupitre à trois moniteurs, deux postes opérateurs"
+                alt={supervisionRoomCopy.posterAlt}
                 className={cn("absolute inset-0 h-full w-full object-cover transition-opacity duration-500", ready && "opacity-0")}
                 loading="lazy"
                 src={supervisionRoom.poster}
@@ -53,16 +54,16 @@ export function SupervisionRoom() {
             </div>
             <figcaption className="console-head border-b-0 border-t">
               <span>{supervisionRoom.caption}</span>
-              {ready && <span className="hidden text-glow [@media(pointer:fine)]:sm:inline">Faites glisser pour pivoter</span>}
+              {ready && <span className="hidden text-glow [@media(pointer:fine)]:sm:inline">{supervisionRoomCopy.dragHint}</span>}
             </figcaption>
           </figure>
 
           <div className="console flex flex-col">
             <div className="console-head">
-              <span>Poste opérateur unique</span>
+              <span>{supervisionRoomCopy.consoleTitle}</span>
               <span className="flex flex-none items-center gap-2 whitespace-nowrap text-success">
                 <span aria-hidden className="h-1.5 w-1.5 animate-status rounded-full bg-success" />
-                {points.length} systèmes
+                {points.length} {supervisionRoomCopy.systemsSuffix}
               </span>
             </div>
             <ul className="border-b border-night-line">
@@ -80,7 +81,7 @@ export function SupervisionRoom() {
                       type="button"
                     >
                       {point.label}
-                      <span className="data-label">{on ? "Affiché" : "Afficher"}</span>
+                      <span className="data-label">{on ? supervisionRoomCopy.shownLabel : supervisionRoomCopy.showLabel}</span>
                     </button>
                   </li>
                 );
@@ -95,7 +96,7 @@ export function SupervisionRoom() {
                     className="group mt-auto inline-flex min-h-11 items-center gap-2 pt-4 text-sm font-semibold text-glow"
                     href={`/solutions/${current.slug}`}
                   >
-                    En savoir plus
+                    {uiLabels.learnMore}
                     <ArrowUpRight aria-hidden className="cta-arrow h-4 w-4" />
                   </Link>
                 </>

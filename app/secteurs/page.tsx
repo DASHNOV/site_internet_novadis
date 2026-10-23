@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { Badge } from "@/components/ui/badge";
 import { CheckList } from "@/components/ui/check-list";
 import { IconBadge } from "@/components/ui/icon-badge";
+import { sectorsPage as copy } from "@/data/pages";
 import { industries } from "@/data/site";
 import { cn } from "@/lib/utils";
 
@@ -21,22 +22,18 @@ export default function SecteursPage() {
   return (
     <main className="relative">
       <SiteHeader />
-      <PageHero
-
-        title="Des systèmes adaptés à la logique d'exploitation de chaque environnement"
-        description="La conception de la sûreté change selon qu'il s'agit d'un campus, d'une usine, d'une plateforme logistique ou d'un environnement critique. Novadis adapte l'architecture à la réalité du terrain."
-      >
+      <PageHero title={copy.hero.title} description={copy.hero.description}>
         <MediaFrame
           priority
           alt={industries[0].title}
-          caption="Tertiaire · convergence multi-sites"
+          caption={copy.hero.mediaCaption}
           className="aspect-[16/11]"
           kind="image"
           src={industries[0].media}
         />
       </PageHero>
 
-      <nav aria-label="Secteurs" className="sticky top-16 z-30 border-b border-hairline bg-background lg:top-20">
+      <nav aria-label={copy.navLabel} className="sticky top-16 z-30 border-b border-hairline bg-background lg:top-20">
         <ul className="shell-wide no-scrollbar flex gap-6 overflow-x-auto">
           {industries.map((industry) => (
             <li className="flex-none" key={industry.slug}>
@@ -75,10 +72,10 @@ export default function SecteursPage() {
                   </h2>
                   <p className="mt-5 max-w-xl text-base leading-7 text-muted-strong sm:text-lg">{industry.summary}</p>
 
-                  <h3 className="mt-9 font-display text-lg font-bold text-foreground-strong">Enjeux du terrain</h3>
+                  <h3 className="mt-9 font-display text-lg font-bold text-foreground-strong">{copy.challengesTitle}</h3>
                   <CheckList className="mt-4" columns={2} items={industry.challenges} />
 
-                  <h3 className="mt-9 font-display text-lg font-bold text-foreground-strong">Bénéfices observés</h3>
+                  <h3 className="mt-9 font-display text-lg font-bold text-foreground-strong">{copy.outcomesTitle}</h3>
                   <ul className="mt-4 flex flex-wrap gap-2">
                     {industry.outcomes.map((outcome) => (
                       <li key={outcome}>

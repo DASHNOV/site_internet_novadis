@@ -16,6 +16,8 @@ import { StatRow } from "@/components/sections/stat-row";
 import { Button } from "@/components/ui/button";
 import { IconBadge } from "@/components/ui/icon-badge";
 import { NumberBadge } from "@/components/ui/number-badge";
+import { AccentTitle } from "@/components/ui/split-title";
+import { homePage, normsCopy, uiLabels } from "@/data/pages";
 import {
   architecturePoints,
   challenges,
@@ -32,6 +34,8 @@ import {
 } from "@/data/site";
 
 export default function HomePage() {
+  const { hero, proof, architecture, challenges: challengesCopy, solutions: solutionsCopy, method, compliance, about } =
+    homePage;
   const heroMarkers = heroFilm.markers.flatMap((marker) => {
     const solution = getSolution(marker.slug);
     return solution ? [{ id: marker.slug, label: solution.shortTitle, x: marker.x, y: marker.y, side: marker.side }] : [];
@@ -59,26 +63,24 @@ export default function HomePage() {
           <div className="max-w-2xl">
             <Reveal>
               <h1 className="section-title text-balance text-[clamp(2.5rem,5.4vw,4.5rem)]">
-                Protégez vos sites, <span className="text-second">vos équipes et vos données</span>
+                <AccentTitle title={hero.title} />
               </h1>
             </Reveal>
             <Reveal delay={0.08}>
               <p className="mt-6 max-w-xl text-base leading-7 text-foreground sm:text-lg sm:leading-8">
-                Novadis conçoit, intègre et maintient des systèmes de sûreté pour les entreprises, les sites
-                industriels et les infrastructures critiques. De l&apos;informatique à la supervision intelligente,
-                chaque couche est pensée pour durer.
+                {hero.description}
               </p>
             </Reveal>
             <Reveal className="mt-9 flex flex-col gap-3 sm:flex-row" delay={0.14}>
               <Link href="/contact">
                 <Button className="w-full sm:w-auto" size="lg" variant="inverse">
-                  Prendre contact
+                  {hero.primaryCta}
                   <ArrowUpRight className="cta-arrow h-4 w-4" />
                 </Button>
               </Link>
               <Link href="/solutions">
                 <Button className="w-full sm:w-auto" size="lg" variant="outline-night">
-                  Découvrir les solutions
+                  {hero.secondaryCta}
                 </Button>
               </Link>
             </Reveal>
@@ -92,7 +94,7 @@ export default function HomePage() {
                   ))}
               </ul>
               <p className="mt-3 flex flex-wrap items-baseline gap-x-5 gap-y-1">
-                <span className="data-label">Plateforme exclusive</span>
+                <span className="data-label">{hero.technologiesLabel}</span>
                 {heroTechnologies.map((label) => (
                   <span className="font-display text-base font-bold text-white" key={label}>
                     {label}
@@ -112,14 +114,14 @@ export default function HomePage() {
             actions={
               <Link href="/references">
                 <Button variant="outline">
-                  Voir toutes nos références
+                  {proof.cta}
                   <ArrowUpRight className="cta-arrow h-4 w-4" />
                 </Button>
               </Link>
             }
             className="mt-20 lg:mt-28"
-            description="Hôpitaux, sites patrimoniaux, environnements de luxe : Novadis opère là où l'erreur n'est pas permise."
-            title="Des environnements à très forte exigence"
+            description={proof.description}
+            title={proof.title}
           />
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {featuredReferences.map((reference, index) => (
@@ -136,11 +138,10 @@ export default function HomePage() {
         <div className="shell-wide grid gap-14 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center">
           <Reveal>
             <h2 className="section-title text-balance text-[clamp(2rem,3.4vw,3rem)]">
-              L&apos;architecture compte <span className="text-second">autant que les équipements</span>
+              <AccentTitle title={architecture.title} />
             </h2>
             <p className="mt-6 max-w-xl text-base leading-7 text-muted-strong sm:text-lg">
-              Chez Novadis, la valeur ne vient pas d&apos;une juxtaposition de briques techniques. Elle vient
-              d&apos;un système cohérent, documenté, évolutif et lisible pour les équipes qui l&apos;exploitent.
+              {architecture.description}
             </p>
             <ul className="mt-10 divide-y divide-night-line border-y border-night-line">
               {architecturePoints.map((item) => (
@@ -154,8 +155,8 @@ export default function HomePage() {
           <Reveal delay={0.08}>
             <div className="console overflow-hidden">
               <ArchitectureDiagram
-                caption="Architecture de principe · Réseau IP Sûreté Novadis"
-                label="Architecture de principe Novadis — réseau IP sûreté, serveurs, postes opérateurs, terrain"
+                caption={architecture.diagramCaption}
+                label={architecture.diagramLabel}
               />
             </div>
           </Reveal>
@@ -166,12 +167,8 @@ export default function HomePage() {
       <section className="section-y">
         <div className="shell-wide">
           <SectionHeading
-            description="Conformité, migration, multi-sites, charge opérateur : partez de votre enjeu, nous le relions à la bonne architecture."
-            title={
-              <>
-                Chaque projet commence <span className="text-second">par un problème concret</span>
-              </>
-            }
+            description={challengesCopy.description}
+            title={<AccentTitle title={challengesCopy.title} />}
           />
           <ul className="mt-12 grid border-l border-t border-hairline md:grid-cols-2 xl:grid-cols-3">
             {challenges.map((challenge) => (
@@ -194,7 +191,7 @@ export default function HomePage() {
                     ))}
                   </ul>
                   <span className="mt-auto flex items-center gap-2 pt-7 text-sm font-semibold text-primary-strong">
-                    En savoir plus
+                    {uiLabels.learnMore}
                     <ArrowRight aria-hidden className="cta-arrow h-4 w-4" />
                   </span>
                 </Link>
@@ -205,15 +202,14 @@ export default function HomePage() {
           <div className="mt-20 grid gap-10 lg:mt-28 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
             <Reveal>
               <h2 className="section-title text-balance text-[clamp(1.75rem,2.6vw,2.25rem)]">
-                Des briques métiers <span className="text-second">conçues pour fonctionner ensemble</span>
+                <AccentTitle title={solutionsCopy.title} />
               </h2>
               <p className="mt-5 max-w-md text-base leading-7 text-muted-strong">
-                Chaque domaine apporte sa propre valeur. L&apos;avantage Novadis est de les faire converger en un
-                environnement homogène, durable et lisible.
+                {solutionsCopy.description}
               </p>
               <Link className="mt-8 inline-block" href="/solutions">
                 <Button variant="outline">
-                  Voir toutes les solutions
+                  {solutionsCopy.cta}
                   <ArrowUpRight className="cta-arrow h-4 w-4" />
                 </Button>
               </Link>
@@ -247,7 +243,7 @@ export default function HomePage() {
       </section>
 
       {/* 5 · SECTEURS */}
-      <SectorsRail heading={<SectionHeading title="Des systèmes adaptés à la logique réelle de chaque environnement" />} />
+      <SectorsRail heading={<SectionHeading title={homePage.sectors.title} />} />
 
       {/* 6 · MÉTHODE — trois temps puis les quatre étapes de service */}
       <section className="section-dark section-y">
@@ -256,17 +252,13 @@ export default function HomePage() {
             actions={
               <Link href="/services">
                 <Button variant="outline-night">
-                  Voir la méthodologie
+                  {method.cta}
                   <ArrowUpRight className="cta-arrow h-4 w-4" />
                 </Button>
               </Link>
             }
-            description="Nos clients ne cherchent pas une brique technique, mais un partenaire capable de cadrer, faire converger et inscrire la sûreté dans la durée."
-            title={
-              <>
-                Trois temps qui structurent <span className="text-second">chaque projet de sûreté</span>
-              </>
-            }
+            description={method.description}
+            title={<AccentTitle title={method.title} />}
           />
           <div className="mt-14 grid gap-4 lg:grid-cols-3">
             {pillars.map((pillar, index) => (
@@ -309,8 +301,8 @@ export default function HomePage() {
       <section className="section-y">
         <div className="shell-wide">
           <SectionHeading
-            description="NIS2, ANSSI, CNIL : les échéances réglementaires deviennent le premier déclencheur des projets de sûreté. Nous les transformons en feuille de route."
-            title="La réglementation redessine la sûreté"
+            description={compliance.description}
+            title={compliance.title}
           />
           <div className="mt-12 grid gap-5 lg:grid-cols-2">
             {regulatoryTopics.map((topic, index) => (
@@ -339,10 +331,9 @@ export default function HomePage() {
           </div>
 
           <Reveal className="mt-20 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:items-end">
-            <h2 className="section-title text-balance text-[clamp(1.75rem,2.6vw,2.25rem)]">Normes & engagements</h2>
+            <h2 className="section-title text-balance text-[clamp(1.75rem,2.6vw,2.25rem)]">{normsCopy.title}</h2>
             <p className="max-w-xl text-base leading-7 text-muted-strong">
-              Un cadre normatif clair et des engagements professionnels pour bâtir des architectures ouvertes, normées
-              et tenues dans la durée.
+              {normsCopy.description}
             </p>
           </Reveal>
           <Reveal className="mt-10">
@@ -357,7 +348,7 @@ export default function HomePage() {
           <Reveal>
             <MediaFrame
               alt={industries[2].title}
-              caption="Novadis · 14-16 Rue Clément Bayard · Levallois-Perret"
+              caption={about.mediaCaption}
               className="aspect-[16/12]"
               kind="image"
               src={industries[2].media}
@@ -365,11 +356,10 @@ export default function HomePage() {
           </Reveal>
           <Reveal delay={0.08}>
             <h2 className="section-title text-balance text-[clamp(2rem,3.4vw,3rem)]">
-              Une ingénierie centrée <span className="text-second">sur l&apos;humain et la continuité de service</span>
+              <AccentTitle title={about.title} />
             </h2>
             <p className="mt-6 text-base leading-7 text-muted-strong sm:text-lg">
-              Novadis combine expertise infrastructure, expérience terrain et discipline d&apos;intégration pour
-              livrer des systèmes que les équipes peuvent exploiter durablement, pas seulement valider sur le papier.
+              {about.description}
             </p>
             <ul className="mt-8 grid border-t border-hairline sm:grid-cols-2 sm:gap-x-8">
               {differentiators.map((item) => (
@@ -380,14 +370,13 @@ export default function HomePage() {
             </ul>
             <blockquote className="mt-10">
               <p className="font-display text-xl font-semibold leading-snug tracking-tight text-foreground-strong sm:text-2xl">
-                «&nbsp;L&apos;Homme et sa sécurité doivent constituer la première préoccupation de toute aventure
-                technologique.&nbsp;»
+                «&nbsp;{about.quote}&nbsp;»
               </p>
-              <footer className="mt-3 text-sm text-muted-strong">Albert Einstein — principe fondateur Novadis</footer>
+              <footer className="mt-3 text-sm text-muted-strong">{about.quoteAuthor}</footer>
             </blockquote>
             <Link className="mt-10 inline-block" href="/about">
               <Button variant="outline">
-                Découvrir Novadis
+                {about.cta}
                 <ArrowUpRight className="cta-arrow h-4 w-4" />
               </Button>
             </Link>

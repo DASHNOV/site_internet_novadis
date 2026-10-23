@@ -70,3 +70,6 @@ data_LidarVision/
 # Visite LiDAR des vrais locaux : strictement locale, jamais versionnée
 public/novadis/lidar/
 public/novadis/images/lidar/
+
+# CMS local (base SQLite, médias, captures de recette)
+cms/
