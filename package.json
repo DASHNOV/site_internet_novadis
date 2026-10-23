@@ -2,14 +2,15 @@
   "name": "novadis-site",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "payload": "payload",
-    "cms:importmap": "payload generate:importmap",
-    "cms:types": "payload generate:types"
+    "payload": "payload --use-swc",
+    "cms:importmap": "payload generate:importmap --use-swc",
+    "cms:types": "payload generate:types --use-swc"
   },
   "dependencies": {
     "@payloadcms/db-sqlite": "3.92.0",
@@ -32,6 +33,8 @@
     "three": "^0.169.0"
   },
   "devDependencies": {
+    "@swc-node/register": "^1.12.1",
+    "@swc/core": "^1.16.20",
     "@tailwindcss/postcss": "^4.2.4",
     "@types/node": "^24.9.1",
     "@types/react": "^19.2.17",

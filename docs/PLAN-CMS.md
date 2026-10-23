@@ -53,30 +53,36 @@ Les textes sont aujourd'hui répartis à deux endroits :
 
 ✅ Vérifié le 23/10/2026 : `/admin` affiche « Bienvenue, créez votre premier utilisateur » en français. Le texte des pages du site n'a pas bougé, sans erreur JavaScript. Une URL inconnue renvoie la 404 du site, `/api/users` renvoie 403 sans connexion, et `next build` passe sans « lidar » dans `.next/static`.
 
-⚠️ **À régler avant l'étape 3 :** la CLI Payload (`npm run cms:importmap`, et plus tard `payload run` pour le seed) plante sous Node 24. `tsx` 4.23.15 charge deux fois `undici` (« Illegal constructor »). L'import map est donc vide pour l'instant, ce qui suffit tant qu'aucun champ de texte riche ou composant personnalisé n'est déclaré. Pistes : `--use-swc` avec `@swc-node/register`, ou un seed lancé par un autre moyen.
+✅ **CLI Payload réglée :** sous Node 24, `tsx` chargeait deux fois `undici`. Les scripts passent maintenant par `--use-swc` (`@swc-node/register` et `@swc/core` en dépendances de dev), et `package.json` déclare `"type": "module"`, comme le modèle officiel de Payload. Commandes disponibles : `npm run cms:importmap`, `npm run cms:types` et `npm run payload -- <commande>`.
 
 ## Étape 3 — Modèle de contenu
 
-Le découpage suit les pages, pour que les commerciaux retrouvent facilement chaque texte.
+Le découpage suit les pages, pour que les commerciaux retrouvent facilement chaque texte. Les briques communes sont dans `fields/index.ts` (texte avec limite de longueur, titre en deux tons, liste de lignes, icône, image, lien interne, slug verrouillé), et la liste des icônes proposées dans `lib/icon-names.ts`.
 
-**Collections** (éléments répétés) :
-- [ ] `solutions` : titre, accroche, description, bénéfices, image, slug (verrouillé).
-- [ ] `secteurs` : les 6 secteurs.
-- [ ] `references` : les références mises en avant.
-- [ ] `medias` : la médiathèque d'images, avec texte alternatif obligatoire.
-- [ ] `utilisateurs` : les comptes et leur rôle.
+**Collections** (éléments répétés), dans `collections/` :
+- [x] `solutions` : titre, titre court, étiquette des références, produit, icône, résumé, introduction, contexte, capacités, réponse, bénéfices, résultats, visuel. Le slug est verrouillé, et une vidéo reste gérée par l'équipe technique.
+- [x] `sectors` : les 6 secteurs. `industries` (page Secteurs) et `sectors.ts` (page Références) partagent les mêmes slugs, ils sont donc réunis dans une seule fiche à deux onglets. La liste `challenges` de `sectors.ts` n'est affichée nulle part, elle n'est pas reprise.
+- [x] `references` : les cas phares, reliés aux solutions.
+- [x] `challenges` : les enjeux de l'accueil.
+- [x] `media` : la médiathèque, avec texte alternatif obligatoire.
+- [x] `users` : les comptes. Le rôle arrive à l'étape 4.
 
-**Globals** (un exemplaire par page ou par bloc) :
-- [ ] `accueil`, `page-solutions`, `page-secteurs`, `services`, `references-page`, `a-propos`, `contact`.
-- [ ] `navigation` et `pied-de-page`.
-- [ ] `elements-communs` : chiffres clés, partenaires, bandeau d'appel à l'action (CTA), textes des démonstrations (salle de supervision, porte badge, intrusion…).
+**Globals** (un exemplaire par page ou par bloc), dans `globals/` :
+- [x] `home`, `solutions-page` (avec les titres communs des fiches solution), `sectors-page`, `services-page`, `references-page`, `about-page`, `contact-page`.
+- [x] `common` (« Éléments communs ») : en-tête, menu, coordonnées, pied de page, bandeau de contact, normes et mentions de confiance, chiffres clés, étapes de service, libellés.
+- [x] `demos` (« Démonstrations ») : textes du film de l'accueil, de la salle de supervision, de la porte à badge, de l'intrusion, de la caméra éclatée, de la caméra 3D, du schéma d'architecture et du parcours d'alarme. Le nombre d'étapes et d'étiquettes est figé, puisqu'il suit les films et les modèles 3D.
 
 **Pour tous :**
-- [ ] Activer `versions: { drafts: { autosave: true } }` : brouillons, enregistrement automatique et historique.
-- [ ] Ajouter des limites de longueur (`maxLength`) sur les titres et accroches, pour protéger la mise en page.
-- [ ] Rédiger des libellés et des aides en français sur chaque champ (« Titre principal du haut de page »…).
+- [x] Brouillons avec enregistrement automatique (`autosave`, 800 ms) et historique de 50 versions par document.
+- [x] Limites de longueur : 60 caractères pour un libellé, 140 pour un titre, 280 pour un texte court et 600 pour un paragraphe. Le texte actuel le plus long fait 438 caractères.
+- [x] Libellés et aides en français, regroupés dans l'admin par « Pages », « Offre », « Éléments communs », « Médias » et « Administration ».
+- [x] `payload-types.ts` est généré (`npm run cms:types`).
 
 **Terminé quand :** chaque ligne du tableau de l'étape 1 a son champ dans l'admin.
+
+✅ Vérifié le 23/10/2026 : `data/pages.ts` et les textes de `data/site.ts`, `sectors.ts` et `references.ts` ont tous leur champ. Le tableau de bord, les globals et les formulaires de collection s'ouvrent sans erreur.
+
+À savoir : ouvrir « Créer » dans une collection crée aussitôt un brouillon vide, à cause de l'enregistrement automatique. C'est le comportement normal de Payload. Pour la connexion en local, `admin.autoLogin` (`prefillOnly`, seulement sous `next dev`) préremplit le formulaire avec le compte de test de `.env.local` (`CMS_ADMIN_EMAIL`, `CMS_ADMIN_PASSWORD`).
 
 ## Étape 4 — Rôles et circuit de validation
 

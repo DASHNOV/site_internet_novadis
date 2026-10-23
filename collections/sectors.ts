@@ -1,0 +1,63 @@
+import type { CollectionConfig } from "payload";
+import { drafts, icon, image, slug, text, textList } from "../fields";
+
+export const Sectors: CollectionConfig = {
+  slug: "sectors",
+  labels: { singular: "Secteur", plural: "Secteurs" },
+  admin: {
+    group: "Offre",
+    useAsTitle: "title",
+    defaultColumns: ["title", "updatedAt"],
+  },
+  defaultSort: "order",
+  access: { read: () => true },
+  versions: drafts,
+  fields: [
+    slug,
+    {
+      name: "order",
+      label: "Ordre d'affichage",
+      type: "number",
+      required: true,
+      admin: { position: "sidebar" },
+    },
+    {
+      type: "tabs",
+      tabs: [
+        {
+          label: "Page Secteurs",
+          fields: [
+            text("title", "Titre", "label"),
+            icon(),
+            text("summary", "Résumé", "text"),
+            textList("challenges", "Enjeux du terrain", "label"),
+            textList("outcomes", "Bénéfices observés", "label"),
+            image("image", "Image"),
+          ],
+        },
+        {
+          label: "Page Références",
+          description: "Bloc « Déploiements par secteur ».",
+          fields: [
+            text("tagline", "Accroche", "title"),
+            text("description", "Description", "paragraph"),
+            {
+              name: "solutions",
+              label: "Solutions déployées",
+              type: "relationship",
+              relationTo: "solutions",
+              hasMany: true,
+            },
+            {
+              name: "examples",
+              label: "Exemples de déploiement",
+              type: "array",
+              labels: { singular: "Exemple", plural: "Exemples" },
+              fields: [text("title", "Titre", "title"), text("body", "Texte", "paragraph")],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};

@@ -4,6 +4,7 @@ import type { CollectionConfig } from "payload";
 export const Media: CollectionConfig = {
   slug: "media",
   labels: { singular: "Image", plural: "Médiathèque" },
+  admin: { group: "Médias" },
   access: {
     read: () => true,
   },
