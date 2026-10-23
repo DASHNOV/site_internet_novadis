@@ -5,7 +5,7 @@ export const iconNames = [
   "Building2",
   "Cpu",
   "Factory",
-  "Fingerprint",
+  "FingerprintPattern",
   "Gauge",
   "KeyRound",
   "Mail",

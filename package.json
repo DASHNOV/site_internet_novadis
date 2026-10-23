@@ -11,7 +11,8 @@
     "payload": "payload --use-swc",
     "cms:importmap": "payload generate:importmap --use-swc",
     "cms:types": "payload generate:types --use-swc",
-    "cms:accounts": "payload run scripts/cms-accounts.ts --use-swc"
+    "cms:accounts": "payload run scripts/cms-accounts.ts --use-swc",
+    "cms:seed": "tsx scripts/seed/export-content.ts && payload run scripts/cms-seed.ts --use-swc"
   },
   "dependencies": {
     "@payloadcms/db-sqlite": "3.92.0",
@@ -47,6 +48,7 @@
     "postcss": "^8.5.6",
     "sharp": "^0.35.0",
     "tailwindcss": "^4.1.16",
+    "tsx": "^4.23.15",
     "typescript": "^5.9.3"
   },
   "overrides": {

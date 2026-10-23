@@ -39,7 +39,7 @@ Les textes sont aujourd'hui répartis à deux endroits :
 ## Étape 2 — Installation de Payload
 
 - [x] Monter Next en 16.4.2 (avec `eslint-config-next`) : le build passe à l'identique.
-- [x] Installer Payload **3.92.0 en version exacte** (tous les paquets `@payloadcms/*` doivent rester alignés) : `payload`, `@payloadcms/next`, `@payloadcms/db-sqlite`, `@payloadcms/richtext-lexical`, `@payloadcms/ui`, `@payloadcms/translations`, `graphql`. `@payloadcms/live-preview-react` viendra à l'étape 7.
+- [x] Installer Payload **3.92.0 en version exacte** (tous les paquets `@payloadcms/*` doivent rester alignés) : `payload`, `@payloadcms/next`, `@payloadcms/db-sqlite`, `@payloadcms/richtext-lexical`, `@payloadcms/ui`, `@payloadcms/translations`, `graphql`. Aucun paquet de plus n'est prévu pour l'étape 7 : l'édition dans la page est développée pour le projet.
 - [x] Réorganiser `app/` en deux groupes de routes :
   - `app/(site)/` : les pages, `layout.tsx`, `globals.css`, `error.tsx`, `not-found.tsx` et les polices dans `fonts.ts` ;
   - `app/(payload)/` : `/admin` et `/api`, avec leur propre layout, donc sans les styles du site.
@@ -105,15 +105,19 @@ Le découpage suit les pages, pour que les commerciaux retrouvent facilement cha
 
 ## Étape 5 — Migration du contenu existant
 
-- [ ] Écrire `scripts/seed-cms.ts`, qui utilise la Local API de Payload :
-  - lire `data/site.ts`, `data/sectors.ts` et `data/references.ts` ;
-  - importer les images utilisées depuis `public/novadis/images` vers la médiathèque ;
-  - remplir les collections et les globals, puis publier cette première version ;
-  - créer les comptes de démo, avec `upsertDemoAccounts` (`scripts/lib/demo-accounts.ts`).
-- [ ] Rendre le script relançable, c'est-à-dire capable de remettre la base à zéro. Ça servira à réinitialiser la démo.
-- [ ] Ajouter le script npm `"cms:seed": "payload run scripts/seed-cms.ts"`.
+`npm run cms:seed` fonctionne en deux temps :
+1. `scripts/seed/export-content.ts`, lancé par `tsx`, lit `data/` et écrit `cms/seed-content.json`, déjà rangé selon le modèle Payload. Il force un `NODE_ENV` autre que `development` : `data/site.ts` n'y ajoute donc pas les fiches locales, et seules les 7 solutions publiques sont migrées. La CLI Payload ne passe pas par `tsx`, parce que son chargeur swc ne lit pas les ancres JSON des films.
+2. `scripts/cms-seed.ts`, lancé par `payload run`, remet le CMS à zéro (fiches, médiathèque et fichiers, historique des pages), envoie les images de `public/novadis/images` dans la médiathèque, publie tout, puis recrée les comptes de démo.
+
+- [x] Toutes les fiches et toutes les pages sont publiées : 7 solutions, 6 secteurs, 3 références, 6 enjeux, 9 pages et blocs, 17 images.
+- [x] Le script est relançable et sert aussi à réinitialiser la démo.
+- [x] Les icônes sont enregistrées par leur nom lucide. `Fingerprint` est devenu `FingerprintPattern`, le nom officiel en lucide v1.
 
 **Terminé quand :** après `npm run cms:seed`, l'admin contient tout le contenu actuel du site.
+
+✅ Vérifié le 23/10/2026 :
+- **Contenu** : relus en visiteur, donc en version publiée seulement, les **664 textes** de l'export se retrouvent tous à l'identique dans le CMS. Les relations (secteur et référence vers les solutions) et les images, avec leur texte alternatif, sont correctes. L'admin affiche les fiches au statut « Publié », avec une seule version.
+- **Remise à zéro** : après un brouillon de rédacteur sur l'accueil et sur une solution, une nouvelle migration rétablit les textes d'origine, ramène l'historique à une version et laisse la médiathèque à 17 images, sans doublon.
 
 ## Étape 6 — Branchement des pages sur Payload
 
@@ -121,19 +125,26 @@ Le découpage suit les pages, pour que les commerciaux retrouvent facilement cha
 - [ ] Remplacer, page par page, les imports de `data/` par ces fonctions. Les composants ne changent pas : on leur passe les mêmes données.
 - [ ] Faire correspondre les icônes par une table `clé → composant lucide`.
 - [ ] Brancher `generateStaticParams` pour les solutions et les secteurs sur Payload.
-- [ ] Mode brouillon : une route `/api/preview` active `draftMode()`. Quand il est actif, les requêtes lisent les brouillons (`draft: true`).
+- [ ] Mode brouillon : une route `/edition` (hors de `/api`, réservé à Payload) active `draftMode()`. Quand il est actif, les requêtes lisent les brouillons (`draft: true`).
 - [ ] Ajouter un hook `afterChange` qui appelle `revalidatePath`, pour que la publication soit visible tout de suite sur le site.
 - [ ] Une fois toutes les pages branchées, supprimer les données éditables de `data/` : Payload devient la seule source.
 
 **Terminé quand :** les pages s'affichent à l'identique des captures de l'étape 0, avec le contenu venant de Payload.
 
-## Étape 7 — Live preview
+## Étape 7 — Édition directe dans la page
 
-- [ ] Configurer `admin.livePreview` : une URL par collection ou global, avec les formats bureau, tablette et mobile.
-- [ ] Ajouter côté site le composant `RefreshRouteOnSave`, chargé seulement en mode brouillon. Il rafraîchit la page à chaque enregistrement automatique.
-- [ ] Vérifier que les animations (`<Reveal>`, Framer Motion) et les scènes 3D supportent les rafraîchissements répétés.
+Décidé le 23/10/2026 : les commerciaux modifient les textes **directement sur le site**, sans passer par les formulaires de l'admin. L'admin reste là pour publier, consulter l'historique et revenir en arrière. Payload ne propose pas cette édition, elle est donc développée pour le projet.
 
-**Terminé quand :** quand on tape dans un champ de l'admin, la page à droite se met à jour en une à deux secondes.
+- [ ] **Mode édition** : quand un compte connecté ouvre le site en mode brouillon (`/edition`), les pages affichent les brouillons et une barre d'édition (compte connecté, statut, « Publier » pour les publieurs, lien vers l'admin et l'historique).
+- [ ] **Textes repérables** : chaque texte venant de Payload porte son adresse dans le CMS (collection ou global, document, chemin du champ), par exemple `data-cms="global:home:hero.title.lead"`. Les composants restent ceux d'aujourd'hui, un petit composant d'enveloppe ajoute ce repère.
+- [ ] **Édition sur place** : un clic sur un texte le rend modifiable (`contentEditable`, texte brut uniquement). La limite de longueur s'affiche en direct. On valide avec Entrée ou en quittant le champ, et Échap annule.
+- [ ] **Enregistrement** : chaque modification est enregistrée en brouillon par l'API Payload (`PATCH ?draft=true`) avec les droits du compte. Un rédacteur ne peut donc toujours pas publier.
+- [ ] **Images** : un clic sur une image propose de la remplacer. Le fichier est envoyé dans la médiathèque, et le texte alternatif est demandé.
+- [ ] **Listes** : les lignes des listes (capacités, bénéfices…) se modifient sur place. Ajouter ou retirer une ligne passe, pour l'instant, par l'admin.
+- [ ] **Animations** : `<Reveal>`, Framer Motion et les scènes 3D ne doivent pas gêner l'édition (révélations désactivées en mode édition, textes des scènes modifiables dans un panneau).
+- [ ] **Hors mode édition**, le site public reste strictement identique, sans aucun script d'édition chargé.
+
+**Terminé quand :** connecté en rédacteur, on clique sur le titre de l'accueil, on le retape, et le brouillon est enregistré. Le visiteur voit toujours l'ancien titre, et le publieur publie depuis la barre d'édition.
 
 ## Étape 8 — Confort pour les commerciaux
 
@@ -156,10 +167,10 @@ Le découpage suit les pages, pour que les commerciaux retrouvent facilement cha
 ## Étape 10 — Démo à l'équipe commerciale
 
 Scénario de 10 minutes :
-1. Connexion en **rédacteur**. On modifie le titre de l'accueil et on voit le changement en direct dans le live preview.
-2. On remplace une image d'une solution.
+1. Connexion en **rédacteur**. On ouvre le site en mode édition, on clique sur le titre de l'accueil et on le retape directement dans la page.
+2. On remplace une image d'une solution d'un clic sur l'image.
 3. On enregistre en brouillon, puis on montre que le site public n'a pas changé.
-4. Connexion en **publieur** : relecture, publication, puis le site public est mis à jour.
+4. Connexion en **publieur** : relecture, publication depuis la barre d'édition, puis le site public est mis à jour.
 5. On montre l'historique et le retour à la version précédente.
 6. Remise à zéro avec `npm run cms:seed`.
 
