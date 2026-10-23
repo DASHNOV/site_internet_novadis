@@ -38,15 +38,22 @@ Les textes sont aujourd'hui répartis à deux endroits :
 
 ## Étape 2 — Installation de Payload
 
-- [ ] Installer `payload`, `@payloadcms/next`, `@payloadcms/db-sqlite`, `@payloadcms/richtext-lexical`, `@payloadcms/live-preview-react` et `@payloadcms/translations` (pour l'interface en français).
-- [ ] Réorganiser `app/` en deux groupes de routes :
-  - `app/(site)/` pour les pages actuelles, avec leur `layout.tsx` et `globals.css` ;
-  - `app/(payload)/` pour l'administration (`/admin`) et l'API (`/api`), avec son propre layout, afin que les styles du site ne cassent pas l'admin.
-- [ ] Créer `payload.config.ts` : base SQLite (`DATABASE_URI=file:./cms/payload.db`), dossier d'images `cms/media/`, interface en français.
-- [ ] Ajouter `PAYLOAD_SECRET` et `DATABASE_URI` dans `.env.local`, puis ajouter `cms/` au `.gitignore`.
-- [ ] Brancher `withPayload` dans `next.config`.
+- [x] Monter Next en 16.4.2 (avec `eslint-config-next`) : le build passe à l'identique.
+- [x] Installer Payload **3.92.0 en version exacte** (tous les paquets `@payloadcms/*` doivent rester alignés) : `payload`, `@payloadcms/next`, `@payloadcms/db-sqlite`, `@payloadcms/richtext-lexical`, `@payloadcms/ui`, `@payloadcms/translations`, `graphql`. `@payloadcms/live-preview-react` viendra à l'étape 7.
+- [x] Réorganiser `app/` en deux groupes de routes :
+  - `app/(site)/` : les pages, `layout.tsx`, `globals.css`, `error.tsx`, `not-found.tsx` et les polices dans `fonts.ts` ;
+  - `app/(payload)/` : `/admin` et `/api`, avec leur propre layout, donc sans les styles du site.
+  - `app/global-not-found.tsx` (flag expérimental `globalNotFound`) affiche la 404 du site pour les URL inconnues, puisqu'il y a maintenant deux layouts racines.
+  - `icon.svg`, `robots.ts` et `sitemap.ts` restent à la racine de `app/`.
+- [x] Créer `payload.config.ts` : SQLite dans `cms/payload.db`, images dans `cms/media/`, interface en français. Les collections sont dans `collections/` (pour l'instant `users` et `media`).
+- [x] `PAYLOAD_SECRET` et `DATABASE_URI` sont dans `.env.local`, ignoré par Git, comme `cms/`.
+- [x] Brancher `withPayload` dans `next.config.mjs`, ajouter l'alias `@payload-config` et passer `allowJs` à `true` dans `tsconfig.json` (pour l'import map).
 
 **Terminé quand :** `npm run dev` affiche le site comme avant, et `/admin` affiche l'écran de création du premier compte.
+
+✅ Vérifié le 23/10/2026 : `/admin` affiche « Bienvenue, créez votre premier utilisateur » en français. Le texte des pages du site n'a pas bougé, sans erreur JavaScript. Une URL inconnue renvoie la 404 du site, `/api/users` renvoie 403 sans connexion, et `next build` passe sans « lidar » dans `.next/static`.
+
+⚠️ **À régler avant l'étape 3 :** la CLI Payload (`npm run cms:importmap`, et plus tard `payload run` pour le seed) plante sous Node 24. `tsx` 4.23.15 charge deux fois `undici` (« Illegal constructor »). L'import map est donc vide pour l'instant, ce qui suffit tant qu'aucun champ de texte riche ou composant personnalisé n'est déclaré. Pistes : `--use-swc` avec `@swc-node/register`, ou un seed lancé par un autre moyen.
 
 ## Étape 3 — Modèle de contenu
 

@@ -1,6 +1,12 @@
+import { withPayload } from "@payloadcms/next/withPayload";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  experimental: {
+    // Le site et l'admin Payload ont chacun leur layout racine (voir app/global-not-found.tsx).
+    globalNotFound: true,
+  },
   async headers() {
     return [
       {
@@ -12,4 +18,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPayload(nextConfig);

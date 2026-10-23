@@ -1,28 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Archivo, JetBrains_Mono, Roboto } from "next/font/google";
+import { fontVariables } from "./fonts";
 import "./globals.css";
-
-const roboto = Roboto({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-  weight: ["300", "400", "500", "700"],
-});
-
-const archivo = Archivo({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-  axes: ["wdth"],
-});
-
-const jetbrains = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-  weight: ["400", "500"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://novadis.eu"),
@@ -59,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <body
-        className={`${roboto.variable} ${archivo.variable} ${jetbrains.variable} font-sans antialiased`}
+        className={`${fontVariables} font-sans antialiased`}
       >
         {/* Scroll-reveal content is server-rendered hidden; show it when JS never runs. */}
         <noscript>
