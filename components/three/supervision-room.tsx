@@ -2,26 +2,15 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { challenges, getSolution, supervisionRoom } from "@/data/site";
 import { cn } from "@/lib/utils";
+import { useCanRender3d } from "./use-can-render-3d";
 
 const Scene = dynamic(() => import("./supervision-room-scene"), { ssr: false });
-
-// Phones on data saver or with little memory keep the still render: the scene is a bonus, not the content.
-function useCanRender3d() {
-  const [can, setCan] = useState(false);
-  useEffect(() => {
-    const nav = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
-    const lowMemory = nav.deviceMemory !== undefined && nav.deviceMemory < 4;
-    const webgl = !!document.createElement("canvas").getContext("webgl2");
-    setCan(webgl && !lowMemory && !nav.connection?.saveData);
-  }, []);
-  return can;
-}
 
 export function SupervisionRoom() {
   const challenge = challenges.find((c) => c.slug === supervisionRoom.challengeSlug);

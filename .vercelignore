@@ -1,0 +1,4 @@
+# Visite LiDAR des vrais locaux : strictement locale, jamais déployée
+data_LidarVision/
+public/novadis/lidar/
+public/novadis/images/lidar/

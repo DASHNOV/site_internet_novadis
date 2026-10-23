@@ -34,7 +34,6 @@ public/novadis/   Assets statiques (images, vidéos)
 - **Données dans `data/`.** Ne jamais hardcoder du contenu dans les composants — passer par `site.ts`, `sectors.ts` ou `solutions-extended.ts`.
 - **Pas de commentaires inutiles.** Seulement si le WHY n'est pas évident.
 - **Tailwind en priorité.** Pas de CSS inline sauf exception justifiée.
-- **Toujours tester dark ET light** après une modification de styles.
 
 ## Composants clés
 
@@ -48,12 +47,10 @@ public/novadis/   Assets statiques (images, vidéos)
 | `<StatRow>` | Affichage des métriques clés |
 | `<PartnerCloud>` | Ticker animé des partenaires |
 
-## Thème dark/light
+## Thème
 
-- Attribut sur `<html>` : `data-theme="dark"` ou `data-theme="light"`
-- Persisté en `localStorage`
-- Script inline dans `layout.tsx` pour éviter le flash au chargement
-- Ne pas utiliser `dark:` Tailwind — utiliser les CSS variables du design system
+- Thème clair uniquement : le site n'a pas de mode sombre.
+- Couleurs via les CSS variables du design system (`app/globals.css`), pas de couleurs Tailwind en dur.
 
 ## Chemins importants
 

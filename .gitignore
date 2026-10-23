@@ -63,3 +63,10 @@ blob-report/
 # STid reference captures
 /stid-*.jpeg
 /stid-snapshot.md
+
+# Sources LidarVision (identifiants, devis, scans bruts)
+data_LidarVision/
+
+# Visite LiDAR des vrais locaux : strictement locale, jamais versionnée
+public/novadis/lidar/
+public/novadis/images/lidar/
