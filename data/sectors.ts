@@ -83,7 +83,7 @@ export const sectors: Sector[] = [
       {
         title: "Hub e-commerce multi-niveaux",
         body:
-          "Lecteurs Aperio sans fil sur 300 portes, supervision unifiée des flux et incidents en temps réel.",
+          "Lecteurs de porte sans fil sur 300 portes, supervision unifiée des flux et incidents en temps réel.",
       },
     ],
   },
@@ -135,7 +135,7 @@ export const sectors: Sector[] = [
       {
         title: "Enseigne retail 450 points de vente",
         body:
-          "Standardisation Amadeus + Ocularis, déploiement piloté par phases, hyperviseur unique au siège.",
+          "Standardisation Amadeus et vidéo, déploiement piloté par phases, hyperviseur unique au siège.",
       },
     ],
   },

@@ -1,20 +1,17 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, transform, useMotionValueEvent, useReducedMotion, useTransform, type MotionValue } from "framer-motion";
+import { motion, transform, useMotionValueEvent, useReducedMotion, useTransform } from "framer-motion";
 import { useFrameSequence } from "@/components/motion/film-scene";
 import { axisExplode } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 const LAST = axisExplode.frameCount - 1;
-// Scroll progress where the sequence plays, then where the fleet takes over.
-const PLAY: [number, number] = [0.04, 0.68];
-const FLEET: [number, number] = [0.72, 0.9];
-const HUB = { x: 0.5, y: 0.47 };
+// Scroll progress where the sequence plays.
+const PLAY: [number, number] = [0.04, 0.92];
 
 function stepAt(progress: number) {
-  if (progress < 0.36) return 0;
-  return progress < FLEET[0] ? 1 : 2;
+  return progress < 0.48 ? 0 : 1;
 }
 
 function Labels({ frame, visible }: { frame: number; visible: boolean }) {
@@ -65,64 +62,6 @@ function Radar() {
   );
 }
 
-function FleetItem({ index, progress }: { index: number; progress: MotionValue<number> }) {
-  const { camera, x, y } = axisExplode.fleet[index];
-  const span: [number, number] = [index * 0.09, index * 0.09 + 0.46];
-  const t = useTransform(progress, (v) => transform(v, span, [0, 1]));
-  const opacity = useTransform(t, [0, 0.5], [0, 1]);
-  const scale = useTransform(t, [0, 1], [0.6, 1]);
-  // Fly in from beyond the ring, along the spoke to the hub.
-  const dx = useTransform(t, [0, 1], [(x - HUB.x) * 120, 0]);
-  const dy = useTransform(t, [0, 1], [(y - HUB.y) * 120, 0]);
-  return (
-    <motion.figure
-      className="absolute w-[22%] max-w-[132px] -translate-x-1/2 -translate-y-1/2 text-center"
-      style={{ left: `${x * 100}%`, top: `${y * 100}%`, opacity, scale, x: dx, y: dy }}
-    >
-      <img
-        alt={`Caméra ${camera.brand} — ${camera.type}`}
-        className="mx-auto aspect-[4/3] w-full object-contain drop-"
-        loading="lazy"
-        src={camera.cutout}
-      />
-      <figcaption className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-glow sm:text-[12px]">
-        {camera.brand}
-      </figcaption>
-    </motion.figure>
-  );
-}
-
-function Fleet({ progress }: { progress: MotionValue<number> }) {
-  const pathLength = useTransform(progress, [0.3, 1], [0, 1]);
-  const hubOpacity = useTransform(progress, [0.75, 1], [0, 1]);
-  return (
-    <div className="pointer-events-none absolute inset-0">
-      <svg aria-hidden className="absolute inset-0 h-full w-full" preserveAspectRatio="none" viewBox="0 0 100 100">
-        {axisExplode.fleet.map(({ camera, x, y }) => (
-          <motion.path
-            d={`M${x * 100} ${y * 100} L${HUB.x * 100} ${HUB.y * 100}`}
-            fill="none"
-            key={camera.cutout}
-            stroke="rgb(var(--glow) / 0.35)"
-            strokeWidth="1"
-            style={{ pathLength }}
-            vectorEffect="non-scaling-stroke"
-          />
-        ))}
-      </svg>
-      {axisExplode.fleet.map((item, index) => (
-        <FleetItem index={index} key={item.camera.cutout} progress={progress} />
-      ))}
-      <motion.p
-        className="absolute left-1/2 top-[97%] -translate-x-1/2 whitespace-nowrap rounded-full border border-glow/30 bg-night/70 px-4 py-1.5 font-mono text-[12px] uppercase tracking-[0.14em] text-white backdrop-blur"
-        style={{ opacity: hubOpacity }}
-      >
-        {axisExplode.hub}
-      </motion.p>
-    </div>
-  );
-}
-
 function Steps({ active }: { active: number }) {
   return (
     <ol className="mt-8 space-y-1 lg:mt-10">
@@ -154,7 +93,7 @@ function Steps({ active }: { active: number }) {
   );
 }
 
-// Static state for reduced motion: last frame with its labels, fleet laid out below.
+// Static state for reduced motion: last frame with its labels.
 function StaticExplode() {
   return (
     <section className="section-dark py-24 lg:py-32">
@@ -169,14 +108,6 @@ function StaticExplode() {
           <Labels frame={LAST} visible />
         </div>
       </div>
-      <ul className="shell-wide mt-12 grid grid-cols-3 gap-6 sm:grid-cols-6">
-        {axisExplode.fleet.map(({ camera }) => (
-          <li className="text-center" key={camera.cutout}>
-            <img alt={`Caméra ${camera.brand} — ${camera.type}`} className="mx-auto aspect-[4/3] w-full object-contain" loading="lazy" src={camera.cutout} />
-            <p className="mt-1 font-mono text-[12px] uppercase tracking-[0.14em] text-glow">{camera.brand}</p>
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }
@@ -186,10 +117,7 @@ export function AxisExplode() {
   const sectionRef = useRef<HTMLElement>(null);
   const [step, setStep] = useState(0);
   const { canvasRef, loaded, frame, scrollYProgress } = useFrameSequence(sectionRef, axisExplode, PLAY, !reduceMotion);
-  // Function forms: a plain range would be offloaded to a native scroll timeline that ignores clamping.
-  const fleetProgress = useTransform(scrollYProgress, (v) => transform(v, FLEET, [0, 1]));
-  const stageScale = useTransform(fleetProgress, (v) => transform(v, [0, 0.6], [1, 0.74]));
-  const stageDim = useTransform(fleetProgress, (v) => transform(v, [0, 0.6], [1, 0.55]));
+  // Function form: a plain range would be offloaded to a native scroll timeline that ignores clamping.
   const hintOpacity = useTransform(scrollYProgress, (v) => transform(v, [0, 0.06], [1, 0]));
 
   useMotionValueEvent(scrollYProgress, "change", (value) => setStep(stepAt(value)));
@@ -197,7 +125,7 @@ export function AxisExplode() {
   if (reduceMotion) return <StaticExplode />;
 
   return (
-    <section className="section-dark relative h-[420vh]" ref={sectionRef}>
+    <section className="section-dark relative h-[340vh]" ref={sectionRef}>
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
         <div
           aria-hidden
@@ -209,9 +137,9 @@ export function AxisExplode() {
             <Steps active={step} />
           </div>
           <div className="relative mx-auto aspect-square w-full max-w-[min(680px,58vh)] lg:max-w-[min(720px,82vh)]">
-            <motion.div className="absolute inset-0" style={{ scale: stageScale }}>
+            <div className="absolute inset-0">
               <Radar />
-              <motion.div className="absolute inset-0" style={{ opacity: stageDim }}>
+              <div className="absolute inset-0">
                 {/* First frame as poster until the sequence is ready (and for no-JS visitors). */}
                 <img
                   alt=""
@@ -220,10 +148,9 @@ export function AxisExplode() {
                   src={axisExplode.framePath(0)}
                 />
                 <canvas className="absolute inset-0 h-full w-full" height={1000} ref={canvasRef} width={1000} />
-              </motion.div>
-              <Labels frame={frame} visible={frame >= axisExplode.labelsFrom && step < 2} />
-            </motion.div>
-            <Fleet progress={fleetProgress} />
+              </div>
+              <Labels frame={frame} visible={frame >= axisExplode.labelsFrom} />
+            </div>
           </div>
         </div>
         <motion.p

@@ -5,7 +5,7 @@ import { ArchitectureDiagram } from "@/components/motion/architecture-diagram";
 import { HeroFilm } from "@/components/motion/hero-film";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
-import { NormsList, PartnerGrid } from "@/components/sections/partner-cloud";
+import { NormsList } from "@/components/sections/partner-cloud";
 import { ReferenceCard } from "@/components/sections/reference-card";
 import { SectorsRail } from "@/components/sections/sectors-rail";
 import { Reveal } from "@/components/motion/reveal";
@@ -92,7 +92,7 @@ export default function HomePage() {
                   ))}
               </ul>
               <p className="mt-3 flex flex-wrap items-baseline gap-x-5 gap-y-1">
-                <span className="data-label">Technologies</span>
+                <span className="data-label">Plateforme exclusive</span>
                 {heroTechnologies.map((label) => (
                   <span className="font-display text-base font-bold text-white" key={label}>
                     {label}
@@ -104,7 +104,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2 · PREUVE — chiffres puis références nommées */}
+      {/* 2 · PREUVE — chiffres puis références anonymisées */}
       <section className="section-y">
         <div className="shell-wide">
           <StatRow />
@@ -305,7 +305,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7 · CONFORMITÉ — réglementation, normes et partenaires regroupés */}
+      {/* 7 · CONFORMITÉ — réglementation et normes regroupées */}
       <section className="section-y">
         <div className="shell-wide">
           <SectionHeading
@@ -339,17 +339,14 @@ export default function HomePage() {
           </div>
 
           <Reveal className="mt-20 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:items-end">
-            <h2 className="section-title text-balance text-[clamp(1.75rem,2.6vw,2.25rem)]">Partenaires & conformité</h2>
+            <h2 className="section-title text-balance text-[clamp(1.75rem,2.6vw,2.25rem)]">Normes & engagements</h2>
             <p className="max-w-xl text-base leading-7 text-muted-strong">
-              Une chaîne de partenariats stricts et un cadre normatif clair pour bâtir des architectures ouvertes,
-              normées et tenues dans la durée.
+              Un cadre normatif clair et des engagements professionnels pour bâtir des architectures ouvertes, normées
+              et tenues dans la durée.
             </p>
           </Reveal>
           <Reveal className="mt-10">
             <NormsList />
-          </Reveal>
-          <Reveal className="mt-10">
-            <PartnerGrid />
           </Reveal>
         </div>
       </section>

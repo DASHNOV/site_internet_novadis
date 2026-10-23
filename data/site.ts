@@ -53,21 +53,6 @@ export type Solution = {
     poster?: string;
     alt: string;
   };
-  docs?: { label: string; href: string }[];
-  equipment?: {
-    eyebrow: string;
-    title: string;
-    description: string;
-    items: Camera[];
-  };
-};
-
-export type Camera = {
-  brand: string;
-  type: string;
-  src: string;
-  /** Version détourée (fond transparent) pour les scènes sur fond nuit. */
-  cutout: string;
 };
 
 export type Industry = {
@@ -111,25 +96,12 @@ export const mediaLibrary = {
   stockMeeting: "/novadis/images/stock/reunion-projet.webp",
   // Images produits spécifiques Novadis
   productAmadeus: "/novadis/images/amadeus8.jpg",
-  productServer: "/novadis/images/server_dell.avif",
+  productServer: "/novadis/images/server-rack.webp",
   architecturePrincipe: "/novadis/images/architecture-principe.webp",
   schemaSolutions: "/novadis/images/schema-solutions.webp",
   spacInterview: "/novadis/videos/spac-interview.mp4",
   spacPoster: "/novadis/images/spac-poster.webp",
 };
-
-// Visuels fabricants (fond blanc, détourés) — sources dans _sources/équipement/caméra/
-const cameras = {
-  axisBullet: { brand: "Axis", type: "Bullet extérieure", src: "/novadis/images/cameras/axis-bullet-2.webp", cutout: "/novadis/images/cameras/cutout/axis-bullet-2.webp" },
-  axisBulletIr: { brand: "Axis", type: "Bullet à éclairage intégré", src: "/novadis/images/cameras/axis-bullet-1.webp", cutout: "/novadis/images/cameras/cutout/axis-bullet-1.webp" },
-  axisPtz: { brand: "Axis", type: "Mini-dôme PTZ", src: "/novadis/images/cameras/axis-ptz-mini-dome.webp", cutout: "/novadis/images/cameras/cutout/axis-ptz-mini-dome.webp" },
-  axisMulti: { brand: "Axis", type: "Multicapteur double", src: "/novadis/images/cameras/axis-multicapteur-double.webp", cutout: "/novadis/images/cameras/cutout/axis-multicapteur-double.webp" },
-  hikvisionBullet: { brand: "Hikvision", type: "Bullet", src: "/novadis/images/cameras/hikvision-bullet.webp", cutout: "/novadis/images/cameras/cutout/hikvision-bullet.webp" },
-  hikvisionDome: { brand: "Hikvision", type: "Dôme varifocal", src: "/novadis/images/cameras/hikvision-dome.webp", cutout: "/novadis/images/cameras/cutout/hikvision-dome.webp" },
-  dahuaBullet: { brand: "Dahua", type: "Bullet compacte", src: "/novadis/images/cameras/dahua-bullet.webp", cutout: "/novadis/images/cameras/cutout/dahua-bullet.webp" },
-  dahuaDome: { brand: "Dahua", type: "Dôme varifocal", src: "/novadis/images/cameras/dahua-dome.webp", cutout: "/novadis/images/cameras/cutout/dahua-dome.webp" },
-  dahuaDualDome: { brand: "Dahua", type: "Dôme double capteur", src: "/novadis/images/cameras/dahua-dome-double-capteur.webp", cutout: "/novadis/images/cameras/cutout/dahua-dome-double-capteur.webp" },
-} satisfies Record<string, Camera>;
 
 export const solutions: Solution[] = [
   {
@@ -145,7 +117,7 @@ export const solutions: Solution[] = [
     problem:
       "Lorsque vidéo, contrôle d'accès, intrusion et IoT vivent dans des consoles séparées, les opérateurs perdent du temps, corrèlent mal les événements et la chaîne de décision se fragilise sous pression.",
     solution:
-      "Novadis met en œuvre une couche d'hyperviseur qui agrège les flux des sous-systèmes (Amadeus, Ocularis, Galaxy, IoT, LPR, intercom) dans un poste unique : cartographie temps réel, corrélation d'alarmes, scénarios de levée de doute et procédures pilotées.",
+      "Novadis met en œuvre une couche d'hyperviseur qui agrège les flux des sous-systèmes (Amadeus, vidéo, intrusion, IoT, LPR, interphonie) dans un poste unique : cartographie temps réel, corrélation d'alarmes, scénarios de levée de doute et procédures pilotées.",
     benefits: [
       "Poste opérateur unique",
       "Corrélation multi-systèmes",
@@ -169,18 +141,12 @@ export const solutions: Solution[] = [
       src: mediaLibrary.stockControlRoom,
       alt: "Opérateur face à un mur d'écrans de supervision",
     },
-    docs: [
-      { label: "Serveur OCB", href: "/novadis/documents/fiches/srv-ocb.pdf" },
-      { label: "Poste opérateur WKS2", href: "/novadis/documents/fiches/wks2.pdf" },
-      { label: "Poste opérateur WKS3", href: "/novadis/documents/fiches/wks3.pdf" },
-      { label: "Clavier JET4", href: "/novadis/documents/fiches/jet4.pdf" },
-    ],
   },
   {
     slug: "it-infrastructure",
     title: "Informatique & Infrastructure",
     shortTitle: "IT & Infrastructure",
-    product: "Microsoft Embedded · Dell OEM",
+    product: "Serveurs · Stockage · Virtualisation",
     icon: Cpu,
     summary:
       "Serveurs, stockage, réseau et virtualisation calibrés pour soutenir la sûreté à l'échelle du site et du groupe.",
@@ -189,7 +155,7 @@ export const solutions: Solution[] = [
     problem:
       "Un programme de sûreté perd en fiabilité quand la vidéo, le contrôle d'accès, l'analyse et l'exploitation reposent sur une infrastructure fragmentée ou sous-dimensionnée.",
     solution:
-      "Grâce à nos partenariats Microsoft Embedded et Dell OEM, Novadis adapte chaque couche : calcul, stockage NAS/RAID, réseau dédié, virtualisation VMware ou Hyper-V, haute disponibilité.",
+      "Grâce à ses partenariats constructeurs, Novadis adapte chaque couche : calcul, stockage NAS/RAID, réseau dédié, virtualisation, haute disponibilité.",
     benefits: [
       "Architectures redondées",
       "Stockage NAS/RAID calibré",
@@ -199,7 +165,7 @@ export const solutions: Solution[] = [
     capabilities: [
       "Conception serveurs et stockage",
       "Segmentation réseau et fibre optique",
-      "Virtualisation VMware / Hyper-V",
+      "Virtualisation des serveurs",
       "Exploitation hybride et multi-sites",
     ],
     outcomes: [
@@ -213,13 +179,6 @@ export const solutions: Solution[] = [
       src: mediaLibrary.productServer,
       alt: "Infrastructure informatique Novadis",
     },
-    docs: [
-      { label: "Serveur AMAD", href: "/novadis/documents/fiches/srv-amad.pdf" },
-      { label: "Serveur OCNVR", href: "/novadis/documents/fiches/srv-ocnvr.pdf" },
-      { label: "Poste WKS1", href: "/novadis/documents/fiches/wks1.pdf" },
-      { label: "Poste WKS2", href: "/novadis/documents/fiches/wks2.pdf" },
-      { label: "Poste WKS3", href: "/novadis/documents/fiches/wks3.pdf" },
-    ],
   },
   {
     slug: "access-control",
@@ -258,15 +217,12 @@ export const solutions: Solution[] = [
       src: mediaLibrary.productAmadeus,
       alt: "Contrôle d'accès Amadeus",
     },
-    docs: [
-      { label: "Serveur AMAD", href: "/novadis/documents/fiches/srv-amad.pdf" },
-    ],
   },
   {
     slug: "intrusion-detection",
-    title: "Intrusion — Galaxy",
+    title: "Détection d'intrusion",
     shortTitle: "Intrusion",
-    product: "Galaxy · NFA2P",
+    product: "Centrale d'alarme · NFA2P",
     icon: Radar,
     summary:
       "Détection périmétrique et intérieure conforme NFA2P, pilotée de façon transparente depuis Amadeus.",
@@ -275,7 +231,7 @@ export const solutions: Solution[] = [
     problem:
       "Des détecteurs disjoints génèrent du bruit, ralentissent la qualification d'incident et obligent les équipes à naviguer entre plusieurs outils sous pression.",
     solution:
-      "Galaxy fournit une couche d'alarme autonome, normée NFA2P, supervisée de façon transparente dans Amadeus pour un poste opérateur unique.",
+      "Une centrale d'alarme autonome fournit la couche de détection, normée NFA2P, supervisée de façon transparente dans Amadeus pour un poste opérateur unique.",
     benefits: [
       "Conforme NFA2P",
       "Supervision unifiée",
@@ -302,18 +258,18 @@ export const solutions: Solution[] = [
   },
   {
     slug: "video-surveillance",
-    title: "Vidéosurveillance — Ocularis",
+    title: "Vidéosurveillance",
     shortTitle: "Vidéosurveillance",
-    product: "Ocularis VMS",
+    product: "VMS multi-fabricants",
     icon: Video,
     summary:
-      "Plateforme VMS Ocularis universelle : ouverte, intuitive, évolutive, multi-fabricants caméras.",
+      "Plateforme VMS universelle : ouverte, intuitive, évolutive, multi-fabricants caméras.",
     intro:
       "La vidéo ne doit pas seulement enregistrer. Elle doit aider les équipes à détecter, investiguer et coordonner sereinement.",
     problem:
       "De nombreux parcs vidéo deviennent de simples archives coûteuses, faute d'interfaces, de stockage et de workflows réellement pensés pour l'exploitation.",
     solution:
-      "Ocularis relie caméras, postes opérateurs, stockage et relecture dans un système unifié, avec analyse de timeline, détection de mouvement et compatibilité multi-marques.",
+      "Le VMS relie caméras, postes opérateurs, stockage et relecture dans un système unifié, avec analyse de timeline, détection de mouvement et compatibilité multi-marques.",
     benefits: [
       "Compatible multi-fabricants",
       "Timeline avancée",
@@ -336,25 +292,6 @@ export const solutions: Solution[] = [
       kind: "image",
       src: mediaLibrary.stockCameraMast,
       alt: "Mât équipé de plusieurs caméras de vidéosurveillance",
-    },
-    docs: [
-      { label: "Serveur OCNVR", href: "/novadis/documents/fiches/srv-ocnvr.pdf" },
-    ],
-    equipment: {
-      eyebrow: "Parc caméras",
-      title: "Toutes les caméras, un seul VMS",
-      description:
-        "Ocularis pilote les caméras des principaux fabricants via ONVIF : bullets, dômes, PTZ et multicapteurs cohabitent dans le même poste opérateur.",
-      items: [
-        cameras.axisBullet,
-        cameras.axisPtz,
-        cameras.axisMulti,
-        cameras.hikvisionBullet,
-        cameras.hikvisionDome,
-        cameras.dahuaBullet,
-        cameras.dahuaDome,
-        cameras.dahuaDualDome,
-      ],
     },
   },
   {
@@ -394,19 +331,12 @@ export const solutions: Solution[] = [
       src: mediaLibrary.stockCamera,
       alt: "Caméra de vidéosurveillance fixée sur un mur",
     },
-    equipment: {
-      eyebrow: "Capteurs",
-      title: "Des caméras choisies pour l'analyse",
-      description:
-        "La qualité d'une détection commence au capteur : optique, éclairage et champ de vision sont dimensionnés selon chaque scénario d'analyse.",
-      items: [cameras.axisBulletIr, cameras.axisMulti, cameras.hikvisionDome, cameras.dahuaDualDome],
-    },
   },
   {
     slug: "smart-integrations",
     title: "Intégrations tierces",
     shortTitle: "Intégrations",
-    product: "Biométrie · LPR · IoT · Aperio",
+    product: "Biométrie · LPR · IoT · Sans fil",
     icon: Blocks,
     summary:
       "Biométrie, LPR, IoT, interphonie, armoires à clés et protection périmétrique connectés sans verrouillage.",
@@ -415,7 +345,7 @@ export const solutions: Solution[] = [
     problem:
       "Les intégrations point à point créent fragilité, dépendances opaques et difficultés futures de maintenance.",
     solution:
-      "Novadis relie biométrie (réseau veineux, empreinte CNIL), LPR (ANPR), lecteurs Aperio sans fil, armoires à clés, gestion visiteurs, interphonie et protection périmétrique sismique dans des architectures documentées.",
+      "Novadis relie biométrie (réseau veineux, empreinte CNIL), LPR (ANPR), lecteurs de porte sans fil, armoires à clés, gestion visiteurs, interphonie et protection périmétrique sismique dans des architectures documentées.",
     benefits: [
       "Stratégie système ouvert",
       "Interopérabilité fournisseur",
@@ -593,7 +523,7 @@ export const processSteps = [
 
 export const differentiators = [
   "Première en France à unifier contrôle d'accès, vidéosurveillance et intrusion sur une seule interface",
-  "Exclusivité nationale sur Amadeus (DDS) et Ocularis — une maîtrise produit qu'aucun concurrent ne peut revendiquer",
+  "Exclusivité nationale sur Amadeus — une maîtrise produit qu'aucun concurrent ne peut revendiquer",
   "Zéro sous-traitance : chaque équipement, hardware et software, est paramétré par les ingénieurs Novadis",
   "Présent en amont des appels d'offres pour cadrer le cahier des charges et peser sur la roadmap",
 ];
@@ -729,21 +659,9 @@ export const navItems: NavItem[] = [
   { href: "/contact", label: "Contact" },
 ];
 
-export type PartnerKind = "tech" | "norm" | "association";
+export type PartnerKind = "norm" | "association";
 
-export const partners: { name: string; role: string; kind: PartnerKind; logo?: string }[] = [
-  { name: "DDS", role: "Éditeur Amadeus", kind: "tech", logo: "/novadis/logos/partners/dds.webp" },
-  { name: "Qognify", role: "Éditeur Ocularis", kind: "tech", logo: "/novadis/logos/partners/qognify.webp" },
-  { name: "Honeywell", role: "Galaxy · Intrusion", kind: "tech", logo: "/novadis/logos/partners/honeywell.webp" },
-  { name: "Axis", role: "Caméras IP", kind: "tech", logo: "/novadis/logos/partners/axis.webp" },
-  { name: "Hikvision", role: "Caméras IP", kind: "tech", logo: "/novadis/logos/partners/hikvision.webp" },
-  { name: "Dahua", role: "Caméras IP", kind: "tech", logo: "/novadis/logos/partners/dahua.webp" },
-  { name: "HID", role: "Lecteurs & badges", kind: "tech", logo: "/novadis/logos/partners/hid.webp" },
-  { name: "STid", role: "Lecteurs RFID", kind: "tech", logo: "/novadis/logos/partners/stid.webp" },
-  { name: "Dell", role: "OEM Infrastructure", kind: "tech", logo: "/novadis/logos/partners/dell.webp" },
-  { name: "Microsoft", role: "Embedded OEM", kind: "tech", logo: "/novadis/logos/partners/microsoft.webp" },
-  { name: "VMware", role: "Virtualisation", kind: "tech", logo: "/novadis/logos/partners/vmware.webp" },
-  { name: "Aperio", role: "Lecteurs sans fil", kind: "tech", logo: "/novadis/logos/partners/aperio.webp" },
+export const partners: { name: string; role: string; kind: PartnerKind }[] = [
   { name: "ANSSI", role: "Conformité", kind: "norm" },
   { name: "NFA2P", role: "Norme intrusion", kind: "norm" },
   { name: "CNIL", role: "Biométrie", kind: "norm" },
@@ -814,9 +732,10 @@ export const architectureLayers: ArchitectureLayer[] = [
 ];
 
 // Mobile AR preview of the hero camera (model: design/3d/axis-p1465-le.blend, ~ 37 cm with its wall mount).
+// The brand lettering on the hood is detached from the exported scenes: no maker is named on the site.
 export const arPreview = {
   label: "Voir dans votre espace",
-  title: "AXIS P1465-LE",
+  title: "Caméra bullet extérieure",
   glb: "/novadis/models/axis-p1465-le-ar.glb",
   usdz: "/novadis/models/axis-p1465-le.usdz",
 };
@@ -854,7 +773,7 @@ export const badgeDoor = {
 // anchors.detector[frame] / anchors.intruder[frame] = [x0, y0, x1, y1] en fraction de l'image (suivis sur le film).
 export const intrusionScene = {
   solutionSlug: "intrusion-detection",
-  eyebrow: "Galaxy",
+  eyebrow: "Détection d'intrusion",
   title: "Une intrusion, en trois temps",
   frameCount: 97,
   framePath: (index: number) => `/novadis/sequences/intrusion/${String(index).padStart(2, "0")}.webp`,
@@ -865,7 +784,7 @@ export const intrusionScene = {
   staticFrame: 45,
   beats: { detected: 33, escalated: 54 },
   steps: [
-    { label: "Zone sous surveillance", text: "Capteurs intérieurs et extérieurs : la centrale Galaxy veille en continu sur chaque zone armée." },
+    { label: "Zone sous surveillance", text: "Capteurs intérieurs et extérieurs : la centrale d'alarme veille en continu sur chaque zone armée." },
     { label: "Intrusion détectée", text: "Conforme NFA2P : le détecteur déclenche, la centrale qualifie l'alarme et la localise." },
     { label: "Escalade immédiate", text: "Supervision unifiée : l'alarme remonte aussitôt dans Amadeus, l'opérateur engage la réponse." },
   ],
@@ -874,7 +793,7 @@ export const intrusionScene = {
     armed: "Zone armée",
     watching: "Surveillance active",
     detected: "Mouvement détecté",
-    panel: "Centrale Galaxy · NFA2P",
+    panel: "Centrale d'alarme · NFA2P",
     intruder: "Intrus",
   },
   event: { title: "Intrusion · Zone 04", detail: "Entrepôt · Allée B", logged: "Remontée à Amadeus" },
@@ -887,7 +806,7 @@ export const intrusionScene = {
 // anchors[frame][label] = position projetée de la pièce, en fraction de l'image (exportée de Blender).
 export const axisExplode = {
   solutionSlug: "video-surveillance",
-  eyebrow: "AXIS Q6010-E",
+  eyebrow: "Caméra multicapteur",
   title: "Une caméra, pièce par pièce",
   description:
     "Faites défiler pour ouvrir la caméra : quatre capteurs couvrent les alentours, le dôme PTZ vient zoomer sur l'événement.",
@@ -906,21 +825,10 @@ export const axisExplode = {
   steps: [
     { title: "Ouvrir", text: "Support, capot, bulle : une architecture modulaire, pensée pour la pose et la maintenance." },
     { title: "Couvrir", text: "Quatre capteurs couvrent les alentours, le dôme PTZ zoome sur l'événement." },
-    { title: "Fédérer", text: "Axis, Hikvision, Dahua : tout le parc remonte dans le même poste opérateur." },
   ],
-  hub: "Un seul VMS · tout le parc",
-  // Constellation finale, positions en fraction de la scène.
-  fleet: [
-    { camera: cameras.axisMulti, x: 0.13, y: 0.13 },
-    { camera: cameras.hikvisionDome, x: 0.87, y: 0.12 },
-    { camera: cameras.dahuaBullet, x: 0.93, y: 0.5 },
-    { camera: cameras.axisPtz, x: 0.85, y: 0.87 },
-    { camera: cameras.dahuaDualDome, x: 0.15, y: 0.87 },
-    { camera: cameras.hikvisionBullet, x: 0.07, y: 0.5 },
-  ] satisfies { camera: Camera; x: number; y: number }[],
 };
 
-// Modèle 3D interactif du hero /solutions : caméra bullet AXIS P1465-LE.
+// Modèle 3D interactif du hero /solutions : caméra bullet extérieure.
 export const solutionsHeroModel = {
   name: arPreview.title,
   hint: "Faites pivoter la caméra",
@@ -1029,7 +937,7 @@ export const supervisionRoom = {
   ],
 };
 
-export const heroTechnologies = ["Amadeus", "Ocularis", "Galaxy"];
+export const heroTechnologies = ["Amadeus"];
 
 export const architecturePoints: { label: string; icon: LucideIcon }[] = [
   { label: "Couche opérationnelle unifiée", icon: Workflow },

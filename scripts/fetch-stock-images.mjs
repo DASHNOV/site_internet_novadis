@@ -21,13 +21,10 @@ const manifest = [
   { id: "TtMKq3lJm-U", out: "stock/salle-supervision.webp" },
   { id: "pDtgBIGa0cM", out: "stock/camera-videosurveillance.webp" },
   { id: "SRFG7iwktDk", out: "stock/biometrie-empreinte.webp" },
-  { id: "CSMbdyGa8mE", out: "clients/casino-monaco.webp", grade: false },
 ];
 
-// Les sites clients restent fidèles à la réalité : pas de voile coloré.
-async function grade(input, enabled) {
+async function grade(input) {
   const base = sharp(input).rotate().resize({ width: WIDTH, height: 1350, fit: "inside", withoutEnlargement: true });
-  if (!enabled) return base.modulate({ saturation: 0.92 });
   const { data, info } = await base
     .modulate({ saturation: 0.8, brightness: 1.03 })
     .toBuffer({ resolveWithObject: true });
@@ -40,7 +37,7 @@ async function grade(input, enabled) {
 }
 
 const filter = process.argv[2];
-for (const { id, out, grade: withGrade = true } of manifest) {
+for (const { id, out } of manifest) {
   if (filter && !out.includes(filter)) continue;
   const res = await fetch(`https://unsplash.com/photos/${id}/download?w=${WIDTH * 1.2}`, {
     headers: { "User-Agent": "Mozilla/5.0" },
@@ -51,7 +48,7 @@ for (const { id, out, grade: withGrade = true } of manifest) {
   }
   const target = resolve(OUT_ROOT, out);
   await mkdir(dirname(target), { recursive: true });
-  const image = await grade(Buffer.from(await res.arrayBuffer()), withGrade);
+  const image = await grade(Buffer.from(await res.arrayBuffer()));
   const info = await image.webp({ quality: 78, effort: 5 }).toFile(target);
   console.log(`OK    ${out}  ${info.width}x${info.height}  ${Math.round(info.size / 1024)} Ko`);
 }

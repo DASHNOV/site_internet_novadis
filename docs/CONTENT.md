@@ -5,6 +5,51 @@
 
 ---
 
+## Retrait des références clients et des marques (23/10/2026)
+
+> Décision de la direction après la démo : aucun client, site ni marque n'est cité sur le site,
+> à l'exception d'**Amadeus**. Les marques restent mentionnées ci-dessous comme historique interne.
+
+```
+Références phares : Centre hospitalier universitaire (Santé)
+                    Établissement de prestige (Luxe & Hospitality)
+                    Site patrimonial recevant du public (Tertiaire / Culture)
+                    Périmètres inchangés. Images générées par IA (images/references/).
+Note /references  : Les cas présentés sont anonymisés ; les données techniques et les
+                    périmètres restent réels.
+Partenaires       : grille des logos supprimée (accueil, /solutions, /about). Section renommée
+                    « Normes & engagements » : Un cadre normatif clair et des engagements
+                    professionnels pour bâtir des architectures ouvertes, normées et tenues
+                    dans la durée. Restent : ANSSI, NFA2P, CNIL, Arseg, Synergie.
+Hero accueil      : libellé « Technologies » → « Plateforme exclusive » · Amadeus
+Différenciateur   : Exclusivité nationale sur Amadeus — une maîtrise produit qu'aucun
+                    concurrent ne peut revendiquer
+Supervision       : (Amadeus, vidéo, intrusion, IoT, LPR, interphonie)
+IT & Infra        : produit « Serveurs · Stockage · Virtualisation » ; texte « Grâce à ses
+                    partenariats constructeurs, Novadis adapte chaque couche : calcul, stockage
+                    NAS/RAID, réseau dédié, virtualisation, haute disponibilité. » ; capacité
+                    « Virtualisation des serveurs »
+Intrusion         : titre « Détection d'intrusion » ; produit « Centrale d'alarme · NFA2P » ;
+                    « Une centrale d'alarme autonome fournit la couche de détection, normée
+                    NFA2P, supervisée de façon transparente dans Amadeus [...] »
+Vidéosurveillance : titre « Vidéosurveillance » ; produit « VMS multi-fabricants » ;
+                    « Plateforme VMS universelle [...] » ; « Le VMS relie caméras [...] »
+Intégrations      : produit « Biométrie · LPR · IoT · Sans fil » ; « lecteurs de porte sans fil »
+Secteurs          : « Lecteurs de porte sans fil sur 300 portes » ; « Standardisation Amadeus
+                    et vidéo »
+/solutions (meta) : Amadeus, vidéosurveillance, détection d'intrusion, infrastructure IT [...]
+Modèle 3D hero    : nom « Caméra bullet extérieure » ; inscription de marque retirée du capot
+                    (GLB, GLB AR et USDZ)
+```
+> ⚠️ Tous ces textes sont à valider.
+> 23/10/2026 — Photos de caméras, galeries « Parc caméras » / « Capteurs », constellation de la
+> vue éclatée (étape « Fédérer »), fiches PDF (« Fiches produits ») et bouton « Télécharger la
+> plaquette » retirés du site : ils citaient ou montraient des marques. Les fiches et la
+> plaquette sont à faire reprendre avant d'être republiées.
+> Image IT & Infrastructure : baie serveur générée par IA, sans logo (`images/server-rack.webp`).
+
+---
+
 ## Métadonnées globales
 
 ```
@@ -79,9 +124,8 @@ Badges           : Conforme ANSSI · Norme NFA2P · CNIL biométrie (sous les CT
 > Le hashtag #DetailsMakeTheDifference a été retiré du hero. À valider.
 
 ### Références clients (nouvelle section homepage)
-> ⚠️ Les 3 références phares (CHU Montpellier, Casino de Monaco, Bourse de
-> Commerce) sont désormais affichées sur la homepage. Vérifier que Novadis a
-> le droit de citer ces clients publiquement.
+> 23/10/2026 — Les 3 références phares sont anonymisées (voir « Retrait des références
+> clients et des marques »). Aucun client n'est plus nommé.
 
 ### Métriques clés (StatRow)
 ```
@@ -262,12 +306,12 @@ Indice    : Faites défiler
 ## Solution Intrusion — film de l'entrepôt
 
 ```
-Eyebrow   : Galaxy
+Eyebrow   : Détection d'intrusion
 Titre     : Une intrusion, en trois temps
-Étape 1   : Zone sous surveillance — Capteurs intérieurs et extérieurs : la centrale Galaxy veille en continu sur chaque zone armée.
+Étape 1   : Zone sous surveillance — Capteurs intérieurs et extérieurs : la centrale d'alarme veille en continu sur chaque zone armée.
 Étape 2   : Intrusion détectée — Conforme NFA2P : le détecteur déclenche, la centrale qualifie l'alarme et la localise.
 Étape 3   : Escalade immédiate — Supervision unifiée : l'alarme remonte aussitôt dans Amadeus, l'opérateur engage la réponse.
-HUD       : Détecteur · Zone 04 / Zone armée / Surveillance active / Mouvement détecté / Centrale Galaxy · NFA2P / Intrus
+HUD       : Détecteur · Zone 04 / Zone armée / Surveillance active / Mouvement détecté / Centrale d'alarme · NFA2P / Intrus
 Notif.    : Intrusion · Zone 04 · Entrepôt · Allée B · Remontée à Amadeus
 Indice    : Faites défiler
 ```
@@ -277,10 +321,10 @@ Indice    : Faites défiler
 
 ---
 
-## Solution Vidéosurveillance — vue éclatée AXIS Q6010-E
+## Solution Vidéosurveillance — vue éclatée caméra multicapteur
 
 ```
-Eyebrow     : AXIS Q6010-E
+Eyebrow     : Caméra multicapteur
 Titre       : Une caméra, pièce par pièce
 Texte       : Faites défiler pour ouvrir la caméra : quatre capteurs couvrent les alentours,
               le dôme PTZ vient zoomer sur l'événement.
@@ -289,36 +333,19 @@ Texte       : Faites défiler pour ouvrir la caméra : quatre capteurs couvrent 
 Étapes      : 01 Ouvrir — Support, capot, bulle : une architecture modulaire, pensée pour la
               pose et la maintenance.
               02 Couvrir — Quatre capteurs couvrent les alentours, le dôme PTZ zoome sur l'événement.
-              03 Fédérer — Axis, Hikvision, Dahua : tout le parc remonte dans le même poste opérateur.
-Pastille    : Un seul VMS · tout le parc
-Constellation : Axis (multicapteur double, mini-dôme PTZ), Hikvision (dôme, bullet),
-                Dahua (bullet, dôme double capteur)
+(Étape 03 « Fédérer », pastille et constellation de caméras retirées le 23/10/2026.)
 ```
 > ⚠️ Nouveaux textes à valider, notamment la description technique (rôle des capteurs
 > et du PTZ) avec la fiche produit Axis, et « architecture modulaire » (étape 01).
 > Rendu Blender : design/3d/novadis-explode-v2.blend (100 frames : ouverture, cônes de
 > vision des capteurs, balayage PTZ — les faisceaux sont une illustration, pas des champs
-> de vision mesurés). Caméras détourées dans public/novadis/images/cameras/cutout/.
+> de vision mesurés).
 
 ---
 
 ## Solutions Vidéosurveillance & Analyse d'image — galeries caméras
 
-```
-Vidéosurveillance : eyebrow "Parc caméras" · titre "Toutes les caméras, un seul VMS"
-                    Texte : Ocularis pilote les caméras des principaux fabricants via ONVIF : bullets,
-                    dômes, PTZ et multicapteurs cohabitent dans le même poste opérateur.
-                    8 caméras : Axis (bullet, mini-dôme PTZ, multicapteur double),
-                    Hikvision (bullet, dôme), Dahua (bullet, dôme, dôme double capteur)
-Analyse d'image   : eyebrow "Capteurs" · titre "Des caméras choisies pour l'analyse"
-                    Texte : La qualité d'une détection commence au capteur : optique, éclairage et
-                    champ de vision sont dimensionnés selon chaque scénario d'analyse.
-                    4 caméras : Axis (bullet, multicapteur), Hikvision (dôme), Dahua (dôme double capteur)
-```
-> ⚠️ Nouveaux textes à valider. Types de caméras déduits des photos, sans référence de modèle.
-> Axis, Hikvision et Dahua sont partenaires de Novadis (confirmé le 14/10/2026).
-> ⚠️ Photos produits récupérées sur le web (`_sources/équipement/caméra/`) : à remplacer par
-> les visuels officiels des kits partenaires avant la mise en ligne.
+> Retirées le 23/10/2026 (photos fabricants avec logos).
 
 ---
 
@@ -351,7 +378,7 @@ fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent 
 | `images/stock/clavier-acces.webp` | Solution Intrusion — Galaxy | [Unsplash qB8tpVXQh6Y](https://unsplash.com/photos/qB8tpVXQh6Y) — vuk burgic | [Licence Unsplash](https://unsplash.com/license) |
 | `images/stock/etude-plan.webp` | Hero /about | [Unsplash xYCBw1uIP_M](https://unsplash.com/photos/xYCBw1uIP_M) — ThisisEngineering | [Licence Unsplash](https://unsplash.com/license) |
 | `images/stock/reunion-projet.webp` | Hero /contact | [Unsplash 05gac-Qn0k4](https://unsplash.com/photos/05gac-Qn0k4) — Cherrydeck | [Licence Unsplash](https://unsplash.com/license) |
-| `images/clients/casino-monaco.webp` | Référence Casino de Monaco, hero de l'accueil | [Unsplash CSMbdyGa8mE](https://unsplash.com/photos/CSMbdyGa8mE) — Mony Misheal | [Licence Unsplash](https://unsplash.com/license) |
+| `images/references/*.webp` (3 images) | Références phares (accueil, /references) | Générées par IA le 23/10/2026 (hôpital, établissement de prestige, site patrimonial) — étalonnage Novadis léger | Conditions du générateur — **usage commercial à confirmer** |
 | `videos/salle-supervision.mp4` + `images/stock/salle-supervision-poster.webp` | /services, solution Intégrations | Générée par IA avec Higgsfield le 13/10/2026 (image puis animation), montée en boucle de 7 s avec fondu — originaux dans `_sources/higgsfield/` (non versionné) | Conditions du plan Higgsfield — **usage commercial à confirmer** |
 | `models/server-rack.glb`, `models/control-room.glb` | Parcours 3D (/solutions) | Modélisés pour Novadis dans Blender (textures d'écran générées) | Propriété Novadis |
 | `models/axis-p1465-le.glb`, `axis-p1465-le-ar.glb`, `axis-p1465-le.usdz` | Hero /solutions (modèle interactif + aperçu AR) | Caméra bullet modélisée pour Novadis dans Blender (`design/3d/axis-p1465-le.blend`) d'après la photo produit `images/cameras/axis-bullet-2.webp` | Propriété Novadis (marque AXIS reproduite sur le capot) |
@@ -373,7 +400,7 @@ fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent 
 > ⚠️ Ce sont des visuels d'illustration, pas des installations Novadis. À remplacer
 > par des photos de chantiers réels dès que possible.
 > Les photos Unsplash restantes sont téléchargées et étalonnées (tons froids, voile bleu
-> Novadis, sauf la photo du Casino de Monaco) par `scripts/fetch-stock-images.mjs` :
+> Novadis) par `scripts/fetch-stock-images.mjs` :
 > pour remplacer une image, modifier l'identifiant dans son manifeste et relancer le script.
 > ⚠️ La légende du hero /about, « Équipes à taille humaine · Levallois-Perret », accompagne
 > désormais une photo d'illustration (pas l'équipe Novadis) : légende à revoir.

@@ -19,7 +19,7 @@ import { solutions } from "@/data/site";
 export const metadata: Metadata = {
   title: "Solutions globales de sûreté",
   description:
-    "Un portefeuille modulaire conçu comme un système cohérent : Amadeus, Ocularis, Galaxy, infrastructure IT, analyse d'image, intégrations.",
+    "Un portefeuille modulaire conçu comme un système cohérent : Amadeus, vidéosurveillance, détection d'intrusion, infrastructure IT, analyse d'image, intégrations.",
 };
 
 export default function SolutionsPage() {

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, FileText } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { CtaBanner } from "@/components/sections/cta-banner";
-import { EquipmentGallery } from "@/components/sections/equipment-gallery";
 import { MediaFrame } from "@/components/sections/media-frame";
 import { PageHero } from "@/components/sections/page-hero";
 import { SectionHeading } from "@/components/sections/section-heading";
@@ -11,7 +10,6 @@ import { Reveal } from "@/components/motion/reveal";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { CheckList } from "@/components/ui/check-list";
-import { IconBadge } from "@/components/ui/icon-badge";
 import { SplitTitle } from "@/components/ui/split-title";
 import { AxisExplode } from "@/components/motion/axis-explode";
 import { BadgeDoor } from "@/components/motion/badge-door";
@@ -125,35 +123,6 @@ export default async function SolutionDetailPage({ params }: { params: Params })
           </ul>
         </div>
       </section>
-
-      {solution.equipment && <EquipmentGallery {...solution.equipment} />}
-
-      {solution.docs && solution.docs.length > 0 && (
-        <section className="section-y">
-          <div className="shell-wide">
-            <SectionHeading title="Fiches produits" />
-            <ul className="mt-10 grid border-t border-hairline md:grid-cols-2 md:gap-x-10">
-              {solution.docs.map((doc) => (
-                <li className="border-b border-hairline" key={doc.href}>
-                  <a
-                    className="group flex min-h-16 items-center gap-4 py-4 hover:text-primary-strong"
-                    href={doc.href}
-                    rel="noopener"
-                    target="_blank"
-                  >
-                    <IconBadge icon={FileText} />
-                    <span className="min-w-0 flex-1 truncate text-sm font-semibold text-foreground-strong group-hover:text-primary-strong">
-                      {doc.label}
-                    </span>
-                    <span className="data-label">PDF</span>
-                    <ArrowUpRight aria-hidden className="cta-arrow h-4 w-4 shrink-0 text-primary-strong" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
 
       <CtaBanner />
       <SiteFooter />

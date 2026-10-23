@@ -42,8 +42,7 @@ export default function ReferencesPage() {
       <section className="shell-wide pt-8">
         <p className="flex max-w-3xl items-start gap-3 text-sm leading-6 text-muted-strong">
           <IconBadge className="mt-1" icon={Info} size="sm" />
-          Certaines références emblématiques sont présentées avec l&apos;accord du client. Les autres cas sont
-          anonymisés ; les données techniques et les périmètres restent réels.
+          Les cas présentés sont anonymisés ; les données techniques et les périmètres restent réels.
         </p>
       </section>
 
@@ -51,7 +50,7 @@ export default function ReferencesPage() {
         <StatRow />
       </div>
 
-      {/* Clients phares (nommés, avec accord) */}
+      {/* Cas phares (anonymisés) */}
       <section className="section-y">
         <div className="shell-wide">
           <SectionHeading title="Des environnements à très forte exigence" />

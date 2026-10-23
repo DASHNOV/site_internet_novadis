@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Download, Mail, Phone } from "lucide-react";
+import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 
@@ -27,12 +27,6 @@ export function CtaBanner() {
                     <ArrowUpRight className="cta-arrow h-4 w-4" />
                   </Button>
                 </Link>
-                <a href="/novadis/documents/plaquette-novadis.pdf" rel="noopener" target="_blank">
-                  <Button size="lg" variant="outline-night">
-                    <Download className="h-4 w-4" />
-                    Télécharger la plaquette
-                  </Button>
-                </a>
               </div>
             </div>
 

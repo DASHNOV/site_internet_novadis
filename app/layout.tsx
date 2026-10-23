@@ -39,8 +39,6 @@ export const metadata: Metadata = {
     "vidéosurveillance",
     "infrastructures critiques",
     "Amadeus",
-    "Ocularis",
-    "Galaxy",
     "convergence IT",
     "Novadis",
   ],
