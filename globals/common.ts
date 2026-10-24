@@ -6,7 +6,11 @@ import { accentTitle, drafts, link, text, textList } from "../fields";
 export const Common: GlobalConfig = {
   slug: "common",
   label: "Éléments communs",
-  admin: { group: "Éléments communs", description: "Textes repris sur plusieurs pages du site." },
+  admin: {
+    group: "Éléments communs",
+    description: "Textes repris sur plusieurs pages du site.",
+    components: { elements: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] } },
+  },
   access: { read: publishedOrLoggedIn, readVersions: isLoggedIn, update: canEdit },
   hooks: { afterChange: [revalidateOnPublish] },
   versions: drafts,

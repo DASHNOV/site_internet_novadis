@@ -8,6 +8,7 @@ export const Solutions: CollectionConfig = {
   labels: { singular: "Solution", plural: "Solutions" },
   admin: {
     group: "Offre",
+    components: { edit: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] } },
     useAsTitle: "title",
     defaultColumns: ["title", "product", "updatedAt"],
   },

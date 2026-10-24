@@ -8,6 +8,7 @@ export const Challenges: CollectionConfig = {
   labels: { singular: "Enjeu", plural: "Enjeux" },
   admin: {
     group: "Offre",
+    components: { edit: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] } },
     useAsTitle: "title",
     defaultColumns: ["title", "href", "updatedAt"],
     description: "Bloc « Chaque projet commence par un problème concret » de l'accueil.",

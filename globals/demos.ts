@@ -31,6 +31,7 @@ export const Demos: GlobalConfig = {
   admin: {
     group: "Éléments communs",
     description: "Textes affichés dans les films et les scènes 3D. Les animations elles-mêmes restent gérées par l'équipe technique.",
+    components: { elements: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] } },
   },
   access: { read: publishedOrLoggedIn, readVersions: isLoggedIn, update: canEdit },
   hooks: { afterChange: [revalidateOnPublish] },

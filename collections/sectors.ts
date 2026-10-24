@@ -8,6 +8,7 @@ export const Sectors: CollectionConfig = {
   labels: { singular: "Secteur", plural: "Secteurs" },
   admin: {
     group: "Offre",
+    components: { edit: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] } },
     useAsTitle: "title",
     defaultColumns: ["title", "updatedAt"],
   },

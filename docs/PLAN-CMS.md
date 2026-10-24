@@ -164,10 +164,12 @@ Décidé le 23/10/2026 : les commerciaux modifient les textes **directement sur 
 
 ## Étape 8 — Confort pour les commerciaux
 
-- [ ] Interface d'admin en français, avec le logo Novadis et le titre « Novadis — Contenus ».
-- [ ] Organiser la navigation de l'admin par groupes : « Pages », « Offre », « Éléments communs », « Médias ».
-- [ ] Ajouter un bouton « Voir sur le site » sur chaque document.
-- [ ] Rédiger une fiche d'une page « Comment modifier un texte », à remettre à l'équipe.
+- [x] Interface d'admin en français, avec le logo Novadis et le titre « Novadis — Contenus » sur l'écran de connexion, l'icône dans le menu et dans l'onglet du navigateur (`components/admin/brand.tsx`). L'admin reste en thème clair, comme le site, pour que le logo reste lisible.
+- [x] Navigation de l'admin par groupes : « Pages », « Offre », « Éléments communs », « Médias » (et « Administration » pour les admins).
+- [x] Bouton « Voir sur le site » sur chaque page et chaque fiche (`components/admin/view-on-site.tsx`). Il ouvre la page concernée en mode édition, dans un nouvel onglet : la fiche solution, le secteur sur la page Secteurs, les références, ou l'accueil pour les enjeux, les éléments communs et les démonstrations. La médiathèque et les comptes n'en ont pas.
+- [x] Fiche d'une page « Comment modifier un texte » : `docs/FICHE-EDITION.md`.
+
+✅ Vérifié le 24/10/2026, par requêtes HTTP sur le serveur de dev : l'écran de connexion affiche le logo et « Novadis — Contenus ». Connecté en rédacteur, le bouton pointe vers la bonne page pour l'accueil, les éléments communs, une solution (`/solutions/supervision`), un secteur (`/secteurs#tertiaire`) et les références, et il est absent de la médiathèque. `/edition` redirige bien vers une ancre (`/secteurs#banking`). `tsc` passe.
 
 ## Étape 9 — Recette
 

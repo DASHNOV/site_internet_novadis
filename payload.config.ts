@@ -25,7 +25,19 @@ function demoPrefill() {
 export default buildConfig({
   admin: {
     user: Users.slug,
-    meta: { titleSuffix: " · Novadis — Contenus" },
+    meta: {
+      title: "Novadis — Contenus",
+      titleSuffix: " · Novadis — Contenus",
+      icons: [{ rel: "icon", type: "image/svg+xml", url: "/icon.svg" }],
+    },
+    // Le logo est sombre : l'admin reste en thème clair, comme le site.
+    theme: "light",
+    components: {
+      graphics: {
+        Logo: "/components/admin/brand#AdminLogo",
+        Icon: "/components/admin/brand#AdminIcon",
+      },
+    },
     autoLogin: demoPrefill(),
   },
   collections: [Solutions, Sectors, References, Challenges, Media, Users],

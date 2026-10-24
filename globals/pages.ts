@@ -7,7 +7,7 @@ function pageGlobal(slug: string, label: string, fields: Field[]): GlobalConfig 
   return {
     slug,
     label,
-    admin: { group: "Pages" },
+    admin: { group: "Pages", components: { elements: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] } } },
     access: { read: publishedOrLoggedIn, readVersions: isLoggedIn, update: canEdit },
     hooks: { afterChange: [revalidateOnPublish] },
     versions: drafts,

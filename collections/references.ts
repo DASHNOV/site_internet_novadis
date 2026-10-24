@@ -8,6 +8,7 @@ export const References: CollectionConfig = {
   labels: { singular: "Référence", plural: "Références" },
   admin: {
     group: "Offre",
+    components: { edit: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] } },
     useAsTitle: "name",
     defaultColumns: ["name", "sector", "updatedAt"],
     description: "Cas phares anonymisés, affichés sur l'accueil et la page Références.",
