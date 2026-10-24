@@ -37,7 +37,7 @@ export async function CtaBanner() {
                 <span>{copy.consoleTitle}</span>
                 <span className="text-glow">{contactDetails.regions}</span>
               </div>
-              <a className={contactRow} href={`mailto:${contactDetails.email}`}>
+              <a className={contactRow} href={contactDetails.emailHref}>
                 <span className="flex items-center gap-4">
                   <Mail aria-hidden className="h-4 w-4 text-glow" />
                   <span>

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { SiteContentProvider } from "@/components/content-provider";
-import { getCmsRaw } from "@/lib/content/server";
+import { EditModeLoader } from "@/components/edit/edit-mode-loader";
+import { getCmsRaw, isEditing } from "@/lib/content/server";
 import { fontVariables } from "./fonts";
 import "./globals.css";
 
@@ -37,7 +38,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  const raw = await getCmsRaw();
+  const [raw, editing] = await Promise.all([getCmsRaw(), isEditing()]);
   return (
     <html lang="fr" suppressHydrationWarning>
       <body
@@ -47,7 +48,10 @@ export default async function RootLayout({
         <noscript>
           <style>{"[data-reveal]{opacity:1!important;transform:none!important}"}</style>
         </noscript>
-        <SiteContentProvider raw={raw}>{children}</SiteContentProvider>
+        <SiteContentProvider raw={raw}>
+          {children}
+          {editing && <EditModeLoader />}
+        </SiteContentProvider>
       </body>
     </html>
   );

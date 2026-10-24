@@ -2,6 +2,7 @@ import config from "@payload-config";
 import { draftMode, headers } from "next/headers";
 import { getPayload } from "payload";
 import { cache } from "react";
+import { annotateForEditing } from "./annotate";
 import { buildSiteContent, type CmsRaw } from "./build";
 
 // Mode édition : le cookie de brouillon de Next (posé par /edition) ET une session Payload encore valide.
@@ -47,7 +48,12 @@ const loadCmsRaw = cache(async (draft: boolean): Promise<CmsRaw> => {
   };
 });
 
-export const getCmsRaw = async () => loadCmsRaw(await isEditing());
+// En mode édition, chaque texte porte l'adresse de son champ pour l'édition dans la page.
+export const getCmsRaw = cache(async () => {
+  const editing = await isEditing();
+  const raw = await loadCmsRaw(editing);
+  return editing ? annotateForEditing(raw) : raw;
+});
 
 export const getSiteContent = cache(async () => buildSiteContent(await getCmsRaw()));
 

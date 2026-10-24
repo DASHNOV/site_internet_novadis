@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { getSiteContent } from "@/lib/content/server";
+import { cleanText } from "@/lib/content/stega";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
 import { PageHero } from "@/components/sections/page-hero";
@@ -60,7 +61,7 @@ export default async function SolutionsPage() {
                     <IconBadge className="mt-2" icon={solution.icon} size="lg" />
                     {solution.title}
                   </h2>
-                  {solution.product && !solution.title.includes(solution.product) && <p className="mt-2 pl-9 text-sm font-medium text-primary-strong">{solution.product}</p>}
+                  {solution.product && !cleanText(solution.title).includes(cleanText(solution.product)) && <p className="mt-2 pl-9 text-sm font-medium text-primary-strong">{solution.product}</p>}
                   <p className="mt-6 max-w-xl text-base leading-7 text-foreground sm:text-lg">{solution.summary}</p>
                   <p className="mt-4 max-w-xl text-sm leading-7 text-muted-strong">{solution.solution}</p>
                   <CheckList className="mt-7" columns={2} items={solution.capabilities} />

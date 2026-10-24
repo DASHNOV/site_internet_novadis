@@ -141,18 +141,26 @@ Le découpage suit les pages, pour que les commerciaux retrouvent facilement cha
 
 ## Étape 7 — Édition directe dans la page
 
-Décidé le 23/10/2026 : les commerciaux modifient les textes **directement sur le site**, sans passer par les formulaires de l'admin. L'admin reste là pour publier, consulter l'historique et revenir en arrière. Payload ne propose pas cette édition, elle est donc développée pour le projet.
+Décidé le 23/10/2026 : les commerciaux modifient les textes **directement sur le site**, sans passer par les formulaires de l'admin. L'admin reste là pour l'historique et le retour en arrière. Payload ne propose pas cette édition, elle est donc développée pour le projet.
 
-- [ ] **Mode édition** : quand un compte connecté ouvre le site en mode brouillon (`/edition`), les pages affichent les brouillons et une barre d'édition (compte connecté, statut, « Publier » pour les publieurs, lien vers l'admin et l'historique).
-- [ ] **Textes repérables** : chaque texte venant de Payload porte son adresse dans le CMS (collection ou global, document, chemin du champ), par exemple `data-cms="global:home:hero.title.lead"`. Les composants restent ceux d'aujourd'hui, un petit composant d'enveloppe ajoute ce repère.
-- [ ] **Édition sur place** : un clic sur un texte le rend modifiable (`contentEditable`, texte brut uniquement). La limite de longueur s'affiche en direct. On valide avec Entrée ou en quittant le champ, et Échap annule.
-- [ ] **Enregistrement** : chaque modification est enregistrée en brouillon par l'API Payload (`PATCH ?draft=true`) avec les droits du compte. Un rédacteur ne peut donc toujours pas publier.
-- [ ] **Images** : un clic sur une image propose de la remplacer. Le fichier est envoyé dans la médiathèque, et le texte alternatif est demandé.
-- [ ] **Listes** : les lignes des listes (capacités, bénéfices…) se modifient sur place. Ajouter ou retirer une ligne passe, pour l'instant, par l'admin.
-- [ ] **Animations** : `<Reveal>`, Framer Motion et les scènes 3D ne doivent pas gêner l'édition (révélations désactivées en mode édition, textes des scènes modifiables dans un panneau).
-- [ ] **Hors mode édition**, le site public reste strictement identique, sans aucun script d'édition chargé.
+**Principe : la signature invisible**, la même technique que l'édition visuelle de Sanity et de Vercel. En mode édition, et seulement là, chaque texte venant du CMS se termine par son adresse (document et chemin du champ), écrite en caractères de largeur nulle (`lib/content/stega.ts`). Les images portent la leur dans un paramètre d'URL. `lib/content/annotate.ts` signe les données lues en mode édition, et les composants n'ont pas changé.
+
+- [x] **Mode édition** : `/edition?page=/…` pour un compte connecté. La barre d'édition en bas de page (`components/edit/edit-mode.tsx`) affiche le compte et son rôle, la bascule « Modifier / Naviguer », le nombre de contenus en brouillon, « Publier » pour les publieurs, l'accès à l'admin et « Quitter ».
+- [x] **Édition sur place** : au survol, un cadre et l'étiquette « Modifier le texte ». Au clic, un champ s'ouvre sur le texte avec son libellé (« Capacités clés › ligne 2 ») et le compteur de caractères. La page change pendant la frappe, Entrée enregistre en brouillon et Échap annule.
+- [x] **Enregistrement** (`/edition/enregistrer`) : seul le champ visé est remplacé, et l'enregistrement se fait en brouillon avec les droits du compte. Payload ne contrôle pas les longueurs d'un brouillon : la limite est donc vérifiée tout de suite, avec un message clair. Les champs techniques et les chemins inconnus sont refusés.
+- [x] **Images** : « Remplacer l'image » au survol. Le panneau demande le fichier et le texte alternatif, envoie l'image dans la médiathèque et la rattache en brouillon.
+- [x] **Listes** : chaque ligne (capacités, bénéfices, livrables…) se modifie sur place. Ajouter ou retirer une ligne passe toujours par l'admin.
+- [x] **Publication** (`/edition/publier`) : le publieur publie d'un coup tous les brouillons en attente (`/edition/etat`), et le rédacteur voit « Le responsable commercial publiera vos modifications. ».
+- [x] **Hors mode édition**, le site public est strictement identique : aucune signature, et aucune référence au code d'édition, chargé à part (`edit-mode-loader.tsx`, `next/dynamic`).
 
 **Terminé quand :** connecté en rédacteur, on clique sur le titre de l'accueil, on le retape, et le brouillon est enregistré. Le visiteur voit toujours l'ancien titre, et le publieur publie depuis la barre d'édition.
+
+✅ Vérifié le 24/10/2026 :
+- **Dans le navigateur, en rédacteur** : le titre de l'accueil est retapé dans la page et le brouillon enregistré, sans changement pour le visiteur. Les lignes de liste et le remplacement d'image s'ouvrent correctement, « Naviguer » laisse les liens fonctionner, et « Quitter » revient au site public. Aucune erreur dans la console.
+- **Par l'API, 17 vérifications réussies** : les refus (pas de session, texte trop long, champ technique, chemin inexistant, image invalide, publication par un rédacteur), une ligne de liste modifiée sans toucher au reste de la fiche, une image envoyée puis rattachée en brouillon, et la publication groupée par le publieur, après laquelle le visiteur voit les changements.
+- **Site public** : texte identique aux captures (12 pages strictement identiques, et sur les 2 autres seules les animations varient), aucune signature dans le HTML. `next build` passe, aucune page publique ne référence le code d'édition, et `.next/static` ne contient pas « lidar ».
+
+À savoir : `npm run cms:seed` réécrit les comptes de démo et ferme donc les sessions ouvertes. Après une remise à zéro, il faut se reconnecter.
 
 ## Étape 8 — Confort pour les commerciaux
 

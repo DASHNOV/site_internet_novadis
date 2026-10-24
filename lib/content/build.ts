@@ -8,6 +8,7 @@ import type { Sector } from "@/data/sectors";
 import * as site from "@/data/site";
 import type { Challenge, Industry, Metric, NavItem, RegulatoryTopic, Solution } from "@/data/site";
 import { icons } from "@/lib/icons";
+import { cleanText } from "./stega";
 import type {
   AboutPage,
   Challenge as CmsChallenge,
@@ -156,14 +157,15 @@ export function buildSiteContent(raw: CmsRaw) {
 
   const contactDetails = {
     email: common.contact.email,
+    emailHref: `mailto:${cleanText(common.contact.email)}`,
     phone: common.contact.phone,
-    phoneHref: `tel:${common.contact.phone.replace(/[^+\d]/g, "")}`,
+    phoneHref: `tel:${cleanText(common.contact.phone).replace(/[^+\d]/g, "")}`,
     addressLines: lines(common.contact.addressLines),
     regions: common.contact.regions,
   };
 
   const contactChannels = [
-    { icon: Mail, label: contactPage.channels.emailLabel, value: contactDetails.email, href: `mailto:${contactDetails.email}` },
+    { icon: Mail, label: contactPage.channels.emailLabel, value: contactDetails.email, href: contactDetails.emailHref },
     { icon: Phone, label: contactPage.channels.phoneLabel, value: contactDetails.phone, href: contactDetails.phoneHref },
     { icon: MapPin, label: contactPage.channels.addressLabel, value: common.contact.addressInline, href: common.contact.mapsUrl },
   ];

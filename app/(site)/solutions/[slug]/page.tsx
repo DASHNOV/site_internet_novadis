@@ -16,6 +16,7 @@ import { BadgeDoor } from "@/components/motion/badge-door";
 import { IntrusionScene } from "@/components/motion/intrusion-scene";
 import { SupervisionRoom } from "@/components/three/supervision-room";
 import { getPublishedContent, getSiteContent } from "@/lib/content/server";
+import { cleanText } from "@/lib/content/stega";
 
 type Params = Promise<{ slug: string }>;
 
@@ -30,8 +31,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const solution = getSolution(slug);
   if (!solution) return {};
   return {
-    title: solution.title,
-    description: solution.summary,
+    title: cleanText(solution.title),
+    description: cleanText(solution.summary),
   };
 }
 

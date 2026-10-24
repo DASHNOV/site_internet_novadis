@@ -37,7 +37,7 @@ export async function SiteFooter() {
           <div>
             <h2 className={columnTitle}>{copy.contactTitle}</h2>
             <div className="mt-5 space-y-4 text-sm text-foreground">
-              <a className="flex min-h-11 items-start gap-3 hover:text-glow" href={`mailto:${contactDetails.email}`}>
+              <a className="flex min-h-11 items-start gap-3 hover:text-glow" href={contactDetails.emailHref}>
                 <Mail aria-hidden className="mt-0.5 h-4 w-4 text-glow" />
                 {contactDetails.email}
               </a>
