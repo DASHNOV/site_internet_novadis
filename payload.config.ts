@@ -26,7 +26,6 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     meta: {
-      title: "Novadis — Contenus",
       titleSuffix: " · Novadis — Contenus",
       icons: [{ rel: "icon", type: "image/svg+xml", url: "/icon.svg" }],
     },

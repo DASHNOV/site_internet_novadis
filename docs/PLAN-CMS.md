@@ -173,14 +173,23 @@ Décidé le 23/10/2026 : les commerciaux modifient les textes **directement sur 
 
 ## Étape 9 — Recette
 
-- [ ] `npm run build` passe sans erreur.
-- [ ] Chaque page est identique à sa capture de l'étape 0.
-- [ ] Un brouillon n'apparaît pas sur le site public, mais apparaît en preview.
-- [ ] Un rédacteur ne peut pas publier.
-- [ ] Remplacer une image fonctionne et le texte alternatif est demandé.
-- [ ] La restauration d'une version précédente fonctionne.
-- [ ] Un titre trop long est refusé avec un message clair.
-- [ ] La page LiDAR, `/legal`, `/privacy` et les vidéos n'ont pas bougé.
+- [x] `npm run build` passe sans erreur.
+- [x] Chaque page est identique à sa capture de l'étape 0.
+- [x] Un brouillon n'apparaît pas sur le site public, mais apparaît en preview.
+- [x] Un rédacteur ne peut pas publier.
+- [x] Remplacer une image fonctionne et le texte alternatif est demandé.
+- [x] La restauration d'une version précédente fonctionne.
+- [x] Un titre trop long est refusé avec un message clair.
+- [x] La page LiDAR, `/legal`, `/privacy` et les vidéos n'ont pas bougé.
+
+✅ Vérifié le 27/10/2026, sur un build de production (`next start`) :
+- **Admin, à l'écran** : logo et « Novadis — Contenus » sur la connexion, tableau de bord groupé, bouton « Voir sur le site » à côté du statut, pas de « Publier » pour un rédacteur. Le titre d'onglet répétait « Novadis — Contenus » : corrigé (« Tableau de bord · Novadis — Contenus »).
+- **Pages, à 1440 px** : texte strictement identique aux captures pour 9 pages. Ailleurs, seuls varient les états des animations (accueil, contrôle d'accès, intrusion), l'indication « Faites glisser pour pivoter » de la scène 3D, et la fiche LiDAR locale, absente en production comme prévu. Aucune signature d'édition dans le HTML public.
+- **Circuit complet, 29 vérifications réussies** : brouillon invisible pour le visiteur (page, API, `?draft=true`, cookie de brouillon sans session) et visible en mode édition ; rédacteur refusé pour publier (barre et API) et pour restaurer ; titre de 141 caractères refusé (« Texte trop long : 140 caractères au maximum (141 actuellement). ») ; image sans texte alternatif refusée, puis image envoyée, rattachée en brouillon et publiée ; publication groupée par le publieur ; retour à la version précédente de la page Services et de la fiche Supervision, visible sur le site public. L'image de recette est ensuite retirée de la médiathèque.
+- **Défaut corrigé** : un retour à une version précédente mettait bien le CMS à jour, mais la page publique gardait l'ancien texte. Au retour en arrière, Payload transmet au hook l'enregistrement de version, dont le statut de premier niveau vaut « draft » ; `hooks/revalidate.ts` lit maintenant le statut restauré dans `version._status`.
+- **Hors périmètre** : `/legal` et `/privacy` ont seulement été déplacés dans `app/(site)/` (contenu identique), `public/novadis/videos/` n'a pas bougé, la page LiDAR répond en dev, renvoie 404 en production, et ni Git ni `.next/static` ne contiennent « lidar ».
+
+À savoir : l'ordre des groupes du tableau de bord suit Payload (collections d'abord, puis globals) : « Offre », « Médias », « Pages », « Éléments communs ». Payload 3.92 ne permet pas de le changer sans remplacer le tableau de bord.
 
 ## Étape 10 — Démo à l'équipe commerciale
 

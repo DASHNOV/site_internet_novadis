@@ -10,7 +10,10 @@ function revalidateSite() {
   }
 }
 
-const isPublished = (doc: { _status?: string | null }) => doc._status !== "draft";
+type Saved = { _status?: string | null; version?: { _status?: string | null } };
+
+// Au retour à une version, Payload transmet l'enregistrement de version : le statut restauré est dans `version`.
+const isPublished = (doc: Saved) => (doc.version?._status ?? doc._status) !== "draft";
 
 // Un brouillon ne change rien au site public : seule une publication (ou un retour en arrière) l'invalide.
 export const revalidateOnPublish: CollectionAfterChangeHook & GlobalAfterChangeHook = ({ doc }) => {
