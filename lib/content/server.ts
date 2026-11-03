@@ -1,6 +1,6 @@
 import config from "@payload-config";
 import { draftMode, headers } from "next/headers";
-import { getPayload } from "payload";
+import { getPayload, type GlobalSlug } from "payload";
 import { cache } from "react";
 import { annotateForEditing } from "./annotate";
 import { buildSiteContent, type CmsRaw } from "./build";
@@ -20,17 +20,32 @@ const loadCmsRaw = cache(async (draft: boolean): Promise<CmsRaw> => {
   const options = { draft, depth: 1, overrideAccess: draft } as const;
   const list = { ...options, sort: "order", limit: 100, pagination: false } as const;
 
+  // Un brouillon de page remplace le contenu principal du global : le visiteur n'y a plus accès et
+  // reçoit un objet vide. On lui sert alors la dernière version publiée.
+  async function findGlobal<S extends GlobalSlug>(slug: S) {
+    const doc = await payload.findGlobal({ slug, ...options });
+    if (draft || doc._status === "published") return doc;
+    const { docs } = await payload.findGlobalVersions({
+      slug,
+      where: { "version._status": { equals: "published" } },
+      sort: "-updatedAt",
+      limit: 1,
+      depth: 1,
+    });
+    return (docs[0]?.version ?? doc) as typeof doc;
+  }
+
   const [home, solutionsPage, sectorsPage, servicesPage, referencesPage, aboutPage, contactPage, common, demos] =
     await Promise.all([
-      payload.findGlobal({ slug: "home", ...options }),
-      payload.findGlobal({ slug: "solutions-page", ...options }),
-      payload.findGlobal({ slug: "sectors-page", ...options }),
-      payload.findGlobal({ slug: "services-page", ...options }),
-      payload.findGlobal({ slug: "references-page", ...options }),
-      payload.findGlobal({ slug: "about-page", ...options }),
-      payload.findGlobal({ slug: "contact-page", ...options }),
-      payload.findGlobal({ slug: "common", ...options }),
-      payload.findGlobal({ slug: "demos", ...options }),
+      findGlobal("home"),
+      findGlobal("solutions-page"),
+      findGlobal("sectors-page"),
+      findGlobal("services-page"),
+      findGlobal("references-page"),
+      findGlobal("about-page"),
+      findGlobal("contact-page"),
+      findGlobal("common"),
+      findGlobal("demos"),
     ]);
   const [solutions, sectors, references, challenges] = await Promise.all([
     payload.find({ collection: "solutions", ...list }),

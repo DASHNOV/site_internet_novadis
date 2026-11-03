@@ -1,37 +1,35 @@
-# Comment modifier un texte du site Novadis
+# Comment modifier le site Novadis
 
 ## 1. Se connecter
 
-Ouvrez **`/admin`**, puis connectez-vous avec votre adresse email et votre mot de passe.
+Ouvrez **`/connexion`**, saisissez votre email et votre mot de passe, puis cliquez sur « Se connecter ».
 
-## 2. Ouvrir la page à modifier
+Le site s'ouvre en mode modification, avec une barre en bas de l'écran.
 
-- **Depuis l'admin :** ouvrez la page ou la fiche (menu « Pages » ou « Offre »), puis cliquez sur **« Voir sur le site »** en haut à droite.
-- **Depuis le site :** ouvrez `/edition?page=/` suivi du chemin de la page, par exemple `/edition?page=/services`.
+## 2. Modifier un texte
 
-Une barre d'édition apparaît en bas de l'écran : vous êtes en mode édition, et vous voyez les brouillons.
+1. Survolez le texte : il s'encadre en bleu, avec un bouton **« Modifier »**.
+2. Cliquez sur le texte ou sur « Modifier ». Un champ s'ouvre, avec un compteur de caractères.
+3. Retapez le texte. La page change pendant la frappe.
+4. Appuyez sur **Entrée** pour enregistrer, ou sur **Échap** pour laisser le texte tel quel.
 
-## 3. Modifier un texte
+Un texte qui est aussi un lien (menu, bouton) s'ouvre par le bouton « Modifier ». Un clic direct suit le lien, comme d'habitude.
 
-1. Vérifiez que la barre est sur **« Modifier »**. Pour suivre un lien, passez sur « Naviguer ».
-2. Survolez le texte : un cadre « Modifier le texte » apparaît. Cliquez dessus.
-3. Retapez le texte. La page change pendant la frappe, et le compteur indique la longueur maximale.
-4. Appuyez sur **Entrée** pour enregistrer, ou sur **Échap** pour annuler.
+## 3. Remplacer une image
 
-Le texte est enregistré **en brouillon** : les visiteurs du site ne le voient pas encore.
+Survolez l'image, puis cliquez sur **« Remplacer l'image »**. Choisissez le fichier, décrivez l'image en une phrase, puis validez.
 
-## 4. Remplacer une image
+## 4. Mettre en ligne
 
-Survolez l'image, puis cliquez sur **« Remplacer l'image »**. Choisissez le fichier et décrivez l'image en une phrase (texte alternatif, obligatoire).
+La barre indique le nombre de modifications non publiées.
 
-## 5. Publier
+- **Publier** : vos modifications passent en ligne pour tous les visiteurs.
+- **Annuler** : toutes les modifications non publiées sont abandonnées, et le site revient à la version en ligne.
 
-- **Rédacteur :** vous n'avez rien d'autre à faire. Le responsable commercial relit et publie vos modifications.
-- **Responsable commercial :** la barre affiche le nombre de contenus en brouillon. Relisez la page, puis cliquez sur **« Publier »**. Le site public est mis à jour aussitôt.
+Tant que vous n'avez pas cliqué sur « Publier », les visiteurs voient l'ancienne version.
 
 ## Bon à savoir
 
-- **Ajouter ou retirer une ligne** d'une liste (capacités, bénéfices…) se fait dans l'admin, sur la fiche concernée.
-- **Revenir en arrière :** dans l'admin, ouvrez l'onglet « Versions » du document, choisissez une version et restaurez-la (responsable commercial uniquement).
-- **Quitter le mode édition :** cliquez sur « Quitter » dans la barre.
-- Un texte trop long est refusé avec un message : raccourcissez-le, puis enregistrez à nouveau.
+- Un texte trop long est refusé avec un message : raccourcissez-le, puis appuyez de nouveau sur Entrée.
+- Pour ajouter ou retirer une ligne dans une liste, ou pour revenir à une version publiée plus ancienne, demandez à l'administrateur du site : chaque publication est conservée dans l'historique.
+- **Quitter** ferme le mode modification et affiche le site comme un visiteur.

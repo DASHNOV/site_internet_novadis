@@ -191,15 +191,33 @@ Décidé le 23/10/2026 : les commerciaux modifient les textes **directement sur 
 
 À savoir : l'ordre des groupes du tableau de bord suit Payload (collections d'abord, puis globals) : « Offre », « Médias », « Pages », « Éléments communs ». Payload 3.92 ne permet pas de le changer sans remplacer le tableau de bord.
 
+## Étape 9 bis — Parcours simplifié pour les commerciaux
+
+Décidé le 03/11/2026 après essai : le circuit rédacteur → publieur et le passage par l'admin étaient trop lourds. **Publication directe** : chaque commercial publie lui-même, et l'historique permet de revenir en arrière.
+
+- [x] **Droits** (`access/index.ts`) : tout compte connecté modifie, publie et restaure une version. Seuls les admins gèrent les comptes et ajoutent ou retirent une fiche de l'offre, et seuls responsable et admins suppriment une image. Les rôles s'affichent « Commercial », « Responsable commercial » et « Administrateur » (valeurs inchangées en base).
+- [x] **Connexion** : `/connexion` (`app/(site)/connexion/page.tsx`, `components/edit/login-form.tsx`), une carte « Modifier le site » qui ouvre directement le site en mode modification. `/edition` y renvoie sans session, et la barre aussi quand la session expire. Le préremplissage de démo (`lib/demo-prefill.ts`) sert à cet écran comme à l'admin, sous `next dev` seulement. La page n'est pas indexée.
+- [x] **Barre** (`components/edit/edit-mode.tsx`) : « Modification du site · nom », le nombre de modifications non publiées, « Annuler », « Publier » et « Quitter ». La bascule « Modifier / Naviguer » disparaît, et le lien « Admin » n'est affiché qu'aux admins.
+- [x] **Crayon au survol** : un bouton « Modifier » ou « Remplacer l'image » au-dessus de l'élément encadré. Un clic direct sur un texte l'ouvre aussi, sauf sur un lien ou un bouton, qui garde son effet normal.
+- [x] **Annuler** (`/edition/annuler`) : chaque contenu modifié revient à sa dernière version publiée.
+- [x] **Défauts corrigés** :
+  - les titres en deux tons (`SplitTitle`) n'envoyaient à l'éditeur que leur partie grise, et l'enregistrement effaçait le début du titre ;
+  - une page avec une modification en attente renvoyait une erreur 500 au visiteur : pour un global, Payload range le brouillon à la place du contenu publié. `lib/content/server.ts` sert alors au visiteur la dernière version publiée ;
+  - une réponse lente de la barre pouvait effacer le compteur juste après une publication, et laisser « Publier » grisé : seule la réponse la plus récente est prise en compte.
+- [x] Fiche des commerciaux (`docs/FICHE-EDITION.md`) et recette manuelle (`docs/RECETTE-MANUELLE.md`) réécrites.
+
+✅ Vérifié le 03/11/2026 dans le navigateur (`next dev`) : `/edition` sans session mène à `/connexion`, puis à la page demandée ; le titre de Services s'ouvre en entier et garde ses deux tons pendant la frappe ; enregistrer, annuler, publier puis republier aussitôt fonctionnent, et le visiteur voit chaque publication ; un lien du menu navigue normalement ; le crayon remplace une image placée dans un lien. `next build` passe, sans « lidar » dans `.next/static`.
+
 ## Étape 10 — Démo à l'équipe commerciale
 
 Scénario de 10 minutes :
-1. Connexion en **rédacteur**. On ouvre le site en mode édition, on clique sur le titre de l'accueil et on le retape directement dans la page.
-2. On remplace une image d'une solution d'un clic sur l'image.
-3. On enregistre en brouillon, puis on montre que le site public n'a pas changé.
-4. Connexion en **publieur** : relecture, publication depuis la barre d'édition, puis le site public est mis à jour.
-5. On montre l'historique et le retour à la version précédente.
-6. Remise à zéro avec `npm run cms:seed`.
+1. Connexion sur **`/connexion`** avec le compte commercial : le site s'ouvre en mode modification.
+2. On clique sur le titre de l'accueil et on le retape directement dans la page.
+3. On remplace une image d'une solution avec « Remplacer l'image ».
+4. On montre que le site public n'a pas encore changé, puis on clique sur « Publier » : le site public est à jour.
+5. On montre « Annuler » sur une modification non publiée.
+6. Côté admin : l'historique et le retour à une version précédente.
+7. Remise à zéro avec `npm run cms:seed`.
 
 ---
 

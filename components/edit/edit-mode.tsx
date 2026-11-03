@@ -2,23 +2,26 @@
 
 // Édition dans la page : chargé uniquement en mode édition (/edition), jamais pour les visiteurs.
 // Les textes portent une signature invisible (lib/content/stega.ts) qui donne le champ CMS à modifier.
+import { ImageUp, Pencil } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { cn } from "@/lib/utils";
 import { cleanText, decodeImageTarget, decodeTarget, encodeTarget, hasTarget, type EditTarget } from "@/lib/content/stega";
 
-type TextEntry = { kind: "text"; node: Text; target: EditTarget; value: string; anchor: Element };
+// `lead` : début d'un titre en deux tons (SplitTitle), affiché à part mais enregistré avec le reste.
+type TextEntry = { kind: "text"; node: Text; target: EditTarget; value: string; anchor: Element; lead?: { node: Text; words: number } };
 type ImageEntry = { kind: "image"; node: HTMLImageElement; target: EditTarget; anchor: Element };
 type Entry = TextEntry | ImageEntry;
 type Field = { label: string; maxLength?: number; multiline: boolean; type: "text" | "image" };
 type Status = {
   user: { name: string; role: string };
-  canPublish: boolean;
+  isAdmin: boolean;
   pending: { label: string }[];
 };
 
-const ROLE_LABELS: Record<string, string> = { redacteur: "Rédacteur", publieur: "Publieur", admin: "Administrateur" };
 const UI = "[data-cms-ui]";
+// Un clic sur ces éléments garde son effet normal (lien, bouton…) : on passe alors par le crayon.
+const INTERACTIVE = "a, button, input, textarea, select, label, summary, [role=button]";
 
 function caretNode(x: number, y: number): Node | null {
   const doc = document as Document & {
@@ -36,7 +39,21 @@ function scan(): Map<Text, TextEntry> {
     const text = node as Text;
     if (!hasTarget(text.data) || text.parentElement?.closest(UI)) continue;
     const target = decodeTarget(text.data);
-    if (target) entries.set(text, { kind: "text", node: text, target, value: cleanText(text.data), anchor: text.parentElement! });
+    if (!target) continue;
+    const leadElement = text.parentElement!.previousElementSibling;
+    const leadNode = leadElement?.hasAttribute("data-cms-lead") ? leadElement.firstChild : null;
+    if (leadNode instanceof Text) {
+      entries.set(text, {
+        kind: "text",
+        node: text,
+        target,
+        value: `${leadNode.data} ${cleanText(text.data)}`,
+        anchor: text.parentElement!.parentElement!,
+        lead: { node: leadNode, words: Number(leadElement!.getAttribute("data-cms-lead")) },
+      });
+    } else {
+      entries.set(text, { kind: "text", node: text, target, value: cleanText(text.data), anchor: text.parentElement! });
+    }
   }
   return entries;
 }
@@ -65,16 +82,20 @@ export function EditMode() {
   const router = useRouter();
   const pathname = usePathname();
   const entries = useRef(new Map<Text, TextEntry>());
-  const [mode, setMode] = useState<"edit" | "browse">("edit");
-  const [hover, setHover] = useState<{ rect: DOMRect; kind: Entry["kind"] } | null>(null);
+  const [hover, setHover] = useState<{ entry: Entry; rect: DOMRect } | null>(null);
   const [editing, setEditing] = useState<Entry | null>(null);
   const [status, setStatus] = useState<Status | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
+  const statusRequest = useRef(0);
+
+  // Seule la réponse la plus récente compte : une réponse lente ne doit pas effacer un enregistrement suivant.
   const refreshStatus = useCallback(async () => {
+    const request = ++statusRequest.current;
     const response = await fetch("/edition/etat", { cache: "no-store" });
+    if (request !== statusRequest.current) return;
     if (response.ok) setStatus(await response.json());
-    else setMessage("Session expirée : reconnectez-vous depuis l'admin.");
+    else window.location.assign(`/connexion?page=${encodeURIComponent(window.location.pathname)}`);
   }, []);
 
   useEffect(() => {
@@ -104,19 +125,22 @@ export function EditMode() {
   }, []);
 
   useEffect(() => {
-    if (mode !== "edit" || editing) {
+    if (editing) {
       setHover(null);
       return;
     }
     let frame = 0;
     const onMove = (event: MouseEvent) => {
+      // Le crayon fait partie de l'interface : le survoler garde l'élément sélectionné.
+      if (event.target instanceof Element && event.target.closest(UI)) return;
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
         const entry = resolve(event.clientX, event.clientY, event.target, entries.current);
-        setHover(entry ? { rect: entry.anchor.getBoundingClientRect(), kind: entry.kind } : null);
+        setHover(entry ? { entry, rect: entry.anchor.getBoundingClientRect() } : null);
       });
     };
     const onClick = (event: MouseEvent) => {
+      if (event.target instanceof Element && event.target.closest(INTERACTIVE)) return;
       const entry = resolve(event.clientX, event.clientY, event.target, entries.current);
       if (!entry) return;
       event.preventDefault();
@@ -133,7 +157,7 @@ export function EditMode() {
       document.removeEventListener("click", onClick, true);
       window.removeEventListener("scroll", onScroll);
     };
-  }, [mode, editing]);
+  }, [editing]);
 
   const saved = useCallback(
     async (text: string) => {
@@ -150,10 +174,18 @@ export function EditMode() {
     const response = await fetch("/edition/publier", { method: "POST" });
     const result = await response.json();
     setMessage(
-      response.ok
-        ? "Modifications publiées : le site public est à jour."
-        : result.error ?? `Publication refusée pour : ${result.failed?.join(", ")}`,
+      response.ok ? "Publié : le site est à jour." : result.error ?? `Publication impossible pour : ${result.failed?.join(", ")}`,
     );
+    router.refresh();
+    await refreshStatus();
+  };
+
+  const discard = async () => {
+    if (!window.confirm("Annuler toutes les modifications non publiées ? Les textes et images reviendront à la version en ligne.")) return;
+    setMessage("Annulation en cours…");
+    const response = await fetch("/edition/annuler", { method: "POST" });
+    const result = await response.json();
+    setMessage(response.ok ? "Modifications annulées." : result.error ?? `Annulation impossible pour : ${result.failed?.join(", ")}`);
     router.refresh();
     await refreshStatus();
   };
@@ -163,15 +195,22 @@ export function EditMode() {
   return (
     <div data-cms-ui="">
       {hover && (
-        <div
-          aria-hidden
-          className="pointer-events-none fixed z-[90] rounded-md outline outline-2 outline-offset-4 outline-primary"
-          style={{ left: hover.rect.left, top: hover.rect.top, width: hover.rect.width, height: hover.rect.height }}
-        >
-          <span className="absolute -top-8 left-0 whitespace-nowrap rounded-md bg-primary px-2 py-0.5 font-sans text-xs font-semibold text-white">
-            {hover.kind === "image" ? "Remplacer l'image" : "Modifier le texte"}
-          </span>
-        </div>
+        <>
+          <div
+            aria-hidden
+            className="pointer-events-none fixed z-[90] rounded-md outline outline-2 outline-offset-4 outline-primary"
+            style={{ left: hover.rect.left, top: hover.rect.top, width: hover.rect.width, height: hover.rect.height }}
+          />
+          <button
+            className="fixed z-[91] flex -translate-y-full items-center gap-1.5 rounded-md bg-primary px-2.5 py-1 font-sans text-xs font-semibold text-white shadow-overlay"
+            onClick={() => setEditing(hover.entry)}
+            style={{ left: hover.rect.left - 4, top: hover.rect.top - 8 }}
+            type="button"
+          >
+            {hover.entry.kind === "image" ? <ImageUp aria-hidden className="h-3.5 w-3.5" /> : <Pencil aria-hidden className="h-3.5 w-3.5" />}
+            {hover.entry.kind === "image" ? "Remplacer l'image" : "Modifier"}
+          </button>
+        </>
       )}
 
       {editing?.kind === "text" && <TextEditor entry={editing} onCancel={() => setEditing(null)} onSaved={saved} />}
@@ -181,53 +220,37 @@ export function EditMode() {
         <div className="flex max-w-full flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border border-hairline-strong bg-surface px-4 py-3 text-sm text-foreground-strong shadow-overlay">
           <span className="flex items-center gap-2 font-semibold">
             <span aria-hidden className="h-2 w-2 rounded-full bg-primary" />
-            Mode édition
-            {status && (
-              <span className="font-normal text-muted-strong">
-                · {status.user.name} ({ROLE_LABELS[status.user.role] ?? status.user.role})
-              </span>
-            )}
+            Modification du site
+            {status && <span className="font-normal text-muted-strong">· {status.user.name}</span>}
           </span>
-
-          <div className="flex rounded-lg border border-hairline p-0.5" role="group" aria-label="Action au clic">
-            {(["edit", "browse"] as const).map((value) => (
-              <button
-                className={cn(
-                  "rounded-md px-3 py-1 font-medium transition-colors",
-                  mode === value ? "bg-primary text-white" : "text-muted-strong hover:text-foreground-strong",
-                )}
-                key={value}
-                onClick={() => setMode(value)}
-                type="button"
-              >
-                {value === "edit" ? "Modifier" : "Naviguer"}
-              </button>
-            ))}
-          </div>
 
           <span className="text-muted-strong" title={status?.pending.map((item) => item.label).join(", ")}>
             {message ??
-              (pending
-                ? `${pending} contenu${pending > 1 ? "s" : ""} en brouillon`
-                : "Aucune modification en attente")}
+              (pending ? `${pending} modification${pending > 1 ? "s" : ""} non publiée${pending > 1 ? "s" : ""}` : "Tout est en ligne")}
           </span>
 
-          {status?.canPublish ? (
-            <button
-              className="rounded-lg bg-primary px-3 py-1.5 font-semibold text-white disabled:opacity-40"
-              disabled={!pending}
-              onClick={publish}
-              type="button"
-            >
-              Publier{pending ? ` (${pending})` : ""}
-            </button>
-          ) : (
-            status && <span className="text-muted-strong">Le responsable commercial publiera vos modifications.</span>
-          )}
+          <button
+            className="rounded-lg px-3 py-1.5 font-medium text-muted-strong hover:text-foreground-strong disabled:opacity-40"
+            disabled={!pending}
+            onClick={discard}
+            type="button"
+          >
+            Annuler
+          </button>
+          <button
+            className="rounded-lg bg-primary px-3 py-1.5 font-semibold text-white disabled:opacity-40"
+            disabled={!pending}
+            onClick={publish}
+            type="button"
+          >
+            Publier
+          </button>
 
-          <a className="font-medium text-primary-strong hover:underline" href="/admin" target="_blank" rel="noreferrer">
-            Admin
-          </a>
+          {status?.isAdmin && (
+            <a className="font-medium text-primary-strong hover:underline" href="/admin" target="_blank" rel="noreferrer">
+              Admin
+            </a>
+          )}
           <a className="font-medium text-muted-strong hover:text-foreground-strong" href={`/edition/quitter?page=${encodeURIComponent(pathname)}`}>
             Quitter
           </a>
@@ -272,7 +295,7 @@ function TextEditor({ entry, onCancel, onSaved }: { entry: TextEntry; onCancel: 
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const panel = usePanelPosition(entry.anchor);
-  const original = useRef(entry.node.data);
+  const original = useRef({ text: entry.node.data, lead: entry.lead?.node.data });
   const signature = useRef(encodeTarget(entry.target));
 
   useEffect(() => {
@@ -283,12 +306,20 @@ function TextEditor({ entry, onCancel, onSaved }: { entry: TextEntry; onCancel: 
 
   // Aperçu dans la page pendant la frappe ; le texte d'origine revient si on annule.
   useEffect(() => {
-    const node = entry.node;
-    if (node.isConnected) node.data = value + signature.current;
-  }, [entry.node, value]);
+    const { node, lead } = entry;
+    if (!node.isConnected) return;
+    if (!lead) {
+      node.data = value + signature.current;
+      return;
+    }
+    const words = value.split(" ");
+    lead.node.data = words.slice(0, lead.words).join(" ");
+    node.data = words.slice(lead.words).join(" ") + signature.current;
+  }, [entry, value]);
 
   const cancel = () => {
-    if (entry.node.isConnected) entry.node.data = original.current;
+    if (entry.node.isConnected) entry.node.data = original.current.text;
+    if (entry.lead?.node.isConnected) entry.lead.node.data = original.current.lead!;
     onCancel();
   };
 
@@ -298,7 +329,7 @@ function TextEditor({ entry, onCancel, onSaved }: { entry: TextEntry; onCancel: 
     const failure = await saveValue(entry.target, value);
     setSaving(false);
     if (failure) setError(failure);
-    else onSaved("Brouillon enregistré.");
+    else onSaved("Enregistré. Cliquez sur « Publier » pour le mettre en ligne.");
   };
 
   const onKeyDown = (event: ReactKeyboardEvent) => {
@@ -369,7 +400,7 @@ function ImageEditor({ entry, onCancel, onSaved }: { entry: ImageEntry; onCancel
     const failure = upload.ok ? await saveValue(entry.target, result.doc.id) : result.errors?.[0]?.message ?? "Envoi de l'image refusé.";
     setSaving(false);
     if (failure) setError(failure);
-    else onSaved("Image remplacée en brouillon.");
+    else onSaved("Image remplacée. Cliquez sur « Publier » pour la mettre en ligne.");
   };
 
   return (

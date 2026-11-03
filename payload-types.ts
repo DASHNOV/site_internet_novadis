@@ -400,7 +400,7 @@ export interface User {
   id: number;
   name: string;
   /**
-   * Rédacteur : modifie en brouillon. Publieur : relit et publie. Administrateur : gère aussi les comptes.
+   * Commercial : modifie et publie le site. Responsable commercial : peut aussi supprimer des images. Administrateur : gère aussi les comptes et les fiches de l'offre.
    */
   role: 'redacteur' | 'publieur' | 'admin';
   updatedAt: string;

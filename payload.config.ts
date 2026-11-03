@@ -13,14 +13,9 @@ import { Users } from "./collections/users";
 import { Common } from "./globals/common";
 import { Demos } from "./globals/demos";
 import { pageGlobals } from "./globals/pages";
+import { demoPrefill } from "./lib/demo-prefill";
 
-// Démo locale : préremplit l'écran de connexion avec un compte de .env.local, choisi par CMS_PREFILL_ROLE.
-function demoPrefill() {
-  if (process.env.NODE_ENV !== "development") return false;
-  const prefix = { admin: "CMS_ADMIN", publieur: "CMS_PUBLISHER", redacteur: "CMS_EDITOR" }[process.env.CMS_PREFILL_ROLE ?? "admin"];
-  const email = prefix && process.env[`${prefix}_EMAIL`];
-  return email ? { email, password: process.env[`${prefix}_PASSWORD`], prefillOnly: true } : false;
-}
+const prefill = demoPrefill();
 
 export default buildConfig({
   admin: {
@@ -37,7 +32,7 @@ export default buildConfig({
         Icon: "/components/admin/brand#AdminIcon",
       },
     },
-    autoLogin: demoPrefill(),
+    autoLogin: prefill ? { ...prefill, prefillOnly: true } : false,
   },
   collections: [Solutions, Sectors, References, Challenges, Media, Users],
   globals: [...pageGlobals, Common, Demos],

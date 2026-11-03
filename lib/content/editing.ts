@@ -106,4 +106,4 @@ export async function pendingDrafts(payload: Payload, user: NonNullable<Awaited<
   return pending;
 }
 
-export const userCanPublish = (user: { role?: Role } | null) => user?.role === "publieur" || user?.role === "admin";
+export const isAdminUser = (user: { role?: Role } | null) => user?.role === "admin";

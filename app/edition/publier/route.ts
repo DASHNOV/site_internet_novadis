@@ -1,12 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
 import type { CollectionSlug, GlobalSlug } from "payload";
-import { editingSession, pendingDrafts, userCanPublish, withoutMeta } from "@/lib/content/editing";
+import { editingSession, pendingDrafts, withoutMeta } from "@/lib/content/editing";
 
-// Publie tous les brouillons en attente. Réservé aux publieurs et aux admins (vérifié aussi par Payload).
+// Publie toutes les modifications en attente du site.
 export async function POST(request: NextRequest) {
   const { payload, user } = await editingSession(request.headers);
   if (!user) return NextResponse.json({ error: "Session expirée : reconnectez-vous." }, { status: 401 });
-  if (!userCanPublish(user)) return NextResponse.json({ error: "Seul un publieur peut publier." }, { status: 403 });
 
   const options = { user, overrideAccess: false, depth: 0 } as const;
   const failed: string[] = [];

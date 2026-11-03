@@ -33,7 +33,8 @@ export const Users: CollectionConfig = {
         update: ({ req }) => Boolean(isAdmin({ req })),
       },
       admin: {
-        description: "Rédacteur : modifie en brouillon. Publieur : relit et publie. Administrateur : gère aussi les comptes.",
+        description:
+          "Commercial : modifie et publie le site. Responsable commercial : peut aussi supprimer des images. Administrateur : gère aussi les comptes et les fiches de l'offre.",
       },
     },
   ],
