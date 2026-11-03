@@ -1,5 +1,6 @@
 import type { Field, GroupField, UploadField } from "payload";
 import { iconNames } from "../lib/icon-names";
+import { isInternalPath } from "../lib/safe-path";
 
 // Limites de longueur : elles protègent la mise en page sans gêner les textes actuels (440 caractères au plus).
 const limits = { label: 60, title: 140, text: 280, paragraph: 600 } as const;
@@ -76,7 +77,7 @@ export function link(name: string, label: string): Field {
     required: true,
     admin: { description: "Adresse interne au site, par exemple /solutions/supervision." },
     validate: (value: unknown) =>
-      typeof value === "string" && value.startsWith("/") ? true : "L'adresse doit commencer par « / ».",
+      isInternalPath(value) ? true : "L'adresse doit être une page du site et commencer par « / ».",
   };
 }
 
