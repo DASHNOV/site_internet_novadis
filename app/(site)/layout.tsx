@@ -40,7 +40,7 @@ export default async function RootLayout({
 }>) {
   const [raw, editing] = await Promise.all([getCmsRaw(), isEditing()]);
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html lang="fr" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body
         className={`${fontVariables} font-sans antialiased`}
       >

@@ -827,13 +827,14 @@ export const axisExplode = {
 };
 
 // Modèle 3D interactif du hero /solutions : caméra bullet extérieure.
+// anchor = point de la pièce dans les coordonnées du GLB (axis-p1465-le.glb, avant centrage).
 export const solutionsHeroModel = {
   name: arPreview.title,
   hint: "Faites pivoter la caméra",
   callouts: [
-    { label: "Éclairage IR intégré", position: "left" },
-    { label: "Support mural", position: "right" },
-  ] satisfies { label: string; position: "left" | "right" }[],
+    { label: "Éclairage IR intégré", anchor: [-0.027, 0.082, 0.134] },
+    { label: "Support mural", anchor: [0, -0.052, -0.192] },
+  ] satisfies { label: string; anchor: [number, number, number] }[],
 };
 
 // Scroll-driven 3D story on /solutions: an alarm travels from the field to the operators.

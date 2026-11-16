@@ -1,8 +1,8 @@
 "use client";
 
-import { Suspense, useMemo, useRef, useState } from "react";
+import { type ReactNode, Suspense, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Bounds, Center, ContactShadows, Environment, OrbitControls, useGLTF } from "@react-three/drei";
+import { Bounds, Center, ContactShadows, Environment, Html, OrbitControls, useGLTF } from "@react-three/drei";
 import { useInView, useReducedMotion } from "framer-motion";
 import { Box3, type Group, Vector3 } from "three";
 import { Cctv, Rotate3d } from "lucide-react";
@@ -19,7 +19,7 @@ function useModelSize() {
   return useMemo(() => new Box3().setFromObject(scene).getSize(new Vector3()), [scene]);
 }
 
-function CameraModel({ sway }: { sway: boolean }) {
+function CameraModel({ sway, children }: { sway: boolean; children?: ReactNode }) {
   const { scene } = useGLTF(MODEL_PATH);
   const ref = useRef<Group>(null);
 
@@ -32,7 +32,45 @@ function CameraModel({ sway }: { sway: boolean }) {
     <group ref={ref} rotation={[0, FACING, 0]}>
       <Center>
         <primitive object={scene} />
+        {children}
       </Center>
+    </group>
+  );
+}
+
+// Past this NDC gap from the model centre the label switches side, so it never flickers mid-turn.
+const SIDE_HYSTERESIS = 0.04;
+
+function Callout({ label, anchor }: { label: string; anchor: [number, number, number] }) {
+  const point = useRef<Group>(null);
+  const [side, setSide] = useState<"left" | "right">("right");
+  const projected = useMemo(() => new Vector3(), []);
+  const centre = useMemo(() => new Vector3(), []);
+
+  // Keep the label on the outer side of the part it names, wherever the camera has turned it.
+  useFrame(({ camera }) => {
+    if (!point.current) return;
+    point.current.getWorldPosition(projected).project(camera);
+    centre.set(0, 0, 0).project(camera);
+    const gap = projected.x - centre.x;
+    if (gap > SIDE_HYSTERESIS && side !== "right") setSide("right");
+    else if (gap < -SIDE_HYSTERESIS && side !== "left") setSide("left");
+  });
+
+  return (
+    <group position={anchor} ref={point}>
+      <Html zIndexRange={[10, 0]}>
+        <span
+          className={cn(
+            "pointer-events-none absolute top-0 hidden -translate-y-1/2 items-center gap-2 whitespace-nowrap text-xs font-semibold text-foreground-strong xl:flex",
+            side === "right" ? "-left-1" : "-right-1 flex-row-reverse",
+          )}
+        >
+          <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-primary" />
+          <span aria-hidden className="h-px w-10 shrink-0 bg-primary/40" />
+          <span className="rounded-full border border-hairline bg-surface/90 px-3 py-1.5 backdrop-blur">{label}</span>
+        </span>
+      </Html>
     </group>
   );
 }
@@ -91,7 +129,11 @@ export function SolutionsHeroModel({ className }: SolutionsHeroModelProps) {
           {/* Cool rim light in the brand blue, so the white housing picks up the page palette. */}
           <directionalLight color="#81cff5" intensity={1.4} position={[-5, 2, -4]} />
           <Bounds fit clip observe margin={1.35}>
-            <CameraModel sway={sway} />
+            <CameraModel sway={sway}>
+              {solutionsHeroModel.callouts.map((callout) => (
+                <Callout anchor={callout.anchor as [number, number, number]} key={callout.label} label={callout.label} />
+              ))}
+            </CameraModel>
           </Bounds>
           <GroundShadow />
           {/* Self-hosted copy of drei's "city" preset (Poly Haven, CC0): no runtime fetch from GitHub. */}
@@ -114,22 +156,6 @@ export function SolutionsHeroModel({ className }: SolutionsHeroModelProps) {
         <Cctv aria-hidden className="h-4 w-4 text-primary" />
         {solutionsHeroModel.name}
       </span>
-
-      {solutionsHeroModel.callouts.map((callout) => (
-        <span
-          className={cn(
-            "pointer-events-none absolute hidden items-center gap-2 whitespace-nowrap text-xs font-semibold text-foreground-strong xl:inline-flex",
-            callout.position === "left" ? "right-[66%] top-[37%]" : "left-[64%] top-[51%] flex-row-reverse",
-          )}
-          key={callout.label}
-        >
-          <span className="rounded-full border border-hairline bg-surface/90 px-3 py-1.5 backdrop-blur">
-            {callout.label}
-          </span>
-          <span aria-hidden className="h-px w-10 bg-primary/40" />
-          <span aria-hidden className="h-2 w-2 rounded-full bg-primary" />
-        </span>
-      ))}
 
       <span
         className={cn(
