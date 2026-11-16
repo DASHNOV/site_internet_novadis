@@ -1,8 +1,17 @@
-import type { CollectionConfig } from "payload";
+import type { CollectionBeforeChangeHook, CollectionConfig, PayloadRequest } from "payload";
 import { isAdmin, roles } from "../access";
+
+const noUserYet = async (req: PayloadRequest) =>
+  (await req.payload.count({ collection: "users", overrideAccess: true, req })).totalDocs === 0;
+
+// Le premier compte est créé sur /admin/create-first-user, sans personne de connecté pour lui donner un rôle :
+// il devient administrateur, sinon personne ne pourrait gérer les comptes.
+const firstUserIsAdmin: CollectionBeforeChangeHook = async ({ data, operation, req }) =>
+  operation === "create" && (await noUserYet(req)) ? { ...data, role: "admin" } : data;
 
 export const Users: CollectionConfig = {
   slug: "users",
+  hooks: { beforeChange: [firstUserIsAdmin] },
   labels: { singular: "Utilisateur", plural: "Utilisateurs" },
   // Comptes nominatifs : 5 essais ratés bloquent le compte 15 minutes.
   auth: { maxLoginAttempts: 5, lockTime: 15 * 60 * 1000 },
