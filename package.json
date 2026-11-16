@@ -15,9 +15,11 @@
     "cms:seed": "tsx scripts/seed/export-content.ts && payload run scripts/cms-seed.ts --use-swc"
   },
   "dependencies": {
+    "@payloadcms/db-postgres": "3.92.0",
     "@payloadcms/db-sqlite": "3.92.0",
     "@payloadcms/next": "3.92.0",
     "@payloadcms/richtext-lexical": "3.92.0",
+    "@payloadcms/storage-vercel-blob": "3.92.0",
     "@payloadcms/translations": "3.92.0",
     "@payloadcms/ui": "3.92.0",
     "@react-three/drei": "^10.7.7",

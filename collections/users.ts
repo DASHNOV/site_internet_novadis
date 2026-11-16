@@ -4,7 +4,8 @@ import { isAdmin, roles } from "../access";
 export const Users: CollectionConfig = {
   slug: "users",
   labels: { singular: "Utilisateur", plural: "Utilisateurs" },
-  auth: true,
+  // Comptes nominatifs : 5 essais ratés bloquent le compte 15 minutes.
+  auth: { maxLoginAttempts: 5, lockTime: 15 * 60 * 1000 },
   admin: {
     useAsTitle: "name",
     defaultColumns: ["name", "email", "role"],

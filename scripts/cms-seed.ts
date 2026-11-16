@@ -8,6 +8,12 @@ import { upsertDemoAccounts } from "./lib/demo-accounts";
 
 type Json = null | boolean | number | string | Json[] | { [key: string]: Json };
 
+// En ligne, la remise à zéro effacerait le travail des commerciaux : il faut la demander explicitement.
+const online = Boolean(process.env.DATABASE_URL);
+if (online && process.env.CMS_SEED_ONLINE !== "oui") {
+  throw new Error("DATABASE_URL pointe vers la base en ligne : relancez avec CMS_SEED_ONLINE=oui pour l'écraser");
+}
+
 const contentFile = path.resolve(process.cwd(), "cms/seed-content.json");
 if (!existsSync(contentFile)) throw new Error("cms/seed-content.json manque : lancez npm run cms:seed");
 const content = JSON.parse(readFileSync(contentFile, "utf8")) as {
@@ -81,6 +87,6 @@ for (const [slug, doc] of Object.entries(content.globals)) {
 }
 payload.logger.info(`${Object.keys(content.globals).length} pages et blocs publiés, ${mediaIds.size} images dans la médiathèque`);
 
-// 5. Comptes de démo.
-await upsertDemoAccounts(payload);
+// 5. Comptes de démo, jamais en ligne : les comptes y sont nominatifs et créés par l'admin.
+if (!online) await upsertDemoAccounts(payload);
 process.exit(0);
