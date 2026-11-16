@@ -6,6 +6,7 @@ import { MediaFrame } from "@/components/sections/media-frame";
 import { PageHero } from "@/components/sections/page-hero";
 import { PartnerCloud } from "@/components/sections/partner-cloud";
 import { Reveal } from "@/components/motion/reveal";
+import { SolutionsWheel } from "@/components/motion/solutions-wheel";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { StatRow } from "@/components/sections/stat-row";
@@ -107,13 +108,10 @@ export default async function AboutPage() {
             </p>
           </Reveal>
           <Reveal className="w-full lg:w-1/2" delay={0.06}>
-            <div className="panel flex justify-center p-6 sm:p-10">
-              <img
-                alt={copy.spectrum.schemaAlt}
-                className="w-full max-w-[440px] object-contain"
-                loading="lazy"
-                src={mediaLibrary.schemaSolutions}
-              />
+            <div className="panel flex justify-center p-4 sm:p-8">
+              <div className="w-full max-w-[600px]">
+                <SolutionsWheel label={copy.spectrum.schemaAlt} />
+              </div>
             </div>
           </Reveal>
         </div>
