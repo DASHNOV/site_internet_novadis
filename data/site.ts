@@ -66,9 +66,9 @@ export type Industry = {
 };
 
 export const siteMetrics: Metric[] = [
-  { value: "12 000+", label: "Caméras déployées", caption: "Parc actif supervisé" },
-  { value: "40 000+", label: "Points d'accès", caption: "Portes et zones contrôlées" },
-  { value: "2,3 M m²", label: "Surface protégée", caption: "Sites en exploitation" },
+  { value: "100+", label: "Clients", caption: "Grands comptes, installateurs et mainteneurs" },
+  { value: "Or", label: "EcoVadis 2026", caption: "Performance RSE" },
+  { value: "5,3 M m²", label: "Surface protégée", caption: "Sites en exploitation" },
   { value: "20+", label: "Années d'expertise", caption: "Sûreté & convergence" },
 ];
 
@@ -108,7 +108,7 @@ export const solutions: Solution[] = [
     slug: "supervision",
     title: "Supervision globale",
     shortTitle: "Supervision globale",
-    product: "Hyperviseur de sûreté · Convergence multi-systèmes",
+    product: "Supervision globale Amadeus · Convergence multi-systèmes",
     icon: MonitorPlay,
     summary:
       "Couche de supervision unifiée croisant contrôle d'accès, vidéosurveillance et intrusion en un seul poste opérateur.",
@@ -117,7 +117,7 @@ export const solutions: Solution[] = [
     problem:
       "Lorsque vidéo, contrôle d'accès, intrusion et IoT vivent dans des consoles séparées, les opérateurs perdent du temps, corrèlent mal les événements et la chaîne de décision se fragilise sous pression.",
     solution:
-      "Novadis met en œuvre une couche d'hyperviseur qui agrège les flux des sous-systèmes (Amadeus, vidéo, intrusion, IoT, LPR, interphonie) dans un poste unique : cartographie temps réel, corrélation d'alarmes, scénarios de levée de doute et procédures pilotées.",
+      "Novadis met en œuvre la supervision globale Amadeus, qui agrège les flux des sous-systèmes (contrôle d'accès, vidéo, intrusion, IoT, LPR) dans un poste unique : cartographie temps réel, corrélation d'alarmes, scénarios de levée de doute et procédures pilotées.",
     benefits: [
       "Poste opérateur unique",
       "Corrélation multi-systèmes",
@@ -159,12 +159,12 @@ export const solutions: Solution[] = [
     benefits: [
       "Architectures redondées",
       "Stockage NAS/RAID calibré",
-      "Réseaux dédiés et chiffrés",
+      "Réseaux dédiés et segmentés",
       "Virtualisation haute disponibilité",
     ],
     capabilities: [
       "Conception serveurs et stockage",
-      "Segmentation réseau et fibre optique",
+      "Segmentation réseau par métier",
       "Virtualisation des serveurs",
       "Exploitation hybride et multi-sites",
     ],
@@ -187,18 +187,18 @@ export const solutions: Solution[] = [
     product: "Amadeus",
     icon: Fingerprint,
     summary:
-      "Plateforme exclusive Amadeus : gestion temps réel des événements, architecture ouverte, conforme ANSSI.",
+      "Plateforme exclusive Amadeus : gestion temps réel des événements, architecture ouverte, lecture de badge selon les recommandations ANSSI.",
     intro:
       "Les décisions d'accès structurent chaque jour la sûreté, la continuité d'activité et la conformité des environnements physiques.",
     problem:
       "À mesure que l'organisation grandit, les droits d'accès, badges et zones sécurisées deviennent difficiles à piloter de façon homogène et auditable.",
     solution:
-      "Amadeus unifie porteurs, badges, biométrie, horaires, visiteurs et zones restreintes dans un même modèle d'exploitation, avec intelligence distribuée et conformité ANSSI.",
+      "Amadeus unifie porteurs, badges, biométrie, horaires, visiteurs et zones restreintes dans un même modèle d'exploitation, avec intelligence distribuée et une lecture de badge alignée sur les recommandations ANSSI.",
     benefits: [
-      "Architecture ouverte et libre",
+      "Architecture ouverte et API",
       "Intelligence distribuée",
       "Gestion temps réel",
-      "Conformité ANSSI",
+      "Recommandations ANSSI",
     ],
     capabilities: [
       "Modèles d'accès par rôle",
@@ -225,7 +225,7 @@ export const solutions: Solution[] = [
     product: "Centrale d'alarme · NFA2P",
     icon: Radar,
     summary:
-      "Détection périmétrique et intérieure conforme NFA2P, pilotée de façon transparente depuis Amadeus.",
+      "Détection intérieure et périmétrique autour d'une centrale conforme NFA2P, pilotée de façon transparente depuis Amadeus.",
     intro:
       "La détection est réellement efficace lorsqu'elle est contextualisée, corrélée et reliée à un processus de réponse.",
     problem:
@@ -339,13 +339,13 @@ export const solutions: Solution[] = [
     product: "Biométrie · LPR · IoT · Sans fil",
     icon: Blocks,
     summary:
-      "Biométrie, LPR, IoT, interphonie, armoires à clés et protection périmétrique connectés sans verrouillage.",
+      "Biométrie, LPR, IoT, armoires à clés et protection périmétrique connectés sans verrouillage.",
     intro:
       "La qualité d'intégration détermine si une plateforme de sûreté devient un vrai système d'exploitation du site ou une juxtaposition d'outils.",
     problem:
       "Les intégrations point à point créent fragilité, dépendances opaques et difficultés futures de maintenance.",
     solution:
-      "Novadis relie biométrie (réseau veineux, empreinte CNIL), LPR (ANPR), lecteurs de porte sans fil, armoires à clés, gestion visiteurs, interphonie et protection périmétrique sismique dans des architectures documentées.",
+      "Novadis relie biométrie (réseau veineux, empreinte CNIL), LPR (ANPR), lecteurs de porte sans fil, armoires à clés, gestion visiteurs et protection périmétrique sismique dans des architectures documentées.",
     benefits: [
       "Stratégie système ouvert",
       "Interopérabilité fournisseur",
@@ -355,7 +355,7 @@ export const solutions: Solution[] = [
     capabilities: [
       "Biométrie & LPR",
       "IoT et capteurs",
-      "Interphonie & armoires à clés",
+      "Armoires à clés & périmétrie",
       "Intégrations spécifiques",
     ],
     outcomes: [
@@ -436,7 +436,7 @@ export const industries: Industry[] = [
     title: "Sites sensibles",
     icon: ShieldAlert,
     summary:
-      "Infrastructures critiques, défense et énergie : haute disponibilité, conformité ANSSI et traçabilité forensique pour les environnements réglementés.",
+      "Infrastructures critiques, défense et énergie : haute disponibilité, exigences ANSSI et traçabilité forensique pour les environnements réglementés.",
     challenges: [
       "Exigences d'uptime absolues",
       "Pression réglementaire OIV",
@@ -444,7 +444,7 @@ export const industries: Industry[] = [
       "Événements à fort impact",
     ],
     outcomes: [
-      "Conformité ANSSI",
+      "Recommandations ANSSI appliquées",
       "Assurance opérationnelle",
       "Modèles de contrôle évolutifs",
     ],
@@ -474,7 +474,7 @@ export const industries: Industry[] = [
     title: "ERP & environnements publics",
     icon: Users,
     summary:
-      "Hôpitaux, gares, centres commerciaux : concilier ouverture au public, protection des zones sensibles et continuité d'exploitation sous forte affluence.",
+      "Hôpitaux, lieux culturels, grands magasins : concilier ouverture au public, protection des zones sensibles et continuité d'exploitation sous forte affluence.",
     challenges: [
       "Cohabitation public et personnel",
       "Zones sensibles à accès régulés",
@@ -495,37 +495,37 @@ export const processSteps = [
     step: "01",
     title: "Étude & ingénierie",
     description:
-      "Analyse des usages, cartographie des risques, contraintes techniques et architecture de sûreté adaptée.",
-    deliverables: ["Audit terrain", "Cartographie des risques", "Architecture cible"],
+      "Cadrage du périmètre, analyse des usages et des contraintes techniques, architecture de sûreté adaptée, aux côtés du bureau d'études et de l'installateur.",
+    deliverables: ["Mémoire technique", "Analyse fonctionnelle", "Architecture cible"],
   },
   {
     step: "02",
     title: "Design",
     description:
       "Conception détaillée des équipements, logiciels, réseaux, stockage et parcours opérateurs.",
-    deliverables: ["Dossier technique", "Plans d'implantation", "Spécifications opérateurs"],
+    deliverables: ["Tableau des asservissements", "Note de calcul vidéo", "Plans graphiques de supervision"],
   },
   {
     step: "03",
     title: "Déploiement",
     description:
-      "Installation, mise en service, migration, validation et coordination avec les environnements en activité.",
-    deliverables: ["Mise en service", "Coordination chantier", "Validation par site"],
+      "Préparation en atelier, mise en service, migration et validation, en coordination avec l'installateur et les environnements en activité.",
+    deliverables: ["Préparation en atelier", "Mise en service", "Essais et PV de recette"],
   },
   {
     step: "04",
     title: "Maintenance",
     description:
       "Support cycle de vie, maintenance préventive, mises à jour et interventions pour la continuité métier.",
-    deliverables: ["Analyse fonctionnelle personnalisée", "Mémoire technique & carnet caméras", "Maintenance préventive et corrective"],
+    deliverables: ["Formation des exploitants", "Maintenance préventive et corrective", "Mises à jour applicatives"],
   },
 ];
 
 export const differentiators = [
-  "Première en France à unifier contrôle d'accès, vidéosurveillance et intrusion sur une seule interface",
-  "Exclusivité nationale sur Amadeus — une maîtrise produit qu'aucun concurrent ne peut revendiquer",
-  "Zéro sous-traitance : chaque équipement, hardware et software, est paramétré par les ingénieurs Novadis",
-  "Présent en amont des appels d'offres pour cadrer le cahier des charges et peser sur la roadmap",
+  "Pionnier du full-IP et de l'hyper-convergence : contrôle d'accès, vidéosurveillance et intrusion réunis sur une seule interface",
+  "Distributeur exclusif d'Amadeus en France",
+  "Paramétrage 100 % réalisé par les ingénieurs Novadis, matériel comme logiciel",
+  "Présent en amont des appels d'offres, aux côtés des bureaux d'études, pour cadrer le cahier des charges",
 ];
 
 export type Challenge = {
@@ -553,7 +553,7 @@ export const challenges: Challenge[] = [
     icon: ShieldCheck,
     description:
       "La sûreté physique entre dans le périmètre cyber : vos systèmes d'accès doivent être auditables et souverains.",
-    points: ["Amadeus conforme ANSSI", "Traçabilité auditable", "Architecture maîtrisée"],
+    points: ["Recommandations ANSSI appliquées", "Traçabilité auditable", "Architecture maîtrisée"],
     href: "/solutions/access-control",
   },
   {
@@ -580,7 +580,7 @@ export const challenges: Challenge[] = [
     icon: Fingerprint,
     description:
       "Réseau veineux, empreinte : la biométrie renforce les zones sensibles à condition de respecter le cadre réglementaire.",
-    points: ["Technologies conformes CNIL", "Zones à haut risque", "Parcours fluides"],
+    points: ["Déploiements conformes CNIL", "Zones à haut risque", "Parcours fluides"],
     href: "/solutions/smart-integrations",
   },
   {
@@ -608,7 +608,7 @@ export const regulatoryTopics: RegulatoryTopic[] = [
     slug: "nis2",
     title: "NIS2",
     description:
-      "La directive NIS2 étend les obligations de cybersécurité aux systèmes de sûreté physique. Novadis conçoit des architectures conformes ANSSI, segmentées et auditables, pour aborder l'échéance sans refonte brutale.",
+      "La directive NIS2 étend les obligations de cybersécurité aux systèmes de sûreté physique. Novadis conçoit des architectures alignées sur les recommandations ANSSI, segmentées et auditables, pour aborder l'échéance sans refonte brutale.",
     href: "/solutions/access-control",
     linkLabel: "Voir notre approche",
     media: mediaLibrary.stockDatacenter,
@@ -662,17 +662,15 @@ export const navItems: NavItem[] = [
 export type PartnerKind = "norm" | "association";
 
 export const partners: { name: string; role: string; kind: PartnerKind }[] = [
-  { name: "ANSSI", role: "Conformité", kind: "norm" },
+  { name: "ANSSI", role: "Recommandations", kind: "norm" },
   { name: "NFA2P", role: "Norme intrusion", kind: "norm" },
   { name: "CNIL", role: "Biométrie", kind: "norm" },
-  { name: "Arseg", role: "Association professionnelle", kind: "association" },
-  { name: "Synergie", role: "Association professionnelle", kind: "association" },
+  { name: "SPAC Alliance", role: "Association professionnelle", kind: "association" },
 ];
 
 export const trustSignals = [
-  "Membre Arseg",
-  "Membre Synergie",
-  "Conforme ANSSI",
+  "Membre SPAC Alliance",
+  "Recommandations ANSSI",
   "Norme NFA2P",
   "CNIL · biométrie",
 ];
@@ -883,31 +881,31 @@ export const heroFilm = {
 };
 
 export const serviceCommitments = [
-  "Documentation technique livrée à chaque jalon",
-  "Coordination avec exploitation, IT et services généraux",
+  "Documentation technique remise à la recette",
+  "Coordination avec l'installateur, l'IT et les autres lots",
   "Maintenance préventive planifiée par site",
-  "Support 24/7 pour les environnements sensibles",
+  "Hotline de 8 h à 18 h et intervention sous 48 h ouvrées",
 ];
 
 export const aboutHighlights: { label: string; icon: LucideIcon }[] = [
-  { label: "Pionnière de la solution globale en France", icon: Award },
-  { label: "Exclusivité nationale sur ses produits clés", icon: KeyRound },
-  { label: "Zéro sous-traitance", icon: Users },
+  { label: "Pionnier du full-IP et de l'hyper-convergence", icon: Award },
+  { label: "Distributeur exclusif d'Amadeus en France", icon: KeyRound },
+  { label: "Paramétrage 100 % interne", icon: Users },
 ];
 
 export const aboutApproach = [
   "Une coordination transverse entre IT, services généraux et équipes sûreté",
   "Des choix technologiques guidés par l'interopérabilité plutôt que par le verrouillage fournisseur",
   "Des modèles de maintenance pensés pour l'uptime et l'évolution à long terme",
-  "Une responsabilité sur l'ensemble du cycle de vie : audit, design, déploiement, maintenance",
+  "Une responsabilité sur l'ensemble du cycle de vie : études, mise en service, recette, formation et maintenance",
 ];
 
 export const contactDetails = {
-  email: "contact@novadis.eu",
-  phone: "+352 26 19 01 73",
-  phoneHref: "tel:+35226190173",
+  email: "com@novadis.eu",
+  phone: "+33 1 41 34 09 90",
+  phoneHref: "tel:+33141340990",
   addressLines: ["14-16 Rue Clément Bayard", "92300 Levallois-Perret · France"],
-  regions: "FR · LU · BE",
+  regions: "France",
 };
 
 export const contactChannels: { label: string; value: string; href: string; icon: LucideIcon }[] = [

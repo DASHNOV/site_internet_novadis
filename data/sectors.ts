@@ -24,14 +24,14 @@ export const sectors: Sector[] = [
     solutions: ["access-control", "video-surveillance", "smart-integrations"],
     examples: [
       {
-        title: "Siège corporate · 3 000 collaborateurs",
+        title: "Siège en immeuble de grande hauteur · 2 700 occupants",
         body:
-          "Contrôle d'accès multi-sites unifié, préinscription visiteurs en ligne, 200 caméras supervisées depuis un PC sûreté unique.",
+          "Reprise de plus de 200 lecteurs existants sous Amadeus sur 45 000 m², vidéo avec mur d'images, lecture de plaques au parking, gestion visiteurs et interface RH.",
       },
       {
-        title: "Campus technologique",
+        title: "Siège tertiaire · 10 000 badges",
         body:
-          "Zones de R&D cloisonnées, biométrie CNIL sur les labs, supervision 24/7 depuis un centre de sûreté dédié.",
+          "Contrôle d'accès Amadeus pour 10 000 porteurs, couplé à la gestion des ascenseurs et à l'accès Bluetooth, 103 caméras supervisées.",
       },
     ],
   },
@@ -50,14 +50,14 @@ export const sectors: Sector[] = [
     solutions: ["intrusion-detection", "video-surveillance", "it-infrastructure"],
     examples: [
       {
-        title: "Site industriel classé Seveso",
+        title: "Atelier de production classé ICPE",
         body:
-          "Protection périmétrique radar + vidéo, détection intrusion NFA2P type 3, architecture ANSSI-compliant.",
+          "Intrusion NFA2P sur la périphérie, les façades et les clôtures, caméras thermiques, lecture de plaques aux portails et essais de marche dégradée.",
       },
       {
-        title: "Data-center Tier III",
+        title: "Usine en construction",
         body:
-          "Contrôle d'accès biométrique en cages, LPR parking, supervision temps réel et traçabilité forensique.",
+          "Lot sûreté d'un site neuf, pris en charge de l'étude à la mise en service, en coordination avec les autres corps d'état du chantier.",
       },
     ],
   },
@@ -76,14 +76,9 @@ export const sectors: Sector[] = [
     solutions: ["video-surveillance", "ai-video-analytics", "access-control"],
     examples: [
       {
-        title: "Plateforme logistique 80 000 m²",
+        title: "Site de préparation et d'expédition alimentaire",
         body:
-          "LPR sur quais, contrôle d'accès chauffeurs intégré au TMS, analyse vidéo des aires de stockage.",
-      },
-      {
-        title: "Hub e-commerce multi-niveaux",
-        body:
-          "Lecteurs de porte sans fil sur 300 portes, supervision unifiée des flux et incidents en temps réel.",
+          "Contrôle d'accès Amadeus, 70 caméras, PC sécurité à 4 postes d'exploitation et badges visiteurs par QR code.",
       },
     ],
   },
@@ -92,24 +87,24 @@ export const sectors: Sector[] = [
     title: "Sites sensibles",
     tagline: "Infrastructures critiques, défense, énergie.",
     desc:
-      "Les environnements OIV et réglementés exigent haute disponibilité, conformité ANSSI et traçabilité forensique de bout en bout.",
+      "Les environnements OIV et réglementés exigent haute disponibilité, respect des exigences ANSSI et traçabilité forensique de bout en bout.",
     challenges: [
       "Exigences d'uptime absolues",
-      "Conformité ANSSI et OIV",
+      "Exigences ANSSI et OIV",
       "Traçabilité des incidents",
       "Événements à fort impact",
     ],
     solutions: ["supervision", "intrusion-detection", "access-control"],
     examples: [
       {
-        title: "Site OIV énergie",
+        title: "Réseau d'eau potable · 17 sites",
         body:
-          "Architecture ANSSI-compliant, périmètre radar + vidéo, supervision globale corrélée et procédures de crise pilotées.",
+          "Réservoirs classés infrastructures critiques et sites secondaires reliés en réseau privé : contrôle d'accès multisite avec mode crise, vidéo et armoires à clés, migration en cours vers Amadeus 8 et une intrusion NFA2P.",
       },
       {
-        title: "Centre de traitement valeurs",
+        title: "Joaillerie de prestige",
         body:
-          "Zones fortes avec double authentification, temporisation, pistes d'audit chiffrées, télésurveillance redondée.",
+          "Hypervision, biométrie, intrusion et vidéosurveillance réunies pour un site à très forte valeur.",
       },
     ],
   },
@@ -128,21 +123,21 @@ export const sectors: Sector[] = [
     solutions: ["supervision", "access-control", "it-infrastructure"],
     examples: [
       {
-        title: "Réseau de 200 agences bancaires",
+        title: "Maison de luxe · 31 boutiques",
         body:
-          "Supervision centralisée des alarmes, vidéo contextuelle, télésurveillance redondée IP + GPRS.",
+          "Poste central de sûreté conçu pour mutualiser toutes les boutiques sous Amadeus, migration boutique par boutique, hypervision au siège.",
       },
       {
-        title: "Enseigne retail 450 points de vente",
+        title: "Groupement hospitalier · 2 hôpitaux",
         body:
-          "Standardisation Amadeus et vidéo, déploiement piloté par phases, hyperviseur unique au siège.",
+          "Vidéosurveillance de deux établissements réunie sur une plateforme unique d'environ 140 caméras.",
       },
     ],
   },
   {
     slug: "erp",
     title: "ERP & environnements publics",
-    tagline: "Hôpitaux, gares, centres commerciaux.",
+    tagline: "Hôpitaux, lieux culturels, grands magasins.",
     desc:
       "Les ERP concilient ouverture au public, protection des zones sensibles et continuité d'exploitation sous forte affluence — avec des contraintes PMR et PPMS spécifiques.",
     challenges: [
@@ -154,14 +149,14 @@ export const sectors: Sector[] = [
     solutions: ["video-surveillance", "ai-video-analytics", "smart-integrations"],
     examples: [
       {
-        title: "CHU multi-sites",
+        title: "Centre hospitalier universitaire · 2 sites",
         body:
-          "Contrôle d'accès unifié sur 8 sites, bracelet RFID nouveau-nés, traçabilité pharmacie connectée.",
+          "Plus de 1 000 lecteurs et 30 000 porteurs de badges sous Amadeus, 370 caméras, lecture de plaques et intrusion, installés depuis 2010.",
       },
       {
-        title: "Pôle multimodal gare TGV",
+        title: "Établissement de jeux",
         body:
-          "5 000 caméras analysées en temps réel, bornes d'appel d'urgence intégrées, orchestration avec le PC exploitation.",
+          "Plus de 1 000 caméras et plus de 400 micros, avec le son et l'image synchronisés pour l'exploitation.",
       },
     ],
   },

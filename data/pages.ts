@@ -33,7 +33,7 @@ export const ctaBannerCopy = {
   emailLabel: "Email",
   phoneLabel: "Téléphone",
   scopeLabel: "Périmètre",
-  scope: "Grandes entreprises · sites industriels · infrastructures critiques · multi-sites Europe",
+  scope: "Grandes entreprises · sites industriels · infrastructures critiques · multi-sites",
 };
 
 export const normsCopy = {
@@ -107,7 +107,7 @@ export const homePage = {
     description:
       "Novadis combine expertise infrastructure, expérience terrain et discipline d'intégration pour livrer des systèmes que les équipes peuvent exploiter durablement, pas seulement valider sur le papier.",
     quote: "L'Homme et sa sécurité doivent constituer la première préoccupation de toute aventure technologique.",
-    quoteAuthor: "Albert Einstein — principe fondateur Novadis",
+    quoteAuthor: "Albert Einstein",
     cta: "Découvrir Novadis",
   },
 };
@@ -161,7 +161,7 @@ export const referencesPage = {
   hero: {
     title: "Des architectures de sûreté éprouvées sur le terrain",
     description:
-      "Chaque projet est unique. Ces cas illustrent comment Novadis adapte son expertise aux contraintes réelles de chaque environnement — de l'agence bancaire au CHU multi-sites, du flagship de luxe à la plateforme aéroportuaire.",
+      "Chaque projet est unique. Ces cas illustrent comment Novadis adapte son expertise aux contraintes réelles de chaque environnement — du siège en immeuble de grande hauteur au CHU, de la maison de luxe au réseau d'eau potable.",
   },
   disclaimer: "Les cas présentés sont anonymisés ; les données techniques et les périmètres restent réels.",
   featuredTitle: "Des environnements à très forte exigence",
@@ -196,10 +196,10 @@ export const aboutPage = {
   vision: {
     title: "La vision Novadis en 40 secondes",
     description:
-      "Alexis Roumelian (CEO) et Nicolas Jdanoff (Sales Director) présentent l'approche Novadis lors de l'interview SPAC Members — convergence, expertise et engagement terrain.",
+      "Alexis Roumelian (Directeur Général) et Nicolas Jdanoff (Directeur Commercial) présentent l'approche Novadis lors de l'interview SPAC Members — convergence, expertise et engagement terrain.",
     people: [
-      { name: "Alexis Roumelian", role: "CEO" },
-      { name: "Nicolas Jdanoff", role: "Sales Director" },
+      { name: "Alexis Roumelian", role: "Directeur Général" },
+      { name: "Nicolas Jdanoff", role: "Directeur Commercial" },
       { name: "SPAC Members", role: "Interview" },
     ],
   },
@@ -222,10 +222,10 @@ export const contactPage = {
     description:
       "Partagez le profil de votre site, vos objectifs de modernisation, vos contraintes ou vos exigences d'intégration. Novadis peut cadrer un projet de site unique comme un environnement multi-sites.",
     mediaAlt: "Réunion de cadrage autour d'une table dans un bureau",
-    mediaCaption: "Échanges directs · cadrage projet sous 48h",
+    mediaCaption: "Échanges directs · cadrage sur site",
   },
   topicsTitle: "Les éléments que nous abordons en première discussion",
   meetingNote:
-    "Vous préférez une rencontre directe ? Nous nous déplaçons sur vos sites en France, au Luxembourg et en Belgique pour cadrer le projet en conditions réelles.",
+    "Vous préférez une rencontre directe ? Nous nous déplaçons sur vos sites partout en France pour cadrer le projet en conditions réelles.",
   formTitle: { lead: "Un message direct,", accent: "traité par l'équipe ingénierie" } satisfies AccentText,
 };

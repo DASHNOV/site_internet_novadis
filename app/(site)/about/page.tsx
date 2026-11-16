@@ -15,7 +15,7 @@ import { SplitTitle } from "@/components/ui/split-title";
 export const metadata: Metadata = {
   title: "À propos de Novadis",
   description:
-    "Une ingénierie centrée sur l'humain. Plus de 20 ans d'expertise, 2,3 M m² protégés, des partenariats stricts et des équipes à taille humaine.",
+    "Une ingénierie centrée sur l'humain. Plus de 20 ans d'expertise, 5,3 M m² protégés, des partenariats stricts et des équipes à taille humaine.",
 };
 
 export default async function AboutPage() {

@@ -5,6 +5,76 @@
 
 ---
 
+## Corrections après vérification sur le SharePoint (16/11/2026)
+
+> Écarts entre le site et les documents internes Novadis, validés par l'équipe pour correction.
+> Second passage le même jour : tous les autres écarts relevés sont corrigés (bloc suivant).
+> Reste à surveiller : le contrat d'exclusivité DDS court « au minimum » jusqu'au 31/12/2026.
+
+```
+Chiffres clés     : « 12 000+ caméras » et « 40 000+ points d'accès » (sans source) deviennent
+                    « 100+ Clients » et « Or · EcoVadis 2026 · Performance RSE »
+Différenciateurs  : Pionnier du full-IP et de l'hyper-convergence : contrôle d'accès,
+                    vidéosurveillance et intrusion réunis sur une seule interface
+                    · Distributeur exclusif d'Amadeus en France
+                    · Paramétrage 100 % réalisé par les ingénieurs Novadis, matériel comme logiciel
+                    · Présent en amont des appels d'offres, aux côtés des bureaux d'études, pour
+                    cadrer le cahier des charges (« peser sur la roadmap » retiré)
+À propos          : Pionnier du full-IP et de l'hyper-convergence · Distributeur exclusif
+                    d'Amadeus en France · Paramétrage 100 % interne ; cycle de vie : études, mise
+                    en service, recette, formation et maintenance ; citation signée « Albert
+                    Einstein » (« principe fondateur Novadis » retiré)
+Associations      : Arseg et Synergie (aucune trace après 2017) remplacées par SPAC Alliance
+Supervision       : produit « Supervision globale Amadeus · Convergence multi-systèmes » ;
+                    « la supervision globale Amadeus » au lieu de « une couche d'hyperviseur »
+Interphonie       : retirée (aucune intégration documentée) ; capacité « Armoires à clés &
+                    périmétrie »
+IT                : « Réseaux dédiés et segmentés », « Segmentation réseau par métier »
+Contrôle d'accès  : « Architecture ouverte et API » (au lieu de « ouverte et libre »)
+Intrusion         : « Détection intérieure et périmétrique autour d'une centrale conforme NFA2P »
+CNIL              : « Déploiements conformes CNIL » (la CNIL ne certifie pas de technologie)
+Méthode           : livrables réels : Mémoire technique · Analyse fonctionnelle · Architecture
+                    cible / Tableau des asservissements · Note de calcul vidéo · Plans graphiques
+                    de supervision / Préparation en atelier · Mise en service · Essais et PV de
+                    recette / Formation des exploitants · Maintenance préventive et corrective ·
+                    Mises à jour applicatives
+Engagements       : Documentation technique remise à la recette · Coordination avec
+                    l'installateur, l'IT et les autres lots
+Contact           : « cadrage sur site » (au lieu de « sous 48h ») ; déplacements « partout en
+                    France » ; « multi-sites » (au lieu de « multi-sites Europe »)
+Sites sensibles   : « respect des exigences ANSSI », « Exigences ANSSI et OIV »
+ERP               : « Hôpitaux, lieux culturels, grands magasins » (aucun projet de gare)
+/references hero  : « […] du siège en immeuble de grande hauteur au CHU, de la maison de luxe au
+                    réseau d'eau potable. » (agence bancaire et plateforme aéroportuaire retirées)
+```
+
+```
+Contact           : +33 1 41 34 09 90 (au lieu de +352 26 19 01 73) · com@novadis.eu (au lieu de
+                    contact@novadis.eu) · zone « France » (au lieu de « FR · LU · BE »)
+Surface protégée  : 5,3 M m² (au lieu de 2,3 M m², chiffre de 2017) · aussi dans la meta /about
+ANSSI             : Novadis et DDS ne sont pas certifiés ANSSI. « Conforme ANSSI » devient
+                    « Recommandations ANSSI » (badges, normes, bénéfice Amadeus, enjeu NIS2,
+                    secteur Sites sensibles) ; Amadeus : « lecture de badge selon les
+                    recommandations ANSSI »
+Engagement        : « Support 24/7 pour les environnements sensibles » devient « Hotline de 8 h à
+                    18 h et intervention sous 48 h ouvrées » (contrats de maintenance 2026)
+Déploiement       : « Préparation en atelier, mise en service, migration et validation, en
+                    coordination avec l'installateur et les environnements en activité. » (la
+                    pose et le câblage relèvent de l'installateur)
+Équipe            : Alexis Roumelian, Directeur Général · Nicolas Jdanoff, Directeur Commercial
+Exemples secteurs : les exemples sans projet réel sont remplacés par des projets réels anonymisés :
+  Tertiaire       : Siège en IGH · 2 700 occupants · Siège tertiaire · 10 000 badges
+  Industrie       : Atelier de production classé ICPE · Usine en construction
+  Logistique      : Site de préparation et d'expédition alimentaire (un seul exemple : aucun
+                    autre projet logistique documenté)
+  Sites sensibles : Réseau d'eau potable · 17 sites · Joaillerie de prestige
+  Multi-sites     : Maison de luxe · 31 boutiques · Groupement hospitalier · 2 hôpitaux
+  ERP             : Centre hospitalier universitaire · 2 sites · Établissement de jeux
+                    (volumes du CHU à confirmer : 850 ou 1 050 lecteurs selon la présentation)
+```
+
+---
+
 ## Retrait des références clients et des marques (23/10/2026)
 
 > Décision de la direction après la démo : aucun client, site ni marque n'est cité sur le site,
