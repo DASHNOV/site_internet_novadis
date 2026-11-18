@@ -1,7 +1,7 @@
 import type { Field, GlobalConfig } from "payload";
 import { canEdit, isLoggedIn, publishedOrLoggedIn } from "../access";
 import { revalidateOnPublish } from "../hooks/revalidate";
-import { drafts, text } from "../fields";
+import { drafts, text, updatedBy, versionHistory } from "../fields";
 
 // Le nombre d'étapes et d'étiquettes suit les films et les modèles 3D : il est figé.
 function steps(count: number, titleName: "label" | "title"): Field {
@@ -31,12 +31,13 @@ export const Demos: GlobalConfig = {
   admin: {
     group: "Éléments communs",
     description: "Textes affichés dans les films et les scènes 3D. Les animations elles-mêmes restent gérées par l'équipe technique.",
-    components: { elements: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] } },
+    components: { elements: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] }, views: versionHistory },
   },
   access: { read: publishedOrLoggedIn, readVersions: isLoggedIn, update: canEdit },
   hooks: { afterChange: [revalidateOnPublish] },
   versions: drafts,
   fields: [
+    updatedBy,
     {
       type: "tabs",
       tabs: [

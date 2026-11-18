@@ -1,14 +1,14 @@
 import type { CollectionConfig } from "payload";
 import { revalidateOnDelete, revalidateOnPublish } from "../hooks/revalidate";
 import { canEdit, isAdmin, isLoggedIn, publishedOrLoggedIn } from "../access";
-import { drafts, icon, link, slug, text, textList } from "../fields";
+import { drafts, icon, link, slug, text, textList, updatedBy, versionHistory } from "../fields";
 
 export const Challenges: CollectionConfig = {
   slug: "challenges",
   labels: { singular: "Enjeu", plural: "Enjeux" },
   admin: {
     group: "Offre",
-    components: { edit: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] } },
+    components: { edit: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] }, views: versionHistory },
     useAsTitle: "title",
     defaultColumns: ["title", "href", "updatedAt"],
     description: "Bloc « Chaque projet commence par un problème concret » de l'accueil.",
@@ -25,6 +25,7 @@ export const Challenges: CollectionConfig = {
   },
   versions: drafts,
   fields: [
+    updatedBy,
     slug,
     {
       name: "order",

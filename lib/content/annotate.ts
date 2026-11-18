@@ -15,6 +15,7 @@ const TECHNICAL = new Set([
   "_status",
   "createdAt",
   "updatedAt",
+  "updatedBy",
   "globalType",
 ]);
 

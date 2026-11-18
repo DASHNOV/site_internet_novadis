@@ -1,17 +1,17 @@
 import type { Field, GlobalConfig, Tab } from "payload";
 import { canEdit, isLoggedIn, publishedOrLoggedIn } from "../access";
 import { revalidateOnPublish } from "../hooks/revalidate";
-import { accentTitle, drafts, icon, image, link, text, textList } from "../fields";
+import { accentTitle, drafts, icon, image, link, text, textList, updatedBy, versionHistory } from "../fields";
 
 function pageGlobal(slug: string, label: string, fields: Field[]): GlobalConfig {
   return {
     slug,
     label,
-    admin: { group: "Pages", components: { elements: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] } } },
+    admin: { group: "Pages", components: { elements: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] }, views: versionHistory } },
     access: { read: publishedOrLoggedIn, readVersions: isLoggedIn, update: canEdit },
     hooks: { afterChange: [revalidateOnPublish] },
     versions: drafts,
-    fields,
+    fields: [updatedBy, ...fields],
   };
 }
 

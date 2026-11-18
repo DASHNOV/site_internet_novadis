@@ -1,7 +1,7 @@
 import type { GlobalConfig } from "payload";
 import { canEdit, isLoggedIn, publishedOrLoggedIn } from "../access";
 import { revalidateOnPublish } from "../hooks/revalidate";
-import { accentTitle, drafts, link, text, textList } from "../fields";
+import { accentTitle, drafts, link, text, textList, updatedBy, versionHistory } from "../fields";
 
 export const Common: GlobalConfig = {
   slug: "common",
@@ -9,12 +9,13 @@ export const Common: GlobalConfig = {
   admin: {
     group: "Éléments communs",
     description: "Textes repris sur plusieurs pages du site.",
-    components: { elements: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] } },
+    components: { elements: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] }, views: versionHistory },
   },
   access: { read: publishedOrLoggedIn, readVersions: isLoggedIn, update: canEdit },
   hooks: { afterChange: [revalidateOnPublish] },
   versions: drafts,
   fields: [
+    updatedBy,
     {
       type: "tabs",
       tabs: [

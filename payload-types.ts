@@ -151,6 +151,7 @@ export interface UserAuthOperations {
  */
 export interface Solution {
   id: number;
+  updatedBy?: string | null;
   /**
    * Utilisé dans l'adresse de la page. Non modifiable.
    */
@@ -245,6 +246,7 @@ export interface Media {
    * Décrit l'image pour les lecteurs d'écran et le référencement.
    */
   alt: string;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -263,6 +265,7 @@ export interface Media {
  */
 export interface Sector {
   id: number;
+  updatedBy?: string | null;
   /**
    * Utilisé dans l'adresse de la page. Non modifiable.
    */
@@ -329,6 +332,7 @@ export interface Sector {
  */
 export interface Reference {
   id: number;
+  updatedBy?: string | null;
   order: number;
   name: string;
   sector: string;
@@ -347,6 +351,7 @@ export interface Reference {
  */
 export interface Challenge {
   id: number;
+  updatedBy?: string | null;
   /**
    * Utilisé dans l'adresse de la page. Non modifiable.
    */
@@ -518,6 +523,7 @@ export interface PayloadMigration {
  * via the `definition` "solutions_select".
  */
 export interface SolutionsSelect<T extends boolean = true> {
+  updatedBy?: T;
   slug?: T;
   order?: T;
   title?: T;
@@ -565,6 +571,7 @@ export interface SolutionsSelect<T extends boolean = true> {
  * via the `definition` "sectors_select".
  */
 export interface SectorsSelect<T extends boolean = true> {
+  updatedBy?: T;
   slug?: T;
   order?: T;
   title?: T;
@@ -602,6 +609,7 @@ export interface SectorsSelect<T extends boolean = true> {
  * via the `definition` "references_select".
  */
 export interface ReferencesSelect<T extends boolean = true> {
+  updatedBy?: T;
   order?: T;
   name?: T;
   sector?: T;
@@ -617,6 +625,7 @@ export interface ReferencesSelect<T extends boolean = true> {
  * via the `definition` "challenges_select".
  */
 export interface ChallengesSelect<T extends boolean = true> {
+  updatedBy?: T;
   slug?: T;
   order?: T;
   title?: T;
@@ -639,6 +648,7 @@ export interface ChallengesSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -722,6 +732,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Home {
   id: number;
+  updatedBy?: string | null;
   hero: {
     /**
      * La suite du titre s'affiche en gris.
@@ -883,6 +894,7 @@ export interface Home {
  */
 export interface SolutionsPage {
   id: number;
+  updatedBy?: string | null;
   hero: {
     /**
      * Les trois premiers mots s'affichent en encre, la suite en gris.
@@ -912,6 +924,7 @@ export interface SolutionsPage {
  */
 export interface SectorsPage {
   id: number;
+  updatedBy?: string | null;
   hero: {
     /**
      * Les trois premiers mots s'affichent en encre, la suite en gris.
@@ -933,6 +946,7 @@ export interface SectorsPage {
  */
 export interface ServicesPage {
   id: number;
+  updatedBy?: string | null;
   hero: {
     /**
      * Les trois premiers mots s'affichent en encre, la suite en gris.
@@ -969,6 +983,7 @@ export interface ServicesPage {
  */
 export interface ReferencesPage {
   id: number;
+  updatedBy?: string | null;
   hero: {
     /**
      * Les trois premiers mots s'affichent en encre, la suite en gris.
@@ -991,6 +1006,7 @@ export interface ReferencesPage {
  */
 export interface AboutPage {
   id: number;
+  updatedBy?: string | null;
   hero: {
     title: string;
     description: string;
@@ -1068,6 +1084,7 @@ export interface AboutPage {
  */
 export interface ContactPage {
   id: number;
+  updatedBy?: string | null;
   hero: {
     /**
      * Les trois premiers mots s'affichent en encre, la suite en gris.
@@ -1112,6 +1129,7 @@ export interface ContactPage {
  */
 export interface Common {
   id: number;
+  updatedBy?: string | null;
   header: {
     tagline: string;
     contactCta: string;
@@ -1232,6 +1250,7 @@ export interface Common {
  */
 export interface Demo {
   id: number;
+  updatedBy?: string | null;
   heroFilm: {
     status: string;
   };
@@ -1348,6 +1367,7 @@ export interface Demo {
  * via the `definition` "home_select".
  */
 export interface HomeSelect<T extends boolean = true> {
+  updatedBy?: T;
   hero?:
     | T
     | {
@@ -1495,6 +1515,7 @@ export interface HomeSelect<T extends boolean = true> {
  * via the `definition` "solutions-page_select".
  */
 export interface SolutionsPageSelect<T extends boolean = true> {
+  updatedBy?: T;
   hero?:
     | T
     | {
@@ -1522,6 +1543,7 @@ export interface SolutionsPageSelect<T extends boolean = true> {
  * via the `definition` "sectors-page_select".
  */
 export interface SectorsPageSelect<T extends boolean = true> {
+  updatedBy?: T;
   hero?:
     | T
     | {
@@ -1542,6 +1564,7 @@ export interface SectorsPageSelect<T extends boolean = true> {
  * via the `definition` "services-page_select".
  */
 export interface ServicesPageSelect<T extends boolean = true> {
+  updatedBy?: T;
   hero?:
     | T
     | {
@@ -1578,6 +1601,7 @@ export interface ServicesPageSelect<T extends boolean = true> {
  * via the `definition` "references-page_select".
  */
 export interface ReferencesPageSelect<T extends boolean = true> {
+  updatedBy?: T;
   hero?:
     | T
     | {
@@ -1599,6 +1623,7 @@ export interface ReferencesPageSelect<T extends boolean = true> {
  * via the `definition` "about-page_select".
  */
 export interface AboutPageSelect<T extends boolean = true> {
+  updatedBy?: T;
   hero?:
     | T
     | {
@@ -1663,6 +1688,7 @@ export interface AboutPageSelect<T extends boolean = true> {
  * via the `definition` "contact-page_select".
  */
 export interface ContactPageSelect<T extends boolean = true> {
+  updatedBy?: T;
   hero?:
     | T
     | {
@@ -1702,6 +1728,7 @@ export interface ContactPageSelect<T extends boolean = true> {
  * via the `definition` "common_select".
  */
 export interface CommonSelect<T extends boolean = true> {
+  updatedBy?: T;
   header?:
     | T
     | {
@@ -1834,6 +1861,7 @@ export interface CommonSelect<T extends boolean = true> {
  * via the `definition` "demos_select".
  */
 export interface DemosSelect<T extends boolean = true> {
+  updatedBy?: T;
   heroFilm?:
     | T
     | {

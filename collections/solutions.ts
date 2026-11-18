@@ -1,14 +1,14 @@
 import type { CollectionConfig } from "payload";
 import { revalidateOnDelete, revalidateOnPublish } from "../hooks/revalidate";
 import { canEdit, isAdmin, isLoggedIn, publishedOrLoggedIn } from "../access";
-import { drafts, icon, image, slug, text, textList } from "../fields";
+import { drafts, icon, image, slug, text, textList, updatedBy, versionHistory } from "../fields";
 
 export const Solutions: CollectionConfig = {
   slug: "solutions",
   labels: { singular: "Solution", plural: "Solutions" },
   admin: {
     group: "Offre",
-    components: { edit: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] } },
+    components: { edit: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] }, views: versionHistory },
     useAsTitle: "title",
     defaultColumns: ["title", "product", "updatedAt"],
   },
@@ -24,6 +24,7 @@ export const Solutions: CollectionConfig = {
   },
   versions: drafts,
   fields: [
+    updatedBy,
     slug,
     {
       name: "order",

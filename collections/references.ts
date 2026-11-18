@@ -1,14 +1,14 @@
 import type { CollectionConfig } from "payload";
 import { revalidateOnDelete, revalidateOnPublish } from "../hooks/revalidate";
 import { canEdit, isAdmin, isLoggedIn, publishedOrLoggedIn } from "../access";
-import { drafts, image, text } from "../fields";
+import { drafts, image, text, updatedBy, versionHistory } from "../fields";
 
 export const References: CollectionConfig = {
   slug: "references",
   labels: { singular: "Référence", plural: "Références" },
   admin: {
     group: "Offre",
-    components: { edit: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] } },
+    components: { edit: { beforeDocumentControls: ["/components/admin/view-on-site#ViewOnSite"] }, views: versionHistory },
     useAsTitle: "name",
     defaultColumns: ["name", "sector", "updatedAt"],
     description: "Cas phares anonymisés, affichés sur l'accueil et la page Références.",
@@ -25,6 +25,7 @@ export const References: CollectionConfig = {
   },
   versions: drafts,
   fields: [
+    updatedBy,
     {
       name: "order",
       label: "Ordre d'affichage",

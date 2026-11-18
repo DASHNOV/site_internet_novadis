@@ -82,3 +82,17 @@ export function link(name: string, label: string): Field {
 }
 
 export const drafts = { drafts: { autosave: { interval: 800 } }, maxPerDoc: 50 } as const;
+
+// Le nom est copié dans chaque version : l'historique reste lisible si le compte est supprimé.
+export const updatedBy: Field = {
+  name: "updatedBy",
+  label: "Modifié par",
+  type: "text",
+  access: { read: ({ req }) => Boolean(req.user) },
+  admin: { readOnly: true, position: "sidebar" },
+  hooks: { beforeChange: [({ req, value }) => req.user?.name ?? value] },
+};
+
+export const versionHistory = {
+  edit: { versions: { Component: "/components/admin/version-history#VersionHistory" } },
+};
