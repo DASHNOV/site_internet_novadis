@@ -120,6 +120,17 @@ Modèle 3D hero    : nom « Caméra bullet extérieure » ; inscription de marqu
 
 ---
 
+## Mentions légales et confidentialité (18/11/2026)
+
+> Textes publiés à la demande de l'équipe, à partir de novadis.eu, adaptés au nouveau site (`data/legal.ts`).
+> Registres vérifiés le 18/11/2026 (Annuaire des Entreprises, VIES) : SAS, capital 245 168 €, siège 14-16 rue
+> Clément Bayard, SIRET 392 844 122 00052, TVA FR32 392 844 122. L'ancien siège du 26 rue du Parc n'est pas repris.
+> À valider : nom du directeur de la publication, téléphone de l'hébergeur, durées de conservation (3 ans repris de
+> la politique de 2026, l'ancienne page indiquait 3 mois), mention des visuels générés par IA, et mise à jour de la
+> politique lorsque le formulaire de contact sera branché.
+
+---
+
 ## Métadonnées globales
 
 ```
