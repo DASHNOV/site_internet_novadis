@@ -179,7 +179,14 @@ export const referencesPage = {
   } as Record<string, string>,
 };
 
+export const parentGroupUrl = "https://sucheme.fr/";
+
 export const aboutPage = {
+  parentGroup: {
+    description:
+      "Depuis 2021, Novadis fait partie du Groupe Sucheme, qui réunit 10 sociétés expertes en sûreté et sécurité, en accueil et services aux occupants, ainsi qu'en conseil et formation.",
+    cta: "Découvrir le groupe",
+  },
   hero: {
     title: "Une ingénierie centrée sur l'humain pour les environnements où la fiabilité compte",
     description:

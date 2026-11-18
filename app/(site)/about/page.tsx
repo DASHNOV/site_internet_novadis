@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { ShieldCheck } from "lucide-react";
+import { ArrowUpRight, ShieldCheck } from "lucide-react";
+import { parentGroupUrl } from "@/data/pages";
 import { getSiteContent } from "@/lib/content/server";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
 import { PageHero } from "@/components/sections/page-hero";
 import { PartnerCloud } from "@/components/sections/partner-cloud";
+import { PartnerLogos } from "@/components/sections/partner-logos";
 import { Reveal } from "@/components/motion/reveal";
 import { SolutionsWheel } from "@/components/motion/solutions-wheel";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -37,6 +39,21 @@ export default async function AboutPage() {
 
       <div className="shell-wide pt-10">
         <StatRow />
+      </div>
+
+      <div className="shell-wide pt-6">
+        <Reveal className="flex flex-col gap-4 border border-hairline bg-surface p-6 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
+          <p className="max-w-3xl text-base leading-7 text-foreground-strong">{copy.parentGroup.description}</p>
+          <a
+            className="group inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-primary-strong hover:text-primary-deep"
+            href={parentGroupUrl}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {copy.parentGroup.cta}
+            <ArrowUpRight aria-hidden className="cta-arrow h-4 w-4" />
+          </a>
+        </Reveal>
       </div>
 
       <section className="section-y">
@@ -140,6 +157,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
+      <PartnerLogos />
       <PartnerCloud />
       <CtaBanner />
       <SiteFooter />

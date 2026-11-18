@@ -415,6 +415,10 @@ export function buildSiteContent(raw: CmsRaw) {
         mediaAlt: aboutPage.hero.mediaAlt,
         mediaCaption: aboutPage.hero.mediaCaption,
       },
+      parentGroup: {
+        description: aboutPage.parentGroup.description,
+        cta: aboutPage.parentGroup.cta,
+      },
       human: {
         title: aboutPage.human.title,
         description: aboutPage.human.description,

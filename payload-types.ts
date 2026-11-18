@@ -1013,6 +1013,10 @@ export interface AboutPage {
     mediaAlt: string;
     mediaCaption: string;
   };
+  parentGroup: {
+    description: string;
+    cta: string;
+  };
   human: {
     title: string;
     description: string;
@@ -1631,6 +1635,12 @@ export interface AboutPageSelect<T extends boolean = true> {
         description?: T;
         mediaAlt?: T;
         mediaCaption?: T;
+      };
+  parentGroup?:
+    | T
+    | {
+        description?: T;
+        cta?: T;
       };
   human?:
     | T

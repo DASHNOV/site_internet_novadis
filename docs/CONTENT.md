@@ -336,8 +336,23 @@ DDS · Qognify · Microsoft · Dell · VMware · Hyper-V · Aperio · Honeywell 
 
 ## Page À propos
 
+- Groupe (validé le 18/11/2026, lien vers https://sucheme.fr/) : *"Depuis 2021, Novadis fait partie du Groupe Sucheme, qui réunit 10 sociétés expertes en sûreté et sécurité, en accueil et services aux occupants, ainsi qu'en conseil et formation."*
 - Citation Einstein à revoir : *"Si vous ne pouvez pas expliquer simplement..."*  
   → Pertinente pour Novadis ? À valider avec le directeur.
+- Partenaires technologiques (ajouté le 18/11/2026, juste avant « Normes & engagements ») — à valider :
+  ```
+  Titre     : Nos partenaires technologiques
+  Logos     : DDS · HID · STid · FDI · DOM · U&Z · Evolis · Octave · Milestone · Nx Witness · Axis · C-Q-IT · Milesight · Dell · Sharry · CIAS · Barox
+  Emplacement masqué (dernière cellule) :
+    Libellé   : Nouveau partenaire
+    Texte     : Dévoilement en janvier 2027
+    Décompte  : « Dévoilement dans X j Y h Z min », affiché seulement si une date de dévoilement est renseignée
+                dans `data/partners.ts` (`partnerTeaser.revealAt`, ISO avec fuseau) ; vide pour l'instant
+  ```
+  > ⚠️ Nouveaux textes à valider. Les noms affichés sont raccourcis (DDS, HID, FDI, DOM, U&Z, Milestone…) ;
+  > les logos viennent de `public/novadis/logos/partners/` (voir la note sur les droits d'usage plus haut).
+  > Une fois la date passée, l'emplacement masqué disparaît : le logo du nouveau partenaire s'ajoute alors à la main
+  > dans `data/partners.ts`.
 
 ---
 

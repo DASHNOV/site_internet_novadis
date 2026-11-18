@@ -140,6 +140,7 @@ const globals = {
   },
   "about-page": {
     hero: pages.aboutPage.hero,
+    parentGroup: pages.aboutPage.parentGroup,
     human: {
       ...pages.aboutPage.human,
       highlights: site.aboutHighlights.map((item) => ({ label: item.label, icon: iconName(item.icon) })),

@@ -180,6 +180,10 @@ export const AboutPage = pageGlobal("about-page", "À propos", [
         text("mediaAlt", "Texte alternatif de la photo", "title"),
         text("mediaCaption", "Légende de la photo", "title"),
       ]),
+      section("parentGroup", "Groupe", [
+        text("description", "Présentation du groupe", "paragraph"),
+        text("cta", "Texte du lien", "label"),
+      ]),
       section("human", "L'humain", [
         text("title", "Titre", "title"),
         text("description", "Description", "paragraph"),
