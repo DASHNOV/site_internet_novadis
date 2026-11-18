@@ -1,5 +1,7 @@
 import { ViewOnSite as ViewOnSite_2813a4a77d8ccd83e077176ac9063e37 } from '../../../components/admin/view-on-site'
 import { VersionHistory as VersionHistory_85be3dde739686e2dcd1d7652befb746 } from '../../../components/admin/version-history'
+import { UserVersionsLink as UserVersionsLink_86d76d210031e70b8233f9ee6fd549ea } from '../../../components/admin/user-activity'
+import { UserActivity as UserActivity_86d76d210031e70b8233f9ee6fd549ea } from '../../../components/admin/user-activity'
 import { AdminIcon as AdminIcon_8080e1ef1118adf03a39f8c4df3468b1 } from '../../../components/admin/brand'
 import { AdminLogo as AdminLogo_8080e1ef1118adf03a39f8c4df3468b1 } from '../../../components/admin/brand'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
@@ -9,6 +11,8 @@ import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e
 export const importMap = {
   "/components/admin/view-on-site#ViewOnSite": ViewOnSite_2813a4a77d8ccd83e077176ac9063e37,
   "/components/admin/version-history#VersionHistory": VersionHistory_85be3dde739686e2dcd1d7652befb746,
+  "/components/admin/user-activity#UserVersionsLink": UserVersionsLink_86d76d210031e70b8233f9ee6fd549ea,
+  "/components/admin/user-activity#UserActivity": UserActivity_86d76d210031e70b8233f9ee6fd549ea,
   "/components/admin/brand#AdminIcon": AdminIcon_8080e1ef1118adf03a39f8c4df3468b1,
   "/components/admin/brand#AdminLogo": AdminLogo_8080e1ef1118adf03a39f8c4df3468b1,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,

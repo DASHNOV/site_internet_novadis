@@ -7,7 +7,9 @@ type VersionRow = { id: number | string; updatedAt: string; version: { _status?:
 
 const VERSIONS_PER_DOCUMENT = 50;
 
-const dateFormat = new Intl.DateTimeFormat("fr-FR", { dateStyle: "short", timeStyle: "medium", timeZone: "Europe/Paris" });
+export const dateFormat = new Intl.DateTimeFormat("fr-FR", { dateStyle: "short", timeStyle: "medium", timeZone: "Europe/Paris" });
+
+export const statusLabel = (status?: string | null) => (status === "published" ? "Publiée" : "Brouillon");
 
 // Remplace la liste standard de Payload, qui ne permet pas d'ajouter la colonne de l'auteur.
 export async function VersionHistory({ initPageResult }: DocumentViewServerProps) {
@@ -61,7 +63,7 @@ export async function VersionHistory({ initPageResult }: DocumentViewServerProps
                         </Link>
                       </td>
                       <td>{version.updatedBy ?? "Non renseigné"}</td>
-                      <td>{version._status === "published" ? "Publiée" : "Brouillon"}</td>
+                      <td>{statusLabel(version._status)}</td>
                     </tr>
                   ))}
                 </tbody>

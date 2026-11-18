@@ -17,9 +17,20 @@ export const Users: CollectionConfig = {
   auth: { maxLoginAttempts: 5, lockTime: 15 * 60 * 1000 },
   admin: {
     useAsTitle: "name",
-    defaultColumns: ["name", "email", "role"],
+    defaultColumns: ["name", "email", "role", "versions"],
     group: "Administration",
     hidden: ({ user }) => (user as { role?: string } | null)?.role !== "admin",
+    components: {
+      views: {
+        edit: {
+          activity: {
+            Component: "/components/admin/user-activity#UserActivity",
+            path: "/activite",
+            tab: { label: "Versions", href: "/activite", condition: ({ req }) => Boolean(isAdmin({ req })) },
+          },
+        },
+      },
+    },
   },
   access: {
     // Chacun lit et modifie son propre compte (mot de passe), l'admin gère tous les comptes.
@@ -30,6 +41,12 @@ export const Users: CollectionConfig = {
   },
   fields: [
     { name: "name", label: "Nom", type: "text", required: true },
+    {
+      name: "versions",
+      label: "Versions",
+      type: "ui",
+      admin: { components: { Cell: "/components/admin/user-activity#UserVersionsLink" } },
+    },
     {
       name: "role",
       label: "Rôle",
