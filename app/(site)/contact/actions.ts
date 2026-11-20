@@ -7,7 +7,7 @@ import { contactDetails } from "@/data/site";
 
 type FieldName = "name" | "company" | "email" | "phone" | "message";
 
-export type ContactFormValues = Record<FieldName, string>;
+export type ContactFormValues = Record<FieldName, string> & { contact: string };
 
 export type ContactFormState = {
   status: "idle" | "disabled" | "sent" | "invalid" | "error";
@@ -60,9 +60,10 @@ function validate(values: ContactFormValues) {
   return errors;
 }
 
-function buildMailText(values: ContactFormValues) {
-  const { labels, notProvided } = contactFormCopy.mail;
+function buildMailText(values: ContactFormValues, recipientName?: string) {
+  const { labels, notProvided, contactLabel } = contactFormCopy.mail;
   return [
+    ...(recipientName ? [`${contactLabel} : ${recipientName}`, ""] : []),
     `${labels.name} : ${values.name}`,
     `${labels.company} : ${values.company || notProvided}`,
     `${labels.email} : ${values.email}`,
@@ -71,6 +72,18 @@ function buildMailText(values: ContactFormValues) {
     `${labels.message} :`,
     values.message,
   ].join("\n");
+}
+
+// L'adresse de l'interlocuteur ne quitte jamais le serveur : seule une fiche publiée et visible est retenue.
+async function findRecipient(id: string) {
+  if (!/^\d{1,9}$/.test(id)) return null;
+  try {
+    const payload = await getPayload({ config });
+    const contact = await payload.findByID({ collection: "sales-contacts", id, depth: 0, overrideAccess: true });
+    return contact.visible && contact._status === "published" ? { name: contact.name, email: contact.email } : null;
+  } catch {
+    return null;
+  }
 }
 
 export async function submitContactForm(_previous: ContactFormState, formData: FormData): Promise<ContactFormState> {
@@ -82,6 +95,7 @@ export async function submitContactForm(_previous: ContactFormState, formData: F
     email: singleLine(formData.get("email")),
     phone: singleLine(formData.get("phone")),
     message: multiLine(formData.get("message")),
+    contact: singleLine(formData.get("contact")),
   };
   if (process.env.CONTACT_FORM_ENABLED !== "true") return { status: "disabled", values };
 
@@ -93,11 +107,15 @@ export async function submitContactForm(_previous: ContactFormState, formData: F
 
   try {
     const payload = await getPayload({ config });
+    const team = process.env.CONTACT_FORM_TO || contactDetails.email;
+    const recipient = values.contact ? await findRecipient(values.contact) : null;
+    const copy = recipient && recipient.email.toLowerCase() !== team.toLowerCase() ? team : undefined;
     await payload.sendEmail({
-      to: process.env.CONTACT_FORM_TO || contactDetails.email,
+      to: recipient?.email ?? team,
+      cc: copy,
       replyTo: values.email,
       subject: `${contactFormCopy.mail.subjectPrefix} - ${values.name}${values.company ? ` (${values.company})` : ""}`,
-      text: buildMailText(values),
+      text: buildMailText(values, recipient?.name),
     });
     return { status: "sent" };
   } catch (error) {

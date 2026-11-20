@@ -2,6 +2,7 @@ import * as migration_20261116_080737_initial from './20261116_080737_initial';
 import * as migration_20261118_103818_add_updated_by from './20261118_103818_add_updated_by';
 import * as migration_20261118_105928_restore_media_object_key from './20261118_105928_restore_media_object_key';
 import * as migration_20261118_143648_add_about_parent_group from './20261118_143648_add_about_parent_group';
+import * as migration_20261120_090940_add_sales_contacts from './20261120_090940_add_sales_contacts';
 
 export const migrations = [
   {
@@ -22,6 +23,11 @@ export const migrations = [
   {
     up: migration_20261118_143648_add_about_parent_group.up,
     down: migration_20261118_143648_add_about_parent_group.down,
-    name: '20261118_143648_add_about_parent_group'
+    name: '20261118_143648_add_about_parent_group',
+  },
+  {
+    up: migration_20261120_090940_add_sales_contacts.up,
+    down: migration_20261120_090940_add_sales_contacts.down,
+    name: '20261120_090940_add_sales_contacts'
   },
 ];

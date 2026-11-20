@@ -47,11 +47,12 @@ const loadCmsRaw = cache(async (draft: boolean): Promise<CmsRaw> => {
       findGlobal("common"),
       findGlobal("demos"),
     ]);
-  const [solutions, sectors, references, challenges] = await Promise.all([
+  const [solutions, sectors, references, challenges, salesContacts] = await Promise.all([
     payload.find({ collection: "solutions", ...list }),
     payload.find({ collection: "sectors", ...list }),
     payload.find({ collection: "references", ...list }),
     payload.find({ collection: "challenges", ...list }),
+    payload.find({ collection: "sales-contacts", ...list, where: { visible: { equals: true } } }),
   ]);
 
   return {
@@ -60,6 +61,8 @@ const loadCmsRaw = cache(async (draft: boolean): Promise<CmsRaw> => {
     sectors: sectors.docs,
     references: references.docs,
     challenges: challenges.docs,
+    // L'adresse reçoit les demandes du formulaire : elle est retirée ici, car ce contenu part vers les composants client.
+    salesContacts: salesContacts.docs.map(({ email: _email, ...contact }) => contact),
   };
 });
 

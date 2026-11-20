@@ -71,6 +71,7 @@ export interface Config {
     sectors: Sector;
     references: Reference;
     challenges: Challenge;
+    'sales-contacts': SalesContact;
     media: Media;
     users: User;
     'payload-kv': PayloadKv;
@@ -84,6 +85,7 @@ export interface Config {
     sectors: SectorsSelect<false> | SectorsSelect<true>;
     references: ReferencesSelect<false> | ReferencesSelect<true>;
     challenges: ChallengesSelect<false> | ChallengesSelect<true>;
+    'sales-contacts': SalesContactsSelect<false> | SalesContactsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -398,6 +400,37 @@ export interface Challenge {
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * Commerciaux présentés sur la page Contact. Seules les fiches publiées et visibles s'affichent.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sales-contacts".
+ */
+export interface SalesContact {
+  id: number;
+  updatedBy?: string | null;
+  /**
+   * Décochée, la fiche reste dans l'administration mais n'apparaît pas sur le site.
+   */
+  visible?: boolean | null;
+  order: number;
+  name: string;
+  role: string;
+  photo?: (number | null) | Media;
+  areas?: string | null;
+  /**
+   * Jamais affichée sur le site : elle reçoit les demandes envoyées depuis le formulaire.
+   */
+  email: string;
+  phone?: string | null;
+  /**
+   * Adresse complète du profil, en https://.
+   */
+  linkedin?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
@@ -467,6 +500,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'challenges';
         value: number | Challenge;
+      } | null)
+    | ({
+        relationTo: 'sales-contacts';
+        value: number | SalesContact;
       } | null)
     | ({
         relationTo: 'media';
@@ -638,6 +675,25 @@ export interface ChallengesSelect<T extends boolean = true> {
         id?: T;
       };
   href?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sales-contacts_select".
+ */
+export interface SalesContactsSelect<T extends boolean = true> {
+  updatedBy?: T;
+  visible?: T;
+  order?: T;
+  name?: T;
+  role?: T;
+  photo?: T;
+  areas?: T;
+  email?: T;
+  phone?: T;
+  linkedin?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

@@ -18,6 +18,7 @@ import type {
   Home,
   Media,
   Reference as CmsReference,
+  SalesContact,
   ReferencesPage,
   Sector as CmsSector,
   SectorsPage,
@@ -42,6 +43,17 @@ export type CmsRaw = {
   sectors: CmsSector[];
   references: CmsReference[];
   challenges: CmsChallenge[];
+  salesContacts: Omit<SalesContact, "email">[];
+};
+
+export type SalesContactCard = {
+  id: number;
+  name: string;
+  role: string;
+  photo?: { url: string; alt: string };
+  areas?: string;
+  phone?: string;
+  linkedin?: string;
 };
 
 type Lines = { value: string }[] | null | undefined;
@@ -120,6 +132,19 @@ export function buildSiteContent(raw: CmsRaw) {
     points: lines(doc.points),
     href: doc.href,
   }));
+
+  const salesContacts: SalesContactCard[] = raw.salesContacts.map((doc) => {
+    const photo = typeof doc.photo === "object" ? doc.photo : null;
+    return {
+      id: doc.id,
+      name: doc.name,
+      role: doc.role,
+      photo: photo?.url ? { url: photo.url, alt: photo.alt || doc.name } : undefined,
+      areas: text(doc.areas),
+      phone: text(doc.phone),
+      linkedin: text(doc.linkedin),
+    };
+  });
 
   const regulatoryTopics: RegulatoryTopic[] = rows(home.compliance.topics).map((topic, index) => ({
     slug: topic.id ?? String(index),
@@ -329,6 +354,7 @@ export function buildSiteContent(raw: CmsRaw) {
     contactDetails,
     contactChannels,
     contactTopics: lines(contactPage.topics),
+    salesContacts,
     supervisionRoom,
     heroTechnologies: lines(home.hero.technologies),
     architecturePoints: rows(home.architecture.points).map((item) => ({ label: item.label, icon: icons[item.icon] })),

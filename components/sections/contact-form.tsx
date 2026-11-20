@@ -16,10 +16,17 @@ const errorClass = "text-sm font-semibold text-danger";
 
 const initialState: ContactFormState = { status: "idle" };
 
-export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
+type ContactFormProps = {
+  fallbackEmail: string;
+  contacts: { id: number; label: string }[];
+  defaultContact: string;
+};
+
+export function ContactForm({ fallbackEmail, contacts, defaultContact }: ContactFormProps) {
   const [state, formAction, pending] = useActionState(submitContactForm, initialState);
   const errors = state.status === "invalid" ? (state.errors ?? {}) : {};
   const values = state.values;
+  const selectedContact = values?.contact ?? defaultContact;
 
   const fieldProps = (field: keyof typeof contactFormLimits) => ({
     "aria-describedby": errors[field] ? `contact-${field}-error` : undefined,
@@ -44,6 +51,19 @@ export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
 
   return (
     <form action={formAction} className="mt-9 grid gap-7 sm:grid-cols-2">
+      {contacts.length > 0 ? (
+        <label className={`${labelClass} sm:col-span-2`}>
+          {contactFormCopy.contact.label}
+          <select className={inputClass} defaultValue={selectedContact} key={selectedContact} name="contact">
+            <option value="">{contactFormCopy.contact.fallbackOption}</option>
+            {contacts.map((contact) => (
+              <option key={contact.id} value={contact.id}>
+                {contact.label}
+              </option>
+            ))}
+          </select>
+        </label>
+      ) : null}
       <label className={labelClass}>
         Nom
         <input autoComplete="name" className={inputClass} placeholder="Votre nom" required {...fieldProps("name")} />

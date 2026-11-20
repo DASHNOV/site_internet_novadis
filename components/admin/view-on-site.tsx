@@ -20,6 +20,7 @@ function sitePath(collectionSlug?: string, globalSlug?: string, slug?: unknown) 
   if (collectionSlug === "sectors" && typeof slug === "string") return `/secteurs#${slug}`;
   if (collectionSlug === "references") return "/references";
   if (collectionSlug === "challenges") return "/";
+  if (collectionSlug === "sales-contacts") return "/contact";
 }
 
 // Ouvre la page concernée en mode édition, pour voir le brouillon et le modifier sur place.

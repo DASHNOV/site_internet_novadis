@@ -36,5 +36,20 @@ export const contactFormCopy = {
       message: "Projet",
     },
     notProvided: "non renseigné",
+    contactLabel: "Interlocuteur choisi",
   },
+  contact: {
+    label: "Votre interlocuteur",
+    fallbackOption: "Équipe commerciale",
+  },
+} as const;
+
+export const salesContactsCopy = {
+  title: "Vos interlocuteurs",
+  intro: "Un échange direct avec l'équipe commerciale qui suit votre secteur ou votre région.",
+  contactCta: "Contacter",
+  linkedin: "LinkedIn",
+  maxCards: 8,
+  formAnchor: "formulaire",
+  param: "interlocuteur",
 } as const;

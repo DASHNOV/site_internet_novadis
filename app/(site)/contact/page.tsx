@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { getSiteContent } from "@/lib/content/server";
 import { ContactForm } from "@/components/sections/contact-form";
+import { SalesContacts } from "@/components/sections/sales-contacts";
 import { MediaFrame } from "@/components/sections/media-frame";
 import { PageHero } from "@/components/sections/page-hero";
 import { Reveal } from "@/components/motion/reveal";
@@ -9,7 +10,9 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { IconBadge } from "@/components/ui/icon-badge";
 import { AccentTitle, SplitTitle } from "@/components/ui/split-title";
+import { salesContactsCopy } from "@/data/contact-form";
 import { contactDetails } from "@/data/site";
+import { cleanText } from "@/lib/content/stega";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -17,8 +20,14 @@ export const metadata: Metadata = {
     "Contactez Novadis pour échanger sur la sûreté, la convergence et la modernisation de vos systèmes de sécurité.",
 };
 
-export default async function ContactPage() {
-  const { mediaLibrary, contactChannels, contactTopics, contactPage: copy } = await getSiteContent();
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ interlocuteur?: string | string[] }> }) {
+  const { mediaLibrary, contactChannels, contactTopics, salesContacts, contactPage: copy } = await getSiteContent();
+  const requested = (await searchParams)[salesContactsCopy.param];
+  const defaultContact = salesContacts.find((contact) => String(contact.id) === requested)?.id.toString() ?? "";
+  const contactOptions = salesContacts.map((contact) => ({
+    id: contact.id,
+    label: `${cleanText(contact.name)}, ${cleanText(contact.role)}`,
+  }));
   return (
     <main className="relative">
       <SiteHeader />
@@ -55,6 +64,8 @@ export default async function ContactPage() {
         </ul>
       </section>
 
+      <SalesContacts contacts={salesContacts} />
+
       <section className="section-y">
         <div className="shell-wide grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
           <Reveal>
@@ -72,11 +83,11 @@ export default async function ContactPage() {
           </Reveal>
 
           <Reveal delay={0.06}>
-            <div className="panel p-6 sm:p-10">
+            <div className="panel scroll-mt-24 p-6 sm:p-10" id={salesContactsCopy.formAnchor}>
               <h2 className="section-title text-balance text-[clamp(1.75rem,2.6vw,2.25rem)]">
                 <AccentTitle title={copy.formTitle} />
               </h2>
-              <ContactForm fallbackEmail={contactDetails.email} />
+              <ContactForm contacts={contactOptions} defaultContact={defaultContact} fallbackEmail={contactDetails.email} />
             </div>
           </Reveal>
         </div>

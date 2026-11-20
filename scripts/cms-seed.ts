@@ -21,6 +21,7 @@ const content = JSON.parse(readFileSync(contentFile, "utf8")) as {
   sectors: Json[];
   references: Json[];
   challenges: Json[];
+  salesContacts?: Json[];
   globals: Record<string, Json>;
 };
 
@@ -28,7 +29,7 @@ const payload = await getPayload({ config });
 const local = { overrideAccess: true } as const;
 
 // 1. Remise à zéro : les fiches emportent leurs versions, la médiathèque ses fichiers.
-const collections: CollectionSlug[] = ["references", "sectors", "challenges", "solutions", "media"];
+const collections: CollectionSlug[] = ["sales-contacts", "references", "sectors", "challenges", "solutions", "media"];
 for (const collection of collections) {
   await payload.delete({ collection, where: { id: { exists: true } }, ...local });
 }
@@ -79,6 +80,7 @@ await publishAll("solutions", content.solutions);
 await publishAll("sectors", content.sectors);
 await publishAll("references", content.references);
 await publishAll("challenges", content.challenges);
+await publishAll("sales-contacts", content.salesContacts ?? []);
 
 // 4. Pages et blocs communs, publiés.
 for (const [slug, doc] of Object.entries(content.globals)) {

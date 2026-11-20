@@ -80,6 +80,9 @@ const challenges = site.challenges.map((challenge, index) => ({
   href: challenge.href,
 }));
 
+// Les interlocuteurs se saisissent dans le CMS (adresses incluses) : l'export part d'une liste vide.
+const salesContacts: unknown[] = [];
+
 const { homePage: home } = pages;
 const address = site.contactChannels.find((channel) => channel.label === "Adresse");
 if (!address) throw new Error("Adresse absente de contactChannels");
@@ -226,5 +229,5 @@ const globals = {
 
 const out = path.resolve(process.cwd(), "cms/seed-content.json");
 mkdirSync(path.dirname(out), { recursive: true });
-writeFileSync(out, JSON.stringify({ solutions, sectors: sectorDocs, references, challenges, globals }, null, 2));
-console.log(`Contenu exporté : ${solutions.length} solutions, ${sectorDocs.length} secteurs, ${references.length} références, ${challenges.length} enjeux, ${Object.keys(globals).length} globals.`);
+writeFileSync(out, JSON.stringify({ solutions, sectors: sectorDocs, references, challenges, salesContacts, globals }, null, 2));
+console.log(`Contenu exporté : ${solutions.length} solutions, ${sectorDocs.length} secteurs, ${references.length} références, ${challenges.length} enjeux, ${salesContacts.length} interlocuteurs, ${Object.keys(globals).length} globals.`);

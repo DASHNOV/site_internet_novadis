@@ -9,6 +9,7 @@ import sharp from "sharp";
 import { Challenges } from "./collections/challenges";
 import { Media } from "./collections/media";
 import { References } from "./collections/references";
+import { SalesContacts } from "./collections/sales-contacts";
 import { Sectors } from "./collections/sectors";
 import { Solutions } from "./collections/solutions";
 import { Users } from "./collections/users";
@@ -37,7 +38,7 @@ export default buildConfig({
     },
     autoLogin: prefill ? { ...prefill, prefillOnly: true } : false,
   },
-  collections: [Solutions, Sectors, References, Challenges, Media, Users],
+  collections: [Solutions, Sectors, References, Challenges, SalesContacts, Media, Users],
   globals: [...pageGlobals, Common, Demos],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",

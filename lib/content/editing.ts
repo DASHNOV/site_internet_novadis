@@ -16,7 +16,7 @@ export const EDITABLE_GLOBALS: GlobalSlug[] = [
   "common",
   "demos",
 ];
-export const EDITABLE_COLLECTIONS: CollectionSlug[] = ["solutions", "sectors", "references", "challenges"];
+export const EDITABLE_COLLECTIONS: CollectionSlug[] = ["solutions", "sectors", "references", "challenges", "sales-contacts"];
 
 export async function editingSession(headers: Headers) {
   const payload = await getPayload({ config });

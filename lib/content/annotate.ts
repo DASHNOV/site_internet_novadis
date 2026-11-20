@@ -55,7 +55,18 @@ const GLOBAL_SLUGS: Record<keyof CmsRaw["globals"], string> = {
   demos: "demos",
 };
 
-const COLLECTIONS = ["solutions", "sectors", "references", "challenges"] as const;
+const COLLECTIONS = {
+  solutions: "solutions",
+  sectors: "sectors",
+  references: "references",
+  challenges: "challenges",
+  salesContacts: "sales-contacts",
+} as const;
+
+// Liens et visibilité des interlocuteurs : une signature casserait le lien tel: ou LinkedIn.
+const COLLECTION_TECHNICAL: Partial<Record<string, string[]>> = {
+  "sales-contacts": ["visible", "email", "phone", "linkedin"],
+};
 
 // Ajoute à chaque texte et à chaque image l'adresse du champ CMS d'où il vient (mode édition uniquement).
 export function annotateForEditing(raw: CmsRaw): CmsRaw {
@@ -67,18 +78,23 @@ export function annotateForEditing(raw: CmsRaw): CmsRaw {
   ) as CmsRaw["globals"];
 
   const collections = Object.fromEntries(
-    COLLECTIONS.map((collection) => [
-      collection,
-      raw[collection].map((doc) => {
-        const { id } = doc;
-        return Object.fromEntries(
-          Object.entries(doc).map(([key, item]) => [
-            key,
-            TECHNICAL.has(key) ? item : annotate(item, key, (path) => ({ kind: "collection", collection, id, path })),
-          ]),
-        );
-      }),
-    ]),
+    (Object.entries(COLLECTIONS) as [keyof typeof COLLECTIONS, string][]).map(([rawKey, collection]) => {
+      const skipped = COLLECTION_TECHNICAL[collection] ?? [];
+      return [
+        rawKey,
+        raw[rawKey].map((doc) => {
+          const { id } = doc;
+          return Object.fromEntries(
+            Object.entries(doc).map(([key, item]) => [
+              key,
+              TECHNICAL.has(key) || skipped.includes(key)
+                ? item
+                : annotate(item, key, (path) => ({ kind: "collection", collection, id, path })),
+            ]),
+          );
+        }),
+      ];
+    }),
   );
 
   return { ...raw, ...collections, globals } as CmsRaw;
