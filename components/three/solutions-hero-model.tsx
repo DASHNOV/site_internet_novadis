@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { useCallback, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
-import { Cctv, DoorOpen, LockKeyhole, type LucideIcon, MonitorDot, ShieldCheck } from "lucide-react";
+import { Cctv, DoorOpen, LockKeyhole, type LucideIcon, MonitorDot, ShieldCheck, Siren } from "lucide-react";
 import { useSiteContent } from "@/components/content-provider";
 import { solutionsHeroModel as defaults } from "@/data/site";
 import { cleanText } from "@/lib/content/stega";
@@ -13,7 +13,7 @@ import { useCanRender3d } from "./use-can-render-3d";
 
 const Scene = dynamic(() => import("./solutions-hero-scene"), { ssr: false });
 
-const ICONS: Record<string, LucideIcon> = { hypervision: MonitorDot, access: DoorOpen, video: Cctv, server: LockKeyhole };
+const ICONS: Record<string, LucideIcon> = { hypervision: MonitorDot, access: DoorOpen, video: Cctv, server: LockKeyhole, intrusion: Siren };
 
 // The CMS replaces each text by position; the camera-era values it may still hold fall back to the code.
 function useHeroCopy() {
@@ -27,7 +27,7 @@ function useHeroCopy() {
 }
 
 // The dot (8 px) sits on the anchor; the label leaves it on the given side. On phones the stage is too
-// small for four labels: each callout keeps its icon and the legend below the stage spells them out.
+// small for five labels: each callout keeps its icon and the legend below the stage spells them out.
 const SIDES = {
   right: "-translate-x-1 -translate-y-1/2",
   left: "flex-row-reverse -translate-x-[calc(100%-4px)] -translate-y-1/2",

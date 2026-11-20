@@ -15,6 +15,7 @@ import {
   CONE_RADIUS,
   DOOR_LEAF,
   FEED_LINK,
+  INTRUSION_LINK,
   SCREEN_SIZE,
   SHACKLE,
   type Tone,
@@ -245,8 +246,14 @@ function Blocks({ palette, clock }: { palette: Palette; clock: Clock }) {
   useEffect(() => () => materials.forEach((material) => material.dispose()), [materials]);
   const leds = useRef<(THREE.MeshBasicMaterial | null)[]>([]);
   const reader = useRef<THREE.MeshBasicMaterial>(null);
+  const armed = useRef<THREE.MeshBasicMaterial>(null);
   const colors = useMemo(
-    () => ({ success: new THREE.Color(palette.success), glow: new THREE.Color(palette.glow), dim: new THREE.Color(palette.night) }),
+    () => ({
+      success: new THREE.Color(palette.success),
+      glow: new THREE.Color(palette.glow),
+      dim: new THREE.Color(palette.night),
+      danger: new THREE.Color(palette.danger),
+    }),
     [palette],
   );
 
@@ -262,13 +269,15 @@ function Blocks({ palette, clock }: { palette: Palette; clock: Clock }) {
       // Idle: a slow blue blink. Badge accepted: steady green.
       reader.current.color.copy(granted ? colors.success : Math.sin(p * 5) > 0 ? colors.glow : colors.dim);
     }
+    // The accepted badge disarms the intrusion zone until the door closes again.
+    if (armed.current) armed.current.color.copy(timeline(t).granted ? colors.success : colors.danger);
   });
 
   return (
     <>
       {BLOCKS.map((block, i) => {
         if (block.kind === "screen") return <Screen block={block} clock={clock} key={i} palette={palette} />;
-        const lit = block.kind === "led" || block.kind === "reader";
+        const lit = block.kind === "led" || block.kind === "reader" || block.kind === "armed";
         return (
           <mesh castShadow={!lit} key={i} position={block.at} receiveShadow={!lit} rotation-y={block.rotY ?? 0}>
             <boxGeometry args={block.size} />
@@ -277,6 +286,7 @@ function Blocks({ palette, clock }: { palette: Palette; clock: Clock }) {
                 color={palette[block.tone]}
                 ref={(m) => {
                   if (block.kind === "reader") reader.current = m;
+                  else if (block.kind === "armed") armed.current = m;
                   else leds.current[block.index ?? 0] = m;
                 }}
                 toneMapped={false}
@@ -397,12 +407,15 @@ function Pulses({ palette, clock }: { palette: Palette; clock: Clock }) {
   const video = useMemo(() => samplePath(VIDEO_LINK), []);
   const access = useMemo(() => samplePath(ACCESS_LINK), []);
   const feed = useMemo(() => samplePath(FEED_LINK), []);
+  const intrusion = useMemo(() => samplePath(INTRUSION_LINK), []);
   const refs = useRef<(THREE.Mesh | null)[]>([]);
 
   useFrame(() => {
     const t = clock.current;
     const { p } = timeline(t);
-    const [v1, v2, a, f1, f2] = refs.current;
+    const [v1, v2, a, f1, f2, i1] = refs.current;
+    // The intrusion panel reports its state to the rack at a slower, steady pace.
+    if (i1) intrusion((t * 0.18 + 0.3) % 1, i1.position);
     // Video streams continuously; the badge event rides the access line once per loop.
     if (v1) video((t * 0.28) % 1, v1.position);
     if (v2) video((t * 0.28 + 0.5) % 1, v2.position);
@@ -428,7 +441,7 @@ function Pulses({ palette, clock }: { palette: Palette; clock: Clock }) {
 
   return (
     <>
-      {[ACCESS_LINK, VIDEO_LINK, FEED_LINK].map((path, i) => (
+      {[ACCESS_LINK, VIDEO_LINK, INTRUSION_LINK, FEED_LINK].map((path, i) => (
         <Line color={palette.primary} dashed dashScale={12} dashSize={0.6} gapSize={0.45} key={i} lineWidth={1.4} opacity={0.5} points={path} transparent />
       ))}
       {dot(0, palette.accent)}
@@ -436,6 +449,7 @@ function Pulses({ palette, clock }: { palette: Palette; clock: Clock }) {
       {dot(2, palette.success, 0.065)}
       {dot(3, palette.accent)}
       {dot(4, palette.success, 0.065)}
+      {dot(5, palette.accent)}
     </>
   );
 }

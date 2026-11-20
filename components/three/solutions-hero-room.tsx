@@ -27,7 +27,7 @@ export type Block = {
   rotY?: number;
   // Painter order for the SVG: floor, then walls, then furniture sorted by depth.
   layer?: number;
-  kind?: "screen" | "led" | "reader";
+  kind?: "screen" | "led" | "reader" | "armed";
   index?: number;
 };
 
@@ -204,7 +204,21 @@ const reader: Block[] = [
   box([x0 + 0.05, x0 + 0.058], [1.215, 1.245], [READER[2] - 0.035, READER[2] + 0.035], "glow", { kind: "reader" }),
 ];
 
-export const DOOR_LEAF = { hinge: [x0 - wall / 2, 0, DOOR.z0 + 0.01] as Vec3, width: DOOR.z1 - DOOR.z0 - 0.02, height: DOOR.h - 0.02, open: 1.2, still: 0.95 };
+// Intrusion panel on the left wall, between the back corner and the door: a metal cabinet, its keypad
+// display and the armed light, which turns green when the badge disarms the zone.
+export const PANEL = { z: -1.15, y0: 0.92, y1: 1.46, w: 0.42, d: 0.1 };
+const panel: Block[] = [
+  box([x0, x0 + PANEL.d], [PANEL.y0, PANEL.y1], [PANEL.z - PANEL.w / 2, PANEL.z + PANEL.w / 2], "foreground-strong"),
+  box([x0 + PANEL.d, x0 + PANEL.d + 0.008], [PANEL.y1 - 0.17, PANEL.y1 - 0.07], [PANEL.z - 0.14, PANEL.z + 0.1], "glow", { kind: "led", index: 10 }),
+  ...Array.from({ length: 6 }, (_, i): Block => {
+    const y = PANEL.y0 + 0.08 + Math.floor(i / 3) * 0.09;
+    const z = PANEL.z - 0.1 + (i % 3) * 0.08;
+    return box([x0 + PANEL.d, x0 + PANEL.d + 0.008], [y, y + 0.05], [z - 0.025, z + 0.025], "hairline-strong");
+  }),
+  box([x0 + PANEL.d, x0 + PANEL.d + 0.01], [PANEL.y1 - 0.15, PANEL.y1 - 0.09], [PANEL.z + 0.13, PANEL.z + 0.17], "danger", { kind: "armed" }),
+];
+
+export const DOOR_LEAF ={ hinge: [x0 - wall / 2, 0, DOOR.z0 + 0.01] as Vec3, width: DOOR.z1 - DOOR.z0 - 0.02, height: DOOR.h - 0.02, open: 1.2, still: 0.95 };
 
 export function doorLeaf(angle: number): Block[] {
   const { hinge, width, height } = DOOR_LEAF;
@@ -251,13 +265,20 @@ export const VIDEO_LINK: Vec3[] = [
   [RACK.x, TRAY, z0 + 0.02],
   [RACK.x, RACK.h, z0 + 0.02],
 ];
+export const INTRUSION_LINK: Vec3[] = [
+  [x0 + 0.02, PANEL.y1, PANEL.z],
+  [x0 + 0.02, TRAY, PANEL.z],
+  [x0 + 0.02, TRAY, z0 + 0.02],
+  [RACK.x, TRAY, z0 + 0.02],
+  [RACK.x, RACK.h, z0 + 0.02],
+];
 export const FEED_LINK: Vec3[] = [
   [RACK.x - 0.2, 0.012, rackFront],
   [RACK.x - 0.2, 0.012, DESK.z - 0.02],
   [DESK.x + 1.56, 0.012, DESK.z - 0.02],
 ];
 
-export const BLOCKS: Block[] = [...shell, cameraBracket, ...desk, ...rack, ...reader];
+export const BLOCKS: Block[] = [...shell, cameraBracket, ...desk, ...rack, ...reader, ...panel];
 
 // Badge travels from the visitor's hand to the reader face.
 export const BADGE = { from: [x0 + 0.62, 1.12, READER[2] + 0.05] as Vec3, to: [x0 + 0.11, 1.2, READER[2]] as Vec3, size: [0.012, 0.09, 0.14] as Vec3 };
@@ -343,7 +364,8 @@ export function SolutionsHeroRoomSvg({ className }: { className?: string }) {
     <svg aria-hidden className={className} preserveAspectRatio="xMidYMid meet" viewBox={`0 0 ${W} ${H}`}>
       {ordered.map((block, i) =>
         faces(block).map((face, j) => {
-          const tone = block.kind === "reader" ? "success" : block.tone;
+          // Still pose: badge accepted, so the reader is green and the zone disarmed.
+          const tone = block.kind === "reader" || block.kind === "armed" ? "success" : block.tone;
           return (
             <g key={`${i}-${j}`}>
               <polygon fill={fill(tone)} points={face.points} stroke={fill(tone)} strokeLinejoin="round" strokeWidth={0.6} />
@@ -357,7 +379,7 @@ export function SolutionsHeroRoomSvg({ className }: { className?: string }) {
       )}
       <polyline fill="none" points={SHACKLE.map(pt).join(" ")} stroke={fill("primary-strong")} strokeLinecap="round" strokeWidth={0.05 * unit} />
       <polygon fill={fill("primary")} opacity={0.08} points={conePoints()} />
-      {[ACCESS_LINK, VIDEO_LINK, FEED_LINK].map((path, i) => (
+      {[ACCESS_LINK, VIDEO_LINK, INTRUSION_LINK, FEED_LINK].map((path, i) => (
         <polyline
           fill="none"
           key={i}

@@ -514,6 +514,9 @@ fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent 
 > mural » (`solutionsHeroModel`, `data/site.ts`) à valider.
 > ⚠️ Parcours 3D /solutions (14/10/2026) : nouveau libellé affiché sur l'écran d'alarme,
 > « Intrusion · Portail 01 » (`alarmJourney.detection`, `data/site.ts`), à valider.
+> ⚠️ Hero /solutions (20/11/2026) : une centrale intrusion rejoint la pièce 3D, nouvelle étiquette
+> « Centrale intrusion » (`solutionsHeroModel.callouts`, `data/site.ts`), et légende « Badge, porte,
+> caméra, alarme et serveurs remontent au même poste. » (`solutionsHeroModel.hint`), à valider.
 
 > Logos partenaires ajoutés (`public/novadis/logos/partners/`) : `microsoft.webp` et `vmware.webp`
 > rendus depuis les SVG de Wikimedia Commons (Microsoft_logo_(2012).svg, Vmware.svg) ; `aperio.webp`
