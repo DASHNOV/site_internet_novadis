@@ -2,8 +2,9 @@
 
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useInView, useReducedMotion, useScroll } from "framer-motion";
+import { useInView, useScroll } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { isLiteMode, useLiteMode } from "@/lib/use-lite-mode";
 
 const CityHeroScene = dynamic(() => import("@/components/three/city-hero-scene").then((m) => m.CityHeroScene), {
   ssr: false,
@@ -34,7 +35,7 @@ function webglAvailable() {
 // Night-city backdrop for the home hero. `children` (the reference photo) stays as the fallback:
 // shown while the scene loads, and kept for no-WebGL or reduced-motion visitors.
 export function CityHero({ children }: { children: React.ReactNode }) {
-  const reduceMotion = useReducedMotion();
+  const lite = useLiteMode();
   const ref = useRef<HTMLDivElement>(null);
   const [enabled, setEnabled] = useState(false);
   const [compact, setCompact] = useState(false);
@@ -47,14 +48,14 @@ export function CityHero({ children }: { children: React.ReactNode }) {
   const onScreen = useInView(ref);
 
   useEffect(() => {
-    const on = !reduceMotion && webglAvailable();
+    const on = !isLiteMode() && webglAvailable();
     setEnabled(on);
     if (on) {
       introPlayed.current ??= introAlreadyPlayed();
       setSkipIntro(introPlayed.current);
     }
     setCompact(window.matchMedia("(max-width: 767px)").matches);
-  }, [reduceMotion]);
+  }, [lite]);
 
   return (
     <div className="absolute inset-0" ref={ref}>

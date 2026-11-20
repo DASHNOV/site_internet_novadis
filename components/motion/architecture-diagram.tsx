@@ -311,7 +311,7 @@ export function ArchitectureDiagram({ caption, label }: { caption: string; label
               </div>
               <p className="mt-3 text-sm leading-7 text-muted-strong">{activeSolution.summary}</p>
               <Link
-                className="group mt-4 inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-strong"
+                className="group mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-primary hover:text-primary-strong"
                 href={`/solutions/${activeSolution.slug}`}
               >
                 {uiLabels.learnMore}

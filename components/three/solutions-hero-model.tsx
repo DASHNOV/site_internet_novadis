@@ -1,173 +1,117 @@
 "use client";
 
-import { type ReactNode, Suspense, useMemo, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Bounds, Center, ContactShadows, Environment, Html, OrbitControls, useGLTF } from "@react-three/drei";
+import dynamic from "next/dynamic";
+import { useCallback, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
-import { Box3, type Group, Vector3 } from "three";
-import { Cctv, Rotate3d } from "lucide-react";
-import { ArButton } from "@/components/three/ar-button";
-import { cn } from "@/lib/utils";
+import { Cctv, DoorOpen, LockKeyhole, type LucideIcon, MonitorDot, ShieldCheck } from "lucide-react";
 import { useSiteContent } from "@/components/content-provider";
+import { solutionsHeroModel as defaults } from "@/data/site";
+import { cleanText } from "@/lib/content/stega";
+import { cn } from "@/lib/utils";
+import { SolutionsHeroRoomSvg, toFrame, type Vec3 } from "./solutions-hero-room";
+import { useCanRender3d } from "./use-can-render-3d";
 
-const MODEL_PATH = "/novadis/models/axis-p1465-le.glb";
-// The lens looks down the model's +Z axis, wall plate behind: no turn needed.
-const FACING = 0;
+const Scene = dynamic(() => import("./solutions-hero-scene"), { ssr: false });
 
-function useModelSize() {
-  const { scene } = useGLTF(MODEL_PATH);
-  return useMemo(() => new Box3().setFromObject(scene).getSize(new Vector3()), [scene]);
+const ICONS: Record<string, LucideIcon> = { hypervision: MonitorDot, access: DoorOpen, video: Cctv, server: LockKeyhole };
+
+// The CMS replaces each text by position; the camera-era values it may still hold fall back to the code.
+function useHeroCopy() {
+  const { solutionsHeroModel: content } = useSiteContent();
+  const current = (value: string, fallback: string) => (defaults.retired.includes(cleanText(value)) ? fallback : value);
+  return {
+    name: current(content.name, defaults.name),
+    hint: current(content.hint, defaults.hint),
+    callouts: content.callouts.map((callout, index) => ({ ...callout, label: current(callout.label, defaults.callouts[index].label) })),
+  };
 }
 
-function CameraModel({ sway, children }: { sway: boolean; children?: ReactNode }) {
-  const { scene } = useGLTF(MODEL_PATH);
-  const ref = useRef<Group>(null);
-
-  useFrame(({ clock }) => {
-    if (!sway || !ref.current) return;
-    ref.current.rotation.y = FACING + Math.sin(clock.elapsedTime * 0.45) * 0.35;
-  });
-
-  return (
-    <group ref={ref} rotation={[0, FACING, 0]}>
-      <Center>
-        <primitive object={scene} />
-        {children}
-      </Center>
-    </group>
-  );
-}
-
-// Past this NDC gap from the model centre the label switches side, so it never flickers mid-turn.
-const SIDE_HYSTERESIS = 0.04;
-
-function Callout({ label, anchor }: { label: string; anchor: [number, number, number] }) {
-  const point = useRef<Group>(null);
-  const [side, setSide] = useState<"left" | "right">("right");
-  const projected = useMemo(() => new Vector3(), []);
-  const centre = useMemo(() => new Vector3(), []);
-
-  // Keep the label on the outer side of the part it names, wherever the camera has turned it.
-  useFrame(({ camera }) => {
-    if (!point.current) return;
-    point.current.getWorldPosition(projected).project(camera);
-    centre.set(0, 0, 0).project(camera);
-    const gap = projected.x - centre.x;
-    if (gap > SIDE_HYSTERESIS && side !== "right") setSide("right");
-    else if (gap < -SIDE_HYSTERESIS && side !== "left") setSide("left");
-  });
-
-  return (
-    <group position={anchor} ref={point}>
-      <Html zIndexRange={[10, 0]}>
-        <span
-          className={cn(
-            "pointer-events-none absolute top-0 hidden -translate-y-1/2 items-center gap-2 whitespace-nowrap text-xs font-semibold text-foreground-strong xl:flex",
-            side === "right" ? "-left-1" : "-right-1 flex-row-reverse",
-          )}
-        >
-          <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-primary" />
-          <span aria-hidden className="h-px w-10 shrink-0 bg-primary/40" />
-          <span className="rounded-full border border-hairline bg-surface/90 px-3 py-1.5 backdrop-blur">{label}</span>
-        </span>
-      </Html>
-    </group>
-  );
-}
-
-function GroundShadow() {
-  const size = useModelSize();
-  return (
-    <ContactShadows
-      blur={2.6}
-      color="#0570a4"
-      far={size.y}
-      opacity={0.35}
-      position={[0, -size.y / 2 - size.y * 0.08, 0]}
-      resolution={512}
-      scale={Math.max(size.x, size.z) * 2.4}
-    />
-  );
-}
-
-useGLTF.preload(MODEL_PATH);
-
-type SolutionsHeroModelProps = {
-  className?: string;
+// The dot (8 px) sits on the anchor; the label leaves it on the given side. On phones the stage is too
+// small for four labels: each callout keeps its icon and the legend below the stage spells them out.
+const SIDES = {
+  right: "-translate-x-1 -translate-y-1/2",
+  left: "flex-row-reverse -translate-x-[calc(100%-4px)] -translate-y-1/2",
+  up: "flex-col-reverse -translate-x-1/2 -translate-y-[calc(100%-4px)]",
+  down: "flex-col -translate-x-1/2 -translate-y-1",
 };
 
-export function SolutionsHeroModel({ className }: SolutionsHeroModelProps) {
-  const { solutionsHeroModel } = useSiteContent();
-  const ref = useRef<HTMLDivElement>(null);
+function Callout({ id, label, anchor, side }: { id: string; label: string; anchor: Vec3; side: keyof typeof SIDES }) {
+  const { x, y } = toFrame(anchor);
+  const Icon = ICONS[id];
+  const vertical = side !== "left" && side !== "right";
+  return (
+    <span
+      className={cn(
+        "pointer-events-none absolute flex items-center gap-1 whitespace-nowrap text-xs font-semibold text-foreground-strong sm:gap-1.5",
+        SIDES[side],
+      )}
+      style={{ left: `${x}%`, top: `${y}%` }}
+    >
+      <span aria-hidden className="relative flex h-2 w-2 shrink-0">
+        <span className="absolute inset-0 animate-ping rounded-full bg-primary/50 motion-reduce:hidden" />
+        <span className="relative h-2 w-2 rounded-full bg-primary" />
+      </span>
+      <span aria-hidden className={cn("shrink-0 bg-primary/40", vertical ? "h-3 w-px sm:h-5" : "h-px w-3 sm:w-6")} />
+      <span className="inline-flex items-center gap-1.5 rounded-full border border-hairline bg-surface/90 p-1.5 shadow-[var(--shadow-overlay)] backdrop-blur sm:px-3">
+        {Icon && <Icon aria-hidden className="h-3.5 w-3.5 text-primary" />}
+        <span className="hidden sm:inline">{label}</span>
+      </span>
+    </span>
+  );
+}
+
+export function SolutionsHeroModel({ className }: { className?: string }) {
+  const copy = useHeroCopy();
+  const ref = useRef<HTMLElement>(null);
+  const near = useInView(ref, { once: true, margin: "300px 0px" });
   const onScreen = useInView(ref);
   const reduceMotion = useReducedMotion();
-  const [touched, setTouched] = useState(false);
-  // Idle sway only while visible and untouched; afterwards the scene renders on demand.
-  const sway = onScreen && !reduceMotion && !touched;
+  const canRender = useCanRender3d();
+  const [ready, setReady] = useState(false);
+  const markReady = useCallback(() => setReady(true), []);
+  // Lite mode (data saver, slow link, reduced motion) or no WebGL: the drawing stays and no 3D loads.
+  const live = near && canRender;
+  // A scene dropped mid-visit (reduced motion switched on) must load again before it shows.
+  if (!live && ready) setReady(false);
+  const shown = live && ready;
+  const animate = onScreen && !reduceMotion;
 
   return (
-    <div className={cn("relative isolate", className)} ref={ref}>
-      <div
-        aria-hidden
-        className="absolute inset-[6%] -z-10 rounded-full bg-[radial-gradient(closest-side,rgb(var(--glow)/0.5),rgb(var(--accent)/0.14)_62%,transparent)] blur-2xl"
-      />
-      <div
-        aria-hidden
-        className="absolute bottom-[11%] left-1/2 -z-10 h-[13%] w-[56%] -translate-x-1/2 rounded-[50%] border border-primary/15 bg-[radial-gradient(closest-side,rgb(var(--primary)/0.12),transparent)]"
-      />
-
-      <Canvas
-        camera={{ position: [3.2, -0.4, 3.4], fov: 35 }}
-        dpr={[1, 1.75]}
-        frameloop={sway ? "always" : "demand"}
-        gl={{ alpha: true, antialias: true }}
-        onPointerDown={() => setTouched(true)}
-      >
-        <Suspense fallback={null}>
-          <ambientLight intensity={0.65} />
-          <directionalLight intensity={1.5} position={[4, 6, 4]} />
-          {/* Cool rim light in the brand blue, so the white housing picks up the page palette. */}
-          <directionalLight color="#81cff5" intensity={1.4} position={[-5, 2, -4]} />
-          <Bounds fit clip observe margin={1.35}>
-            <CameraModel sway={sway}>
-              {solutionsHeroModel.callouts.map((callout) => (
-                <Callout anchor={callout.anchor as [number, number, number]} key={callout.label} label={callout.label} />
-              ))}
-            </CameraModel>
-          </Bounds>
-          <GroundShadow />
-          {/* Self-hosted copy of drei's "city" preset (Poly Haven, CC0): no runtime fetch from GitHub. */}
-          <Environment files="/novadis/hdri/potsdamer_platz_1k.hdr" />
-          {/* Bounded so the visitor keeps a view of the lens: no top-down flip, never behind the wall plate. */}
-          <OrbitControls
-            enableDamping={false}
-            enablePan={false}
-            enableZoom={false}
-            makeDefault
-            maxAzimuthAngle={1.75}
-            maxPolarAngle={Math.PI * 0.62}
-            minAzimuthAngle={-1.3}
-            minPolarAngle={Math.PI * 0.34}
-          />
-        </Suspense>
-      </Canvas>
-
-      <span className="pointer-events-none absolute left-3 top-3 inline-flex items-center gap-2 rounded-full border border-hairline bg-surface/90 px-3 py-1.5 text-xs font-semibold text-foreground-strong backdrop-blur sm:left-4 sm:top-4">
-        <Cctv aria-hidden className="h-4 w-4 text-primary" />
-        {solutionsHeroModel.name}
-      </span>
-
-      <span
-        className={cn(
-          "pointer-events-none absolute bottom-4 left-3 inline-flex items-center gap-2 text-xs font-medium text-muted-strong transition-opacity duration-500 sm:left-4",
-          touched && "opacity-0",
+    <figure aria-label={cleanText(copy.name)} className={cn("relative isolate", className)} ref={ref}>
+      {/* Over the frame from sm up; on phones above and below it, to leave the small stage to the callouts. */}
+      <figcaption className="pointer-events-none mb-4 inline-flex items-center gap-2 rounded-full border border-hairline bg-surface/90 px-3 py-1.5 text-xs font-semibold text-foreground-strong backdrop-blur sm:absolute sm:left-0 sm:top-0 sm:z-10 sm:mb-0">
+        <ShieldCheck aria-hidden className="h-4 w-4 text-primary" />
+        {copy.name}
+      </figcaption>
+      {/* The stage keeps the frame's aspect, so canvas, drawing and callouts share one coordinate space. */}
+      <div className="relative aspect-[16/11]">
+        <div
+          aria-hidden
+          className="absolute inset-[4%] -z-10 rounded-full bg-[radial-gradient(closest-side,rgb(var(--glow)/0.45),rgb(var(--accent)/0.12)_62%,transparent)] blur-2xl"
+        />
+        <SolutionsHeroRoomSvg className={cn("absolute inset-0 h-full w-full transition-opacity duration-700", shown && "opacity-0")} />
+        {live && (
+          <div className={cn("absolute inset-0 transition-opacity duration-700", shown ? "opacity-100" : "opacity-0")}>
+            <Scene animate={animate} onReady={markReady} />
+          </div>
         )}
-      >
-        <Rotate3d aria-hidden className="h-4 w-4 text-primary" />
-        {solutionsHeroModel.hint}
-      </span>
+        {copy.callouts.map((callout) => (
+          <Callout anchor={callout.anchor as Vec3} id={callout.id} key={callout.id} label={callout.label} side={callout.side} />
+        ))}
+      </div>
 
-      <ArButton className="absolute bottom-4 right-4" />
-    </div>
+      <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2.5 text-xs font-semibold text-foreground-strong sm:hidden">
+        {copy.callouts.map((callout) => {
+          const Icon = ICONS[callout.id];
+          return (
+            <li className="flex items-center gap-2" key={callout.id}>
+              {Icon && <Icon aria-hidden className="h-3.5 w-3.5 shrink-0 text-primary" />}
+              {callout.label}
+            </li>
+          );
+        })}
+      </ul>
+      <p className="pointer-events-none mt-3 text-xs font-medium leading-5 text-muted-strong sm:absolute sm:bottom-0 sm:left-0 sm:mt-0 sm:max-w-[60%]">{copy.hint}</p>
+    </figure>
   );
 }

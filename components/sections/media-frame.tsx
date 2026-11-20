@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { LazyVideo } from "@/components/sections/lazy-video";
 
 type MediaFrameProps = {
   kind: "image" | "video";
@@ -13,7 +14,7 @@ type MediaFrameProps = {
 export function MediaFrame({ kind, src, alt, poster, className, caption, priority }: MediaFrameProps) {
   const media =
     kind === "video" ? (
-      <video autoPlay className="h-full w-full object-cover" loop muted playsInline poster={poster} src={src} />
+      <LazyVideo alt={alt} poster={poster} priority={priority} src={src} />
     ) : (
       <img alt={alt} className="h-full w-full object-cover" loading={priority ? undefined : "lazy"} src={src} />
     );

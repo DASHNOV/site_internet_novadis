@@ -1,25 +1,21 @@
 import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { getSiteContent } from "@/lib/content/server";
+import { ContactForm } from "@/components/sections/contact-form";
 import { MediaFrame } from "@/components/sections/media-frame";
 import { PageHero } from "@/components/sections/page-hero";
 import { Reveal } from "@/components/motion/reveal";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
-import { Button } from "@/components/ui/button";
 import { IconBadge } from "@/components/ui/icon-badge";
 import { AccentTitle, SplitTitle } from "@/components/ui/split-title";
+import { contactDetails } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
     "Contactez Novadis pour échanger sur la sûreté, la convergence et la modernisation de vos systèmes de sécurité.",
 };
-
-const inputClass =
-  "min-h-11 w-full rounded-lg border border-hairline bg-surface px-4 py-2.5 text-base font-normal text-foreground-strong placeholder:text-muted-strong/70 outline-none transition hover:border-hairline-strong focus:border-primary focus:ring-2 focus:ring-primary/60 focus:ring-offset-1 focus:ring-offset-surface";
-
-const labelClass = "grid gap-2 text-sm font-semibold text-foreground-strong";
 
 export default async function ContactPage() {
   const { mediaLibrary, contactChannels, contactTopics, contactPage: copy } = await getSiteContent();
@@ -80,37 +76,7 @@ export default async function ContactPage() {
               <h2 className="section-title text-balance text-[clamp(1.75rem,2.6vw,2.25rem)]">
                 <AccentTitle title={copy.formTitle} />
               </h2>
-              <form className="mt-9 grid gap-7 sm:grid-cols-2">
-                <label className={labelClass}>
-                  Nom
-                  <input autoComplete="name" className={inputClass} placeholder="Votre nom" />
-                </label>
-                <label className={labelClass}>
-                  Société
-                  <input autoComplete="organization" className={inputClass} placeholder="Nom de la société" />
-                </label>
-                <label className={labelClass}>
-                  Email
-                  <input autoComplete="email" className={inputClass} placeholder="name@company.com" type="email" />
-                </label>
-                <label className={labelClass}>
-                  Téléphone
-                  <input autoComplete="tel" className={inputClass} placeholder="+33 ..." type="tel" />
-                </label>
-                <label className={`${labelClass} sm:col-span-2`}>
-                  Projet
-                  <textarea
-                    className={`${inputClass} min-h-32 resize-y`}
-                    placeholder="Présentez vos sites, vos contraintes et vos objectifs."
-                  />
-                </label>
-                <div className="sm:col-span-2">
-                  <Button size="lg" type="submit" variant="primary">
-                    Envoyer la demande
-                    <ArrowUpRight className="cta-arrow h-4 w-4" />
-                  </Button>
-                </div>
-              </form>
+              <ContactForm fallbackEmail={contactDetails.email} />
             </div>
           </Reveal>
         </div>

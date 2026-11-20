@@ -33,3 +33,7 @@ export const partnerTeaser: {
   units: { days: "j", hours: "h", minutes: "min" },
   revealAt: null,
 };
+
+export const associationLogos: Record<string, string> = {
+  "SPAC Alliance": "/novadis/logos/associations/spac.svg",
+};

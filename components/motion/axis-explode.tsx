@@ -1,11 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, transform, useMotionValueEvent, useReducedMotion, useTransform } from "framer-motion";
+import { motion, transform, useMotionValueEvent, useTransform } from "framer-motion";
 import { useSiteContent } from "@/components/content-provider";
 import { useFrameSequence } from "@/components/motion/film-scene";
 import { axisExplode } from "@/data/site";
 import { cn } from "@/lib/utils";
+import { useLiteMode } from "@/lib/use-lite-mode";
 
 const LAST = axisExplode.frameCount - 1;
 // Scroll progress where the sequence plays.
@@ -96,7 +97,7 @@ function Steps({ active }: { active: number }) {
   );
 }
 
-// Static state for reduced motion: last frame with its labels.
+// Static state for reduced motion, data saver and slow connections: last frame with its labels.
 function StaticExplode() {
   const { axisExplode } = useSiteContent();
   return (
@@ -118,16 +119,16 @@ function StaticExplode() {
 
 export function AxisExplode() {
   const { axisExplode } = useSiteContent();
-  const reduceMotion = useReducedMotion();
+  const lite = useLiteMode();
   const sectionRef = useRef<HTMLElement>(null);
   const [step, setStep] = useState(0);
-  const { canvasRef, loaded, frame, scrollYProgress } = useFrameSequence(sectionRef, axisExplode, PLAY, !reduceMotion);
+  const { canvasRef, loaded, frame, scrollYProgress } = useFrameSequence(sectionRef, axisExplode, PLAY, !lite);
   // Function form: a plain range would be offloaded to a native scroll timeline that ignores clamping.
   const hintOpacity = useTransform(scrollYProgress, (v) => transform(v, [0, 0.06], [1, 0]));
 
   useMotionValueEvent(scrollYProgress, "change", (value) => setStep(stepAt(value)));
 
-  if (reduceMotion) return <StaticExplode />;
+  if (lite) return <StaticExplode />;
 
   return (
     <section className="section-dark relative h-[340vh]" ref={sectionRef}>

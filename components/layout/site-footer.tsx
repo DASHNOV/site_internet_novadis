@@ -11,7 +11,7 @@ export async function SiteFooter() {
       <div className="shell-wide">
         <div className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)]">
           <div>
-            <Link className="inline-flex items-center" href="/">
+            <Link className="inline-flex min-h-11 items-center" href="/">
               <img alt="Novadis" className="h-7 w-auto object-contain" loading="lazy" src={mediaLibrary.logoDark} />
             </Link>
             <p className="mt-6 max-w-sm text-base leading-7 text-muted-strong">{copy.description}</p>
@@ -76,11 +76,11 @@ export async function SiteFooter() {
             © {new Date().getFullYear()} {copy.rights}
           </p>
           <div className="flex flex-wrap items-center gap-5">
-            <Link className="hover:text-glow" href="/legal">
+            <Link className="inline-flex min-h-11 items-center hover:text-glow" href="/legal">
               {copy.legalLabel}
             </Link>
             <span aria-hidden className="divider-dot" />
-            <Link className="hover:text-glow" href="/privacy">
+            <Link className="inline-flex min-h-11 items-center hover:text-glow" href="/privacy">
               {copy.privacyLabel}
             </Link>
             <span aria-hidden className="divider-dot" />

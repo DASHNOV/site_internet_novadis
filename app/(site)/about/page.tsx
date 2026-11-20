@@ -45,7 +45,7 @@ export default async function AboutPage() {
         <Reveal className="flex flex-col gap-4 border border-hairline bg-surface p-6 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
           <p className="max-w-3xl text-base leading-7 text-foreground-strong">{copy.parentGroup.description}</p>
           <a
-            className="group inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-primary-strong hover:text-primary-deep"
+            className="group inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-semibold text-primary-strong hover:text-primary-deep"
             href={parentGroupUrl}
             rel="noopener noreferrer"
             target="_blank"

@@ -34,7 +34,7 @@ export function SiteHeader() {
     >
       <div className="shell-wide">
         <div className="flex h-16 items-center justify-between gap-6 lg:h-20">
-          <Link className="group flex items-center gap-3" href="/">
+          <Link className="group flex min-h-11 items-center gap-3" href="/">
             <img
               alt="Novadis"
               className="h-6 w-auto object-contain transition group-hover:opacity-80 lg:h-7"
@@ -114,7 +114,7 @@ export function SiteHeader() {
         </div>
 
         {open && (
-          <nav className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-hairline py-4 lg:hidden">
+          <nav className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-hairline py-4 lg:hidden">
             <div className="grid gap-1">
               {navItems.map((item) => {
                 const active =
@@ -137,7 +137,7 @@ export function SiteHeader() {
                           .filter((child) => child.href !== item.href)
                           .map((child, index) => (
                             <Link
-                              className="rounded-lg px-4 py-2 text-sm text-muted-strong hover:text-primary-strong"
+                              className="flex min-h-11 items-center rounded-lg px-4 py-2 text-sm text-muted-strong hover:text-primary-strong"
                               href={child.href}
                               key={`${child.href}-${index}`}
                               onClick={() => setOpen(false)}

@@ -1,5 +1,6 @@
 import { getSiteContent } from "@/lib/content/server";
 import { Reveal } from "@/components/motion/reveal";
+import { associationLogos } from "@/data/partners";
 
 export async function NormsList() {
   const { partners, normsCopy: copy } = await getSiteContent();
@@ -21,11 +22,17 @@ export async function NormsList() {
       <div>
         <h3 className="font-display text-lg font-bold text-foreground-strong">{copy.associationsTitle}</h3>
         <ul className="mt-4 divide-y divide-hairline border-y border-hairline">
-          {associations.map((asso) => (
-            <li className="py-3 font-semibold text-foreground-strong" key={asso.name}>
-              {copy.memberPrefix} {asso.name}
-            </li>
-          ))}
+          {associations.map((asso) => {
+            const logo = associationLogos[asso.name];
+            return (
+              <li className="flex items-center gap-3 py-3 font-semibold text-foreground-strong" key={asso.name}>
+                <span>
+                  {copy.memberPrefix} {asso.name}
+                </span>
+                {logo ? <img alt="" aria-hidden="true" className="h-7 w-auto shrink-0" loading="lazy" src={logo} /> : null}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>

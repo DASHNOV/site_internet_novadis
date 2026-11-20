@@ -1,12 +1,12 @@
 "use client";
 
 import { useRef } from "react";
-import { useReducedMotion } from "framer-motion";
 import { Radar, Siren, TriangleAlert } from "lucide-react";
 import { useSiteContent } from "@/components/content-provider";
 import { EventToast, FilmScene, Flash, HudPanel, LockBox, Shockwave, StaticFilmScene, tones, useFrameSequence } from "@/components/motion/film-scene";
 import { intrusionScene } from "@/data/site";
 import { cn } from "@/lib/utils";
+import { useLiteMode } from "@/lib/use-lite-mode";
 
 const { detected, escalated } = intrusionScene.beats;
 const { detector, intruder } = intrusionScene.anchors;
@@ -133,13 +133,13 @@ function IntruderHud({ frame, step }: { frame: number; step: number }) {
 
 export function IntrusionScene() {
   const { intrusionScene } = useSiteContent();
-  const reduceMotion = useReducedMotion();
+  const lite = useLiteMode();
   const sectionRef = useRef<HTMLElement>(null);
-  const sequence = useFrameSequence(sectionRef, intrusionScene, PLAY, !reduceMotion);
+  const sequence = useFrameSequence(sectionRef, intrusionScene, PLAY, !lite);
   const { frame } = sequence;
   const step = stepAt(frame);
 
-  if (reduceMotion) return <StaticFilmScene {...intrusionScene} image={intrusionScene.framePath(intrusionScene.staticFrame)} />;
+  if (lite) return <StaticFilmScene {...intrusionScene} image={intrusionScene.framePath(intrusionScene.staticFrame)} />;
 
   const [x0, y0, x1, y1] = detector[frame];
   return (

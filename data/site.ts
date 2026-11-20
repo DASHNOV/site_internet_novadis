@@ -826,15 +826,22 @@ export const axisExplode = {
   ],
 };
 
-// Modèle 3D interactif du hero /solutions : caméra bullet extérieure.
-// anchor = point de la pièce dans les coordonnées du GLB (axis-p1465-le.glb, avant centrage).
+// Vignette 3D du hero /solutions : une pièce équipée qui résume l'offre (poste d'hypervision,
+// porte à badge, caméra, baie serveur). anchor = point visé par l'étiquette, en mètres dans la scène
+// (components/three/solutions-hero-room.tsx), side = direction où part l'étiquette. Le CMS remplace les
+// libellés par position.
 export const solutionsHeroModel = {
-  name: arPreview.title,
-  hint: "Faites pivoter la caméra",
+  name: "Un site, une seule supervision",
+  hint: "Badge, porte, caméra et serveurs remontent au même poste.",
   callouts: [
-    { label: "Éclairage IR intégré", anchor: [-0.027, 0.082, 0.134] },
-    { label: "Support mural", anchor: [0, -0.052, -0.192] },
-  ] satisfies { label: string; anchor: [number, number, number] }[],
+    { id: "hypervision", label: "Poste d'hypervision", anchor: [0.45, 1.42, -0.99], side: "up" },
+    { id: "access", label: "Contrôle d'accès", anchor: [-2.74, 1.05, 1.27], side: "down" },
+    { id: "video", label: "Vidéosurveillance", anchor: [-1.45, 2.15, -1.9], side: "left" },
+    { id: "server", label: "Serveurs · accès sécurisé", anchor: [2.38, 2.5, -1.86], side: "up" },
+  ] satisfies { id: string; label: string; anchor: [number, number, number]; side: "left" | "right" | "up" | "down" }[],
+  // Textes de l'ancien hero caméra, encore enregistrés dans le global CMS « Démos » : ignorés au
+  // profit des valeurs ci-dessus tant que le CMS ne les a pas remplacés.
+  retired: ["Caméra bullet extérieure", "Faites pivoter la caméra", "Éclairage IR intégré", "Support mural"],
 };
 
 // Scroll-driven 3D story on /solutions: an alarm travels from the field to the operators.

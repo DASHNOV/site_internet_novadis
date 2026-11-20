@@ -8,7 +8,6 @@ import {
   transform,
   useInView,
   useMotionValueEvent,
-  useReducedMotion,
   useScroll,
   useTransform,
   type MotionValue,
@@ -17,6 +16,7 @@ import { ArrowUpRight } from "lucide-react";
 import { useSiteContent } from "@/components/content-provider";
 import { alarmJourney } from "@/data/site";
 import { cn } from "@/lib/utils";
+import { isLiteMode, useLiteMode } from "@/lib/use-lite-mode";
 
 const AlarmJourneyScene = dynamic(
   () => import("@/components/three/alarm-journey-scene").then((m) => m.AlarmJourneyScene),
@@ -97,7 +97,7 @@ function StaticJourney() {
 export function AlarmJourney() {
   const { alarmJourney, uiLabels } = useSiteContent();
   const steps = useSteps();
-  const reduceMotion = useReducedMotion();
+  const lite = useLiteMode();
   const sectionRef = useRef<HTMLElement>(null);
   const near = useInView(sectionRef, { once: true, margin: "800px 0px" });
   const onScreen = useInView(sectionRef);
@@ -106,8 +106,8 @@ export function AlarmJourney() {
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
 
   useEffect(() => {
-    setMode(reduceMotion || !webglAvailable() ? "static" : "interactive");
-  }, [reduceMotion]);
+    setMode(isLiteMode() || !webglAvailable() ? "static" : "interactive");
+  }, [lite]);
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
     setActiveStep(Math.round(value * FRAMES));

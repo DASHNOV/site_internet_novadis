@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { isLiteMode, useLiteMode } from "@/lib/use-lite-mode";
 
 export type HeroFilmMarker = {
   id: string;
@@ -30,21 +31,23 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const toView = ([x, y]: [number, number]) => `${(x / 100) * VIEW_W},${(y / 100) * VIEW_H}`;
 
 // Home hero backdrop. The drone shot plays on every load and holds its last frame; the HUD then
-// locks onto the site. Reduced-motion visitors get that last frame straight away.
+// locks onto the site. Reduced-motion, data-saver and slow-connection visitors get that last frame straight away, without the video.
 export function HeroFilm({ video, posterStart, posterEnd, focusX, hubId, status, markers, perimeter }: HeroFilmProps) {
   const reduceMotion = useReducedMotion();
+  const lite = useLiteMode();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [mode, setMode] = useState<"film" | "still" | null>(null);
   const [locked, setLocked] = useState(false);
 
   useEffect(() => {
-    if (reduceMotion) {
+    // Read the connection directly: `lite` is still false on the hydration render and would start the video.
+    if (reduceMotion || isLiteMode()) {
       setMode("still");
       setLocked(true);
     } else {
       setMode("film");
     }
-  }, [reduceMotion]);
+  }, [reduceMotion, lite]);
 
   useEffect(() => {
     if (mode !== "film") return;

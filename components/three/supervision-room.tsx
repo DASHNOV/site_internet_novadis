@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useCallback, useRef, useState } from "react";
-import { useInView, useReducedMotion } from "framer-motion";
+import { useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { cn } from "@/lib/utils";
@@ -23,9 +23,8 @@ export function SupervisionRoom() {
   const [ready, setReady] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
   const near = useInView(stageRef, { once: true, margin: "400px 0px" });
-  const reduceMotion = useReducedMotion();
   const canRender = useCanRender3d();
-  const live = near && canRender && !reduceMotion;
+  const live = near && canRender;
   const current = points.find((p) => p.slug === active);
   const markReady = useCallback(() => setReady(true), []);
 

@@ -29,7 +29,7 @@ export default async function SolutionsPage() {
     <main className="relative">
       <SiteHeader />
       <PageHero title={copy.hero.title} description={copy.hero.description}>
-        <SolutionsHeroModel className="aspect-[16/11]" />
+        <SolutionsHeroModel />
       </PageHero>
 
       <AlarmJourney />

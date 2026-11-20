@@ -1,11 +1,12 @@
 "use client";
 
 import { useRef } from "react";
-import { transform, useReducedMotion } from "framer-motion";
+import { transform } from "framer-motion";
 import { CheckCircle2, ScanLine } from "lucide-react";
 import { useSiteContent } from "@/components/content-provider";
 import { EventToast, FilmScene, Flash, HudPanel, LockBox, Shockwave, StaticFilmScene, useFrameSequence } from "@/components/motion/film-scene";
 import { badgeDoor } from "@/data/site";
+import { useLiteMode } from "@/lib/use-lite-mode";
 
 const { granted, open } = badgeDoor.beats;
 // Scroll progress over which the film is scrubbed.
@@ -68,13 +69,13 @@ function ReaderHud({ frame, step }: { frame: number; step: number }) {
 
 export function BadgeDoor() {
   const { badgeDoor } = useSiteContent();
-  const reduceMotion = useReducedMotion();
+  const lite = useLiteMode();
   const sectionRef = useRef<HTMLElement>(null);
-  const sequence = useFrameSequence(sectionRef, badgeDoor, PLAY, !reduceMotion);
+  const sequence = useFrameSequence(sectionRef, badgeDoor, PLAY, !lite);
   const { frame } = sequence;
   const step = stepAt(frame);
 
-  if (reduceMotion) return <StaticFilmScene {...badgeDoor} image={badgeDoor.framePath(badgeDoor.staticFrame)} />;
+  if (lite) return <StaticFilmScene {...badgeDoor} image={badgeDoor.framePath(badgeDoor.staticFrame)} />;
 
   const [x, y] = badgeDoor.anchors[frame];
   return (
