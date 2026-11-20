@@ -6,6 +6,7 @@ const nextConfig = {
   experimental: {
     // Le site et l'admin Payload ont chacun leur layout racine (voir app/global-not-found.tsx).
     globalNotFound: true,
+    agentUpgrade: "security",
   },
   async headers() {
     return [
