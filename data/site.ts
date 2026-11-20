@@ -832,7 +832,7 @@ export const axisExplode = {
 // libellés par position.
 export const solutionsHeroModel = {
   name: "Un site, une seule supervision",
-  hint: "Badge, porte, caméra, alarme et serveurs remontent au même poste.",
+  hint: "Badge, porte, caméra, alarme et serveurs : un seul poste.",
   callouts: [
     { id: "hypervision", label: "Poste d'hypervision", anchor: [0.45, 1.42, -0.99], side: "up" },
     { id: "access", label: "Contrôle d'accès", anchor: [-2.74, 1.05, 1.27], side: "down" },

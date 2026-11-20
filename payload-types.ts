@@ -1396,8 +1396,14 @@ export interface Demo {
   };
   solutionsHero: {
     title: string;
+    /**
+     * Non affiché sur le site actuellement.
+     */
     arLabel: string;
     hint: string;
+    /**
+     * Dans l'ordre : poste d'hypervision, contrôle d'accès. Vidéosurveillance, serveurs et centrale intrusion sont gérés dans le code.
+     */
     callouts?:
       | {
           label: string;

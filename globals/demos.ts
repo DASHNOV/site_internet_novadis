@@ -127,10 +127,17 @@ export const Demos: GlobalConfig = {
         },
         {
           name: "solutionsHero",
-          label: "Caméra 3D (page Solutions)",
+          label: "Pièce 3D (page Solutions)",
+          description: "Vignette en tête de la page Solutions : une pièce équipée qui remonte au même poste de supervision.",
           fields: [
-            { type: "row", fields: [text("title", "Nom de la caméra", "label"), text("arLabel", "Bouton réalité augmentée", "label")] },
-            text("hint", "Indication de rotation", "label"),
+            {
+              type: "row",
+              fields: [
+                text("title", "Titre de la vignette", "label"),
+                text("arLabel", "Bouton réalité augmentée", "label", { description: "Non affiché sur le site actuellement." }),
+              ],
+            },
+            text("hint", "Légende", "label"),
             {
               name: "callouts",
               label: "Étiquettes",
@@ -138,6 +145,10 @@ export const Demos: GlobalConfig = {
               minRows: 2,
               maxRows: 2,
               labels: { singular: "Étiquette", plural: "Étiquettes" },
+              admin: {
+                description:
+                  "Dans l'ordre : poste d'hypervision, contrôle d'accès. Vidéosurveillance, serveurs et centrale intrusion sont gérés dans le code.",
+              },
               fields: [text("label", "Texte", "label")],
             },
           ],
