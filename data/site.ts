@@ -836,10 +836,17 @@ export const solutionsHeroModel = {
   callouts: [
     { id: "hypervision", label: "Poste d'hypervision", anchor: [0.45, 1.42, -0.99], side: "up" },
     { id: "access", label: "Contrôle d'accès", anchor: [-2.74, 1.05, 1.27], side: "down" },
-    { id: "video", label: "Vidéosurveillance", anchor: [-1.45, 2.15, -1.9], side: "left" },
+    { id: "video", label: "Vidéosurveillance", anchor: [-1.45, 2.15, -1.9], side: "up", compact: "left" },
     { id: "server", label: "Serveurs · accès sécurisé", anchor: [2.38, 2.5, -1.86], side: "up" },
-    { id: "intrusion", label: "Centrale intrusion", anchor: [-2.7, 1.19, -1.15], side: "left" },
-  ] satisfies { id: string; label: string; anchor: [number, number, number]; side: "left" | "right" | "up" | "down" }[],
+    { id: "intrusion", label: "Centrale intrusion", anchor: [-2.7, 1.3, -1.15], side: "up", compact: "left" },
+  ] satisfies {
+    id: string;
+    label: string;
+    anchor: [number, number, number];
+    side: "left" | "right" | "up" | "down";
+    // Side used while the stage is narrow (two-column layout around 1024 px), where labels going up collide.
+    compact?: "left";
+  }[],
   // Anciens textes encore enregistrés dans le global CMS « Démos » (hero caméra, puis légende sans la
   // centrale intrusion) : ignorés au profit des valeurs ci-dessus tant que le CMS ne les a pas remplacés.
   retired: [

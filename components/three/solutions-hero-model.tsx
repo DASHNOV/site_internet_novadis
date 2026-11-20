@@ -35,15 +35,31 @@ const SIDES = {
   down: "flex-col -translate-x-1/2 -translate-y-1",
 };
 
-function Callout({ id, label, anchor, side }: { id: string; label: string; anchor: Vec3; side: keyof typeof SIDES }) {
+// A label going up only fits once the stage is wide enough: below 35rem it starts on its compact side.
+const WIDE_UP = "@min-[35rem]:flex-col-reverse @min-[35rem]:-translate-x-1/2 @min-[35rem]:-translate-y-[calc(100%-4px)]";
+
+function Callout({
+  id,
+  label,
+  anchor,
+  side,
+  compact,
+}: {
+  id: string;
+  label: string;
+  anchor: Vec3;
+  side: keyof typeof SIDES;
+  compact?: "left";
+}) {
   const { x, y } = toFrame(anchor);
   const Icon = ICONS[id];
   const vertical = side !== "left" && side !== "right";
+  const switching = compact !== undefined && side === "up";
   return (
     <span
       className={cn(
         "pointer-events-none absolute flex items-center gap-1 whitespace-nowrap text-xs font-semibold text-foreground-strong sm:gap-1.5",
-        SIDES[side],
+        switching ? cn(SIDES[compact], WIDE_UP) : SIDES[side],
       )}
       style={{ left: `${x}%`, top: `${y}%` }}
     >
@@ -51,7 +67,13 @@ function Callout({ id, label, anchor, side }: { id: string; label: string; ancho
         <span className="absolute inset-0 animate-ping rounded-full bg-primary/50 motion-reduce:hidden" />
         <span className="relative h-2 w-2 rounded-full bg-primary" />
       </span>
-      <span aria-hidden className={cn("shrink-0 bg-primary/40", vertical ? "h-3 w-px sm:h-5" : "h-px w-3 sm:w-6")} />
+      <span
+        aria-hidden
+        className={cn(
+          "shrink-0 bg-primary/40",
+          switching ? "h-px w-3 @min-[35rem]:h-5 @min-[35rem]:w-px" : vertical ? "h-3 w-px sm:h-5" : "h-px w-3 sm:w-6",
+        )}
+      />
       <span className="inline-flex items-center gap-1.5 rounded-full border border-hairline bg-surface/90 p-1.5 shadow-[var(--shadow-overlay)] backdrop-blur sm:px-3">
         {Icon && <Icon aria-hidden className="h-3.5 w-3.5 text-primary" />}
         <span className="hidden sm:inline">{label}</span>
@@ -84,7 +106,7 @@ export function SolutionsHeroModel({ className }: { className?: string }) {
         {copy.name}
       </figcaption>
       {/* The stage keeps the frame's aspect, so canvas, drawing and callouts share one coordinate space. */}
-      <div className="relative aspect-[16/11]">
+      <div className="@container relative aspect-[16/11]">
         <div
           aria-hidden
           className="absolute inset-[4%] -z-10 rounded-full bg-[radial-gradient(closest-side,rgb(var(--glow)/0.45),rgb(var(--accent)/0.12)_62%,transparent)] blur-2xl"
@@ -96,7 +118,14 @@ export function SolutionsHeroModel({ className }: { className?: string }) {
           </div>
         )}
         {copy.callouts.map((callout) => (
-          <Callout anchor={callout.anchor as Vec3} id={callout.id} key={callout.id} label={callout.label} side={callout.side} />
+          <Callout
+            anchor={callout.anchor as Vec3}
+            compact={"compact" in callout ? callout.compact : undefined}
+            id={callout.id}
+            key={callout.id}
+            label={callout.label}
+            side={callout.side}
+          />
         ))}
       </div>
 

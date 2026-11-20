@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ArrowUpRight, ShieldCheck } from "lucide-react";
-import { parentGroupUrl } from "@/data/pages";
+import { parentGroupLogo, parentGroupUrl } from "@/data/pages";
 import { getSiteContent } from "@/lib/content/server";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MediaFrame } from "@/components/sections/media-frame";
@@ -42,8 +42,19 @@ export default async function AboutPage() {
       </div>
 
       <div className="shell-wide pt-6">
-        <Reveal className="flex flex-col gap-4 border border-hairline bg-surface p-6 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
-          <p className="max-w-3xl text-base leading-7 text-foreground-strong">{copy.parentGroup.description}</p>
+        <Reveal className="flex flex-col gap-5 border border-hairline bg-surface p-6 sm:flex-row sm:items-center sm:gap-8 lg:gap-10">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            alt={parentGroupLogo.alt}
+            className="h-4 w-auto shrink-0 self-start sm:h-5 sm:self-center"
+            decoding="async"
+            height={parentGroupLogo.height}
+            loading="lazy"
+            src={parentGroupLogo.src}
+            width={parentGroupLogo.width}
+          />
+          <span aria-hidden className="hidden h-12 w-px shrink-0 bg-hairline sm:block" />
+          <p className="max-w-3xl flex-1 text-base leading-7 text-foreground-strong">{copy.parentGroup.description}</p>
           <a
             className="group inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-semibold text-primary-strong hover:text-primary-deep"
             href={parentGroupUrl}

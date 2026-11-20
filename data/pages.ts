@@ -180,6 +180,8 @@ export const referencesPage = {
 };
 
 export const parentGroupUrl = "https://sucheme.fr/";
+// Wordmark from the group's logo kit (_sources/00-Visuels/00-Logo/Logos sucheme.zip, "sans claim").
+export const parentGroupLogo = { src: "/novadis/logos/sucheme.webp", alt: "Groupe Sucheme", width: 640, height: 80 };
 
 export const aboutPage = {
   parentGroup: {
