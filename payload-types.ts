@@ -1402,7 +1402,7 @@ export interface Demo {
     arLabel: string;
     hint: string;
     /**
-     * Dans l'ordre : poste d'hypervision, contrôle d'accès. Vidéosurveillance, serveurs et centrale intrusion sont gérés dans le code.
+     * Dans l'ordre : poste d'hypervision, contrôle d'accès, vidéosurveillance, serveurs, centrale intrusion.
      */
     callouts?:
       | {

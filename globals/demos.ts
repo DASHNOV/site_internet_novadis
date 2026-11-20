@@ -142,12 +142,13 @@ export const Demos: GlobalConfig = {
               name: "callouts",
               label: "Étiquettes",
               type: "array",
+              // Matched to the callouts by position: a missing row falls back to the text in the code.
               minRows: 2,
-              maxRows: 2,
+              maxRows: 5,
               labels: { singular: "Étiquette", plural: "Étiquettes" },
               admin: {
                 description:
-                  "Dans l'ordre : poste d'hypervision, contrôle d'accès. Vidéosurveillance, serveurs et centrale intrusion sont gérés dans le code.",
+                  "Dans l'ordre : poste d'hypervision, contrôle d'accès, vidéosurveillance, serveurs, centrale intrusion.",
               },
               fields: [text("label", "Texte", "label")],
             },
