@@ -42,7 +42,7 @@ export const wheelDisciplines: WheelDiscipline[] = [
   { label: "Analyse d'images", icon: ScanEye, slug: "ai-video-analytics" },
   { label: "Gestion visiteurs", icon: UserCheck, slug: "access-control" },
   { label: "Armoire à clés", icon: KeyRound, slug: "smart-integrations" },
-  { label: "Protection périmétrique", icon: Fence, slug: "intrusion-detection" },
+  { label: "Protection périmétrique", icon: Fence, slug: "protection-perimetrique" },
   { label: "Lecture de plaques", icon: Car, slug: "ai-video-analytics" },
   { label: "Sans fil", icon: Wifi, slug: "it-infrastructure" },
   { label: "Biométrie", icon: Fingerprint, slug: "access-control" },

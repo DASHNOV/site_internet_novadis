@@ -94,6 +94,7 @@ export const mediaLibrary = {
   stockDatacenter: "/novadis/images/stock/datacenter.webp",
   stockEngineering: "/novadis/images/stock/etude-plan.webp",
   stockMeeting: "/novadis/images/stock/reunion-projet.webp",
+  stockPerimeterFence: "/novadis/images/stock/cloture-perimetre.webp",
   // Images produits spécifiques Novadis
   productAmadeus: "/novadis/images/amadeus8.jpg",
   productServer: "/novadis/images/server-rack.webp",
@@ -330,6 +331,44 @@ export const solutions: Solution[] = [
       kind: "image",
       src: mediaLibrary.stockCamera,
       alt: "Caméra de vidéosurveillance fixée sur un mur",
+    },
+  },
+  {
+    slug: "protection-perimetrique",
+    title: "Protection périmétrique",
+    shortTitle: "Périmétrique",
+    product: "CIAS · Octave Coda Spatial",
+    icon: ShieldAlert,
+    summary:
+      "Détection sur clôture, barrières hyperfréquences et LiDAR 3D : l'intrus est détecté en limite de site, puis suivi dans toute la zone.",
+    intro:
+      "Un intrus détecté à la clôture laisse le temps d'agir : la protection périmétrique place la première alerte à la limite du site.",
+    problem:
+      "Sur les grands sites, vent, pluie, végétation ou animaux multiplient les fausses alarmes, et la détection s'arrête souvent une fois la clôture franchie.",
+    solution:
+      "Novadis associe les systèmes CIAS, capteurs MEMS sur clôture SIOUX et barrières hyperfréquences ERMO, au LiDAR 3D Octave Coda Spatial, qui suit chaque intrus dans tout le volume de la zone sur un jumeau numérique. Chaque zone remonte dans la centrale d'intrusion et sur les plans Amadeus, et oriente les caméras PTZ pour la levée de doute.",
+    benefits: [
+      "Alerte dès la limite du site",
+      "Suivi de l'intrus en 3D",
+      "Moins de fausses alarmes",
+      "Levée de doute vidéo",
+    ],
+    capabilities: [
+      "Capteurs MEMS sur clôture",
+      "Barrières hyperfréquences",
+      "LiDAR 3D Octave Coda Spatial",
+      "Zones sur les plans Amadeus",
+    ],
+    outcomes: [
+      "Temps d'intervention gagné",
+      "Zones extérieures couvertes",
+      "Opérateurs moins sollicités",
+      "Incidents mieux documentés",
+    ],
+    media: {
+      kind: "image",
+      src: mediaLibrary.stockPerimeterFence,
+      alt: "Clôture de sécurité surmontée de barbelés le long d'un site",
     },
   },
   {

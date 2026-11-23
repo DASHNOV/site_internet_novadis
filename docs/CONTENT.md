@@ -342,7 +342,10 @@ DDS · Qognify · Microsoft · Dell · VMware · Hyper-V · Aperio · Honeywell 
 - Partenaires technologiques (ajouté le 18/11/2026, juste avant « Normes & engagements ») — à valider :
   ```
   Titre     : Nos partenaires technologiques
-  Logos     : DDS · HID · STid · FDI · DOM · U&Z · Evolis · Octave · Milestone · Nx Witness · Axis · C-Q-IT · Milesight · Dell · Sharry · CIAS · Barox
+  Logos     : nuage, DDS au centre en plus grand et en couleur, les autres en gris (couleur au survol) :
+              HID · Axis · Assa Abloy · Milestone · STid / Hikvision · Octave · Honeywell · DOM · Survision · CIAS
+              / DDS / Vanderbilt · Evolis · Nx Witness · U&Z · Milesight · FDI / C-Q-IT · Dell · Sharry · Barox
+              · Nouveau partenaire
   Emplacement masqué (dernière cellule) :
     Libellé   : Nouveau partenaire
     Texte     : Dévoilement en janvier 2027
@@ -353,6 +356,12 @@ DDS · Qognify · Microsoft · Dell · VMware · Hyper-V · Aperio · Honeywell 
   > les logos viennent de `public/novadis/logos/partners/` (voir la note sur les droits d'usage plus haut).
   > Une fois la date passée, l'emplacement masqué disparaît : le logo du nouveau partenaire s'ajoute alors à la main
   > dans `data/partners.ts`.
+  > 23/11/2026 — Ajout de Survision, Assa Abloy, Hikvision, Honeywell et Vanderbilt (demande de N. Jdanoff du
+  > 20/11/2026 : ordre libre, DDS en premier et plus grand). Logos : Survision et Assa Abloy depuis leurs sites
+  > officiels, Hikvision et Honeywell depuis Wikimedia Commons, Vanderbilt extrait en vectoriel de la brochure
+  > officielle « Outils logiciels SPC » (uploads.vanderbiltindustries.com).
+  > 23/11/2026 — Logo DDS remplacé par une version nette (900 px) tirée du PNG haute définition du kit CNews
+  > (`_sources/00-Visuels/02-Videos/CNews/.../Logos Partenaires/DDS_Logo.png`) ; l'ancien fichier (290 px) pixelisait.
 
 ---
 
@@ -445,6 +454,110 @@ Texte       : Faites défiler pour ouvrir la caméra : quatre capteurs couvrent 
 
 ---
 
+## Solution Protection périmétrique (/solutions/protection-perimetrique)
+
+> Ajoutée le 23/11/2026 à la demande de N. Jdanoff (20/11/2026) : 7e chapitre, entre Analyse d'images et
+> Intégrations, pour suivre l'ordre des devis. Solutions CIAS et Octave Coda Spatial. Dans la roue de la page
+> À propos, « Protection périmétrique » mène désormais à cette fiche (auparavant : Intrusion).
+
+```
+Titre      : Protection périmétrique
+Court      : Périmétrique
+Produit    : CIAS · Octave Coda Spatial
+Résumé     : Détection sur clôture, barrières hyperfréquences et LiDAR 3D : l'intrus est détecté en limite
+             de site, puis suivi dans toute la zone.
+Intro      : Un intrus détecté à la clôture laisse le temps d'agir : la protection périmétrique place la
+             première alerte à la limite du site.
+Contexte   : Sur les grands sites, vent, pluie, végétation ou animaux multiplient les fausses alarmes, et la
+             détection s'arrête souvent une fois la clôture franchie.
+Réponse    : Novadis associe les systèmes CIAS, capteurs MEMS sur clôture SIOUX et barrières hyperfréquences
+             ERMO, au LiDAR 3D Octave Coda Spatial, qui suit chaque intrus dans tout le volume de la zone sur
+             un jumeau numérique. Chaque zone remonte dans la centrale d'intrusion et sur les plans Amadeus,
+             et oriente les caméras PTZ pour la levée de doute.
+Bénéfices  : Alerte dès la limite du site · Suivi de l'intrus en 3D · Moins de fausses alarmes
+             · Levée de doute vidéo
+Capacités  : Capteurs MEMS sur clôture · Barrières hyperfréquences · LiDAR 3D Octave Coda Spatial
+             · Zones sur les plans Amadeus
+Terrain    : Temps d'intervention gagné · Zones extérieures couvertes · Opérateurs moins sollicités
+             · Incidents mieux documentés
+Visuel     : clôture de sécurité surmontée de barbelés (images/stock/cloture-perimetre.webp)
+```
+> ⚠️ Brouillon à valider avec N. Jdanoff. Sources SharePoint (23/11/2026) :
+> - Octave est le nouveau nom d'Hexagon Security ; Octave Coda Spatial = HxGN dC3 LidarVision = Accur8Vision,
+>   un seul produit (éditeur TACTICAWARE, groupe Hexagon). C'est la solution de la page LiDAR locale.
+>   Source : guide NOV-OCS-GI-001 (A. Tanguy, 01/10/2026), ENCYCLOPEDIE/OCTAVE/COMMERCE/Octave Coda Spatial.
+> - CIAS : gammes SIOUX PRO2 (capteurs MEMS sur clôture rigide ou grillagée), ERMO (barrières hyperfréquences
+>   bande X), Blackfeet (câble sur clôture). Intégration type : zones remontées dans la centrale d'intrusion
+>   via modules RIO et placées sur les plans Amadeus. Sources : ENCYCLOPEDIE/CIAS, devis DE31694 (Grandes Serres).
+> Reste à fournir : un visuel produit pour remplacer la photo libre de droit.
+
+Bloc vers la sous-page LiDAR (en local seulement, comme la page LiDAR) :
+```
+Titre      : Octave Coda Spatial, en visite libre
+Texte      : Coda Spatial suit l'intrus dans tout le volume de la zone, bien après la clôture. Parcourez nos
+             bureaux de Levallois-Perret, scannés au LiDAR, et voyez la détection à l'œuvre.
+Bouton     : Découvrir Octave Coda Spatial
+Retour     : la page LiDAR ramène à cette fiche (« Retour à la protection périmétrique »)
+```
+> 23/11/2026 — Page LiDAR rattachée au chapitre (validé par Rémy) : elle n'apparaît plus dans le menu ni dans
+> la liste des solutions, on l'ouvre depuis ce bloc. Textes du bloc à valider.
+
+---
+
+## Solution Détection LiDAR 3D — Octave Coda Spatial (/solutions/lidar-3d)
+
+> 🔒 **STRICTEMENT LOCALE** (décision du 20/10/2026) : la page montre nos vrais locaux. Elle n'existe
+> que sous `next dev` (`data/lidar-walkthrough.ts`, chargé seulement en développement) : absente
+> des builds, du menu et du sitemap en production. Nuage, grille, trajet et image
+> (`public/novadis/lidar/`, `public/novadis/images/lidar/`) ne sont ni versionnés (`.gitignore`) ni
+> déployés (`.vercelignore`). Une autre scène sera conçue pour la production.
+
+```
+Titre      : Détection LiDAR 3D — Octave Coda Spatial
+Court      : LiDAR 3D
+Produit    : Octave Coda Spatial · Ouster OS1
+Résumé     : Détection volumétrique par LiDAR, précise à 3 cm, sur toute la zone protégée et pas
+             seulement en limite de périmètre.
+Intro      : Un périmètre ne se résume pas à une ligne : Coda Spatial suit chaque intrus dans tout le
+             volume du site, sur un jumeau numérique en 3D.
+Contexte   : Barrières et détection vidéo s'arrêtent souvent à la clôture : une fois franchie, l'intrus
+             sort des écrans, tandis que pluie, brouillard ou petits animaux multiplient les fausses alarmes.
+Réponse    : Octave Coda Spatial (anciennement HxGN dC3 LidarVision) exploite des LiDAR multicouches, comme l'Ouster OS1, pour relever un
+             nuage de points 3D de toute la zone. Chaque objet y est détecté, mesuré et suivi, puis
+             affiché sur une carte 3D qui oriente automatiquement les caméras PTZ.
+Bénéfices  : Précision de détection de 3 cm · Suivi dans tout le volume · Pluie, neige et brouillard
+             · Moins de fausses alarmes
+Capacités  : Zones 3D et pré-alarmes · Filtrage des objets par taille · Pilotage PTZ multi-caméras
+             · Personnes autorisées reconnues
+Terrain    : Intrus suivi de bout en bout · Levées de doute plus rapides · Implantation simulée avant
+             travaux · Incidents rejoués en 3D
+
+Visite 3D  : eyebrow "Octave Coda Spatial" · titre "Entrez dans nos bureaux, scannés au LiDAR"
+             Texte : Ce nuage de points est le relevé réel de nos locaux de Levallois-Perret.
+             Déplacez-vous librement : Coda Spatial vous suit, comme il suit l'intrus qui traverse la
+             zone protégée.
+Chiffres   : 11,5 M points relevés · 25 min de scan, à pied · 3 cm précision de détection
+HUD        : Coda Spatial · Temps réel / Zone protégée A / Zone armée · Pré-alarme · Intrusion
+             / Objet 01 · Inconnu / Vous · Visiteur autorisé / Autorisé, pas d'alarme / Hors zone
+Commandes  : ZQSD ou flèches, souris, Maj pour courir, Échap ; joystick et glisser sur mobile
+```
+> ⚠️ 20/10/2026 — Nouveaux textes rédigés d'après la fiche « AE Specs LidarVision 10/2024 FR »
+> (Hexagon) et la fiche Ouster OS1 Rev7 — à valider, notamment la mention des marques Hexagon et
+> Ouster et la précision « 3 cm » (chiffre éditeur).
+> Scan : bureaux de Levallois relevés le 25/09/2026 au scanner XGrids K2 (export E57/XYZ). Publication
+> du scan des vrais locaux validée le 20/10/2026. Depuis le 25/10/2026, rendu photoréaliste : Gaussian splats
+> de l'export LCC2 du scanner (`data_LidarVision/lcc2`), aperçu de 360 000 splats (`bureaux-apercu.spz`, 5,5 Mo)
+> puis détail de 1,44 M (`bureaux-detail.spz`, 23,6 Mo) chargé en arrière-plan, rendus avec Spark. Le nuage de
+> points et la maquette en volumes ne sont plus affichés. « 11,5 M points relevés » : chiffre du rapport du
+> scanner (`info/report.json`, pointCloudQuantity 11 545 407). Grille de collision tirée de l'export XYZ.
+> Image hero/poster rendue depuis le scan complet, plafond retiré (`images/lidar/lidar-office.webp`).
+> L'intrus, la zone protégée A et le capteur sont simulés (trajet calculé dans les couloirs scannés).
+> Sources brutes dans `data_LidarVision/` (non versionné : contient des identifiants et un devis).
+> 23/11/2026 — Produit renommé : LidarVision est devenu Octave Coda Spatial (Octave = ex-Hexagon Security),
+> nom employé par N. Jdanoff. Textes mis à jour en conséquence.
+
+---
+
 ## Réalité augmentée (mobile)
 
 ```
@@ -474,6 +587,7 @@ fichiers tels quels, ou laisser entendre que les personnes visibles cautionnent 
 | `images/stock/clavier-acces.webp` | Solution Intrusion — Galaxy | [Unsplash qB8tpVXQh6Y](https://unsplash.com/photos/qB8tpVXQh6Y) — vuk burgic | [Licence Unsplash](https://unsplash.com/license) |
 | `images/stock/etude-plan.webp` | Hero /about | [Unsplash xYCBw1uIP_M](https://unsplash.com/photos/xYCBw1uIP_M) — ThisisEngineering | [Licence Unsplash](https://unsplash.com/license) |
 | `images/stock/reunion-projet.webp` | Hero /contact | [Unsplash 05gac-Qn0k4](https://unsplash.com/photos/05gac-Qn0k4) — Cherrydeck | [Licence Unsplash](https://unsplash.com/license) |
+| `images/stock/cloture-perimetre.webp` | Solution Protection périmétrique | [Unsplash Re0susOohqQ](https://unsplash.com/photos/Re0susOohqQ) | [Licence Unsplash](https://unsplash.com/license) |
 | `images/references/*.webp` (3 images) | Références phares (accueil, /references) | Générées par IA le 23/10/2026 (hôpital, établissement de prestige, site patrimonial) — étalonnage Novadis léger | Conditions du générateur — **usage commercial à confirmer** |
 | `videos/salle-supervision.mp4` + `images/stock/salle-supervision-poster.webp` | /services, solution Intégrations | Générée par IA avec Higgsfield le 13/10/2026 (image puis animation), montée en boucle de 7 s avec fondu — originaux dans `_sources/higgsfield/` (non versionné) | Conditions du plan Higgsfield — **usage commercial à confirmer** |
 | `models/server-rack.glb`, `models/control-room.glb` | Parcours 3D (/solutions) | Modélisés pour Novadis dans Blender (textures d'écran générées) | Propriété Novadis |

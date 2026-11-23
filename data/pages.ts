@@ -175,6 +175,7 @@ export const referencesPage = {
     "intrusion-detection": "Détection intrusion",
     "video-surveillance": "Vidéosurveillance",
     "ai-video-analytics": "Analyse d'image",
+    "protection-perimetrique": "Protection périmétrique",
     "smart-integrations": "Intégrations",
   } as Record<string, string>,
 };

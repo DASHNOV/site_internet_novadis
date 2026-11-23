@@ -21,6 +21,7 @@ const manifest = [
   { id: "TtMKq3lJm-U", out: "stock/salle-supervision.webp" },
   { id: "pDtgBIGa0cM", out: "stock/camera-videosurveillance.webp" },
   { id: "SRFG7iwktDk", out: "stock/biometrie-empreinte.webp" },
+  { id: "Re0susOohqQ", out: "stock/cloture-perimetre.webp" },
 ];
 
 async function grade(input) {

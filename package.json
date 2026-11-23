@@ -12,7 +12,8 @@
     "cms:importmap": "payload generate:importmap --use-swc",
     "cms:types": "payload generate:types --use-swc",
     "cms:accounts": "payload run scripts/cms-accounts.ts --use-swc",
-    "cms:seed": "tsx scripts/seed/export-content.ts && payload run scripts/cms-seed.ts --use-swc"
+    "cms:seed": "tsx scripts/seed/export-content.ts && payload run scripts/cms-seed.ts --use-swc",
+    "cms:sync-solutions": "tsx scripts/seed/export-content.ts && payload run scripts/cms-sync-solutions.ts --use-swc"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.92.0",
