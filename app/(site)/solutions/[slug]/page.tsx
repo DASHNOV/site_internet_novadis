@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
@@ -9,6 +10,7 @@ import { SectionHeading } from "@/components/sections/section-heading";
 import { Reveal } from "@/components/motion/reveal";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { Button } from "@/components/ui/button";
 import { CheckList } from "@/components/ui/check-list";
 import { SplitTitle } from "@/components/ui/split-title";
 import { AxisExplode } from "@/components/motion/axis-explode";
@@ -17,12 +19,16 @@ import { IntrusionScene } from "@/components/motion/intrusion-scene";
 import { SupervisionRoom } from "@/components/three/supervision-room";
 import { getPublishedContent, getSiteContent } from "@/lib/content/server";
 import { cleanText } from "@/lib/content/stega";
+import { lidarChapter } from "@/data/lidar-walkthrough";
+
+// La visite LiDAR (Three.js, splats) ne se charge que sur sa page.
+const LidarWalkthrough = dynamic(() => import("@/components/three/lidar-walkthrough").then((m) => m.LidarWalkthrough));
 
 type Params = Promise<{ slug: string }>;
 
 export async function generateStaticParams() {
   const { solutions } = await getPublishedContent();
-  return solutions.map((solution) => ({ slug: solution.slug }));
+  return [...solutions.map((solution) => ({ slug: solution.slug })), { slug: lidarChapter.slug }];
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
@@ -42,6 +48,7 @@ export default async function SolutionDetailPage({ params }: { params: Params })
     await getSiteContent();
   const solution = getSolution(slug);
   if (!solution) notFound();
+  const isLidarPage = lidarChapter.slug === slug;
 
   return (
     <main className="relative">
@@ -49,10 +56,10 @@ export default async function SolutionDetailPage({ params }: { params: Params })
       <nav aria-label="Fil d'Ariane" className="shell-wide pt-6">
         <Link
           className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-muted-strong hover:text-primary-strong"
-          href="/solutions"
+          href={isLidarPage ? `/solutions/${lidarChapter.parentSlug}` : "/solutions"}
         >
           <ArrowLeft aria-hidden className="h-4 w-4" />
-          {copy.backLink}
+          {isLidarPage ? lidarChapter.backLabel : copy.backLink}
         </Link>
       </nav>
       <PageHero title={solution.title} description={solution.intro}>
@@ -82,6 +89,34 @@ export default async function SolutionDetailPage({ params }: { params: Params })
       {slug === supervisionRoom.solutionSlug && (
         <div className="mt-16">
           <SupervisionRoom />
+        </div>
+      )}
+
+      {lidarChapter.parentSlug === slug && (
+        <section className="section-y pb-0!">
+          <div className="shell-wide flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-16">
+            <Reveal className="lg:w-1/2">
+              <MediaFrame alt={lidarChapter.imageAlt} className="aspect-[4/3]" kind="image" src={lidarChapter.image} />
+            </Reveal>
+            <Reveal className="lg:w-1/2" delay={0.06}>
+              <h2 className="section-title text-balance text-[clamp(1.75rem,2.8vw,2.5rem)]">{lidarChapter.title}</h2>
+              <p className="mt-6 max-w-xl text-base leading-7 text-muted-strong sm:text-lg">{lidarChapter.description}</p>
+              <div className="mt-9">
+                <Link href={`/solutions/${lidarChapter.slug}`}>
+                  <Button variant="outline">
+                    {lidarChapter.cta}
+                    <ArrowUpRight className="cta-arrow h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      {isLidarPage && (
+        <div className="mt-16">
+          <LidarWalkthrough />
         </div>
       )}
 

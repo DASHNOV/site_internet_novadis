@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { lidarChapter } from "@/data/lidar-walkthrough";
 import { getPublishedContent } from "@/lib/content/server";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -10,8 +11,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(),
   }));
 
-  const solutionRoutes = solutions.map((solution) => ({
-    url: `${baseUrl}/solutions/${solution.slug}`,
+  const solutionRoutes = [...solutions.map((solution) => solution.slug), lidarChapter.slug].map((slug) => ({
+    url: `${baseUrl}/solutions/${slug}`,
     lastModified: new Date(),
   }));
 

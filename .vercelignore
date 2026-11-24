@@ -1,4 +1,4 @@
-# Visite LiDAR des vrais locaux : strictement locale, jamais déployée
+# Sources LiDAR brutes (identifiants, devis) et fichiers LiDAR inutilisés : jamais déployés
 data_LidarVision/
-public/novadis/lidar/
-public/novadis/images/lidar/
+public/novadis/lidar/lidar-office.bin
+public/novadis/lidar/maquette-levallois.glb

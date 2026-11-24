@@ -2,6 +2,7 @@
 // sans changer de forme. Les réglages techniques (coordonnées, films, modèles 3D) restent ceux de data/site.ts.
 // Isomorphe : utilisé par les pages serveur et par le contexte des composants client.
 import { Mail, MapPin, Phone } from "lucide-react";
+import { lidarSolutions } from "@/data/lidar-walkthrough";
 import type { AccentText } from "@/data/pages";
 import type { FeaturedReference } from "@/data/references";
 import type { Sector } from "@/data/sectors";
@@ -90,11 +91,11 @@ export function buildSiteContent(raw: CmsRaw) {
         ? { kind: "video", src: doc.media.video ?? "", poster: text(doc.media.poster), alt: doc.media.alt }
         : { kind: "image", src: url(doc.media.image), alt: doc.media.alt },
   }));
-  // En développement, data/site.ts peut ajouter des fiches qui ne vivent qu'en local : elles restent affichées.
+  // Sous-pages hors CMS (la fiche LiDAR) : ouvertes depuis leur fiche parente, absentes du menu et de la liste.
   const known = new Set(cmsSolutions.map((solution) => solution.slug));
-  const localSolutions = process.env.NODE_ENV === "development" ? site.solutions.filter((s) => !known.has(s.slug)) : [];
-  const solutions = [...cmsSolutions, ...localSolutions];
-  const getSolution = (slug: string) => solutions.find((solution) => solution.slug === slug);
+  const subPages = lidarSolutions.filter((solution) => !known.has(solution.slug));
+  const solutions = cmsSolutions;
+  const getSolution = (slug: string) => [...cmsSolutions, ...subPages].find((solution) => solution.slug === slug);
 
   const industries: Industry[] = raw.sectors.map((doc) => ({
     slug: doc.slug,

@@ -491,7 +491,7 @@ Visuel     : clôture de sécurité surmontée de barbelés (images/stock/clotur
 >   via modules RIO et placées sur les plans Amadeus. Sources : ENCYCLOPEDIE/CIAS, devis DE31694 (Grandes Serres).
 > Reste à fournir : un visuel produit pour remplacer la photo libre de droit.
 
-Bloc vers la sous-page LiDAR (en local seulement, comme la page LiDAR) :
+Bloc vers la sous-page LiDAR :
 ```
 Titre      : Octave Coda Spatial, en visite libre
 Texte      : Coda Spatial suit l'intrus dans tout le volume de la zone, bien après la clôture. Parcourez nos
@@ -506,11 +506,11 @@ Retour     : la page LiDAR ramène à cette fiche (« Retour à la protection p�
 
 ## Solution Détection LiDAR 3D — Octave Coda Spatial (/solutions/lidar-3d)
 
-> 🔒 **STRICTEMENT LOCALE** (décision du 20/10/2026) : la page montre nos vrais locaux. Elle n'existe
-> que sous `next dev` (`data/lidar-walkthrough.ts`, chargé seulement en développement) : absente
-> des builds, du menu et du sitemap en production. Nuage, grille, trajet et image
-> (`public/novadis/lidar/`, `public/novadis/images/lidar/`) ne sont ni versionnés (`.gitignore`) ni
-> déployés (`.vercelignore`). Une autre scène sera conçue pour la production.
+> Publiée le 24/11/2026 (décision de Rémy, qui lève la règle « strictement locale » du 20/10/2026).
+> Sous-page du chapitre Protection périmétrique : absente du menu et de la liste des solutions, présente
+> dans le sitemap. Fichiers servis versionnés : `public/novadis/lidar/` (splats, grille, trajet) et
+> `public/novadis/images/lidar/`. Restent hors git et hors Vercel : `data_LidarVision/` (identifiants,
+> devis), l'ancien nuage `lidar-office.bin` et la maquette `maquette-levallois.glb`.
 
 ```
 Titre      : Détection LiDAR 3D — Octave Coda Spatial

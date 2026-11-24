@@ -67,9 +67,10 @@ blob-report/
 # Sources LidarVision (identifiants, devis, scans bruts)
 data_LidarVision/
 
-# Visite LiDAR des vrais locaux : strictement locale, jamais versionnée
-public/novadis/lidar/
-public/novadis/images/lidar/
+# Visite LiDAR (publiée le 24/11/2026) : seuls les fichiers servis sont versionnés ; l'ancien nuage
+# de points et la maquette 3D, inutilisés et lourds, restent en local.
+public/novadis/lidar/lidar-office.bin
+public/novadis/lidar/maquette-levallois.glb
 
 # CMS local (base SQLite, médias, captures de recette)
 cms/
